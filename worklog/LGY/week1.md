@@ -19,7 +19,14 @@
 
     
 ## day-2
+💡 **금일 실시 사항**
 
+    - 아이디어 선정(별자리)
+    - 별자리 불러오는 관련 API 조사
+    - Astronomy, Stellarium
+    - 천문현상 정보 api (https://astro.kasi.re.kr/information/pageView/31)
+
+📜 **세부 사항**
 
 ## day-3
 

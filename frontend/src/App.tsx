@@ -1,5 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
+import GlobalStyle from './GlobalStyle';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       {/* 화면 크기 정상 범위 */}
       <div className="AppSize">
         <Router>
+          <GlobalStyle />
           <AppRoutes />
         </Router>
       </div>
@@ -19,3 +21,4 @@ const App = () => {
 };
 
 export default App;
+

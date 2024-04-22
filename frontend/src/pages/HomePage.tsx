@@ -6,11 +6,11 @@ const HomePage = () => {
   return (
     <>
       <h.Wrapper>
-        별 보는 홈페이지 화면입니당
-        <StarInfoCarousel active={1} />
+        <StarInfoCarousel active={0} />
       </h.Wrapper>
     </>
   );
 };
 
 export default HomePage;
+

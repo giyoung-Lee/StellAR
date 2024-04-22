@@ -1,28 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import * as s from '../style/StarInfoCarouselStyle';
-import StarInfoCarouselCard from './StarInfoCarouselCard';
+import StarInfoImage from './StarInfoImage';
+import StarInfoScience from './StarInfoScience';
+import StarInfoStory from './StarInfoStory';
 
-type Props = {
-  active: number;
-};
-
-const StarInfoCarousel = ({ active }: Props) => {
+const StarInfoCarousel = ({ active }: { active: number }) => {
   const [activeSlide, setActiveSlide] = useState(active);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragged, setDragged] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const carousel = ['image', 'science', 'story'];
 
-  const handleMouseDown = (event: React.MouseEvent) => {
-    setDragStartX(event.clientX);
+  const handleTouchStart = (event: React.TouchEvent) => {
+    setDragStartX(event.touches[0].clientX);
     setDragged(false);
-    event.preventDefault();
   };
 
-  const handleMouseMove = (event: React.MouseEvent) => {
+  const handleTouchMove = (event: React.TouchEvent) => {
     if (!carouselRef.current || dragged) return;
-    const dragDistance = event.clientX - dragStartX;
-    console.log(dragDistance, dragStartX);
+    const dragDistance = event.touches[0].clientX - dragStartX;
     if (Math.abs(dragDistance) > 50) {
       setDragged(true);
       if (dragDistance > 0) prev();
@@ -30,7 +26,7 @@ const StarInfoCarousel = ({ active }: Props) => {
     }
   };
 
-  const handleMouseUp = () => {
+  const handleTouchEnd = () => {
     setDragStartX(0);
     setDragged(false);
   };
@@ -38,9 +34,11 @@ const StarInfoCarousel = ({ active }: Props) => {
   const next = () => {
     activeSlide < 2 && setActiveSlide(activeSlide + 1);
   };
+
   const prev = () => {
     activeSlide > 0 && setActiveSlide(activeSlide - 1);
   };
+
   const getStyles = (index: number) => {
     if (activeSlide === index)
       return {
@@ -50,46 +48,44 @@ const StarInfoCarousel = ({ active }: Props) => {
     else if (activeSlide - 1 === index)
       return {
         opacity: 0.9,
-        transform:
-          'translateX(-200px) translateZ(-130px) rotateY(-55deg) scale(0.95)',
+        transform: 'translateX(-110%) translateZ(-130px) scale(0.95)',
         zIndex: 9,
       };
     else if (activeSlide + 1 === index)
       return {
         opacity: 0.9,
-        transform:
-          'translateX(200px) translateZ(-130px) rotateY(55deg) scale(0.95)',
+        transform: 'translateX(110%) translateZ(-130px) scale(0.95)',
         zIndex: 9,
       };
     else if (activeSlide - 2 === index)
       return {
         opacity: 0,
-        transform:
-          'translateX(-300px) translateZ(-330px) rotateY(-55deg) scale(0.95)',
+        transform: 'translateX(-200%) translateZ(-330px) scale(0.95)',
       };
     else if (activeSlide + 2 === index)
       return {
         opacity: 0,
-        transform:
-          'translateX(300px) translateZ(-330px) rotateY(55deg) scale(0.95)',
+        transform: 'translateX(200%) translateZ(-330px) scale(0.95)',
       };
   };
 
   return (
     <s.Wrapper>
-      <s.BtnWrapper>
-        <s.Btn onClick={prev}>이전</s.Btn>
-        <s.Btn onClick={next}>다음</s.Btn>
-      </s.BtnWrapper>
       <s.Carousel
         ref={carouselRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {carousel.map((card, idx) => (
           <s.CarouselItem style={{ ...getStyles(idx) }}>
-            <StarInfoCarouselCard />
+            {card === 'image' ? (
+              <StarInfoImage />
+            ) : card === 'science' ? (
+              <StarInfoScience />
+            ) : (
+              <StarInfoStory />
+            )}
           </s.CarouselItem>
         ))}
       </s.Carousel>
@@ -98,3 +94,4 @@ const StarInfoCarousel = ({ active }: Props) => {
 };
 
 export default StarInfoCarousel;
+

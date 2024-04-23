@@ -1,5 +1,6 @@
 import logo from '/icons/logo_nobg.png';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 const MeteorKeyframe = (
@@ -30,7 +31,7 @@ const MeteorEffectLayout = styled.div<MeteorLayoutProps>`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: black;
+  /* background-color: black; */
   .star {
     position: relative;
     top: 50%;
@@ -51,10 +52,11 @@ const MeteorEffectLayout = styled.div<MeteorLayoutProps>`
     background: linear-gradient(to left, #fff0, #ffffff);
     content: '';
     transform: ${(props) =>
+      `${
         props.$direction === 'right'
           ? `rotateZ(-${props.$angle}deg)`
-          : `rotateZ(-${180 - props.$angle}\deg)`}
-      translateX(50%);
+          : `rotateZ(${180 - props.$angle}deg)`
+      } translateX(50%)`};
   }
   .star:nth-child(2) {
     transform: translateX(300px);
@@ -65,6 +67,7 @@ const MeteorEffectLayout = styled.div<MeteorLayoutProps>`
     animation-delay: 1s;
   }
 `;
+
 interface MeteorEffectProps {
   count?: number;
   white?: boolean;
@@ -74,17 +77,18 @@ interface MeteorEffectProps {
   angle?: number;
   direction?: 'left' | 'right';
 }
+
 const MAX_STAR_COUNT = 25;
 
 const colors = ['#c77eff', '#f6ff7e', '#ff8d7e', '#ffffff'];
-export default function MeteorEffect({
+const EntryPage: React.FC<MeteorEffectProps> = ({
   count = 12,
   maxDelay = 15,
   minSpeed = 2,
   maxSpeed = 4,
   angle = 30,
   direction = 'right',
-}: MeteorEffectProps) {
+}) => {
   const starCount = count < MAX_STAR_COUNT ? count : MAX_STAR_COUNT;
   const [starInterval, setStarInterval] = useState<number>(0);
 
@@ -100,43 +104,58 @@ export default function MeteorEffect({
     };
   }, []);
 
-  return (
-    <MeteorEffectLayout $direction={direction} $angle={angle}>
-      {new Array(starCount).fill(0).map((e, idx) => {
-        const left =
-          direction === 'right'
-            ? `${Math.random() * count * 5 * starInterval}px`
-            : `${window.innerHeight - Math.random() * count * 5 * starInterval}px`;
-        const animationDelay = `${Math.random() * maxDelay}s`;
-        const animationDuration =
-          maxSpeed > minSpeed
-            ? `${minSpeed + Math.random() * maxSpeed}s`
-            : `${2 + Math.random() * 4}`;
-        const colorIndex = Math.floor(Math.random() * colors.length - 0.001); // 별 색상
-        const size = `${2 + Math.floor(Math.random() * 5)}px`; // 별 크기
-        const boxShadow = `0px 0px 10px 3px ${colors[colorIndex]}`;
-        return (
-          <div
-            key={idx}
-            style={{
-              left,
-              animationDelay,
-              animationDuration,
-              boxShadow,
-              width: size,
-              height: size,
-            }}
-            className="star"
-          ></div>
-        );
-      })}
+  const navigate = useNavigate();
+  const goToLogin = () => {
+    navigate('/login');
+  };
 
-      <div className="flex flex-col items-center min-h-screen">
-        <img src={logo} alt="logo_image" className="w-[270px] mt-[10vh]" />
-        <button className="m-20 text-lg text-white gradient-border">
+  return (
+    <div>
+      <MeteorEffectLayout $direction={direction} $angle={angle}>
+        {new Array(starCount).fill(0).map((e, idx) => {
+          const left =
+            direction === 'right'
+              ? `${Math.random() * count * 5 * starInterval}px`
+              : `${window.innerHeight - Math.random() * count * 5 * starInterval}px`;
+          const animationDelay = `${Math.random() * maxDelay}s`;
+          const animationDuration =
+            maxSpeed > minSpeed
+              ? `${minSpeed + Math.random() * maxSpeed}s`
+              : `${2 + Math.random() * 4}`;
+          const colorIndex = Math.floor(Math.random() * colors.length - 0.001); // 별 색상
+          const size = `${2 + Math.floor(Math.random() * 5)}px`; // 별 크기
+          const boxShadow = `0px 0px 10px 3px ${colors[colorIndex]}`;
+          return (
+            <div
+              key={idx}
+              style={{
+                left,
+                animationDelay,
+                animationDuration,
+                boxShadow,
+                width: size,
+                height: size,
+              }}
+              className="star"
+            ></div>
+          );
+        })}
+
+        <div className="flex flex-col items-center min-h-screen">
+          <img src={logo} alt="logo_image" className="w-[270px] mt-[10vh]" />
+          <button
+            className="m-20 text-lg text-orange entry-btn"
+            onClick={goToLogin}
+          >
+            <div>별 보러 가기</div>
+          </button>
+          {/* <button className="m-20 text-lg text-white gradient-border">
           <div className='inner-content'>별 보러 가기</div>
-        </button>
-      </div>
-    </MeteorEffectLayout>
+        </button> */}
+        </div>
+      </MeteorEffectLayout>
+    </div>
   );
-}
+};
+
+export default EntryPage;

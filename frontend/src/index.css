@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: white;
 }
 
 /* 그래디언트 테두리 */
@@ -27,6 +28,22 @@
   padding: 5px 10vw;
 }
 
+.entry-btn{
+  height: 8vh;
+  width: 50vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* color: var(--color-orange); */
+  font-size: 1.2rem;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(102, 224, 255, 0.20220588235294112) 40%,
+    rgba(102, 224, 255, 0.20220588235294112) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
 
 /* 스크롤 커스텀 */
 /* width */

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* 스타일 초기화 */
 * {
     margin: 0;
@@ -14,12 +18,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #919191;
+  background: #5c5c5c;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #5c5c5c;
+  background: #919191;
   border-radius: 20px;
 }
 
@@ -77,8 +81,27 @@
   margin: auto;
 }
 
-.TooSmall {
+.TooSmall,
+.WebSize {
   display: none;
+}
+
+/* 화면 너비가 576px 미만인 경우 */
+@media (min-width: 576px) {
+  .AppSize {
+    display: none;
+  }
+
+  #WebDesign {
+    display: block;
+    text-align: center;
+    padding: 20px;
+    font-size: 3vh;
+    font-weight: bold;
+    color: #F2CEA2;
+    background-color: #414141;
+    height: 100vh;
+  }
 }
 
 /* 화면 너비가 360px 미만인 경우 */

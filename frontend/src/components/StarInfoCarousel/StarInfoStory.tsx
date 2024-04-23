@@ -21,4 +21,3 @@ const StarInfoStory = () => {
 };
 
 export default StarInfoStory;
-

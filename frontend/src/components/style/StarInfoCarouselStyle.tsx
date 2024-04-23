@@ -41,6 +41,7 @@ export const CardWrapper = styled.div`
   align-items: center;
   height: 90%;
   width: 85%;
+  padding-bottom: 5vh;
 `;
 
 export const CardTitle = styled.p`

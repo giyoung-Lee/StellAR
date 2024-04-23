@@ -2,18 +2,18 @@ import styled from 'styled-components';
 
 export const Header = styled.div`
   width: 100vw;
-  padding-top: 10vh;
+  padding-top: 8vh;
   position: sticky;
   top: 0;
 `;
 
 export const Title = styled.div`
-  height: 10vh;
+  height: 9vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-orange);
-  font-size: 27px;
+  font-size: 23px;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,

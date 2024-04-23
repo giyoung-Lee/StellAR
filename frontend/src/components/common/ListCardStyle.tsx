@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   margin-bottom: 5vh;
   padding-top: 2vh;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;

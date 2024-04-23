@@ -78,7 +78,7 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         onTouchEnd={handleTouchEnd}
       >
         {carousel.map((card, idx) => (
-          <s.CarouselItem style={{ ...getStyles(idx) }}>
+          <s.CarouselItem key={idx} style={{ ...getStyles(idx) }}>
             {card === 'image' ? (
               <StarInfoImage />
             ) : card === 'science' ? (

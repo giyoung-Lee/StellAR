@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import Background from '/img/background.jpg'
 
 const GlobalStyle = createGlobalStyle`
     html {
@@ -11,7 +12,9 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background-color: var(--color-dark);
+        /* background-color: var(--color-dark); */
+        background-image: url(${Background});
+        background-size: cover;
     }
 
     div {

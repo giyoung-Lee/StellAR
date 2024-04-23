@@ -5,3 +5,4 @@ const EntryPage = () => {
 };
 
 export default EntryPage;
+

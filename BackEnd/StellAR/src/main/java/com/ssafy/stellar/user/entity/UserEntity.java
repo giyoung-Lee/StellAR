@@ -10,7 +10,8 @@ import lombok.Setter;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // 이거 주석해야하는데 이게 맞나??
     @Column(name="user_id")
     private String userId;
 

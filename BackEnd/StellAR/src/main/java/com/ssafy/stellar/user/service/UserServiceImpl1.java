@@ -1,28 +1,23 @@
 package com.ssafy.stellar.user.service;
 
 import com.ssafy.stellar.user.entity.UserEntity;
-import com.ssafy.stellar.user.repository.UserRepository;
+import com.ssafy.stellar.user.repository.UserRepository1;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl1 implements UserService1 {
 
-    private final UserRepository userRepository;
+    private final UserRepository1 userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl1(UserRepository1 userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public void signUp(String userId, String password, String name, String gender) {
-        UserEntity user = new UserEntity();
-        user.setUserId(userId);
-        user.setPassword(password);
-        user.setName(name);
-        user.setGender(gender);
+    public void signUp(UserEntity user) {
 
         userRepository.save(user);
     }
@@ -40,9 +35,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean deleteUser(String userId) {
-
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
-        return true;
+    }
+
+    @Override
+    public boolean checkPassword(String userId, String password) {
+
+        UserEntity user = userRepository.findByUserId(userId);
+
+        if (user.getPassword().equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

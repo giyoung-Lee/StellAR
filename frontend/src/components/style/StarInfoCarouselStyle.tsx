@@ -59,39 +59,44 @@ export const CardHeader = styled.div`
   width: 100%;
   min-height: 10%;
   color: var(--color-orange);
-  font-size: 150%;
+  font-size: 25px;
 `;
 
 export const CardHeaderName = styled.p`
   color: white;
-  font-size: 1.2rem;
+  font-size: 17px;
   font-weight: 100;
-  padding: 7px 0;
+  padding-bottom: 5px;
   border-bottom: 1px solid white;
 `;
 
 export const ScienceInfo = styled.div`
   width: 100%;
-  /* height: 80%; */
+  height: 80%;
+  overflow-y: auto;
   color: white;
-  font-size: 110%;
+  font-size: 18px;
   font-weight: 100;
-  padding: 20px 0;
   align-self: start;
+  margin: 15px 0;
+  padding: 0 5px;
   p {
-    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  p:nth-child(3) {
+    margin-bottom: 0;
     line-height: 1.5;
   }
 `;
 
 export const Mythology = styled.div`
   width: 100%;
-  padding: 10px 5px;
+  margin: 10px 0;
+  padding: 0 5px;
   height: 87%;
-  font-size: 110%;
+  font-size: 18px;
   font-weight: 100;
   color: white;
-  overflow-y: scroll;
+  overflow-y: auto;
   line-height: 1.5;
 `;
-

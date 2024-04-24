@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { loginApi } from '../apis/UserApis';
-import './style/User.css';
+import './style/PageGlobal.css';
 import './style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';

@@ -17,9 +17,9 @@ const GlobalStyle = createGlobalStyle`
         background-size: cover;
     }
 
-    div {
+    /* div {
       margin: 0;
-    }
+    } */
     p {
       margin: 0;
     }

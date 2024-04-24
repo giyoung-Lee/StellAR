@@ -1,7 +1,11 @@
-import React from 'react';
+import Loading from '../components/Loading';
 
 const AuthPage = () => {
-  return <div>AuthPage</div>;
+  return (
+    <div>
+      <Loading />
+    </div>
+  );
 };
 
 export default AuthPage;

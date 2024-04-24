@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 import HomePage from '../pages/HomePage';
+import NotFoundPage from '../pages/NotFoundPage';
 import EntryPage from '../pages/EntryPage';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
@@ -32,6 +33,7 @@ const AppRoutes = () => {
     >
       <Routes location={displayLocation}>
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/entry" element={<EntryPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

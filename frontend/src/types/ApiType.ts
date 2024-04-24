@@ -6,5 +6,4 @@ interface loginApiType {
 interface signupApiType {
   userId: string;
   password: string;
-  passwordConfirm: string;
 }

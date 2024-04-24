@@ -14,21 +14,21 @@
 .gradient-border {
   padding: 2px; /* 이 값은 테두리의 '두께'를 결정합니다. */
   background: linear-gradient(
-    90deg, 
-    rgba(57, 23, 100, 1) 0%, 
-    rgba(255, 0, 168, 1) 50%, 
+    90deg,
+    rgba(57, 23, 100, 1) 0%,
+    rgba(255, 0, 168, 1) 50%,
     rgba(255, 229, 0, 1) 100%
   );
   border-radius: 10px; /* 둥근 모서리 설정 */
 }
 
 .inner-content {
-  background: #5D5C67;
+  background: #5d5c67;
   border-radius: 8px;
   padding: 5px 10vw;
 }
 
-.entry-btn{
+.entry-btn {
   height: 8vh;
   width: 50vw;
   display: flex;
@@ -72,6 +72,7 @@
 @layer base {
   html {
     font-family:
+      'Gamtan',
       'Diphylleia',
       'HSBombaram',
       -apple-system,
@@ -95,6 +96,27 @@
   font-weight: 500;
   font-display: swap;
   src: url('./fonts/Diphylleia-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Gamtan';
+  font-weight: 100;
+  font-display: swap;
+  src: url('./fonts/Gamtan_Thin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Gamtan';
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fonts/Gamtan_Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Gamtan';
+  font-weight: 800;
+  font-display: swap;
+  src: url('./fonts/Gamtan_Bold.woff2') format('woff2');
 }
 
 @font-face {

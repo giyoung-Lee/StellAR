@@ -16,17 +16,17 @@ const StarMeshes = ({ position, size }: Props) => {
   const DIST_LIMIT = 10000;
 
   useFrame((state, delta) => {
-    const pos = meshRef.current.position.applyAxisAngle(Y_AXIS, delta / 100);
-    const dist = state.camera.position.distanceTo(meshRef.current.position);
-    if (dist > DIST_LIMIT)
-      meshRef.current.scale.set(
-        dist / DIST_LIMIT,
-        dist / DIST_LIMIT,
-        dist / DIST_LIMIT,
-      );
-    meshRef.current.position.x = pos.x;
-    meshRef.current.position.y = pos.y;
-    meshRef.current.position.z = pos.z;
+    // const pos = meshRef.current.position.applyAxisAngle(Y_AXIS, delta / 100);
+    // const dist = state.camera.position.distanceTo(meshRef.current.position);
+    // if (dist > DIST_LIMIT)
+    //   meshRef.current.scale.set(
+    //     dist / DIST_LIMIT,
+    //     dist / DIST_LIMIT,
+    //     dist / DIST_LIMIT,
+    //   );
+    // meshRef.current.position.x = pos.x;
+    // meshRef.current.position.y = pos.y;
+    // meshRef.current.position.z = pos.z;
   });
 
   return (
@@ -38,3 +38,4 @@ const StarMeshes = ({ position, size }: Props) => {
 };
 
 export default StarMeshes;
+

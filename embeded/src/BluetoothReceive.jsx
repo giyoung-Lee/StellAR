@@ -9,16 +9,15 @@ const BluetoothReceive = () => {
         filters: [
           {
             // services: [0xFFE0],
-            services: ['A4:75:B9:C9:25:4A'],
           },
         ],
       });
 
       const server = await device.gatt.connect();
       const service = await server.getPrimaryService(0xFFE0);
+
       const characteristic = await service.getCharacteristic(0xFFE1);
 
-      
       await characteristic.startNotifications();
       characteristic.addEventListener(
         "characteristicvaluechanged",
@@ -42,10 +41,10 @@ const BluetoothReceive = () => {
     const bluetoothButton=document.getElementById("bluetoothButton")
 
     bluetoothButton.addEventListener("click",()=>{
-      navigator.bluetooth.requestDevice({
-        filters: [{ services:["2C:CF:67:19:82:C8"]}]
-      })
+      connectBluetoothDevice();
+
     })
+  
 
   }, []);
 

@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 // import BluetoothTest from "./BluetoothTest";
-import BluetoothReceive from "./BluetoothReceive";
+import BluetoothReceive from "./BluetoothReceive_raspi";
 
 
 function App() {

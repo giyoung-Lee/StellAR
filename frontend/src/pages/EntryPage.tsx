@@ -143,12 +143,14 @@ const EntryPage: React.FC<MeteorEffectProps> = ({
 
         <div className="flex flex-col items-center min-h-screen">
           <img src={logo} alt="logo_image" className="w-[270px] mt-[10vh]" />
+          
           <button
             className="m-20 text-lg text-orange entry-btn"
             onClick={goToLogin}
           >
             <div>별 보러 가기</div>
           </button>
+
           {/* <button className="m-20 text-lg text-white gradient-border">
           <div className='inner-content'>별 보러 가기</div>
         </button> */}

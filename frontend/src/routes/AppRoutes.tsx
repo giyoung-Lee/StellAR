@@ -65,11 +65,11 @@ export const fadeOutAnimation = keyframes`
 export const PageContainer = styled.div`
   opacity: 0;
   &.fadeIn {
-    animation: ${fadeInAnimation} 800ms;
+    animation: ${fadeInAnimation} 1000ms;
     animation-fill-mode: forwards;
   }
   &.fadeOut {
-    animation: ${fadeOutAnimation} 800ms;
+    animation: ${fadeOutAnimation} 1000ms;
     animation-fill-mode: forwards;
     // animation-fill-mode :애니메이션의 끝난 후의 상태를 설정
     // forward : 애니메이션이 끝난 후 마지막 CSS 그대로 있음

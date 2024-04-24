@@ -1,17 +1,16 @@
 package com.ssafy.stellar.user.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Entity(name = "user_info")
-
 public class UserEntity {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // 이거 주석해야하는데 이게 맞나??
     @Column(name="user_id")
     private String userId;
 

@@ -1,5 +1,6 @@
 package com.ssafy.stellar.user.service;
 
+import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.repository.UserRepository1;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,9 @@ public class UserServiceImpl1 implements UserService1 {
     }
 
     @Override
-    public void signUp(UserEntity user) {
-
+    public void signUp(SignUpDto signUpDto) {
+        UserEntity user = signUpDto.toEntity();
+        System.out.println("user.toString() = " + user.toString());
         userRepository.save(user);
     }
 
@@ -26,7 +28,6 @@ public class UserServiceImpl1 implements UserService1 {
     public UserEntity logIn(String userId, String password) {
 
         UserEntity user = userRepository.findByUserId(userId);
-
         if (user != null && user.getPassword().equals(password)) {
             return user;
         } else {
@@ -50,4 +51,5 @@ public class UserServiceImpl1 implements UserService1 {
             return false;
         }
     }
+
 }

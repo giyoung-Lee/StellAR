@@ -19,9 +19,4 @@ public class TestEntity {
     @Column(name="gender")
     private String gender;
 
-
-
-
-
-
 }

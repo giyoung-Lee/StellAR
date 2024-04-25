@@ -22,7 +22,7 @@
         </encoder>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- 매일 롤링되며 최대 파일 크기에 따라 추가 롤링, 로그 파일은 30일 동안 보관 -->
+            <!-- 매일 롤링되며 최대 파일 크기에 따라 추가 롤링, 로그 파일은 14일 동안 보관 -->
             <fileNamePattern>logs/myapp-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>14</maxHistory>

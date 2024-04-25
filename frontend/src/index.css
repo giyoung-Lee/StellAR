@@ -133,11 +133,11 @@
   src: url('./fonts/HSBombaram3.0_Regular.woff2') format('woff2');
 }
 
-.AppSize {
+/* .AppSize {
   max-width: 576px;
   min-height: 100vh;
   margin: auto;
-}
+} */
 
 .TooSmall,
 .WebSize {
@@ -145,7 +145,7 @@
 }
 
 /* 화면 너비가 576px 이상인 경우 */
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .AppSize {
     display: none;
   }

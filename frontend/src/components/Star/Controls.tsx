@@ -4,7 +4,7 @@ import React from 'react';
 const Controls = () => {
   return (
     <>
-      <OrbitControls enablePan={false} target={[0, 0, 0]} />
+      <OrbitControls target={[0, 0, 0]} rotateSpeed={-0.25} />
     </>
   );
 };

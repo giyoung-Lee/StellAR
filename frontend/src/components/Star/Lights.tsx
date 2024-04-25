@@ -7,18 +7,9 @@ const Lights = () => {
       <directionalLight
         ref={lightRef}
         args={[0xffffff, 5]}
-        position={[4, 4, 4]}
-        castShadow
-        shadow-camera-left={-25}
-        shadow-camera-right={25}
-        shadow-camera-top={25}
-        shadow-camera-bottom={-25}
-        shadow-camera-near={0.1}
-        shadow-camera-far={1000}
-        shadow-mapSize-width={8192}
-        shadow-mapSize-height={8192}
+        position={[-90, -10, 10]}
+        castShadow={false}
       />
-      <ambientLight intensity={0.01} />
       <axesHelper args={[20000]} />
     </>
   );

@@ -8,7 +8,7 @@ type Props = {
   size: number;
 };
 
-const StarMeshes = ({ position, size }: Props) => {
+const StarMesh = ({ position, size }: Props) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const COLOR = ['#88beff', 'white', '#f9d397', '#fd6b6b', '#ffffac'];
   const colorIndex = getRandomInt(0, COLOR.length);
@@ -30,12 +30,16 @@ const StarMeshes = ({ position, size }: Props) => {
   });
 
   return (
-    <mesh ref={meshRef} position={position}>
+    <mesh
+      ref={meshRef}
+      position={position}
+      castShadow={false}
+      receiveShadow={false}
+    >
       <sphereGeometry args={[size, 32, 16]} />
       <meshStandardMaterial color={COLOR[colorIndex]} />
     </mesh>
   );
 };
 
-export default StarMeshes;
-
+export default StarMesh;

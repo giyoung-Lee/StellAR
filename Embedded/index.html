@@ -1,0 +1,115 @@
+
+<button id="start" disabled>Start</button>
+<button id="stop" disabled>Stop</button>
+<button id="read" >Connect BLE device</button>
+
+
+<script>
+    const bleService='heart_rate'
+    const bleCharatistic='heart_rate_measurement'
+    var bluetoothDeviceDetected
+    var gattCharacteristic
+
+    document.querySelector('#read').addEventListener('click',function(){
+        if(isWebBluetoothEnabled()){read()}
+    })
+    document.querySelector('#start').addEventListener('click',function(event){
+        if(isWebBluetoothEnabled()){start()}
+    })
+    document.querySelector('#stop').addEventListener('click',function(event){
+        if(isWebBluetoothEnabled()){stop()}
+    })
+    
+    function isWebBluetoothEnabled(){
+        if(!navigator.bluetooth){
+            console.log("Web Bluetooth is not avaliable")
+            return false
+        }
+
+        return true
+    }
+
+    function getDeviceInfo(){
+        let options={
+
+            filters: [{ services: ["heart_rate"] }]
+
+        }
+
+        console.log('Requesting BLE device info...')
+        return navigator.bluetooth.requestDevice(options)
+        .then(device=>{
+            bluetoothDeviceDetected=device
+            console.log('Name: '+ device.name)
+
+        }).catch(error=>{
+            console.log('Request device error: '+error)
+        })
+    }
+
+    function read(){
+        console.log("hi")
+        return (bluetoothDeviceDetected? Promise.resolve():getDeviceInfo())
+        .then(connectGATT)
+        .then(_=>{
+            console.log('Reading heart rate...')
+            return gattCharacteristic.readValue()
+        })
+        .catch(error=>{
+            console.log("Waiting to start reading: "+error)
+        })
+    }
+
+    function connectGATT(){
+        if (bluetoothDeviceDetected.gatt.connected &&gattCharacteristic){
+            
+            return Promise.resolve()
+
+        }
+        console.log(bluetoothDeviceDetected.gatt.connected)
+        return bluetoothDeviceDetected.gatt.connected()
+        .then(server=>{
+            console.log('Getting GATT Service..')
+            return server.getPrimaryService(bleService)
+        })
+        .then(service=>{
+            console.log('Getting GATT characteristic..')
+            return service.gattCharacteristic(bleCharatistic)
+        })
+        .then(characteristic=>{
+            gattCharacteristic=characteristic
+            gattCharacteristic.addEventListener('characteristicvaluechanged',handleChangedValue)
+
+            document.querySelector('#start').disabled=false
+            document.querySelector('#stop').disabled=true
+        })
+    }
+    function handleChangedValue(event){
+        let value=event.target.value.getUnit8(0)
+        console.log('> '+"heart rade is "+value)
+    }
+
+    function start(){
+        gattCharacteristic.startNotifications()
+        .then(_=>{
+            console.log('Start reading...')
+            document.querySelector('#start').disabled=true
+            document.querySelector('#stop').disabled=false
+        })
+        .catch(error => {
+            console.log("start error: "+error)
+        })
+    }
+
+    function stop(){
+        gattCharacteristic.stopNotifications()
+        .then(_=>{
+            console.log('Stop reading...')
+            document.querySelector('#start').disabled=false
+            document.querySelector('#stop').disabled=true
+        })
+        .catch(error => {
+            console.log("stop error: "+error)
+        })
+    }
+</script>

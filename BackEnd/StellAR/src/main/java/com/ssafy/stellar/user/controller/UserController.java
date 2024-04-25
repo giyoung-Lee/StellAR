@@ -21,7 +21,7 @@ public class UserController {
 
     public UserController(UserService1 userService) { this.userService = userService;}
 
-    @PostMapping
+    @PostMapping("/signup")
     public HttpEntity<?> signUp(@ParameterObject @ModelAttribute SignUpDto user) {
         try {
             userService.signUp(user);

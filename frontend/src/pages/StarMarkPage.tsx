@@ -1,6 +1,6 @@
 import React from 'react';
 import * as p from './style/CommonPageStyle';
-import * as h from '../components/common/HeaderStyle';
+import * as h from '../components/style/common/HeaderStyle';
 import MarkList from '../components/StarMark/MarkList';
 
 const StarMarkPage = () => {

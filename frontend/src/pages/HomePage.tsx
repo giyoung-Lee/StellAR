@@ -1,7 +1,6 @@
-import React from 'react';
-import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
 import * as h from './style/HomePageStyle';
 import MainCanvas from '../components/Star/MainCanvas';
+import NavIcon from '../components/common/NavBar/NavIcon';
 
 const HomePage = () => {
   return (
@@ -10,6 +9,7 @@ const HomePage = () => {
         {/* <StarInfoCarousel active={0} /> */}
         <MainCanvas />
       </h.Wrapper>
+      <NavIcon />
     </>
   );
 };

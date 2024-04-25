@@ -1,5 +1,5 @@
 import React from 'react';
-import * as l from '../common/ListCardStyle';
+import * as l from '../style/common/ListCardStyle';
 import EventItem from './EventItem';
 
 const EventList = () => {

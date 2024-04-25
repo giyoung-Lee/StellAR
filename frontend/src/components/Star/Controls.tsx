@@ -4,9 +4,14 @@ import React from 'react';
 const Controls = () => {
   return (
     <>
-      <OrbitControls target={[0, 0, 0]} rotateSpeed={-0.25} />
+      <OrbitControls
+        target={[0, 0, 0]}
+        rotateSpeed={-0.25}
+        enableZoom={false}
+      />
     </>
   );
 };
 
 export default Controls;
+

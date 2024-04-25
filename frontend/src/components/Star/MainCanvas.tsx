@@ -14,7 +14,7 @@ const MainCanvas = (props: Props) => {
   function genBackgroundStars() {
     const stars = [];
     for (let i = 0; i < 300; i++) {
-      const size = getRandomInt(20, 30);
+      const size = getRandomInt(10, 20);
       const pos = new THREE.Vector3(
         getRandomInt(-5000, 5000),
         getRandomInt(-5000, 5000),
@@ -45,8 +45,10 @@ const MainCanvas = (props: Props) => {
       <Lights />
       {genBackgroundStars()}
       <FloorMesh />
+      {/* <GLBModel /> */}
     </Canvas>
   );
 };
 
 export default MainCanvas;
+

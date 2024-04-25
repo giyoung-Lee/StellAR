@@ -6,7 +6,7 @@ const Lights = () => {
     <>
       <directionalLight
         ref={lightRef}
-        args={[0xffffff, 5]}
+        args={[0xffffff, 3]}
         position={[-90, -10, 10]}
         castShadow={false}
       />
@@ -16,3 +16,4 @@ const Lights = () => {
 };
 
 export default Lights;
+

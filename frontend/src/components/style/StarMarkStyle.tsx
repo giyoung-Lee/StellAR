@@ -21,6 +21,11 @@ export const Date = styled.p`
   font-size: 13px;
 `;
 
+export const HelpContent = styled.p`
+  color: var(--color-light);
+  font-size: 17px;
+`;
+
 export const Star = styled.span`
   position: absolute;
   right: 10%;

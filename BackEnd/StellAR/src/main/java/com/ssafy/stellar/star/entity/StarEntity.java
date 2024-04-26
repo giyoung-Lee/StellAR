@@ -1,4 +1,4 @@
-package com.ssafy.stellar.utils.stars;
+package com.ssafy.stellar.star.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "star")
-public class Star {
+public class StarEntity {
 
     @Id
     @Column(name = "star_id")

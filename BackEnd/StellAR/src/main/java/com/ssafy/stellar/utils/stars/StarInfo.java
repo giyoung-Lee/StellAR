@@ -1,11 +1,10 @@
 package com.ssafy.stellar.utils.stars;
 
-import jakarta.annotation.PostConstruct;
+import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
+import com.ssafy.stellar.star.entity.StarEntity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,10 +16,10 @@ import java.util.List;
 
 @Service
 public class StarInfo {
-    private final StarRepository starRepository;
+    private final StarUtilRepository starRepository;
 
     @Autowired
-    public StarInfo(StarRepository starRepository) {
+    public StarInfo(StarUtilRepository starRepository) {
         this.starRepository = starRepository;
     }
     public static List<String[]> readCSVToArray() throws IOException {
@@ -61,7 +60,7 @@ public class StarInfo {
         // 15.Gaia DR3      16.Star_Type
         for (String[] star : starList) {
             count ++;
-            Star starEntity = new Star();
+            StarEntity starEntity = new StarEntity();
 
             List<String> temp = null;
             // 이름이 비어있지 않다면

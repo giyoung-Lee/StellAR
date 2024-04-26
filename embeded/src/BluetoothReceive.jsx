@@ -8,7 +8,7 @@ const BluetoothReceive = () => {
       const device = await navigator.bluetooth.requestDevice({
         filters: [
           {
-            // services: [0xFFE0],
+            services: [0xFFE0],
           },
         ],
       });

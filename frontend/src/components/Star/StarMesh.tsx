@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { getRandomInt } from '../../utils/random';
-import { useFrame } from '@react-three/fiber';
+import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
+import constructWithOptions from 'styled-components/dist/constructors/constructWithOptions';
 
 type Props = {
   position: THREE.Vector3;
@@ -10,24 +11,45 @@ type Props = {
 
 const StarMesh = ({ position, size }: Props) => {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const COLOR = ['#88beff', 'white', '#f9d397', '#fd6b6b', '#ffffac'];
+  const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
   const colorIndex = getRandomInt(0, COLOR.length);
-  const Y_AXIS = new THREE.Vector3(0, 1, 0);
-  const DIST_LIMIT = 10000;
+  const [clicked, setClicked] = useState(false);
+  const { camera, gl, scene, controls } = useThree();
+  const [lookAtPosition, setLookAtPosition] = useState<THREE.Vector3 | null>(
+    null,
+  );
 
-  useFrame((state, delta) => {
-    // const pos = meshRef.current.position.applyAxisAngle(Y_AXIS, delta / 100);
-    // const dist = state.camera.position.distanceTo(meshRef.current.position);
-    // if (dist > DIST_LIMIT)
-    //   meshRef.current.scale.set(
-    //     dist / DIST_LIMIT,
-    //     dist / DIST_LIMIT,
-    //     dist / DIST_LIMIT,
-    //   );
-    // meshRef.current.position.x = pos.x;
-    // meshRef.current.position.y = pos.y;
-    // meshRef.current.position.z = pos.z;
-  });
+  const click = (event: ThreeEvent<MouseEvent>) => {
+    event.stopPropagation();
+    setClicked(!clicked);
+    event.object.material.color = new THREE.Color('purple');
+
+    const mesh = meshRef.current;
+    if (mesh) {
+      setLookAtPosition(mesh.position.clone());
+    }
+  };
+
+  // useFrame((state) => {
+  //   if (clicked && lookAtPosition) {
+  //     state.camera.lookAt(lookAtPosition);
+  //     state.camera.updateMatrixWorld(); // 카메라의 변환을 강제로 업데이트
+  //   } else {
+  //     state.camera.lookAt(0, 0, 0);
+  //     // console.log(state.camera);
+  //   }
+  // });
+
+  useEffect(() => {
+    if (clicked) {
+      meshRef.current.material.color = new THREE.Color('purple');
+      // 카메라의 변환을 업데이트하여 변경된 lookAt 적용
+      if (lookAtPosition) {
+        camera.lookAt(lookAtPosition);
+        camera.updateMatrixWorld();
+      }
+    }
+  }, [clicked, lookAtPosition]);
 
   return (
     <mesh
@@ -35,6 +57,7 @@ const StarMesh = ({ position, size }: Props) => {
       position={position}
       castShadow={false}
       receiveShadow={false}
+      onClick={click}
     >
       <sphereGeometry args={[size, 32, 16]} />
       <meshStandardMaterial color={COLOR[colorIndex]} />

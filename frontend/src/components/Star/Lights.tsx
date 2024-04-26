@@ -5,6 +5,7 @@ const Lights = () => {
   return (
     <>
       <directionalLight
+        // <ambientLight
         ref={lightRef}
         args={[0xffffff, 3]}
         position={[-90, -10, 10]}
@@ -16,4 +17,3 @@ const Lights = () => {
 };
 
 export default Lights;
-

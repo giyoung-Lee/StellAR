@@ -91,7 +91,7 @@ public class StarServiceImpl implements StarService{
             double minutes = Double.parseDouble(decParts[1]);
             double seconds = Double.parseDouble(decParts[2]);
 
-            double totalSeconds = degrees * 3600 + minutes * 60 + seconds;
+            double totalSeconds = Math.abs(degrees) * 3600 + minutes * 60 + seconds;
             if (isNegative) {
                 totalSeconds = -totalSeconds;
             }
@@ -143,7 +143,6 @@ public class StarServiceImpl implements StarService{
         } else {
             throw new IllegalArgumentException("Invalid RA format: " + ra);
         }
-
         return Math.toRadians(degrees);
     }
 
@@ -171,8 +170,6 @@ public class StarServiceImpl implements StarService{
         }
 
         // 부호를 처리합니다.
-        degrees = isNegative ? -degrees : degrees;
-
         return Math.toRadians(degrees);
     }
 

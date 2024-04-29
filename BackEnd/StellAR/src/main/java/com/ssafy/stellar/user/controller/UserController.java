@@ -1,8 +1,12 @@
 package com.ssafy.stellar.user.controller;
 
 import com.ssafy.stellar.user.dto.request.SignUpDto;
+import com.ssafy.stellar.user.dto.response.UserDto;
 import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.service.UserService;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
@@ -37,19 +41,20 @@ public class UserController {
     public HttpEntity<?> deleteUser(@RequestParam String userId, @RequestParam String password) {
         if (userService.checkPassword(userId, password)) {
             userService.deleteUser(userId);
-            return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<Void>(HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("응 아니야", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("Invalid password", HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/login")
+    @ApiResponse(responseCode = "200", description = "사용자 생성 성공", content = @Content(schema = @Schema(implementation = UserDto.class)))
     public HttpEntity<?> login(@RequestParam String userId, @RequestParam String password) {
 
-        UserEntity user = userService.logIn(userId, password);
+        UserDto user = userService.logIn(userId, password);
 
         if (user != null) {
-            return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
+            return new ResponseEntity<UserDto>(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<String>("응 아니야", HttpStatus.BAD_REQUEST);
         }

@@ -1,6 +1,7 @@
 package com.ssafy.stellar.star.service;
 
 import com.ssafy.stellar.star.dto.response.StarDto;
+import com.ssafy.stellar.star.dto.response.StarInfoDto;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,26 @@ public class StarServiceImpl implements StarService{
         return result;
     }
 
+    @Override
+    public StarInfoDto starInfo(String starId) {
+        StarEntity entity = starRepository.findByStarId(starId);
+
+        StarInfoDto dto = new StarInfoDto();
+        dto.setStarId(entity.getStarId());
+        dto.setRA(entity.getRA());
+        dto.setDeclination(entity.getDeclination());
+        dto.setPMRA(entity.getPMRA());
+        dto.setPMDEC(entity.getPMDEC());
+        dto.setMagV(entity.getMagV());
+        dto.setParallax(entity.getParallax());
+        dto.setSP_TYPE(entity.getSP_TYPE());
+        dto.setConstellation(entity.getConstellation());
+        dto.setHD(entity.getHD());
+        dto.setStarType(entity.getStarType());
+
+        return dto;
+    }
+
     private static String calculateNewRA(String initialRA, double pmRA, long years) {
         try {
             String[] raParts = initialRA.split(" ");
@@ -91,7 +112,7 @@ public class StarServiceImpl implements StarService{
             double minutes = Double.parseDouble(decParts[1]);
             double seconds = Double.parseDouble(decParts[2]);
 
-            double totalSeconds = degrees * 3600 + minutes * 60 + seconds;
+            double totalSeconds = Math.abs(degrees) * 3600 + minutes * 60 + seconds;
             if (isNegative) {
                 totalSeconds = -totalSeconds;
             }
@@ -143,7 +164,6 @@ public class StarServiceImpl implements StarService{
         } else {
             throw new IllegalArgumentException("Invalid RA format: " + ra);
         }
-
         return Math.toRadians(degrees);
     }
 
@@ -169,9 +189,6 @@ public class StarServiceImpl implements StarService{
         } else {
             throw new IllegalArgumentException("Invalid Dec format: " + dec);
         }
-
-        // 부호를 처리합니다.
-        degrees = isNegative ? -degrees : degrees;
 
         return Math.toRadians(degrees);
     }

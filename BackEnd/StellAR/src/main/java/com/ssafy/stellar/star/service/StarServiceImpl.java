@@ -1,6 +1,6 @@
 package com.ssafy.stellar.star.service;
 
-import com.ssafy.stellar.star.dto.response.StarReturnAllDto;
+import com.ssafy.stellar.star.dto.response.StarDto;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,9 @@ public class StarServiceImpl implements StarService{
     }
 
     @Override
-    public List<StarReturnAllDto> returnAllStar() {
+    public List<StarDto> returnAllStar() {
         List<StarEntity> list = starRepository.findAll();
-        List<StarReturnAllDto> result = new ArrayList<>();
+        List<StarDto> result = new ArrayList<>();
 
         LocalDate startDate = LocalDate.of(2000, 1, 1);
         LocalDate today = LocalDate.now();
@@ -36,7 +36,7 @@ public class StarServiceImpl implements StarService{
             String newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
 
-            StarReturnAllDto dto = new StarReturnAllDto();
+            StarDto dto = new StarDto();
             dto.setStarId(star.getStarId());
             dto.setStarType(star.getStarType());
             dto.setCalX(xyz[0]);

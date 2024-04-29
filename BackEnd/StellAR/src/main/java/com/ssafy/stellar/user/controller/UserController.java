@@ -2,7 +2,7 @@ package com.ssafy.stellar.user.controller;
 
 import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.entity.UserEntity;
-import com.ssafy.stellar.user.service.UserService1;
+import com.ssafy.stellar.user.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService1 userService;
+    private final UserService userService;
 
-    public UserController(UserService1 userService) { this.userService = userService;}
+    public UserController(UserService userService) { this.userService = userService;}
 
     @PostMapping("/signup")
     public HttpEntity<?> signUp(@ParameterObject @ModelAttribute SignUpDto user) {

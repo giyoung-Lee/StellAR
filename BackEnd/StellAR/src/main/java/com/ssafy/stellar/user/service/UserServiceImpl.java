@@ -2,7 +2,7 @@ package com.ssafy.stellar.user.service;
 
 import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.entity.UserEntity;
-import com.ssafy.stellar.user.repository.UserRepository1;
+import com.ssafy.stellar.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class UserServiceImpl1 implements UserService1 {
+public class UserServiceImpl implements UserService {
 
-    private final UserRepository1 userRepository;
+    private final UserRepository userRepository;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl1(UserRepository1 userRepository,
-                            BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

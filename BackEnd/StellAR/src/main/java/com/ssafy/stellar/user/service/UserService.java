@@ -3,7 +3,7 @@ package com.ssafy.stellar.user.service;
 import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.entity.UserEntity;
 
-public interface UserService1 {
+public interface UserService {
 
     void signUp(SignUpDto signUpDto);
 

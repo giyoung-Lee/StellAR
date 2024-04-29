@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StarReturnAllDto {
+public class StarDto {
 
     private String starId;
     private String starType;

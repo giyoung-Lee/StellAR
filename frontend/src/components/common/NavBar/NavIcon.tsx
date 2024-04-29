@@ -128,7 +128,7 @@ const NavBar = () => {
     if (ulRef.current) {
       const rect = ulRef.current.getBoundingClientRect();
       const centerY = rect.top + rect.height / 2; // ul의 중심 Y 위치 계산
-      console.log('UL의 y 위치:', centerY); // ul의 y값 출력
+      // console.log('UL의 y 위치:', centerY);
       setCenterY(centerY);
     }
   }, [centerY]); // 컴포넌트 마운트 시 한 번 실행
@@ -141,9 +141,9 @@ const NavBar = () => {
     setIsDragging(true);
 
     const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
+    // const centerY = window.innerHeight / 2;
     setCenterX(centerX);
-    setCenterY(centerY);
+    // setCenterY(centerY);
 
     const radian = Math.atan2(touchX - centerX, centerY - touchY);
     setCurrAngle(radian * (180 / Math.PI));

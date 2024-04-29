@@ -7,6 +7,9 @@ import Controls from './Controls';
 import GLBModel from './GLBModel';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
+import { GetStars } from '../../apis/StarApis';
+import Loading from '../common/Loading/Loading';
+import { useQuery } from '@tanstack/react-query';
 
 type Props = {};
 
@@ -34,6 +37,24 @@ const MainCanvas = (props: Props) => {
     return stars;
   }
 
+  const {
+    isLoading: isStarsLoading,
+    data: starData,
+    isError: isStarsError,
+    refetch: getStarsRefetch,
+  } = useQuery({
+    queryKey: ['get-stars'],
+    queryFn: GetStars,
+  });
+
+  if (isStarsLoading) {
+    return (
+      <>
+        <Loading />
+      </>
+    );
+  }
+
   return (
     <Canvas
       gl={{ antialias: true }}
@@ -53,7 +74,20 @@ const MainCanvas = (props: Props) => {
     >
       <Controls />
       <Lights />
-      {genBackgroundStars()}
+      {starData?.data.map((star: any) => (
+        <StarMesh
+          key={star._id}
+          position={
+            new THREE.Vector3(
+              star.calX * 15000,
+              star.calY * 15000,
+              star.calZ * 15000,
+            )
+          }
+          size={getRandomInt(30, 40)}
+        />
+      ))}
+      {/* {genBackgroundStars()} */}
       <FloorMesh />
       {/* <GLBModel /> */}
     </Canvas>

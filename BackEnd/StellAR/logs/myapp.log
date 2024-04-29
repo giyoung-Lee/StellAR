@@ -1,13 +1,38 @@
-2024-04-26 15:10:40 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 26088 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:10:40 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:10:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:10:40 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:10:40 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:10:40 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'starRepository' defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot register bean definition [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodNames=null; destroyMethodNames=null; defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration] for bean 'starRepository' since there is already [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodNames=null; destroyMethodNames=null; defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration] bound.
-2024-04-26 15:10:40 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2024-04-29 08:41:33 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=12h4m1s625ms157µs900ns).
+2024-04-29 10:37:52 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2024-04-29 10:37:52 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-04-29 10:37:52 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29 10:37:52 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2024-04-29 10:37:52 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2024-04-29 10:37:53 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 312 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
+2024-04-29 10:37:53 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 3 JPA repository interfaces.
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-04-29 10:37:53 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-29 10:37:53 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-04-29 10:37:53 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-04-29 10:37:53 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 362 ms
+2024-04-29 10:37:53 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29 10:37:53 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29 10:37:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2024-04-29 10:37:53 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.mariadb.jdbc.Connection@334969b3
+2024-04-29 10:37:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2024-04-29 10:37:53 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2024-04-29 10:37:53 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29 10:37:53 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29 10:37:53 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'starController' defined in file [C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main\com\ssafy\stellar\star\controller\StarController.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.ssafy.stellar.star.service.StarService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29 10:37:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2024-04-29 10:37:53 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2024-04-29 10:37:53 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-04-29 10:37:53 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2024-04-26 15:10:40 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+2024-04-29 10:37:53 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
 
 ***************************
 APPLICATION FAILED TO START
@@ -15,1042 +40,77 @@ APPLICATION FAILED TO START
 
 Description:
 
-The bean 'starRepository', defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration, could not be registered. A bean with that name has already been defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration and overriding is disabled.
+Parameter 0 of constructor in com.ssafy.stellar.star.controller.StarController required a bean of type 'com.ssafy.stellar.star.service.StarService' that could not be found.
+
 
 Action:
 
-Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+Consider defining a bean of type 'com.ssafy.stellar.star.service.StarService' in your configuration.
 
-2024-04-26 15:11:57 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 14188 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:11:57 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:11:57 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:11:57 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:11:58 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:11:58 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'starRepository' defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot register bean definition [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodNames=null; destroyMethodNames=null; defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration] for bean 'starRepository' since there is already [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodNames=null; destroyMethodNames=null; defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration] bound.
-2024-04-26 15:11:58 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2024-04-29 10:37:55 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 312 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
+2024-04-29 10:37:55 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
+2024-04-29 10:37:55 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29 10:37:55 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 3 JPA repository interfaces.
+2024-04-29 10:37:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-04-29 10:37:55 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-29 10:37:55 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-04-29 10:37:55 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-04-29 10:37:55 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2024-04-29 10:37:55 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 238 ms
+2024-04-29 10:37:55 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29 10:37:55 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-29 10:37:55 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29 10:37:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2024-04-29 10:37:55 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.mariadb.jdbc.Connection@13729a32
+2024-04-29 10:37:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2024-04-29 10:37:55 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2024-04-29 10:37:55 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29 10:37:55 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29 10:37:55 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29 10:37:55 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-29 10:37:55 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
 
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2024-04-26 15:11:58 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-The bean 'starRepository', defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration, could not be registered. A bean with that name has already been defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration and overriding is disabled.
-
-Action:
-
-Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
-
-2024-04-26 15:12:11 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 21280 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:12:11 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:12:11 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:12:11 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:12:11 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:12:11 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.support.BeanDefinitionOverrideException: Invalid bean definition with name 'starRepository' defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot register bean definition [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodNames=null; destroyMethodNames=null; defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration] for bean 'starRepository' since there is already [Root bean: class [org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodNames=null; destroyMethodNames=null; defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration] bound.
-2024-04-26 15:12:11 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2024-04-26 15:12:11 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-The bean 'starRepository', defined in com.ssafy.stellar.utils.stars.StarUtilRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration, could not be registered. A bean with that name has already been defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration and overriding is disabled.
-
-Action:
-
-Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
-
-2024-04-26 15:14:29 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 18184 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:14:29 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:14:29 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:14:29 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:14:30 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:14:30 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:14:30 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:14:30 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:14:30 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:14:30 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:14:31 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:14:31 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1036 ms
-2024-04-26 15:14:31 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:14:31 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-04-26 15:14:31 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:14:31 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:14:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-04-26 15:14:31 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@40caf63b
-2024-04-26 15:14:31 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-04-26 15:14:31 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:14:31 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:14:32 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:14:32 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:14:32 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'starController' defined in file [C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main\com\ssafy\stellar\star\controller\StarController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'starServiceImpl' defined in file [C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main\com\ssafy\stellar\star\service\StarServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'starRepository' defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.ssafy.stellar.star.entity.StarEntity
-2024-04-26 15:14:32 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:14:32 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-04-26 15:14:32 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-04-26 15:14:32 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2024-04-26 15:14:32 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2024-04-26 15:14:32 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'starController' defined in file [C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main\com\ssafy\stellar\star\controller\StarController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'starServiceImpl' defined in file [C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main\com\ssafy\stellar\star\service\StarServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'starRepository' defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.ssafy.stellar.star.entity.StarEntity
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:962)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at com.ssafy.stellar.StellarApplication.main(StellarApplication.java:12)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'starServiceImpl' defined in file [C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main\com\ssafy\stellar\star\service\StarServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'starRepository' defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.ssafy.stellar.star.entity.StarEntity
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:237)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1355)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1192)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 24 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'starRepository' defined in com.ssafy.stellar.star.repository.StarRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: class com.ssafy.stellar.star.entity.StarEntity
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
-	... 38 common frames omitted
-Caused by: java.lang.IllegalArgumentException: Not a managed type: class com.ssafy.stellar.star.entity.StarEntity
-	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:193)
-	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:468)
-	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:98)
-	at org.springframework.data.jpa.repository.support.JpaMetamodelEntityInformation.<init>(JpaMetamodelEntityInformation.java:82)
-	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:69)
-	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:246)
-	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:211)
-	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:194)
-	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getTargetRepository(JpaRepositoryFactory.java:1)
-	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:317)
-	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$5(RepositoryFactoryBeanSupport.java:279)
-	at org.springframework.data.util.Lazy.getNullable(Lazy.java:135)
-	at org.springframework.data.util.Lazy.get(Lazy.java:113)
-	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:285)
-	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:132)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 49 common frames omitted
-2024-04-26 15:15:25 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 12684 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:15:25 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:15:25 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:15:25 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:15:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:15:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:15:26 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:15:26 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:15:26 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:15:26 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:15:26 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:15:26 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1014 ms
-2024-04-26 15:15:26 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:15:26 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-04-26 15:15:26 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:15:26 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:15:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-04-26 15:15:26 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@31f897b6
-2024-04-26 15:15:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-04-26 15:15:26 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:15:26 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:15:27 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:15:27 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:15:27 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:15:27 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: d34141d5-f585-422a-99a2-23ad7b636532
+Using generated security password: 18da21eb-9876-4b08-9c85-29b1c05e0021
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2024-04-26 15:15:28 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@698ed258, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@52f34e10, org.springframework.security.web.context.SecurityContextHolderFilter@35036c32, org.springframework.security.web.header.HeaderWriterFilter@c0386bc, org.springframework.security.web.authentication.logout.LogoutFilter@3a35990a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f1494a6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a149d9f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@cefa625, org.springframework.security.web.access.ExceptionTranslationFilter@5b235bac, org.springframework.security.web.access.intercept.AuthorizationFilter@467fb73e]
-2024-04-26 15:15:28 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:15:28 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:15:28 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:15:28 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 3.839 seconds (process running for 4.323)
-2024-04-26 15:15:34 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-04-26 15:15:34 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-04-26 15:15:34 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-04-26 15:15:34 [http-nio-8080-exec-2] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1146-42S02: Table 's10p31c105.star_entity' doesn't exist
-2024-04-26 15:15:34 [http-nio-8080-exec-2] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1146, SQLState: 42S02
-2024-04-26 15:15:34 [http-nio-8080-exec-2] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - (conn=65210) Table 's10p31c105.star_entity' doesn't exist
-2024-04-26 15:16:27 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 5 class path changes (0 additions, 0 deletions, 5 modifications)
-2024-04-26 15:16:27 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:16:27 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:16:27 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-04-26 15:16:27 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-04-26 15:16:27 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 12684 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:16:27 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:16:27 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:16:27 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:16:27 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:16:27 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:16:27 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:16:27 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:16:27 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:16:27 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 257 ms
-2024-04-26 15:16:27 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:16:27 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:16:27 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:16:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2024-04-26 15:16:27 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.mariadb.jdbc.Connection@1e550a04
-2024-04-26 15:16:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2024-04-26 15:16:27 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:16:27 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:16:27 [restartedMain] ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-2024-04-26 15:16:27 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-2024-04-26 15:16:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2024-04-26 15:16:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2024-04-26 15:16:27 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2024-04-26 15:16:27 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2024-04-26 15:16:27 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at com.ssafy.stellar.StellarApplication.main(StellarApplication.java:12)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
-Caused by: org.hibernate.DuplicateMappingException: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.addEntityBinding(InFlightMetadataCollectorImpl.java:339)
-	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:248)
-	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:423)
-	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:256)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:279)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:322)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503)
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 21 common frames omitted
-2024-04-26 15:16:38 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 14544 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:16:38 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:16:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:16:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:16:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:16:38 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:16:39 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:16:39 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:16:39 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:16:39 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:16:39 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:16:39 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1096 ms
-2024-04-26 15:16:39 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:16:39 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-04-26 15:16:39 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:16:39 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:16:39 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-04-26 15:16:40 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@667c9d8
-2024-04-26 15:16:40 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-04-26 15:16:40 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:16:40 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:16:40 [restartedMain] ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-2024-04-26 15:16:40 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-2024-04-26 15:16:40 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-04-26 15:16:40 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-04-26 15:16:40 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2024-04-26 15:16:40 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2024-04-26 15:16:40 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
-	at com.ssafy.stellar.StellarApplication.main(StellarApplication.java:12)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
-Caused by: org.hibernate.DuplicateMappingException: Entity classes [com.ssafy.stellar.star.entity.StarEntity] and [com.ssafy.stellar.utils.stars.Star] share the entity name 'star' (entity names must be distinct)
-	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.addEntityBinding(InFlightMetadataCollectorImpl.java:339)
-	at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:248)
-	at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:423)
-	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:256)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:279)
-	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:322)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1432)
-	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1503)
-	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
-	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
-	... 21 common frames omitted
-2024-04-26 15:19:24 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:19:24 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:19:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:19:24 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:19:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:19:25 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:19:25 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:19:25 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:19:25 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:19:25 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:19:25 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:19:25 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1057 ms
-2024-04-26 15:19:25 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:19:25 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-04-26 15:19:25 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:19:26 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:19:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-04-26 15:19:26 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@3518ab62
-2024-04-26 15:19:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-04-26 15:19:26 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:19:26 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:19:26 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:19:26 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:19:27 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:19:27 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: c4750a32-e21d-401f-9940-fda392be7ca9
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:19:27 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2ffa4c41, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3975c4e2, org.springframework.security.web.context.SecurityContextHolderFilter@5864693c, org.springframework.security.web.header.HeaderWriterFilter@75a12e29, org.springframework.security.web.authentication.logout.LogoutFilter@3a91436c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7daa9c5b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@448b1291, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@63496581, org.springframework.security.web.access.ExceptionTranslationFilter@4316f61a, org.springframework.security.web.access.intercept.AuthorizationFilter@6c3f44d8]
-2024-04-26 15:19:28 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:19:28 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:19:28 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:19:28 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 4.022 seconds (process running for 4.484)
-2024-04-26 15:19:31 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-04-26 15:19:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-04-26 15:19:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-04-26 15:20:54 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
-2024-04-26 15:20:54 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:20:54 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:20:54 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-04-26 15:20:54 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-04-26 15:20:54 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:20:54 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:20:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:20:54 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:20:55 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:20:55 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:20:55 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:20:55 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 279 ms
-2024-04-26 15:20:55 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:20:55 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:20:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2024-04-26 15:20:55 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.mariadb.jdbc.Connection@1a4e4f32
-2024-04-26 15:20:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2024-04-26 15:20:55 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:20:55 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:20:55 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:20:55 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:20:55 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: abcc2108-eb82-4faf-80ba-0838be55f81e
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6fe0a873, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6082c59b, org.springframework.security.web.context.SecurityContextHolderFilter@15500128, org.springframework.security.web.header.HeaderWriterFilter@5c25761, org.springframework.security.web.authentication.logout.LogoutFilter@25c55509, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@756b3f83, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@27e769b3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1e0a66d7, org.springframework.security.web.access.ExceptionTranslationFilter@2a4e8b, org.springframework.security.web.access.intercept.AuthorizationFilter@1548ab68]
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:20:55 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:20:55 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.033 seconds (process running for 92.098)
-2024-04-26 15:20:55 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:25:06 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (0 additions, 4 deletions, 0 modifications)
-2024-04-26 15:25:06 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:25:06 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:25:06 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2024-04-26 15:25:06 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2024-04-26 15:25:06 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:25:06 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:25:07 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:25:07 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:25:07 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:25:07 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 262 ms
-2024-04-26 15:25:07 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:25:07 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:25:07 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
-2024-04-26 15:25:07 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.mariadb.jdbc.Connection@6cc7d028
-2024-04-26 15:25:07 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
-2024-04-26 15:25:07 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:25:07 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:25:07 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:25:07 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:25:07 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: fec58a4a-97ca-4f2f-b84d-37f5afe6116d
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@636cb36, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@de7efaa, org.springframework.security.web.context.SecurityContextHolderFilter@7ffe5f30, org.springframework.security.web.header.HeaderWriterFilter@1736c2c0, org.springframework.security.web.authentication.logout.LogoutFilter@51ab5e24, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2d1a9780, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7da060e9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@630e755, org.springframework.security.web.access.ExceptionTranslationFilter@10280852, org.springframework.security.web.access.intercept.AuthorizationFilter@56adffd9]
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:25:07 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:25:07 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.007 seconds (process running for 344.284)
-2024-04-26 15:25:07 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:25:09 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (4 additions, 0 deletions, 0 modifications)
-2024-04-26 15:25:09 [Thread-11] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:25:09 [Thread-11] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:25:09 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
-2024-04-26 15:25:09 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
-2024-04-26 15:25:09 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:25:09 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:25:09 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:25:09 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:25:09 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:25:09 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:25:09 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:25:09 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:25:09 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:25:09 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 219 ms
-2024-04-26 15:25:09 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:25:09 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:25:09 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:25:09 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
-2024-04-26 15:25:10 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.mariadb.jdbc.Connection@72768c3d
-2024-04-26 15:25:10 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
-2024-04-26 15:25:10 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:25:10 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:25:10 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:25:10 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:25:10 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:25:10 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: a0f63a0e-c0b8-490d-b627-cb2c4ed84e09
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:25:10 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6be1ecb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@240a82ec, org.springframework.security.web.context.SecurityContextHolderFilter@7e1503f4, org.springframework.security.web.header.HeaderWriterFilter@bc264c2, org.springframework.security.web.authentication.logout.LogoutFilter@8c55a7a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@52a41ddf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@46656084, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@31c06d11, org.springframework.security.web.access.ExceptionTranslationFilter@36044a2d, org.springframework.security.web.access.intercept.AuthorizationFilter@1771dac3]
-2024-04-26 15:25:10 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:25:10 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:25:10 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:25:10 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.883 seconds (process running for 346.76)
-2024-04-26 15:25:10 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:34:10 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2024-04-26 15:34:10 [Thread-15] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:10 [Thread-15] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:10 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
-2024-04-26 15:34:10 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
-2024-04-26 15:34:10 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:34:10 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:34:10 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:34:10 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:34:10 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:34:10 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:10 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:34:10 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:34:10 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:34:10 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 228 ms
-2024-04-26 15:34:10 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:34:10 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:34:10 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:34:10 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
-2024-04-26 15:34:11 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.mariadb.jdbc.Connection@59687236
-2024-04-26 15:34:11 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
-2024-04-26 15:34:11 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:34:11 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:34:11 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:34:11 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:11 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:34:11 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 048e8ddf-59a1-48fb-83fe-ff1eba7091b8
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:34:11 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2fd3891d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e3083a4, org.springframework.security.web.context.SecurityContextHolderFilter@31e1c40e, org.springframework.security.web.header.HeaderWriterFilter@1203e169, org.springframework.security.web.authentication.logout.LogoutFilter@2ec6dde, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@63add090, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3097b804, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1157c2d, org.springframework.security.web.access.ExceptionTranslationFilter@6486fdfc, org.springframework.security.web.access.intercept.AuthorizationFilter@212ca36]
-2024-04-26 15:34:11 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:34:11 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:11 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:34:11 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.927 seconds (process running for 887.937)
-2024-04-26 15:34:11 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:34:42 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
-2024-04-26 15:34:42 [Thread-19] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:42 [Thread-19] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:42 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
-2024-04-26 15:34:42 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
-2024-04-26 15:34:42 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:34:42 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:34:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:34:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:34:42 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:34:42 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:42 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:34:42 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:34:42 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:34:42 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 258 ms
-2024-04-26 15:34:42 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:34:42 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:34:42 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:34:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
-2024-04-26 15:34:42 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.mariadb.jdbc.Connection@5da23664
-2024-04-26 15:34:42 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
-2024-04-26 15:34:43 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:34:43 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:34:43 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:34:43 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:43 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:34:43 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: f0245b69-29a0-4b52-93b5-995b1c12e946
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:34:43 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5736f047, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b7ce4ce, org.springframework.security.web.context.SecurityContextHolderFilter@33e80ed9, org.springframework.security.web.header.HeaderWriterFilter@5654ed3c, org.springframework.security.web.authentication.logout.LogoutFilter@5cb41047, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1a35723, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5e157640, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@465197aa, org.springframework.security.web.access.ExceptionTranslationFilter@32eda08f, org.springframework.security.web.access.intercept.AuthorizationFilter@32e7876d]
-2024-04-26 15:34:43 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:34:43 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:43 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:34:43 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.923 seconds (process running for 919.749)
-2024-04-26 15:34:43 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:34:44 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
-2024-04-26 15:34:44 [Thread-23] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:44 [Thread-23] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:44 [Thread-23] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
-2024-04-26 15:34:44 [Thread-23] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
-2024-04-26 15:34:45 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:34:45 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:34:45 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:45 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:34:45 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:34:45 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 238 ms
-2024-04-26 15:34:45 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:34:45 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:34:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Starting...
-2024-04-26 15:34:45 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-7 - Added connection org.mariadb.jdbc.Connection@4ff441c2
-2024-04-26 15:34:45 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Start completed.
-2024-04-26 15:34:45 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:34:45 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:34:45 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:45 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:34:45 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: cd227645-1991-47ac-b715-9283c135a3e2
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@766cef44, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@caf55ba, org.springframework.security.web.context.SecurityContextHolderFilter@64b7c214, org.springframework.security.web.header.HeaderWriterFilter@6cda27e9, org.springframework.security.web.authentication.logout.LogoutFilter@5d54edae, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2ea09f9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3af1a5e5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1f0e8471, org.springframework.security.web.access.ExceptionTranslationFilter@73597f4e, org.springframework.security.web.access.intercept.AuthorizationFilter@384ad0a0]
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:34:45 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:34:45 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.903 seconds (process running for 922.219)
-2024-04-26 15:34:45 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:34:54 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2024-04-26 15:34:54 [Thread-27] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:54 [Thread-27] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:54 [Thread-27] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown initiated...
-2024-04-26 15:34:54 [Thread-27] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown completed.
-2024-04-26 15:34:55 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:34:55 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:34:55 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:55 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:34:55 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:34:55 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 230 ms
-2024-04-26 15:34:55 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:34:55 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:34:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Starting...
-2024-04-26 15:34:55 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-8 - Added connection org.mariadb.jdbc.Connection@4ae127ad
-2024-04-26 15:34:55 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Start completed.
-2024-04-26 15:34:55 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:34:55 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:34:55 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:34:55 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:34:55 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: af4e67e3-ac6c-432a-8378-e1ef6defbc57
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1de3c4b5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4f0516df, org.springframework.security.web.context.SecurityContextHolderFilter@315e7bb, org.springframework.security.web.header.HeaderWriterFilter@6042d005, org.springframework.security.web.authentication.logout.LogoutFilter@19d96da3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6026670a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@43695e1c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@274459e5, org.springframework.security.web.access.ExceptionTranslationFilter@37e281cb, org.springframework.security.web.access.intercept.AuthorizationFilter@43846955]
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:34:55 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:34:55 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.886 seconds (process running for 932.238)
-2024-04-26 15:34:55 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:39:03 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2024-04-26 15:39:03 [Thread-31] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:39:03 [Thread-31] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:39:03 [Thread-31] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown initiated...
-2024-04-26 15:39:03 [Thread-31] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown completed.
-2024-04-26 15:39:03 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 2852 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:39:03 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:39:04 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:39:04 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:39:04 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:39:04 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 241 ms
-2024-04-26 15:39:04 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:39:04 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:39:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Starting...
-2024-04-26 15:39:04 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-9 - Added connection org.mariadb.jdbc.Connection@6d6cbde4
-2024-04-26 15:39:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Start completed.
-2024-04-26 15:39:04 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:39:04 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:39:04 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:39:04 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:39:04 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 92142249-fa07-4021-8079-fd34ff2efe27
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:39:04 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@30e6747d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3fb6a55b, org.springframework.security.web.context.SecurityContextHolderFilter@51a75a44, org.springframework.security.web.header.HeaderWriterFilter@42e2e4ef, org.springframework.security.web.authentication.logout.LogoutFilter@7b1e9832, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@263c9cb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4510c4cd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@21df36d5, org.springframework.security.web.access.ExceptionTranslationFilter@3ebf3163, org.springframework.security.web.access.intercept.AuthorizationFilter@24daad9f]
-2024-04-26 15:39:05 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:39:05 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:39:05 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.066 seconds (process running for 1181.335)
-2024-04-26 15:39:05 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:39:05 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:39:05 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown initiated...
-2024-04-26 15:39:05 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown completed.
-2024-04-26 15:39:06 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 5536 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:39:06 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:39:06 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 15:39:06 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 15:39:07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:39:07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:39:08 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:39:08 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:39:08 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:39:08 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:39:08 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:39:08 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1095 ms
-2024-04-26 15:39:08 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:39:08 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-04-26 15:39:08 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:39:08 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:39:08 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-04-26 15:39:08 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@4d796f89
-2024-04-26 15:39:08 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-04-26 15:39:08 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:39:08 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:39:09 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:39:09 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:39:09 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:39:09 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 33ca60ed-2253-4c5b-9d09-5fd7e20b76f7
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:39:10 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2440eef5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@c8de291, org.springframework.security.web.context.SecurityContextHolderFilter@5dd47e1d, org.springframework.security.web.header.HeaderWriterFilter@7daa9c5b, org.springframework.security.web.authentication.logout.LogoutFilter@5ded6f3b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@68b6f225, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3a4cd190, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@47fd2311, org.springframework.security.web.access.ExceptionTranslationFilter@5864693c, org.springframework.security.web.access.intercept.AuthorizationFilter@63496581]
-2024-04-26 15:39:10 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:39:10 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:39:10 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:39:10 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 4.018 seconds (process running for 4.505)
-2024-04-26 15:39:16 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-04-26 15:39:16 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-04-26 15:39:16 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2024-04-26 15:41:13 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2024-04-26 15:41:13 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:41:13 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:41:13 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-04-26 15:41:13 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-04-26 15:41:13 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 5536 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:41:13 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:41:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:41:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:41:14 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:41:14 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:41:14 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:41:14 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 282 ms
-2024-04-26 15:41:14 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:41:14 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:41:14 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2024-04-26 15:41:14 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.mariadb.jdbc.Connection@c37d63c
-2024-04-26 15:41:14 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2024-04-26 15:41:14 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:41:14 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:41:14 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:41:14 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:41:14 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: b8f42806-47bc-4fc3-ac26-070b52f76943
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@253eb10a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1ef82832, org.springframework.security.web.context.SecurityContextHolderFilter@7d3d696e, org.springframework.security.web.header.HeaderWriterFilter@5448f739, org.springframework.security.web.authentication.logout.LogoutFilter@6f3a98ff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4fd00cc5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6a382be2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@263c88cb, org.springframework.security.web.access.ExceptionTranslationFilter@255003ae, org.springframework.security.web.access.intercept.AuthorizationFilter@b0f5f38]
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:41:14 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:41:14 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.99 seconds (process running for 128.666)
-2024-04-26 15:41:14 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:41:28 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2024-04-26 15:41:28 [Thread-7] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:41:28 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:41:28 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2024-04-26 15:41:28 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2024-04-26 15:41:28 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 5536 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:41:28 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:41:29 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:41:29 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:41:29 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:41:29 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 269 ms
-2024-04-26 15:41:29 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:41:29 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:41:29 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
-2024-04-26 15:41:29 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.mariadb.jdbc.Connection@1616d7e7
-2024-04-26 15:41:29 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
-2024-04-26 15:41:29 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:41:29 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:41:29 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:41:29 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:41:29 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: bb4c25b3-db3e-4423-a49b-fbbed3dada89
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5c05feb2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2e46da84, org.springframework.security.web.context.SecurityContextHolderFilter@2888b82, org.springframework.security.web.header.HeaderWriterFilter@223099d2, org.springframework.security.web.authentication.logout.LogoutFilter@50c45ea8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@24e92e4c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@300ef2a1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7d0f1ef, org.springframework.security.web.access.ExceptionTranslationFilter@14c7f4dd, org.springframework.security.web.access.intercept.AuthorizationFilter@7a6ee74f]
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:41:29 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:41:29 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.981 seconds (process running for 143.761)
-2024-04-26 15:41:29 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:41:33 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-04-26 15:41:33 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-04-26 15:41:33 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-04-26 15:45:45 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
-2024-04-26 15:45:45 [Thread-11] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:45:45 [Thread-11] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:45:45 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
-2024-04-26 15:45:45 [Thread-11] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
-2024-04-26 15:45:45 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 5536 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:45:45 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:45:45 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:45:46 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:45:46 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:45:46 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:45:46 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 249 ms
-2024-04-26 15:45:46 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:45:46 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:45:46 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
-2024-04-26 15:45:46 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.mariadb.jdbc.Connection@586c6a80
-2024-04-26 15:45:46 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
-2024-04-26 15:45:46 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:45:46 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:45:46 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:45:46 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:45:46 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 0e479dc7-ca1c-4949-b64d-8825d5032a72
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@c95bd5d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@60650821, org.springframework.security.web.context.SecurityContextHolderFilter@369c8ff4, org.springframework.security.web.header.HeaderWriterFilter@39a741ad, org.springframework.security.web.authentication.logout.LogoutFilter@1c5e0856, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6c6678be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4dc6576c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3292d9be, org.springframework.security.web.access.ExceptionTranslationFilter@775acb7d, org.springframework.security.web.access.intercept.AuthorizationFilter@3c2062c4]
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:45:46 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:45:46 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.008 seconds (process running for 400.764)
-2024-04-26 15:45:46 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:54:46 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (0 additions, 4 deletions, 0 modifications)
-2024-04-26 15:54:46 [Thread-15] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:54:46 [Thread-15] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:54:46 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
-2024-04-26 15:54:46 [Thread-15] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
-2024-04-26 15:54:46 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 5536 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:54:46 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:54:46 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:54:46 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:54:47 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:54:47 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:54:47 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:54:47 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 286 ms
-2024-04-26 15:54:47 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:54:47 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:54:47 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
-2024-04-26 15:54:47 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.mariadb.jdbc.Connection@19fd21a4
-2024-04-26 15:54:47 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
-2024-04-26 15:54:47 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:54:47 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:54:47 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:54:47 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:54:47 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: c771fde9-da35-4b0c-a605-5e077013a254
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4c3db3e8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5f550e82, org.springframework.security.web.context.SecurityContextHolderFilter@2d577b04, org.springframework.security.web.header.HeaderWriterFilter@4f2c3db1, org.springframework.security.web.authentication.logout.LogoutFilter@194e92bd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1701fabc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d6905ec, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@40ff1447, org.springframework.security.web.access.ExceptionTranslationFilter@5de8ef5a, org.springframework.security.web.access.intercept.AuthorizationFilter@210b160e]
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:54:47 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:54:47 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.204 seconds (process running for 941.876)
-2024-04-26 15:54:47 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:54:49 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 4 class path changes (4 additions, 0 deletions, 0 modifications)
-2024-04-26 15:54:49 [Thread-19] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:54:49 [Thread-19] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:54:49 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
-2024-04-26 15:54:49 [Thread-19] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
-2024-04-26 15:54:49 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 5536 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 15:54:49 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 15:54:49 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 15:54:49 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 3 JPA repository interfaces.
-2024-04-26 15:54:49 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 15:54:49 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:54:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 15:54:49 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 15:54:49 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 15:54:49 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 269 ms
-2024-04-26 15:54:49 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 15:54:49 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 15:54:49 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 15:54:49 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
-2024-04-26 15:54:50 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.mariadb.jdbc.Connection@46878fd7
-2024-04-26 15:54:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
-2024-04-26 15:54:50 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 15:54:50 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 15:54:50 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 15:54:50 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 15:54:50 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 15:54:50 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: e6c5e083-51f4-4360-b524-cb3fbab1e98f
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 15:54:50 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@28b68a61, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1ca5d7f2, org.springframework.security.web.context.SecurityContextHolderFilter@14e95c13, org.springframework.security.web.header.HeaderWriterFilter@3fbe12c7, org.springframework.security.web.authentication.logout.LogoutFilter@75d83fea, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39b272bc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6468f93c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6fa0de75, org.springframework.security.web.access.ExceptionTranslationFilter@2a9ef32d, org.springframework.security.web.access.intercept.AuthorizationFilter@7c5737a0]
-2024-04-26 15:54:50 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 15:54:50 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 15:54:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 15:54:50 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.02 seconds (process running for 944.486)
-2024-04-26 15:54:50 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2024-04-26 15:54:50 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-04-26 15:54:50 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-04-26 15:54:50 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-04-26 16:36:01 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 16:36:01 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
-2024-04-26 16:36:01 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
-2024-04-26 16:36:03 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 312 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 16:36:03 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 16:36:03 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2024-04-26 16:36:03 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2024-04-26 16:36:03 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 16:36:03 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 3 JPA repository interfaces.
-2024-04-26 16:36:04 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 16:36:04 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 16:36:04 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 16:36:04 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 16:36:04 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2024-04-26 16:36:04 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1019 ms
-2024-04-26 16:36:04 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 16:36:04 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
-2024-04-26 16:36:04 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 16:36:04 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 16:36:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2024-04-26 16:36:04 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@11f1b727
-2024-04-26 16:36:04 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2024-04-26 16:36:04 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 16:36:04 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 16:36:05 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 16:36:05 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 16:36:05 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 16:36:05 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 5c96502e-9d3f-4708-bb45-bc5e79c580ee
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 16:36:06 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1f7b3b91, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@313076c4, org.springframework.security.web.context.SecurityContextHolderFilter@1bb13dc1, org.springframework.security.web.header.HeaderWriterFilter@68b6f225, org.springframework.security.web.authentication.logout.LogoutFilter@6ba6280d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@18555a10, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6f9699bc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43bafd3c, org.springframework.security.web.access.ExceptionTranslationFilter@5dd47e1d, org.springframework.security.web.access.intercept.AuthorizationFilter@47fd2311]
-2024-04-26 16:36:06 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:06 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 16:36:06 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 16:36:06 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
-2024-04-26 16:36:06 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 3.727 seconds (process running for 4.201)
-2024-04-26 16:36:06 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:06 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:06 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:07 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:07 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:08 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:09 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:12 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:15 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2024-04-26 16:36:15 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2024-04-26 16:36:15 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2024-04-26 16:36:17 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:22 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:27 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:33 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:38 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:43 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:48 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:53 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:36:58 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:03 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:08 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:14 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:19 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:24 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:29 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:34 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:39 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:44 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:49 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:37:55 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:38:00 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@11f1b727 ((conn=65217) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@64445a64 ((conn=65224) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@39fbc363 ((conn=65215) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@3574d448 ((conn=65214) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@3a98572 ((conn=65224) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@45f86819 ((conn=65230) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@22ff4b1e ((conn=65221) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@313a0d9d ((conn=65229) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:39:23 [http-nio-8080-exec-5] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@7ef79cdd ((conn=65227) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
-2024-04-26 16:42:37 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 3 class path changes (0 additions, 0 deletions, 3 modifications)
-2024-04-26 16:42:37 [Thread-5] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
-2024-04-26 16:42:37 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 16:42:37 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2024-04-26 16:42:37 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2024-04-26 16:42:37 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 17.0.9 with PID 312 (C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\SSAFY\Project\s10_final\S10P31C105\BackEnd\StellAR)
-2024-04-26 16:42:37 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
-2024-04-26 16:42:37 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-04-26 16:42:37 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 3 JPA repository interfaces.
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2024-04-26 16:42:38 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2024-04-26 16:42:38 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2024-04-26 16:42:38 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
-2024-04-26 16:42:38 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 259 ms
-2024-04-26 16:42:38 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-04-26 16:42:38 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-04-26 16:42:38 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2024-04-26 16:42:38 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.mariadb.jdbc.Connection@44acada7
-2024-04-26 16:42:38 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2024-04-26 16:42:38 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
-2024-04-26 16:42:38 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-04-26 16:42:38 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-04-26 16:42:38 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-04-26 16:42:38 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 53b42bd7-fcb6-4db3-923b-7d7ccd5678f5
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@186e34c5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@154a2229, org.springframework.security.web.context.SecurityContextHolderFilter@d5d7da, org.springframework.security.web.header.HeaderWriterFilter@52ccff25, org.springframework.security.web.authentication.logout.LogoutFilter@538bc44d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7631e803, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@48ce4cc2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25877a68, org.springframework.security.web.access.ExceptionTranslationFilter@6a1a9b7c, org.springframework.security.web.access.intercept.AuthorizationFilter@1091be01]
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2024-04-26 16:42:38 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
-2024-04-26 16:42:38 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 1.186 seconds (process running for 396.663)
-2024-04-26 16:42:38 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-04-29 10:37:56 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2f3a341d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a3c136a, org.springframework.security.web.context.SecurityContextHolderFilter@58bbb6a, org.springframework.security.web.header.HeaderWriterFilter@fd1b19d, org.springframework.security.web.authentication.logout.LogoutFilter@72ffe099, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@722c8794, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3eae64ab, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@47ce8aeb, org.springframework.security.web.access.ExceptionTranslationFilter@6f147b49, org.springframework.security.web.access.intercept.AuthorizationFilter@22ccf3f5]
+2024-04-29 10:37:56 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-04-29 10:37:56 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-29 10:37:56 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2024-04-29 10:37:56 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 0.963 seconds (process running for 237714.026)
+2024-04-29 10:37:56 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-04-29 10:37:56 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:37:56 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:37:56 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:37:57 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:37:57 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:37:57 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:37:58 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:00 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:02 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:07 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:13 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:18 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:23 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:28 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:33 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:38 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:43 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:49 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:54 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:38:59 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:04 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:09 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:14 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:19 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:24 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:30 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:35 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:40 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:45 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:50 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:39:55 [HikariPool-4 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 10:40:31 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29 10:40:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2024-04-29 10:40:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.

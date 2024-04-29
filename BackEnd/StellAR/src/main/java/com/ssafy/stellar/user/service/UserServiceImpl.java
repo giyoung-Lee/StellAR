@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
             return userDto;
         } else {
-            return null;
+            throw new IllegalArgumentException("Invalid password");
         }
     }
 

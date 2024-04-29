@@ -9,9 +9,9 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserDto {
 
+
     @Schema(description = "사용자 ID", required = true)
     private String userId;
-
 
     @Schema(description = "사용자 이름", required = true)
     private String name;

@@ -1,7 +1,6 @@
 package com.ssafy.stellar.utils.stars;
 
-import com.ssafy.stellar.constellation.entity.ConstellationEntity;
-import jakarta.annotation.PostConstruct;
+import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,7 @@ public class constellationInfo {
 
         for (String[] star : list) {
             try {
-                ConstellationEntity constellation = new ConstellationEntity();
+                ConstellationLinkEntity constellation = new ConstellationLinkEntity();
                 constellation.setConstellationId(star[0]);
                 constellation.setStarA(star[1]);
                 constellation.setStarB(star[2]);

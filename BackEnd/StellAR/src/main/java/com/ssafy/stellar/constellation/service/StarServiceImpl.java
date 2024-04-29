@@ -1,7 +1,6 @@
-package com.ssafy.stellar.star.service;
+package com.ssafy.stellar.constellation.service;
 
 import com.ssafy.stellar.star.dto.response.StarDto;
-import com.ssafy.stellar.star.dto.response.StarInfoDto;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
@@ -48,31 +47,15 @@ public class StarServiceImpl implements StarService{
             dto.setSpType(star.getSP_TYPE());
             dto.setHd(star.getHD());
             dto.setMagV(star.getMagV());
+            dto.setRA(star.getRA());
+            dto.setDeclination(star.getDeclination());
+            dto.setPMRA(star.getPMRA());
+            dto.setPMDEC(star.getPMDEC());
 
             result.add(dto);
         }
 
         return result;
-    }
-
-    @Override
-    public StarInfoDto starInfo(String starId) {
-        StarEntity entity = starRepository.findByStarId(starId);
-
-        StarInfoDto dto = new StarInfoDto();
-        dto.setStarId(entity.getStarId());
-        dto.setRA(entity.getRA());
-        dto.setDeclination(entity.getDeclination());
-        dto.setPMRA(entity.getPMRA());
-        dto.setPMDEC(entity.getPMDEC());
-        dto.setMagV(entity.getMagV());
-        dto.setParallax(entity.getParallax());
-        dto.setSP_TYPE(entity.getSP_TYPE());
-        dto.setConstellation(entity.getConstellation());
-        dto.setHD(entity.getHD());
-        dto.setStarType(entity.getStarType());
-
-        return dto;
     }
 
     private static String calculateNewRA(String initialRA, double pmRA, long years) {

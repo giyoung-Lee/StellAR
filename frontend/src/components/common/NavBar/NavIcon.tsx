@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const FixedContainer = styled.div`
   position: fixed;
   display: flex;
   justify-content: center;
   min-width: 100%;
-  bottom: 5vw;
+  bottom: 0;
 `;
 
 const CheckboxWrapper = styled.div`
@@ -24,7 +25,7 @@ const CheckboxWrapper = styled.div`
   label {
     --size: 50px;
     --shadow: calc(var(--size) * 0.07) calc(var(--size) * 0.1);
-    position: fixed;
+    position: relative;
     display: block;
     width: var(--size);
     height: var(--size);
@@ -39,20 +40,29 @@ const CheckboxWrapper = styled.div`
     border-radius: 50%;
     box-shadow: 0 var(--shadow) #ffbeb8;
     cursor: pointer;
-    transition:
-      0.2s ease transform,
-      0.2s ease background-color,
-      0.2s ease box-shadow;
+    transition: 0.2s ease;
     overflow: hidden;
-    z-index: 1;
-
-    &:active {
-      transform: scale(0.9);
-    }
   }
 
-  input[type='checkbox']:checked + label {
-    bottom: 29vh;
+  label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background-color: #000000;
+    border-radius: 50%;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 190, 184, 0.7),
+      // 내부 상단에 밝은 하이라이트
+      0 5px 8px rgba(0, 0, 0, 0.5),
+      // 외부에 부드러운 그림자
+      0 -5px 10px rgba(255, 190, 184, 0.3); // 외부 상단에 반사 효과
+  }
+
+  .checkbox-wrapper input[type='checkbox']:checked + label {
     background-color: #4158d0;
     background-image: linear-gradient(
       43deg,
@@ -66,26 +76,33 @@ const CheckboxWrapper = styled.div`
   }
 
   input[type='checkbox']:checked + label:before {
-    width: 0;
-    height: 0;
+    /* width: 0;
+    height: 0; */
   }
 
   ul {
     position: relative;
-    width: 250px;
-    height: 250px;
+    width: 340px;
+    height: 340px;
     margin: 0 auto;
     list-style: none;
+    border-radius: 50%;
+    background-image: url('/img/Board_img.png');
+    background-size: cover;
   }
 
   li {
     position: absolute;
-    transform-origin: 50% 125px; // 원의 중심으로부터 반지름만큼 떨어진 곳에 위치
+    transform-origin: 50% 170px; // 원의 중심으로부터 반지름만큼 떨어진 곳에 위치
     width: 100px;
-    height: 40px;
+    height: 110px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  li span {
+    color: #000000;
   }
 
   li:nth-child(1) {
@@ -106,10 +123,6 @@ const CheckboxWrapper = styled.div`
   li:nth-child(6) {
     transform: rotate(300deg) translate(0);
   }
-
-  section {
-    margin-bottom: 10vh;
-  }
 `;
 
 const NavBar = () => {
@@ -122,8 +135,13 @@ const NavBar = () => {
   const [currAngle, setCurrAngle] = useState(0);
   const [prevAngle, setPrevAngle] = useState(0);
   const [finalAngle, setFinalAngle] = useState(0);
+  const [isChecked, setIsChecked] = useState(true);
 
-  
+  const handleCheckbox = () => {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+  };
+
   useEffect(() => {
     if (ulRef.current) {
       const rect = ulRef.current.getBoundingClientRect();
@@ -153,10 +171,10 @@ const NavBar = () => {
     if (isDragging) {
       const newTouchX = e.touches[0].clientX;
       const newTouchY = e.touches[0].clientY;
-  
+
       const radian = Math.atan2(newTouchX - centerX, centerY - newTouchY);
       const newAngle = radian * (180 / Math.PI);
-  
+
       // 직접 계산된 newAngle을 사용하여 상태 업데이트
       let angleDelta = newAngle - currAngle;
       if (angleDelta > 180) {
@@ -164,14 +182,12 @@ const NavBar = () => {
       } else if (angleDelta < -180) {
         angleDelta += 360;
       }
-  
-      setFinalAngle(prevFinalAngle => prevFinalAngle + angleDelta);
+
+      setFinalAngle((prevFinalAngle) => prevFinalAngle + angleDelta);
       setPrevAngle(currAngle);
       setCurrAngle(newAngle);
     }
   };
-  
-  
 
   const handleTouchEnd = () => {
     setIsDragging(false);
@@ -180,55 +196,70 @@ const NavBar = () => {
   return (
     <FixedContainer>
       <CheckboxWrapper>
-        <ul
-        ref={ulRef} // ul 요소에 ref 연결
-          style={{ transform: `rotate(${finalAngle}deg)` }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <li>
-            <div className='flex flex-col'>
-              <img src="/img/Home.svg" alt="Home" className='p-2' />
-              <span>홈</span>
-            </div>
-          </li>
-          <li>
-            <div className='flex flex-col'>
-              <img src="/img/AR.svg" alt="Home" className='p-2' />
-            <span>AR</span>
-            </div>
-          </li>
-          <li>
-            <div className='flex flex-col'>
-              <img src="/img/Shop.svg" alt="Home" className='p-2' />
-            <span>구매</span>
-            </div>
-          </li>
-          <li>
-            <div className='flex flex-col'>
-              <img src="/img/Event.svg" alt="Home" className='p-2' />
-            <span>이벤트</span>
-            </div>
-          </li>
-          <li>
-            <div className='flex flex-col'>
-              <img src="/img/Constellation.svg" alt="Home" className='p-2' />
-            <span>My별자리</span>
-            </div>
-          </li>
-          <li>
-            <div className='flex flex-col'>
-              <img src="/img/Starmark.svg" alt="Home" className='p-2' />
-            <span>별마크</span>
-            </div>
-          </li>
-        </ul>
+        {!isChecked && (
+          <ul
+            ref={ulRef} // ul 요소에 ref 연결
+            style={{ transform: `rotate(${finalAngle}deg)` }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onClick={handleCheckbox}
+          >
+            <li>
+              <Link to="/">
+                <div className="flex flex-col">
+                  <img src="/img/Home.svg" alt="Home" className="p-2" />
+                  <span>홈</span>
+                </div>
+              </Link>
+            </li>
+            <li>
+              <div className="flex flex-col">
+                <img src="/img/AR.svg" alt="Home" className="p-2" />
+                <span>AR</span>
+              </div>
+            </li>
+            <li>
+              <Link to="/shop">
+              <div className="flex flex-col">
+                <img src="/img/Shop.svg" alt="Home" className="p-2" />
+                <span>구매</span>
+              </div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/event">
+              <div className="flex flex-col">
+                <img src="/img/Event.svg" alt="Home" className="p-2" />
+                <span>이벤트</span>
+              </div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/myStar/1">
+              <div className="flex flex-col">
+                <img src="/img/Constellation.svg" alt="Home" className="p-2" />
+                <span>My별자리</span>
+              </div>
+              </Link>
+            </li>
+            <li>
+              <Link to="/starMark/1">
+              <div className="flex flex-col">
+                <img src="/img/Starmark.svg" alt="Home" className="p-2" />
+                <span>별마크</span>
+              </div>
+              </Link>
+            </li>
+          </ul>
+        )}
 
-        <section>
-          <input id="nav_btn" type="checkbox" />
-          <label htmlFor="nav_btn"></label>
-        </section>
+        {isChecked && (
+          <section className="m-5">
+            <input id="nav_btn" type="checkbox" />
+            <label htmlFor="nav_btn" onClick={handleCheckbox}></label>
+          </section>
+        )}
       </CheckboxWrapper>
     </FixedContainer>
   );

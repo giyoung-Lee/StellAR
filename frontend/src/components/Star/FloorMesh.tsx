@@ -52,7 +52,7 @@ const FloorMesh = () => {
 
   return (
     <>
-      <mesh ref={meshRef} position={[0, -30, 0]} rotation-x={-Math.PI / 2}>
+      <mesh ref={meshRef} position={[0, -50, 0]} rotation-x={-Math.PI / 2}>
         {/* <circleGeometry args={[30000, 200]} /> */}
         <planeGeometry args={[15000, 15000, 50, 50]} />
         <shaderMaterial

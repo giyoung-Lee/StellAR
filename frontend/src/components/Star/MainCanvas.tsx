@@ -52,6 +52,7 @@ const MainCanvas = (props: Props) => {
       {starData?.data.map((star: any) => (
         <StarMesh
           starId={star.starId}
+          spType={star.spType}
           key={star.starId}
           position={
             new THREE.Vector3(

@@ -9,12 +9,22 @@ type Props = {
   position: THREE.Vector3;
   size: number;
   starId: string;
+  spType: string;
 };
 
-const StarMesh = ({ position, size, starId }: Props) => {
+const StarMesh = ({ position, size, starId, spType }: Props) => {
   const starStore = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
+  const starColor: { [key: string]: string } = {
+    O: '#3db8ff',
+    B: '#6bffe1',
+    A: '#ffffff',
+    F: '#fff09c',
+    G: '#ffd900',
+    K: '#ff9100',
+    M: '#ff6565',
+  };
   const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
   const colorIndex = getRandomInt(0, COLOR.length);
   const [clicked, setClicked] = useState(false);
@@ -85,7 +95,7 @@ const StarMesh = ({ position, size, starId }: Props) => {
       onClick={click}
     >
       <sphereGeometry args={[size, 32, 16]} />
-      <meshStandardMaterial color={COLOR[colorIndex]} />
+      <meshStandardMaterial color={starColor[spType]} />
     </mesh>
   );
 };

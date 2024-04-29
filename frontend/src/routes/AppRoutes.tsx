@@ -7,7 +7,6 @@ import NotFoundPage from '../pages/NotFoundPage';
 import EntryPage from '../pages/EntryPage';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
-import AuthPage from '../pages/AuthPage';
 import MyStarPage from '../pages/MyStarPage';
 import StarMarkPage from '../pages/StarMarkPage';
 import EventPage from '../pages/EventPage';
@@ -37,7 +36,6 @@ const AppRoutes = () => {
         <Route path="/entry" element={<EntryPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/auth" element={<AuthPage />} />
         <Route path="/myStar/:id" element={<MyStarPage />} />
         <Route path="/starMark/:id" element={<StarMarkPage />} />
         <Route path="/event" element={<EventPage />} />

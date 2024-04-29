@@ -10,10 +10,23 @@ import FloorMesh from './FloorMesh';
 import { GetStars } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
+import useStarStore from '../../stores/starStore';
+import useCameraStream from '../../hooks/useCameraStream';
+import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 
 type Props = {};
 
 const MainCanvas = (props: Props) => {
+  const { isARMode } = useStarStore();
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+
+  useEffect(() => {
+    if (isARMode && cameraRef.current) {
+      useCameraStream();
+      useDeviceOrientation({ camera: cameraRef.current });
+    }
+  }, [cameraRef.current]);
+  
   const {
     isLoading: isStarsLoading,
     data: starData,
@@ -25,25 +38,16 @@ const MainCanvas = (props: Props) => {
   });
 
   if (isStarsLoading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
+    return <Loading />;
   }
 
   return (
     <Canvas
       gl={{ antialias: true }}
       scene={{ background: new THREE.Color(0x000000) }}
-      camera={{
+      camera={isARMode && cameraRef.current ? cameraRef.current : {
         fov: 80,
-        position: [
-          -0.5 / Math.sqrt(3),
-          -0.5 / Math.sqrt(3),
-          -0.5 / Math.sqrt(3),
-        ],
-        // rotation: [0, 0, 0],
+        position: [-0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3)],
         far: 100000,
       }}
     >
@@ -54,19 +58,11 @@ const MainCanvas = (props: Props) => {
           starId={star.starId}
           spType={star.spType}
           key={star.starId}
-          position={
-            new THREE.Vector3(
-              star.calX * 20000,
-              star.calY * 20000,
-              star.calZ * 20000,
-            )
-          }
+          position={new THREE.Vector3(star.calX * 20000, star.calY * 20000, star.calZ * 20000)}
           size={getRandomInt(80, 90)}
         />
       ))}
-      {/* {genBackgroundStars()} */}
       <FloorMesh />
-      {/* <GLBModel /> */}
     </Canvas>
   );
 };

@@ -124,14 +124,26 @@ public class StarServiceImpl implements StarService{
     }
 
     private static double convertRaToRadians(String ra) {
-        // RA는 시간 단위로 주어지므로, 먼저 시간을 도 단위로 변환합니다.
         String[] raParts = ra.split(" ");
-        double hours = Double.parseDouble(raParts[0]);
-        double minutes = Double.parseDouble(raParts[1]);
-        double seconds = Double.parseDouble(raParts[2]);
-        double degrees = hours * 15 + minutes * 15 / 60.0 + seconds * 15 / 3600.0;
+        double degrees;
+        // RA 형식을 확인하고 올바르게 파싱합니다.
+        if (raParts.length >= 3) {
+            double hours = Double.parseDouble(raParts[0]);
+            double minutes = Double.parseDouble(raParts[1]);
+            double seconds = Double.parseDouble(raParts[2]);
+            degrees = hours * 15 + minutes * 15 / 60.0 + seconds * 15 / 3600.0;
+        } else if (raParts.length == 2) {
+            // 분까지만 있는 경우
+            double hours = Double.parseDouble(raParts[0]);
+            double minutes = Double.parseDouble(raParts[1]);
+            degrees = hours * 15 + minutes * 15 / 60.0;
+        } else if (raParts.length == 1) {
+            // 시간만 있는 경우
+            degrees = Double.parseDouble(raParts[0]) * 15;
+        } else {
+            throw new IllegalArgumentException("Invalid RA format: " + ra);
+        }
 
-        // 도 단위를 라디안으로 변환합니다.
         return Math.toRadians(degrees);
     }
 
@@ -139,17 +151,28 @@ public class StarServiceImpl implements StarService{
         // Dec는 도 단위로 주어지므로, 직접 라디안으로 변환합니다.
         boolean isNegative = dec.startsWith("-");
         String[] decParts = dec.split(" ");
-        double degrees = Double.parseDouble(decParts[0]);
-        double arcMinutes = Double.parseDouble(decParts[1]);
-        double arcSeconds = Double.parseDouble(decParts[2]);
+        double degrees;
+        // Dec 형식을 확인하고 올바르게 파싱합니다.
+        if (decParts.length >= 3) {
+            degrees = Double.parseDouble(decParts[0]);
+            double arcMinutes = Double.parseDouble(decParts[1]);
+            double arcSeconds = Double.parseDouble(decParts[2]);
+            degrees += (arcMinutes / 60.0) + (arcSeconds / 3600.0);
+        } else if (decParts.length == 2) {
+            // 분까지만 있는 경우
+            degrees = Double.parseDouble(decParts[0]);
+            double arcMinutes = Double.parseDouble(decParts[1]);
+            degrees += (arcMinutes / 60.0);
+        } else if (decParts.length == 1) {
+            // 도만 있는 경우
+            degrees = Double.parseDouble(decParts[0]);
+        } else {
+            throw new IllegalArgumentException("Invalid Dec format: " + dec);
+        }
 
-        // 음수인 경우 부호를 처리합니다.
+        // 부호를 처리합니다.
         degrees = isNegative ? -degrees : degrees;
 
-        // 도, 분, 초를 모두 도 단위로 변환합니다.
-        degrees = degrees + (arcMinutes / 60.0) + (arcSeconds / 3600.0);
-
-        // 도 단위를 라디안으로 변환합니다.
         return Math.toRadians(degrees);
     }
 

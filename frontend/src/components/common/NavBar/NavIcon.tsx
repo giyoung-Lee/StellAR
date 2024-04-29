@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const FixedContainer = styled.div`
@@ -72,15 +72,15 @@ const CheckboxWrapper = styled.div`
 
   ul {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     margin: 0 auto;
     list-style: none;
   }
 
   li {
     position: absolute;
-    transform-origin: 50% 150px; // 원의 중심으로부터 반지름만큼 떨어진 곳에 위치
+    transform-origin: 50% 125px; // 원의 중심으로부터 반지름만큼 떨어진 곳에 위치
     width: 100px;
     height: 40px;
     display: flex;
@@ -113,26 +113,65 @@ const CheckboxWrapper = styled.div`
 `;
 
 const NavBar = () => {
-  const [angle, setAngle] = useState(0);
-  const [startX, setStartX] = useState(0);
-  const [startY, setStartY] = useState(0);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
+  const [touchX, setTouchX] = useState(0);
+  const [touchY, setTouchY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [currAngle, setCurrAngle] = useState(0);
+  const [prevAngle, setPrevAngle] = useState(0);
+  const [finalAngle, setFinalAngle] = useState(0);
+
+  
+  useEffect(() => {
+    if (ulRef.current) {
+      const rect = ulRef.current.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2; // ul의 중심 Y 위치 계산
+      console.log('UL의 y 위치:', centerY); // ul의 y값 출력
+      setCenterY(centerY);
+    }
+  }, [centerY]); // 컴포넌트 마운트 시 한 번 실행
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    setStartX(e.touches[0].clientX);
-    setStartY(e.touches[0].clientY);
+    const touchX = e.touches[0].clientX;
+    const touchY = e.touches[0].clientY;
+    setTouchX(touchX);
+    setTouchY(touchY);
     setIsDragging(true);
+
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    setCenterX(centerX);
+    setCenterY(centerY);
+
+    const radian = Math.atan2(touchX - centerX, centerY - touchY);
+    setCurrAngle(radian * (180 / Math.PI));
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (isDragging) {
-      const touchX = e.touches[0].clientX;
-      const touchY = e.touches[0].clientY;
-      const diffX = - startX + touchX;
-      const diffY = - startY + touchY;
-      setAngle((prev) => prev + diffX * 0.008 + diffY * 0.008);
+      const newTouchX = e.touches[0].clientX;
+      const newTouchY = e.touches[0].clientY;
+  
+      const radian = Math.atan2(newTouchX - centerX, centerY - newTouchY);
+      const newAngle = radian * (180 / Math.PI);
+  
+      // 직접 계산된 newAngle을 사용하여 상태 업데이트
+      let angleDelta = newAngle - currAngle;
+      if (angleDelta > 180) {
+        angleDelta -= 360;
+      } else if (angleDelta < -180) {
+        angleDelta += 360;
+      }
+  
+      setFinalAngle(prevFinalAngle => prevFinalAngle + angleDelta);
+      setPrevAngle(currAngle);
+      setCurrAngle(newAngle);
     }
   };
+  
+  
 
   const handleTouchEnd = () => {
     setIsDragging(false);
@@ -142,17 +181,48 @@ const NavBar = () => {
     <FixedContainer>
       <CheckboxWrapper>
         <ul
-          style={{ transform: `rotate(${angle}deg)` }}
+        ref={ulRef} // ul 요소에 ref 연결
+          style={{ transform: `rotate(${finalAngle}deg)` }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <li>홈</li>
-          <li>AR</li>
-          <li>구매</li>
-          <li>이벤트</li>
-          <li>My별자리</li>
-          <li>별마크</li>
+          <li>
+            <div className='flex flex-col'>
+              <img src="/img/Home.svg" alt="Home" className='p-2' />
+              <span>홈</span>
+            </div>
+          </li>
+          <li>
+            <div className='flex flex-col'>
+              <img src="/img/AR.svg" alt="Home" className='p-2' />
+            <span>AR</span>
+            </div>
+          </li>
+          <li>
+            <div className='flex flex-col'>
+              <img src="/img/Shop.svg" alt="Home" className='p-2' />
+            <span>구매</span>
+            </div>
+          </li>
+          <li>
+            <div className='flex flex-col'>
+              <img src="/img/Event.svg" alt="Home" className='p-2' />
+            <span>이벤트</span>
+            </div>
+          </li>
+          <li>
+            <div className='flex flex-col'>
+              <img src="/img/Constellation.svg" alt="Home" className='p-2' />
+            <span>My별자리</span>
+            </div>
+          </li>
+          <li>
+            <div className='flex flex-col'>
+              <img src="/img/Starmark.svg" alt="Home" className='p-2' />
+            <span>별마크</span>
+            </div>
+          </li>
         </ul>
 
         <section>

@@ -142,14 +142,14 @@ const NavBar = () => {
     console.log(isChecked);
   };
 
-  useEffect(() => {
-    if (ulRef.current) {
-      const rect = ulRef.current.getBoundingClientRect();
-      const centerY = rect.top + rect.height / 2; // ul의 중심 Y 위치 계산
-      // console.log('UL의 y 위치:', centerY);
-      setCenterY(centerY);
-    }
-  }, [centerY]); // 컴포넌트 마운트 시 한 번 실행
+  // useEffect(() => {
+  //   if (ulRef.current) {
+  //     const rect = ulRef.current.getBoundingClientRect();
+  //     const centerY = rect.top + rect.height / 2; // ul의 중심 Y 위치 계산
+  //     // console.log('UL의 y 위치:', centerY);
+  //     setCenterY(centerY);
+  //   }
+  // }, [centerY]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     const touchX = e.touches[0].clientX;
@@ -159,9 +159,12 @@ const NavBar = () => {
     setIsDragging(true);
 
     const centerX = window.innerWidth / 2;
-    // const centerY = window.innerHeight / 2;
+    if (ulRef.current) {
+      const rect = ulRef.current.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
+      setCenterY(centerY);
+    }
     setCenterX(centerX);
-    // setCenterY(centerY);
 
     const radian = Math.atan2(touchX - centerX, centerY - touchY);
     setCurrAngle(radian * (180 / Math.PI));
@@ -221,34 +224,38 @@ const NavBar = () => {
             </li>
             <li>
               <Link to="/shop">
-              <div className="flex flex-col">
-                <img src="/img/Shop.svg" alt="Home" className="p-2" />
-                <span>구매</span>
-              </div>
+                <div className="flex flex-col">
+                  <img src="/img/Shop.svg" alt="Home" className="p-2" />
+                  <span>구매</span>
+                </div>
               </Link>
             </li>
             <li>
               <Link to="/event">
-              <div className="flex flex-col">
-                <img src="/img/Event.svg" alt="Home" className="p-2" />
-                <span>이벤트</span>
-              </div>
+                <div className="flex flex-col">
+                  <img src="/img/Event.svg" alt="Home" className="p-2" />
+                  <span>이벤트</span>
+                </div>
               </Link>
             </li>
             <li>
               <Link to="/myStar/1">
-              <div className="flex flex-col">
-                <img src="/img/Constellation.svg" alt="Home" className="p-2" />
-                <span>My별자리</span>
-              </div>
+                <div className="flex flex-col">
+                  <img
+                    src="/img/Constellation.svg"
+                    alt="Home"
+                    className="p-2"
+                  />
+                  <span>My별자리</span>
+                </div>
               </Link>
             </li>
             <li>
               <Link to="/starMark/1">
-              <div className="flex flex-col">
-                <img src="/img/Starmark.svg" alt="Home" className="p-2" />
-                <span>별마크</span>
-              </div>
+                <div className="flex flex-col">
+                  <img src="/img/Starmark.svg" alt="Home" className="p-2" />
+                  <span>별마크</span>
+                </div>
               </Link>
             </li>
           </ul>

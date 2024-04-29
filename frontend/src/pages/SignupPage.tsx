@@ -95,10 +95,20 @@ const SignupPage = () => {
   const { mutate } = useMutation({
     mutationFn: signupApi,
     onSuccess(result: string) {
-      console.log(result);
-    },
+      Swal.fire({
+        icon: "success",
+        title: "성공",
+        text: "정상적으로 회원가입 되었습니다!",
+      }).then(() => {
+        navigate('/login');
+      });
+    },    
     onError(error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "오류",
+        text: "회원가입 중 오류가 발생했습니다.",
+      });
     },
   });
 

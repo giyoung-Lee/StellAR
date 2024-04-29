@@ -2,6 +2,7 @@ package com.ssafy.stellar.star.controller;
 
 
 import com.ssafy.stellar.star.dto.response.StarDto;
+import com.ssafy.stellar.star.dto.response.StarInfoDto;
 import com.ssafy.stellar.star.service.StarService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -41,9 +42,9 @@ public class StarController {
     @GetMapping("/info")
     public ResponseEntity<?> starInfo(@RequestParam String starId) {
         try {
-            StarDto dto = new StarDto();
+            StarInfoDto dto = starService.starInfo(starId);
 
-            return new ResponseEntity<StarDto>(dto, HttpStatus.OK);
+            return new ResponseEntity<StarInfoDto>(dto, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

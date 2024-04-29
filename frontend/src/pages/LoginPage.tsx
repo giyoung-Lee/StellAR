@@ -70,9 +70,14 @@ const LoginPage = () => {
       mutationFn: loginApi,
       onSuccess(result: string) {
         console.log(result);
+        navigate('/');
       },
       onError(error) {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "오류",
+          text: "로그인 중 오류가 발생했습니다.",
+        });
       },
     });
   

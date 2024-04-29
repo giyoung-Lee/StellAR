@@ -7,7 +7,7 @@ const Controls = () => {
       <OrbitControls
         target={[0, 0, 0]}
         rotateSpeed={-0.25}
-        zoomSpeed={50}
+        zoomSpeed={10}
         // enableZoom={false}
       />
     </>

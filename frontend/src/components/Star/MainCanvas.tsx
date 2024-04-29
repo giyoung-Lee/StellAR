@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import Controls from './Controls';
 import GLBModel from './GLBModel';
 import Lights from './Lights';
@@ -37,13 +37,11 @@ const MainCanvas = (props: Props) => {
       gl={{ antialias: true }}
       scene={{ background: new THREE.Color(0x000000) }}
       camera={{
-        fov: 100,
+        fov: 80,
         position: [
           -0.5 / Math.sqrt(3),
           -0.5 / Math.sqrt(3),
           -0.5 / Math.sqrt(3),
-          //   100, 100, 100,
-          //   0, 200, 1000,
         ],
         // rotation: [0, 0, 0],
         far: 100000,
@@ -53,12 +51,13 @@ const MainCanvas = (props: Props) => {
       <Lights />
       {starData?.data.map((star: any) => (
         <StarMesh
-          key={star._id}
+          starId={star.starId}
+          key={star.starId}
           position={
             new THREE.Vector3(
-              star.calX * 15000,
-              star.calY * 15000,
-              star.calZ * 15000,
+              star.calX * 20000,
+              star.calY * 20000,
+              star.calZ * 20000,
             )
           }
           size={getRandomInt(80, 90)}

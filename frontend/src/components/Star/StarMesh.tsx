@@ -3,13 +3,17 @@ import * as THREE from 'three';
 import { getRandomInt } from '../../utils/random';
 import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
 import constructWithOptions from 'styled-components/dist/constructors/constructWithOptions';
+import useStarStore from '../../stores/starStore';
 
 type Props = {
   position: THREE.Vector3;
   size: number;
+  starId: string;
 };
 
-const StarMesh = ({ position, size }: Props) => {
+const StarMesh = ({ position, size, starId }: Props) => {
+  const starStore = useStarStore();
+
   const meshRef = useRef<THREE.Mesh>(null!);
   const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
   const colorIndex = getRandomInt(0, COLOR.length);
@@ -24,10 +28,31 @@ const StarMesh = ({ position, size }: Props) => {
     setClicked(!clicked);
     event.object.material.color = new THREE.Color('purple');
 
-    const mesh = meshRef.current;
-    if (mesh) {
-      setLookAtPosition(mesh.position.clone());
-    }
+    const starPosition = event.object.position;
+    console.log(starPosition);
+
+    const alpha = Math.sqrt(
+      starPosition.x * starPosition.x +
+        starPosition.y * starPosition.y +
+        starPosition.z * starPosition.z,
+    );
+
+    const newCameraPosition = new THREE.Vector3(
+      starPosition.x / (-0.5 * alpha),
+      starPosition.y / (-0.5 * alpha),
+      starPosition.z / (-0.5 * alpha),
+    );
+
+    console.log(newCameraPosition);
+    starStore.setStarClicked(true);
+    starStore.setStarId(starId);
+
+    camera.position.set(
+      newCameraPosition.x,
+      newCameraPosition.y,
+      newCameraPosition.z,
+    );
+    camera.updateMatrixWorld();
   };
 
   // useFrame((state) => {

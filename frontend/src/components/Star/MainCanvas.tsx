@@ -14,29 +14,6 @@ import { useQuery } from '@tanstack/react-query';
 type Props = {};
 
 const MainCanvas = (props: Props) => {
-  function genBackgroundStars() {
-    const stars = [];
-    for (let i = 0; i < 300; i++) {
-      const size = getRandomInt(50, 60);
-      const pos = new THREE.Vector3(
-        getRandomInt(-5000, 5000),
-        getRandomInt(-5000, 5000),
-        getRandomInt(-5000, 5000),
-      );
-      stars.push(<StarMesh key={i} position={pos} size={size} />);
-    }
-    // for (let i = 0; i < 30; i++) {
-    //   const size = getRandomInt(50, 60);
-    //   const pos = new THREE.Vector3(
-    //     getRandomInt(-500, 500),
-    //     getRandomInt(-500, 500),
-    //     getRandomInt(-500, 500),
-    //   );
-    //   stars.push(<StarMesh key={i} position={pos} size={size} />);
-    // }
-    return stars;
-  }
-
   const {
     isLoading: isStarsLoading,
     data: starData,
@@ -79,9 +56,9 @@ const MainCanvas = (props: Props) => {
           key={star._id}
           position={
             new THREE.Vector3(
-              star.calX * 15000,
-              star.calY * 15000,
-              star.calZ * 15000,
+              star.calX * 5000,
+              star.calY * 5000,
+              star.calZ * 5000,
             )
           }
           size={getRandomInt(30, 40)}

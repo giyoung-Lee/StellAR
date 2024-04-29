@@ -114,3 +114,211 @@ This generated password is for development use only. Your security configuration
 2024-04-29 10:40:31 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-04-29 10:40:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
 2024-04-29 10:40:31 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2024-04-29 10:59:18 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 21.0.2 with PID 23992 (C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR)
+2024-04-29 10:59:18 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
+2024-04-29 10:59:18 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-29 10:59:18 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-29 10:59:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29 10:59:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 3 JPA repository interfaces.
+2024-04-29 10:59:20 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-04-29 10:59:20 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-29 10:59:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-04-29 10:59:20 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-04-29 10:59:20 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2024-04-29 10:59:20 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1682 ms
+2024-04-29 10:59:20 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine suitable jdbc url
+2024-04-29 10:59:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-04-29 10:59:20 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-04-29 10:59:20 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine suitable jdbc url
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2024-04-29 10:59:47 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 21.0.2 with PID 21720 (C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR)
+2024-04-29 10:59:47 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
+2024-04-29 10:59:47 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-29 10:59:47 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-29 10:59:48 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29 10:59:48 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 3 JPA repository interfaces.
+2024-04-29 10:59:49 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-04-29 10:59:49 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-29 10:59:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-04-29 10:59:49 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-04-29 10:59:49 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2024-04-29 10:59:49 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1697 ms
+2024-04-29 10:59:49 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine suitable jdbc url
+2024-04-29 10:59:49 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-04-29 10:59:49 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-04-29 10:59:49 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine suitable jdbc url
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2024-04-29 11:00:03 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 21.0.2 with PID 4412 (C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR)
+2024-04-29 11:00:03 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
+2024-04-29 11:00:04 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-29 11:00:04 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-29 11:00:04 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29 11:00:05 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 3 JPA repository interfaces.
+2024-04-29 11:00:05 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-04-29 11:00:05 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-29 11:00:05 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-04-29 11:00:05 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-04-29 11:00:05 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2024-04-29 11:00:05 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1787 ms
+2024-04-29 11:00:05 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Unsatisfied dependency expressed through method 'dataSourceScriptDatabaseInitializer' parameter 0: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception with message: Failed to determine suitable jdbc url
+2024-04-29 11:00:05 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2024-04-29 11:00:05 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-04-29 11:00:05 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine suitable jdbc url
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2024-04-29 11:00:39 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Starting StellarApplication using Java 21.0.2 with PID 7216 (C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR\build\classes\java\main started by SSAFY in C:\Users\SSAFY\Desktop\S10P31C105\BackEnd\StellAR)
+2024-04-29 11:00:39 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - No active profile set, falling back to 1 default profile: "default"
+2024-04-29 11:00:39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-29 11:00:39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-29 11:00:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-29 11:00:40 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 60 ms. Found 3 JPA repository interfaces.
+2024-04-29 11:00:40 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-04-29 11:00:40 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-29 11:00:40 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-04-29 11:00:40 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-04-29 11:00:40 [restartedMain] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2024-04-29 11:00:40 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1658 ms
+2024-04-29 11:00:40 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-29 11:00:41 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-29 11:00:41 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-04-29 11:00:41 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-29 11:00:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-04-29 11:00:41 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.mariadb.jdbc.Connection@18cca6e4
+2024-04-29 11:00:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-04-29 11:00:41 [restartedMain] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.6.47 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2024-04-29 11:00:41 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MariaDBDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-29 11:00:42 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-29 11:00:42 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-29 11:00:43 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-29 11:00:43 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: f0a804fe-0254-4167-bb33-0cbf3fc00a1a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-04-29 11:00:43 [restartedMain] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@59128ff7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@70718e65, org.springframework.security.web.context.SecurityContextHolderFilter@55e90cea, org.springframework.security.web.header.HeaderWriterFilter@57382b48, org.springframework.security.web.authentication.logout.LogoutFilter@74e8791e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@556eae6e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@9ecca19, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1bbbd3fa, org.springframework.security.web.access.ExceptionTranslationFilter@704d6a, org.springframework.security.web.access.intercept.AuthorizationFilter@6749d060]
+2024-04-29 11:00:44 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2024-04-29 11:00:44 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2024-04-29 11:00:44 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2024-04-29 11:00:44 [restartedMain] INFO  c.ssafy.stellar.StellarApplication - Started StellarApplication in 5.63 seconds (process running for 6.097)
+2024-04-29 11:00:58 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-29 11:00:58 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-04-29 11:00:58 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2024-04-29 11:00:59 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.context.request.async.AsyncRequestNotUsableException: ServletOutputStream failed to write: java.io.IOException: 현재 연결은 사용자의 호스트 시스템의 소프트웨어의 의해 중단되었습니다]
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@18cca6e4 ((conn=65223) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@2f3fd061 ((conn=65233) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@2751bcba ((conn=65232) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@20b8abba ((conn=65219) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@359c3dba ((conn=65232) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@64f15fb0 ((conn=65229) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@4eef9bf8 ((conn=65220) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@2bef0ce4 ((conn=65230) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@7f4a85ce ((conn=65221) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:45 [http-nio-8080-exec-8] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@11285948 ((conn=65234) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:15:46 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:46 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:46 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:46 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:48 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:49 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:52 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:15:57 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:02 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:07 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:12 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:18 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:23 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:28 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:33 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:38 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:44 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:49 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:54 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:16:59 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:17:04 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:17:09 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:17:14 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:17:20 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@6c579c1b ((conn=65252) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@1f728a2f ((conn=65224) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@3b710922 ((conn=65253) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@6b96fd13 ((conn=65221) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@4e4f4e15 ((conn=65227) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@45678601 ((conn=65233) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@76ecbf96 ((conn=65230) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@2a4eaa3d ((conn=65252) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@1ec56687 ((conn=65231) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:45 [http-nio-8080-exec-7] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@676bbcd0 ((conn=65216) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:21:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:21:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:21:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:21:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:21:47 [HikariPool-1 connection adder] WARN  o.m.jdbc.message.server.ErrorPacket - Error: 1203-42000: User S10P31C105 already has more than 'max_user_connections' active connections
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@5c9db883 ((conn=65231) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@473125e1 ((conn=65242) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@590570f8 ((conn=65214) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@686d92fb ((conn=65231) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@b41e0d2 ((conn=65217) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@4591c276 ((conn=65216) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@37e1f88c ((conn=65224) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@339f5ec1 ((conn=65218) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@375c6f10 ((conn=65221) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.
+2024-04-29 11:28:52 [http-nio-8080-exec-2] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.mariadb.jdbc.Connection@7c1589ff ((conn=65233) Connection.setNetworkTimeout cannot be called on a closed connection). Possibly consider using a shorter maxLifetime value.

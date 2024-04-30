@@ -12,6 +12,7 @@ import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class ConstellationServiceImpl implements ConstellationService{
     private final StarRepository starRepository;
     private final ConstellationLinkRepository constellationLinkRepository;
 
+
     public ConstellationServiceImpl(ConstellationRepository constellationRepository,
                                     StarRepository starRepository,
                                     ConstellationLinkRepository constellationLinkRepository) {
@@ -34,7 +36,7 @@ public class ConstellationServiceImpl implements ConstellationService{
 
 
     @Override
-    public List<ConstellationAllDto> findAllConstellation(String constellationType) {
+    public List<ConstellationAllDto> findAllConstellation(String constellationType) throws Exception {
 
         List<ConstellationEntity> ConstellationEntity =
                 constellationRepository.findAllByConstellationType(constellationType);
@@ -75,7 +77,7 @@ public class ConstellationServiceImpl implements ConstellationService{
         return starRepository.findByStarId(starId);
     }
 
-    private static ConstellationAllDto getConstellationAllDto(ConstellationEntity entity) {
+    private static ConstellationAllDto getConstellationAllDto(ConstellationEntity entity) throws Exception {
         ConstellationAllDto temp = new ConstellationAllDto();
 
         temp.setConstellationId(entity.getConstellationId());
@@ -83,7 +85,14 @@ public class ConstellationServiceImpl implements ConstellationService{
         temp.setConstellationDesc(entity.getConstellationDesc());
         temp.setConstellationSubName(entity.getConstellationSubName());
         temp.setConstellationStartObservation(entity.getConstellationStartObservation());
-        temp.setConstellationImg(entity.getConstellationImg());
+
+        String DIRECTORY = "/resources/dump/constellationImg/";
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(DIRECTORY)
+                .path(entity.getConstellationImg())
+                .toUriString();
+
+        temp.setConstellationImg(fileDownloadUri);
         temp.setConstellationStory(entity.getConstellationStory());
         temp.setConstellationType(entity.getConstellationType());
         temp.setConstellationEndObservation(entity.getConstellationEndObservation());

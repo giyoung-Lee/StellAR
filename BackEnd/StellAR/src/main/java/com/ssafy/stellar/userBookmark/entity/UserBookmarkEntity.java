@@ -39,4 +39,5 @@ public class UserBookmarkEntity {
     protected void onCreate() {
         createTime = LocalDateTime.now();
     }
+
 }

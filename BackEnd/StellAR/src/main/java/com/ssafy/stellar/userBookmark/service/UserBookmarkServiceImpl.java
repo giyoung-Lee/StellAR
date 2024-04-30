@@ -31,30 +31,44 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
     }
 
     @Override
-    public void createUserBookmark(BookmarkRequestDto bookmarkRequestDto) {
+    public void manageUserBookmark(BookmarkRequestDto bookmarkRequestDto, boolean isUpdate) {
 
-        UserBookmarkEntity bookmark = new UserBookmarkEntity();
+        UserEntity user = validateUser(bookmarkRequestDto.getUserId());
+        StarEntity star = validateStar(bookmarkRequestDto.getStarId());
+        UserBookmarkEntity bookmark = userBookmarkRepository.findByUserAndStar(user, star);
 
-        UserEntity user = userRepository.findByUserId(bookmarkRequestDto.getUserId());
-        StarEntity star = starRepository.findByStarId(bookmarkRequestDto.getStarId());
-        String bookmarkName = bookmarkRequestDto.getBookmarkName();
-
-        if (userBookmarkRepository.findByUserAndStar(user, star) != null) {
-          bookmark = userBookmarkRepository.findByUserAndStar(user, star);
-        } else {
-            bookmark.setUser(user);
-            bookmark.setStar(star);
+        if (!isUpdate && bookmark != null) {
+            throw new IllegalStateException("Bookmark already exists for given user and star");
         }
 
-        bookmark.setBookmarkName(bookmarkName);
+        if (isUpdate && bookmark == null) {
+            throw new IllegalArgumentException("Bookmark not found for given user and star");
+        }
+
+        bookmark = new UserBookmarkEntity();
+        bookmark.setUser(user);
+        bookmark.setStar(star);
+        bookmark.setBookmarkName(bookmarkRequestDto.getBookmarkName());
 
         userBookmarkRepository.save(bookmark);
     }
 
-    @Override
-    public void updateUserBookmark(BookmarkRequestDto bookmarkRequestDto) {
-
+    private UserEntity validateUser(String userId) {
+        UserEntity user = userRepository.findByUserId(userId);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found with id: " + userId);
+        }
+        return user;
     }
+
+    private StarEntity validateStar(String starId) {
+        StarEntity star = starRepository.findByStarId(starId);
+        if (star == null) {
+            throw new IllegalArgumentException("Star not found with id: " + starId);
+        }
+        return star;
+    }
+
 
     @Override
     public List<BookmarkDto> getUserBookmark(String userId) {
@@ -80,6 +94,14 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
 
     @Override
     public void deleteUserBookmark(String userId, String starId) {
+        UserEntity user = validateUser(userId);
+        StarEntity star = validateStar(starId);
 
+        UserBookmarkEntity bookmark = userBookmarkRepository.findByUserAndStar(user, star);
+        if (bookmark == null) {
+            throw new IllegalArgumentException("Bookmark not found for given user and star");
+        }
+
+        userBookmarkRepository.delete(bookmark);
     }
 }

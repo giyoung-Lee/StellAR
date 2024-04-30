@@ -2,6 +2,7 @@ package com.ssafy.stellar.settings;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,6 +15,12 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:5173")
                 .allowedHeaders("*")
                 .allowCredentials(true);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 해당 경로의 파일을 외부에서 접근할 수 있도록 설정
+        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/");
     }
 
     /**

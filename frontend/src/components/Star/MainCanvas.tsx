@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
+import drawConstellation from '../../hooks/drawConstellation';
 
 type Props = {};
 
@@ -43,9 +44,9 @@ const MainCanvas = (props: Props) => {
     isError: isConstError,
     refetch: getConstRefetch,
   } = useQuery({
-    queryKey: ['get-const'],
+    queryKey: ['get-consts'],
     queryFn: () => {
-      GetConstellation('hwangdo13');
+      return GetConstellation('hwangdo13');
     },
   });
 
@@ -73,7 +74,7 @@ const MainCanvas = (props: Props) => {
     >
       <Controls />
       <Lights />
-      {starData?.data.map((star: any) => (
+      {Object.values(starData?.data).map((star: any) => (
         <StarMesh
           starId={star.starId}
           spType={star.spType}
@@ -88,6 +89,24 @@ const MainCanvas = (props: Props) => {
           size={getRandomInt(80, 90)}
         />
       ))}
+
+      {/* {Object.values(constData?.data).map((constellation: any) =>
+        constellation.map((starArr: string[]) => {
+          const star = starArr;
+          drawConstellation(
+            new THREE.Vector3(
+              starData?.data[star[0]].calX,
+              starData?.data[star[0]].calY,
+              starData?.data[star[0]].calZ,
+            ),
+            new THREE.Vector3(
+              starData?.data[star[1]].calX,
+              starData?.data[star[1]].calY,
+              starData?.data[star[1]].calZ,
+            ),
+          );
+        }),
+      )} */}
       <FloorMesh />
     </Canvas>
   );

@@ -7,7 +7,7 @@ import Controls from './Controls';
 import GLBModel from './GLBModel';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetStars } from '../../apis/StarApis';
+import { GetConstellation, GetStars } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
@@ -26,7 +26,7 @@ const MainCanvas = (props: Props) => {
       useDeviceOrientation({ camera: cameraRef.current });
     }
   }, [cameraRef.current]);
-  
+
   const {
     isLoading: isStarsLoading,
     data: starData,
@@ -37,7 +37,19 @@ const MainCanvas = (props: Props) => {
     queryFn: GetStars,
   });
 
-  if (isStarsLoading) {
+  const {
+    isLoading: isConstLoading,
+    data: constData,
+    isError: isConstError,
+    refetch: getConstRefetch,
+  } = useQuery({
+    queryKey: ['get-const'],
+    queryFn: () => {
+      GetConstellation('hwangdo13');
+    },
+  });
+
+  if (isStarsLoading || isConstLoading) {
     return <Loading />;
   }
 
@@ -45,11 +57,19 @@ const MainCanvas = (props: Props) => {
     <Canvas
       gl={{ antialias: true }}
       scene={{ background: new THREE.Color(0x000000) }}
-      camera={isARMode && cameraRef.current ? cameraRef.current : {
-        fov: 80,
-        position: [-0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3)],
-        far: 100000,
-      }}
+      camera={
+        isARMode && cameraRef.current
+          ? cameraRef.current
+          : {
+              fov: 80,
+              position: [
+                -0.5 / Math.sqrt(3),
+                -0.5 / Math.sqrt(3),
+                -0.5 / Math.sqrt(3),
+              ],
+              far: 100000,
+            }
+      }
     >
       <Controls />
       <Lights />
@@ -58,7 +78,13 @@ const MainCanvas = (props: Props) => {
           starId={star.starId}
           spType={star.spType}
           key={star.starId}
-          position={new THREE.Vector3(star.calX * 20000, star.calY * 20000, star.calZ * 20000)}
+          position={
+            new THREE.Vector3(
+              star.calX * 20000,
+              star.calY * 20000,
+              star.calZ * 20000,
+            )
+          }
           size={getRandomInt(80, 90)}
         />
       ))}

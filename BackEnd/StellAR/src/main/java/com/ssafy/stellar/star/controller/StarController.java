@@ -1,7 +1,6 @@
 package com.ssafy.stellar.star.controller;
 
 
-import com.ssafy.stellar.star.dto.response.StarDto;
 import com.ssafy.stellar.star.service.StarService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Star", description = "별 관련 API")
 @RestController
@@ -28,9 +27,9 @@ public class StarController {
     @GetMapping("/all")
     public ResponseEntity<?> returnAllStar() {
         try {
-            List<StarDto> list = starService.returnAllStar();
+            Map<String, Object> object = starService.returnAllStar();
 
-            return new ResponseEntity<List<StarDto>>(list, HttpStatus.OK);
+            return new ResponseEntity<>(object, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

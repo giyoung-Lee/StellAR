@@ -25,5 +25,4 @@ public class BookmarkDto {
     @Schema(description = "별마크 설정 시간", required = true)
     private LocalDateTime craeteTime;
 
-
 }

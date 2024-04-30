@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import useStarStore from '../../../stores/starStore';
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -137,9 +138,15 @@ const NavBar = () => {
   const [finalAngle, setFinalAngle] = useState(0);
   const [isChecked, setIsChecked] = useState(true);
 
+  const { isARMode, setARMode } = useStarStore();
+
+  const handleARButtonClick = () => {
+    setARMode(!isARMode);
+    console.log(isARMode);
+  };
+
   const handleCheckbox = () => {
     setIsChecked(!isChecked);
-    console.log(isChecked);
   };
 
   // useEffect(() => {
@@ -217,10 +224,17 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-              <div className="flex flex-col">
-                <img src="/img/AR.svg" alt="Home" className="p-2" />
-                <span>AR</span>
-              </div>
+              {isARMode ? (
+                <div className="flex flex-col" onClick={handleARButtonClick}>
+                  <img src="/img/AR.svg" alt="Home" className="p-2" />
+                  <span>AR모드</span>
+                </div>
+              ) : (
+                <div className="flex flex-col" onClick={handleARButtonClick}>
+                  <img src="/img/AR.svg" alt="Home" className="p-2" />
+                  <span>3D모드</span>
+                </div>
+              )}
             </li>
             <li>
               <Link to="/shop">

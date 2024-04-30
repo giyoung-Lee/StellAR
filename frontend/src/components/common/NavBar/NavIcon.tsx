@@ -231,7 +231,7 @@ const NavBar = () => {
                 </div>
               ) : (
                 <div className="flex flex-col" onClick={handleARButtonClick}>
-                  <img src="/img/AR.svg" alt="Home" className="p-2" />
+                  <img src="/img/map.svg" alt="Home" className="p-2" />
                   <span>3D모드</span>
                 </div>
               )}

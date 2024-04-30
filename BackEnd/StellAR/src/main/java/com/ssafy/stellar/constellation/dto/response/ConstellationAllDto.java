@@ -3,8 +3,6 @@ package com.ssafy.stellar.constellation.dto.response;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 public class ConstellationAllDto {
@@ -13,10 +11,10 @@ public class ConstellationAllDto {
     private String constellationSeason;
     private String constellationDesc;
     private String constellationSubName;
-    private Date constellationStartObservation;
+    private String constellationStartObservation;
     private String constellationImg;
     private String constellationStory;
     private String constellationType;
-    private Date constellationEndObservation;
+    private String constellationEndObservation;
 
 }

@@ -7,7 +7,7 @@ const StarName = () => {
   const starNameRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (
         starNameRef.current &&
         !starNameRef.current.contains(event.target as Node)
@@ -17,8 +17,12 @@ const StarName = () => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousemove', handleClickOutside);
+    document.addEventListener('touchmove', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousemove', handleClickOutside);
+      document.removeEventListener('touchmove', handleClickOutside);
     };
   }, [starStore]);
 

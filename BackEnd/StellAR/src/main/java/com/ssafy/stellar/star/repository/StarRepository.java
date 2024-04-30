@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StarRepository extends JpaRepository<StarEntity, String> {
+
+    StarEntity findByStarId(String starId);
 }

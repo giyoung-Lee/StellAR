@@ -47,6 +47,10 @@ public class StarServiceImpl implements StarService{
             dto.setSpType(star.getSP_TYPE());
             dto.setHd(star.getHD());
             dto.setMagV(star.getMagV());
+            dto.setRA(star.getRA());
+            dto.setDeclination(star.getDeclination());
+            dto.setPMRA(star.getPMRA());
+            dto.setPMDEC(star.getPMDEC());
 
             result.add(dto);
         }
@@ -169,7 +173,6 @@ public class StarServiceImpl implements StarService{
             throw new IllegalArgumentException("Invalid Dec format: " + dec);
         }
 
-        // 부호를 처리합니다.
         return Math.toRadians(degrees);
     }
 

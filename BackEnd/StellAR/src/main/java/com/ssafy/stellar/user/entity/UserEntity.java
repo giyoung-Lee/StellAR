@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
 @Entity(name = "user_info")
 public class UserEntity {
 

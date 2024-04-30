@@ -1,23 +1,35 @@
 package com.ssafy.stellar.constellation.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.ssafy.stellar.constellation.dto.response.ConstellationAllDto;
-import com.ssafy.stellar.constellation.dto.response.ConstellationLinkDto;
 import com.ssafy.stellar.constellation.entity.ConstellationEntity;
+import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
+import com.ssafy.stellar.constellation.repository.ConstellationLinkRepository;
 import com.ssafy.stellar.constellation.repository.ConstellationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ssafy.stellar.star.entity.StarEntity;
+import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ConstellationServiceImpl implements ConstellationService{
-    
-    @Autowired
-    private final ConstellationRepository constellationRepository;
 
-    public ConstellationServiceImpl(ConstellationRepository constellationRepository) {
+    private final ConstellationRepository constellationRepository;
+    private final StarRepository starRepository;
+    private final ConstellationLinkRepository constellationLinkRepository;
+
+    public ConstellationServiceImpl(ConstellationRepository constellationRepository,
+                                    StarRepository starRepository,
+                                    ConstellationLinkRepository constellationLinkRepository) {
         this.constellationRepository = constellationRepository;
+        this.starRepository = starRepository;
+        this.constellationLinkRepository = constellationLinkRepository;
     }
 
 
@@ -25,7 +37,7 @@ public class ConstellationServiceImpl implements ConstellationService{
     public List<ConstellationAllDto> findAllConstellation(String constellationType) {
 
         List<ConstellationEntity> ConstellationEntity =
-                constellationRepository.findByConstellationType(constellationType);
+                constellationRepository.findAllByConstellationType(constellationType);
         List<ConstellationAllDto> dto = new ArrayList<>();
 
         for(ConstellationEntity entity : ConstellationEntity) {
@@ -35,13 +47,33 @@ public class ConstellationServiceImpl implements ConstellationService{
         return dto;
     }
 
+    @Transactional
     @Override
-    public List<ConstellationLinkDto> findConstellationLink(String constellationType) {
+    public Map<String, Object> findConstellationLink(String constellationType) {
+        List<String> constellList = constellationRepository.findByConstellationType(constellationType);
 
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+        for (String constellation : constellList) {
+            List<ConstellationLinkEntity> list = constellationLinkRepository.findAllByConstellationId(constellation);
 
-        return null;
+            JsonArray jsonArray = new JsonArray();
+            for (ConstellationLinkEntity constellation2 : list) {
+                JsonArray pairArray = new JsonArray();
+                pairArray.add(String.valueOf(constellation2.getStarA().getStarId()));
+                pairArray.add(String.valueOf(constellation2.getStarB().getStarId()));
+                jsonArray.add(pairArray);
+            }
+            jsonObject.add(constellation, jsonArray);
+        }
+
+        Map<String, Object> map = gson.fromJson(jsonObject, Map.class);
+        return map;
     }
 
+    private StarEntity findByStarId (String starId) {
+        return starRepository.findByStarId(starId);
+    }
 
     private static ConstellationAllDto getConstellationAllDto(ConstellationEntity entity) {
         ConstellationAllDto temp = new ConstellationAllDto();

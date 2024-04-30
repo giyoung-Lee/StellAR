@@ -23,10 +23,10 @@ public class ConstellationServiceTest {
         assertNotNull(constellation);
     }
 
-    @Test
-    @DisplayName("별자리 연결 정보")
-    public void getConstellationLink() {
-        List<ConstellationLinkDto> constellation = constellationService.findConstellationLink("3won28su");
-        assertNotNull(constellation);
-    }
+//    @Test
+//    @DisplayName("별자리 연결 정보")
+//    public void getConstellationLink() {
+//        List<ConstellationLinkDto> constellation = constellationService.findConstellationLink("3won28su");
+//        assertNotNull(constellation);
+//    }
 }

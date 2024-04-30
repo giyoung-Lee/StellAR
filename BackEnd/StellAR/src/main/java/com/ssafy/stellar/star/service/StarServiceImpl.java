@@ -1,4 +1,4 @@
-package com.ssafy.stellar.constellation.service;
+package com.ssafy.stellar.star.service;
 
 import com.ssafy.stellar.star.dto.response.StarDto;
 import com.ssafy.stellar.star.entity.StarEntity;

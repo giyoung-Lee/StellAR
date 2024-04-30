@@ -1,6 +1,9 @@
 package com.ssafy.stellar.utils.stars;
 
 import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
+import com.ssafy.stellar.constellation.repository.ConstellationLinkRepository;
+import com.ssafy.stellar.star.entity.StarEntity;
+import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -15,11 +18,14 @@ import java.util.List;
 @Service
 public class constellationInfo {
 
-    private final constellationUtilRepository constellationUtilRepository;
+    private final ConstellationLinkRepository constellationLinkRepository;
+    private final StarRepository starRepository;
 
     @Autowired
-    public constellationInfo(constellationUtilRepository constellationUtilRepository) {
-        this.constellationUtilRepository = constellationUtilRepository;
+    public constellationInfo(ConstellationLinkRepository constellationLinkRepository,
+                             StarRepository starRepository) {
+        this.constellationLinkRepository = constellationLinkRepository;
+        this.starRepository = starRepository;
     }
 
     public static List<String[]> readCSVToArray() throws IOException {
@@ -46,10 +52,10 @@ public class constellationInfo {
             try {
                 ConstellationLinkEntity constellation = new ConstellationLinkEntity();
                 constellation.setConstellationId(star[0]);
-                constellation.setStarA(star[1]);
-                constellation.setStarB(star[2]);
+                constellation.setStarA(findStar(star[1]));
+                constellation.setStarB(findStar(star[2]));
 
-                constellationUtilRepository.save(constellation);
+                constellationLinkRepository.save(constellation);
             } catch (Exception e) {
                 // 예외가 발생했을 경우 실패한 star 배열을 failedSaves 리스트에 추가
                 failedSaves.add(star);
@@ -61,6 +67,10 @@ public class constellationInfo {
         for (String[] fail : failedSaves) {
             System.out.println(fail[0] + " " + fail[1] + " " + fail[2] + " ");
         }
+    }
+
+    public StarEntity findStar(String starId) {
+        return starRepository.findByStarId(starId);
     }
 
 //    @PostConstruct

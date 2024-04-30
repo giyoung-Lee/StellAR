@@ -1,5 +1,6 @@
 package com.ssafy.stellar.constellation.entity;
 
+import com.ssafy.stellar.star.entity.StarEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,12 +14,21 @@ public class ConstellationLinkEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer linkId;
 
-    @Column(name = "star_A")
-    private String starA;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "star_A")
+    private StarEntity starA;
 
-    @Column(name = "star_B")
-    private String starB;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "star_B")
+    private StarEntity starB;
+
+//    @Column(name = "star_A")
+//    private String starA;
+//
+//    @Column(name = "star_B")
+//    private String starB;
 
     @Column(name = "constellation_id")
     private String constellationId;
+
 }

@@ -1,5 +1,6 @@
 package com.ssafy.stellar.utils.stars;
 
+import com.ssafy.stellar.star.repository.StarRepository;
 import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -16,10 +17,10 @@ import java.util.List;
 
 @Service
 public class StarInfo {
-    private final StarUtilRepository starRepository;
+    private final StarRepository starRepository;
 
     @Autowired
-    public StarInfo(StarUtilRepository starRepository) {
+    public StarInfo(StarRepository starRepository) {
         this.starRepository = starRepository;
     }
     public static List<String[]> readCSVToArray() throws IOException {

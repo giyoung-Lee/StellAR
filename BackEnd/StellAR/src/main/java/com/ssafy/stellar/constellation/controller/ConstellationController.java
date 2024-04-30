@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Constellation", description = "별자리 관련 API")
 @RestController
@@ -32,7 +33,7 @@ public class ConstellationController {
     public ResponseEntity<?> returnAllConstellation(@RequestParam String constellationType) {
         try {
             List<ConstellationAllDto> dto = constellationService.findAllConstellation(constellationType);
-            return new ResponseEntity<List<ConstellationAllDto>>(dto, HttpStatus.OK);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,8 +44,8 @@ public class ConstellationController {
     @GetMapping("/link")
     public ResponseEntity<?> returnConstellation(@RequestParam String constellationType) {
         try {
-
-            return new ResponseEntity<Void>(HttpStatus.OK);
+            Map<String, Object> object = constellationService.findConstellationLink(constellationType);
+            return new ResponseEntity<>(object, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

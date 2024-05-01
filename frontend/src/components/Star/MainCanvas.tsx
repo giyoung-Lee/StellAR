@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
-import drawConstellation from '../../hooks/drawConstellation';
+import MakeConstellation from './MakeConstellation';
 
 type Props = {};
 
@@ -62,7 +62,7 @@ const MainCanvas = (props: Props) => {
         isARMode && cameraRef.current
           ? cameraRef.current
           : {
-              fov: 80,
+              fov: 70,
               position: [
                 -0.5 / Math.sqrt(3),
                 -0.5 / Math.sqrt(3),
@@ -90,26 +90,32 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
-      {/* {Object.values(constData?.data).map((constellation: any) =>
-        constellation.map((starArr: string[]) => {
-          const star = starArr;
-          drawConstellation(
-            new THREE.Vector3(
-              starData?.data[star[0]].calX,
-              starData?.data[star[0]].calY,
-              starData?.data[star[0]].calZ,
-            ),
-            new THREE.Vector3(
-              starData?.data[star[1]].calX,
-              starData?.data[star[1]].calY,
-              starData?.data[star[1]].calZ,
-            ),
-          );
-        }),
-      )} */}
+      {constData?.data &&
+        starData?.data &&
+        Object.values(constData?.data).map((constellation: any) =>
+          constellation.map((starArr: string[]) => (
+            <MakeConstellation
+              pointA={
+                new THREE.Vector3(
+                  starData?.data[starArr[0]].calX * 20000,
+                  starData?.data[starArr[0]].calY * 20000,
+                  starData?.data[starArr[0]].calZ * 20000,
+                )
+              }
+              pointB={
+                new THREE.Vector3(
+                  starData?.data[starArr[1]].calX * 20000,
+                  starData?.data[starArr[1]].calY * 20000,
+                  starData?.data[starArr[1]].calZ * 20000,
+                )
+              }
+            />
+          )),
+        )}
       <FloorMesh />
     </Canvas>
   );
 };
 
 export default MainCanvas;
+

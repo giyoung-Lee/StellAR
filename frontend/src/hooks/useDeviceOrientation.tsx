@@ -1,24 +1,17 @@
 import { useEffect } from 'react';
 import * as THREE from 'three';
 
-interface DeviceOrientationProps {
-  camera: THREE.Camera | null;
-}
-
-const useDeviceOrientation = ({ camera }: DeviceOrientationProps): void => {
+const useDeviceOrientation = (camera: THREE.Camera | null) => {
   useEffect(() => {
-    const handleOrientation = (event: DeviceOrientationEvent) => {
-      const alpha = event.alpha ?? 0; 
-      const beta = event.beta ?? 0;   
-      const gamma = event.gamma ?? 0; 
+    if (!camera) return;
 
-      if (camera) {
-        camera.rotation.set(
-          THREE.MathUtils.degToRad(beta),
-          THREE.MathUtils.degToRad(alpha),
-          THREE.MathUtils.degToRad(-gamma)
-        );
-      }
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const { alpha, beta, gamma } = event;
+      camera.rotation.set(
+        THREE.MathUtils.degToRad(beta ?? 0),
+        THREE.MathUtils.degToRad(alpha ?? 0),
+        THREE.MathUtils.degToRad(-gamma ?? 0)
+      );
     };
 
     window.addEventListener('deviceorientation', handleOrientation, true);
@@ -28,5 +21,6 @@ const useDeviceOrientation = ({ camera }: DeviceOrientationProps): void => {
     };
   }, [camera]);
 };
+
 
 export default useDeviceOrientation;

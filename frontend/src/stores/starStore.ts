@@ -22,9 +22,9 @@ const useStarStore = create<StarStoreType>(
     }),
     {
       name: 'StarStore',
-    },
-  ),
+      partialize: state => ({ starId: state.starId }) // starId만 저장
+    }
+  )
 );
-
 
 export default useStarStore;

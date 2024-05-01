@@ -20,13 +20,21 @@ type Props = {};
 const MainCanvas = (props: Props) => {
   const { isARMode } = useStarStore();
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  
+  const videoTexture = useCameraStream();
+
+  useDeviceOrientation(cameraRef.current);
 
   useEffect(() => {
-    if (isARMode && cameraRef.current) {
-      useCameraStream();
-      useDeviceOrientation({ camera: cameraRef.current });
+    if (isARMode && cameraRef.current && videoTexture) {
+      // 카메라 및 씬에 비디오 텍스처를 배경으로 설정
+      cameraRef.current.background = videoTexture;
+      cameraRef.current.add(new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshBasicMaterial({ map: videoTexture })
+      ));
     }
-  }, [cameraRef.current]);
+  }, [isARMode, cameraRef.current, videoTexture]);
 
   const {
     isLoading: isStarsLoading,
@@ -71,6 +79,9 @@ const MainCanvas = (props: Props) => {
               far: 100000,
             }
       }
+      onCreated={({ camera }) => {
+        cameraRef.current = camera as THREE.PerspectiveCamera;
+      }}
     >
       <Controls />
       <Lights />

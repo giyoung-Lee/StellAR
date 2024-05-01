@@ -142,8 +142,12 @@ const NavBar = () => {
 
   const handleARButtonClick = () => {
     setARMode(!isARMode);
-    console.log(isARMode);
   };
+
+  // isARmode 테스트 코드
+  useEffect(() => {
+    console.log(isARMode);
+  }, [isARMode]);
 
   const handleCheckbox = () => {
     setIsChecked(!isChecked);
@@ -227,12 +231,12 @@ const NavBar = () => {
               {isARMode ? (
                 <div className="flex flex-col" onClick={handleARButtonClick}>
                   <img src="/img/AR.svg" alt="Home" className="p-2" />
-                  <span>AR모드</span>
+                  <span>3D모드</span>
                 </div>
               ) : (
                 <div className="flex flex-col" onClick={handleARButtonClick}>
                   <img src="/img/map.svg" alt="Home" className="p-2" />
-                  <span>3D모드</span>
+                  <span>AR모드</span>
                 </div>
               )}
             </li>

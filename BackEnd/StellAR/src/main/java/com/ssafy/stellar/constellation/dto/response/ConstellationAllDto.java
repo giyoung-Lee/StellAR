@@ -1,10 +1,11 @@
 package com.ssafy.stellar.constellation.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ConstellationAllDto {
 
     private String constellationId;

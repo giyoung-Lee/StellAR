@@ -1,14 +1,17 @@
 package com.ssafy.stellar.star.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.ssafy.stellar.star.dto.response.StarDto;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 
 @Service
 public class StarServiceImpl implements StarService{
@@ -20,39 +23,35 @@ public class StarServiceImpl implements StarService{
     }
 
     @Override
-    public List<StarDto> returnAllStar() {
+    public Map<String, Object> returnAllStar() {
         List<StarEntity> list = starRepository.findAll();
-        List<StarDto> result = new ArrayList<>();
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+
 
         LocalDate startDate = LocalDate.of(2000, 1, 1);
         LocalDate today = LocalDate.now();
         long yearsBetween = ChronoUnit.YEARS.between(startDate, today);
 
         for (StarEntity star : list) {
-            double pmRA = Double.parseDouble(star.getPMRA()); // 초(arcsec) 단위
-            double pmDec = Double.parseDouble(star.getPMDEC()); // 초(arcsec) 단위
+            double pmRA = Double.parseDouble(star.getPMRA());
+            double pmDec = Double.parseDouble(star.getPMDEC());
 
             String newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
             String newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
 
-            StarDto dto = new StarDto();
-            dto.setStarId(star.getStarId());
-            dto.setStarType(star.getStarType());
-            dto.setCalX(xyz[0]);
-            dto.setCalY(xyz[1]);
-            dto.setCalZ(xyz[2]);
-            dto.setConstellation(star.getConstellation());
-            dto.setParallax(star.getParallax());
-            dto.setSpType(star.getSP_TYPE());
-            dto.setHd(star.getHD());
-            dto.setMagV(star.getMagV());
+            StarDto dto = getStarDto(star, xyz);
 
-            result.add(dto);
+            JsonElement jsonElement = gson.toJsonTree(dto);
+            jsonObject.add(star.getStarId(), jsonElement);
         }
-
-        return result;
+        Map<String, Object> map = gson.fromJson(jsonObject, Map.class);
+        return map;
     }
+
+
+
 
     private static String calculateNewRA(String initialRA, double pmRA, long years) {
         try {
@@ -169,8 +168,26 @@ public class StarServiceImpl implements StarService{
             throw new IllegalArgumentException("Invalid Dec format: " + dec);
         }
 
-        // 부호를 처리합니다.
         return Math.toRadians(degrees);
+    }
+
+    private static StarDto getStarDto(StarEntity star, double[] xyz) {
+        StarDto dto = new StarDto();
+        dto.setStarId(star.getStarId());
+        dto.setStarType(star.getStarType());
+        dto.setCalX(xyz[0]);
+        dto.setCalY(xyz[1]);
+        dto.setCalZ(xyz[2]);
+        dto.setConstellation(star.getConstellation());
+        dto.setParallax(star.getParallax());
+        dto.setSpType(star.getSP_TYPE());
+        dto.setHd(star.getHD());
+        dto.setMagV(star.getMagV());
+        dto.setRA(star.getRA());
+        dto.setDeclination(star.getDeclination());
+        dto.setPMRA(star.getPMRA());
+        dto.setPMDEC(star.getPMDEC());
+        return dto;
     }
 
 }

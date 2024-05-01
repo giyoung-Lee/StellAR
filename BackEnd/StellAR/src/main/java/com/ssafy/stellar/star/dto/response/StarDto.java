@@ -17,5 +17,9 @@ public class StarDto {
     private String spType;
     private String hd;
     private String magV;
+    private String RA;
+    private String Declination;
+    private String PMRA;
+    private String PMDEC;
 
 }

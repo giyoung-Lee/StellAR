@@ -1,10 +1,9 @@
 package com.ssafy.stellar.star.service;
 
-import com.ssafy.stellar.star.dto.response.StarDto;
 
-import java.util.List;
+import java.util.Map;
 
 public interface StarService {
 
-    public List<StarDto> returnAllStar();
+    public Map<String, Object> returnAllStar();
 }

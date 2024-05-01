@@ -8,6 +8,7 @@ const StarName = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      event.stopPropagation();
       if (
         starNameRef.current &&
         !starNameRef.current.contains(event.target as Node)
@@ -30,3 +31,4 @@ const StarName = () => {
 };
 
 export default StarName;
+

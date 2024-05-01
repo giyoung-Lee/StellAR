@@ -28,6 +28,7 @@ export const HelpContent = styled.p`
 
 export const Star = styled.span`
   position: absolute;
+  z-index: 1000;
   right: 10%;
   .container input {
     position: absolute;

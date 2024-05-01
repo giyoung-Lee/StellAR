@@ -12,9 +12,11 @@ import StarMarkPage from '../pages/StarMarkPage';
 import EventPage from '../pages/EventPage';
 import ShopPage from '../pages/ShopPage';
 import OrderPage from '../pages/OrderPage';
+import useUserStore from '../stores/userStore';
 
 const AppRoutes = () => {
   const location = useLocation();
+  const userStore = useUserStore();
   const [displayLocation, setDisplayLocation] = useState(location);
   const [transitionStage, setTransitionStage] = useState('fadeIn');
 
@@ -31,7 +33,10 @@ const AppRoutes = () => {
       }}
     >
       <Routes location={displayLocation}>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={userStore.isLogin ? <HomePage /> : <EntryPage />}
+        />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/entry" element={<EntryPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -77,3 +82,4 @@ export const PageContainer = styled.div`
 `;
 
 export default AppRoutes;
+

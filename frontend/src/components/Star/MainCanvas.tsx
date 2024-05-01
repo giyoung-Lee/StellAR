@@ -62,7 +62,7 @@ const MainCanvas = (props: Props) => {
         isARMode && cameraRef.current
           ? cameraRef.current
           : {
-              fov: 70,
+              fov: 100,
               position: [
                 -0.5 / Math.sqrt(3),
                 -0.5 / Math.sqrt(3),

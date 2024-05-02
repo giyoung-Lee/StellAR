@@ -21,7 +21,7 @@ const EventPage = () => {
         />
       </div>
 
-      <h.Header>
+      <h.Header className="eventTitle">
         <h.Title>천문 현상 소식</h.Title>
       </h.Header>
       <EventList />
@@ -45,8 +45,8 @@ const EventPage = () => {
             backgroundColor: '#0a0d14',
           }}
         >
-          <div className='inline-block'>
-          <ModalClose variant="plain" sx={{ m: 0 }} />
+          <div className="inline-block">
+            <ModalClose variant="plain" sx={{ m: 0 }} />
           </div>
           <HelpList />
         </Sheet>

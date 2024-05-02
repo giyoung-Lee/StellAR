@@ -3,6 +3,7 @@ import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
 import { useEffect } from 'react';
+import MarkBtn from '../components/StarMark/MarkBtn';
 
 const HomePage = () => {
   const starStore = useStarStore();

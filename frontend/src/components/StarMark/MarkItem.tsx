@@ -1,12 +1,30 @@
 import React from 'react';
 import * as m from '../style/StarMarkStyle';
 
-const MarkItem = () => {
+type Props = {
+  starId: string;
+  bookmarkName: string;
+  createTime: string;
+};
+
+const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  };
+
   return (
     <>
       <m.StarInfo>
-        <m.StarName>고구마별</m.StarName>
-        <m.Date>2024. 01. 01.</m.Date>
+        <m.NameBox>
+          <m.BookMarkName>{bookmarkName}</m.BookMarkName>
+          <m.StarName>{starId}</m.StarName>
+        </m.NameBox>
+        <m.Date>{formatDate(createTime)}</m.Date>
         <m.Star>
           <label className="container">
             <input type="checkbox" defaultChecked={true} />

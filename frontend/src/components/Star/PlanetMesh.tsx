@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { getRandomInt } from '../../utils/random';
 import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
+import { useAnimations, useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
@@ -11,36 +11,21 @@ type Props = {
   spType: string | null;
 };
 
-const StarMesh = ({ position, size, starId, spType }: Props) => {
-  const {
-    setStarClicked,
-    setStarId,
-    addStarToClicked,
-    removeStarFromClicked,
-    clickedStars,
-  } = useStarStore();
+const PlanetMesh = ({ position, size, starId, spType }: Props) => {
+  const { setStarClicked, setStarId, addStarToClicked, removeStarFromClicked } =
+    useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
-  const starColor: { [key: string]: string } = {
-    O: '#3db8ff',
-    B: '#6bffe1',
-    A: '#ffffff',
-    F: '#fff09c',
-    G: '#ffd900',
-    K: '#ff9100',
-    M: '#ff6565',
-  };
-  const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
-  const colorIndex = getRandomInt(0, COLOR.length);
+
   const [clicked, setClicked] = useState(false);
-  const { camera, gl, scene, controls } = useThree();
+  const { camera, gl, controls } = useThree();
+  const { scene, animations } = useGLTF('/img/star1.glb');
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
     setClicked(!clicked);
-    event.object.material.color = new THREE.Color('purple');
 
-    const starPosition = event.object.position;
+    const starPosition = position;
     console.log(starPosition);
 
     const alpha = Math.sqrt(
@@ -74,30 +59,19 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     camera.updateMatrixWorld();
   };
 
-  useEffect(() => {
-    if (clicked) {
-      meshRef.current.material.color = new THREE.Color('purple');
-    } else {
-      meshRef.current.material.color = new THREE.Color(
-        starColor[spType as string],
-      );
-    }
-  }, [clicked, spType, starColor]);
-
   return (
-    <mesh
-      ref={meshRef}
-      position={position}
-      castShadow={false}
-      receiveShadow={false}
-      onClick={click}
-    >
-      <sphereGeometry args={[size, 32, 16]} />
-      <meshStandardMaterial
-        color={spType ? starColor[spType as string] : 'red'}
+    <>
+      <primitive
+        ref={meshRef}
+        position={position}
+        castShadow={false}
+        receiveShadow={false}
+        onClick={click}
+        scale={50}
+        object={scene}
       />
-    </mesh>
+    </>
   );
 };
 
-export default StarMesh;
+export default PlanetMesh;

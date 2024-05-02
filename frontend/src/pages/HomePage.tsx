@@ -11,6 +11,7 @@ const HomePage = () => {
   useEffect(() => {
     starStore.setStarClicked(false);
   }, []);
+  
   return (
     <>
       <h.Wrapper>

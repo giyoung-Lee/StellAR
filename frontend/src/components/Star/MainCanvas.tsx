@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
@@ -29,23 +29,21 @@ const MainCanvas = (props: Props) => {
   const {
     isLoading: isStarsLoading,
     data: starData,
-    isError: isStarsError,
-    refetch: getStarsRefetch,
   } = useQuery({
     queryKey: ['get-stars'],
     queryFn: GetStars,
+    refetchInterval: false,
   });
 
   const {
     isLoading: isConstLoading,
     data: constData,
-    isError: isConstError,
-    refetch: getConstRefetch,
   } = useQuery({
     queryKey: ['get-consts'],
     queryFn: () => {
       return GetConstellation('hwangdo13');
     },
+    refetchInterval: false,
   });
 
   if (isStarsLoading || isConstLoading) {
@@ -70,8 +68,8 @@ const MainCanvas = (props: Props) => {
         target={[0, 0, 0]}
         rotateSpeed={-0.25}
         zoomSpeed={10}
-        minDistance={2}
-        maxDistance={7}
+        minDistance={1}
+        maxDistance={100000}
         enableDamping
         dampingFactor={0.1}
         // enableZoom={false}
@@ -85,9 +83,9 @@ const MainCanvas = (props: Props) => {
           key={star.starId}
           position={
             new THREE.Vector3(
-              star.calX * 20000,
-              star.calY * 20000,
-              star.calZ * 20000,
+              star.calX * star.nomalizedMagV,
+              star.calY * star.nomalizedMagV,
+              star.calZ * star.nomalizedMagV,
             )
           }
           size={getRandomInt(80, 90)}
@@ -101,16 +99,16 @@ const MainCanvas = (props: Props) => {
             <MakeConstellation
               pointA={
                 new THREE.Vector3(
-                  starData?.data[starArr[0]].calX * 20000,
-                  starData?.data[starArr[0]].calY * 20000,
-                  starData?.data[starArr[0]].calZ * 20000,
+                  starData?.data[starArr[0]].calX * starData?.data[starArr[0]].nomalizedMagV,
+                  starData?.data[starArr[0]].calY * starData?.data[starArr[0]].nomalizedMagV,
+                  starData?.data[starArr[0]].calZ * starData?.data[starArr[0]].nomalizedMagV,
                 )
               }
               pointB={
                 new THREE.Vector3(
-                  starData?.data[starArr[1]].calX * 20000,
-                  starData?.data[starArr[1]].calY * 20000,
-                  starData?.data[starArr[1]].calZ * 20000,
+                  starData?.data[starArr[1]].calX * starData?.data[starArr[1]].nomalizedMagV,
+                  starData?.data[starArr[1]].calY * starData?.data[starArr[1]].nomalizedMagV,
+                  starData?.data[starArr[1]].calZ * starData?.data[starArr[1]].nomalizedMagV,
                 )
               }
             />

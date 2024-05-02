@@ -6,13 +6,14 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetConstellation, GetStars } from '../../apis/StarApis';
+import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
+import PlanetMesh from './PlanetMesh';
 
 type Props = {};
 
@@ -40,7 +41,13 @@ const MainCanvas = (props: Props) => {
     refetchInterval: false,
   });
 
-  if (isStarsLoading || isConstLoading) {
+  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
+    queryKey: ['get-planets'],
+    queryFn: GetPlanets,
+    refetchInterval: false,
+  });
+
+  if (isStarsLoading || isConstLoading || isPlanetLoading) {
     return <Loading />;
   }
 
@@ -110,6 +117,22 @@ const MainCanvas = (props: Props) => {
             )
           }
           size={getRandomInt(80, 90)}
+        />
+      ))}
+
+      {planetData?.data.map((planet: any) => (
+        <StarMesh
+          starId={planet.planetId}
+          spType={null}
+          key={planet.planetId}
+          position={
+            new THREE.Vector3(
+              planet.calX * 20000,
+              planet.calY * 20000,
+              planet.calZ * 20000,
+            )
+          }
+          size={600}
         />
       ))}
 

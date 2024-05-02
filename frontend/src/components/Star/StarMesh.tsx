@@ -7,7 +7,7 @@ type Props = {
   position: THREE.Vector3;
   size: number;
   starId: string;
-  spType: string;
+  spType: string | null;
 };
 
 const StarMesh = ({ position, size, starId, spType }: Props) => {
@@ -85,7 +85,9 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     if (clicked) {
       meshRef.current.material.color = new THREE.Color('purple');
     } else {
-      meshRef.current.material.color = new THREE.Color(starColor[spType]);
+      meshRef.current.material.color = new THREE.Color(
+        starColor[spType as string],
+      );
     }
   }, [clicked, spType, starColor]);
 
@@ -98,7 +100,9 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       onClick={click}
     >
       <sphereGeometry args={[size, 32, 16]} />
-      <meshStandardMaterial color={starColor[spType]} />
+      <meshStandardMaterial
+        color={spType ? starColor[spType as string] : 'red'}
+      />
     </mesh>
   );
 };

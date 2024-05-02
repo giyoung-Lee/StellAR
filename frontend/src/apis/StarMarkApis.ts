@@ -1,4 +1,5 @@
 import { publicRequest } from '../hooks/requestMethods';
+import useStarStore from '../stores/starStore';
 
 export const PostStarMark = async (markData: markApiType) => {
   const formData = new FormData();
@@ -21,4 +22,5 @@ export const GetStarMark = async (userId: string) => {
       userId: userId,
     },
   });
+  // .then((res) => useStarStore.getState().setMarkedStars(res.data));
 };

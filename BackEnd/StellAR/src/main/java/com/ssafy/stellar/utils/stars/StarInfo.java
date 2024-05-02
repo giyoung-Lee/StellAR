@@ -1,6 +1,7 @@
 package com.ssafy.stellar.utils.stars;
 
 import com.ssafy.stellar.star.repository.StarRepository;
+import jakarta.annotation.PostConstruct;
 import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -121,7 +122,7 @@ public class StarInfo {
         }
     }
 
-    // 별 정보 db에 넣을거면 주석을 풀고 StellarApplication을 한번 실행 하세요
+     //별 정보 db에 넣을거면 주석을 풀고 StellarApplication을 한번 실행 하세요
 //    @PostConstruct
 //    public void init() {
 //        try {

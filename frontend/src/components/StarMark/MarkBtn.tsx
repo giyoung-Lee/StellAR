@@ -4,6 +4,7 @@ import * as m from '../style/StarMarkStyle';
 import useUserStore from '../../stores/userStore';
 import { useMutation } from '@tanstack/react-query';
 import { PostStarMark } from '../../apis/StarMarkApis';
+import useStarStore from '../../stores/starStore';
 
 type Props = {
   starName: string;
@@ -11,6 +12,7 @@ type Props = {
 
 const MarkBtn = ({ starName }: Props) => {
   const userStore = useUserStore();
+  const starStore = useStarStore();
 
   const [isInput, setIsInput] = useState(false);
   const [markName, setMarkName] = useState('');
@@ -39,7 +41,7 @@ const MarkBtn = ({ starName }: Props) => {
   const { mutate } = useMutation({
     mutationFn: PostStarMark,
     onSuccess(result: string) {
-      console.log(result);
+      starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
     onError(error) {
       console.log(error);
@@ -48,14 +50,13 @@ const MarkBtn = ({ starName }: Props) => {
 
   useEffect(() => {
     setMarkName('');
-    console.log(starName);
   }, [isInput]);
 
   return (
     <m.BtnWrapper>
       {!isInput && (
         <m.ToggleBtn onClick={() => setIsInput(true)}>
-          별마크 등록하기
+          <FontAwesomeIcon icon={['far', 'star']} />
         </m.ToggleBtn>
       )}
       {isInput && (

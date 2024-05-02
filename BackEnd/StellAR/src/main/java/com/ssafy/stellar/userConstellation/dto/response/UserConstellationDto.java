@@ -1,0 +1,34 @@
+package com.ssafy.stellar.userConstellation.dto.response;
+
+import com.ssafy.stellar.user.entity.UserEntity;
+import com.ssafy.stellar.userConstellation.entity.UserConstellationLinkEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class UserConstellationDto {
+
+
+    @Schema(description = "유저 별자리 ID")
+    private Long userConstellationId;
+
+    @Schema(description = "유저 별자리 이름")
+    private String name;
+
+    @Schema(description = "유저 별자리 설명")
+    private String description;
+
+    @Schema(description = "유저 별자리 생성 시간")
+    private LocalDateTime createTime;
+
+    @Schema(description = "유저 별자리 선")
+    private List<UserConstellationLinkDto> links;
+
+}

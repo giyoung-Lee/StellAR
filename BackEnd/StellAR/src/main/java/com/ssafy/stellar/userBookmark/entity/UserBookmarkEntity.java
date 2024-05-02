@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "user")
+@Entity(name = "user_bookmark")
 @Builder
 public class UserBookmarkEntity {
 

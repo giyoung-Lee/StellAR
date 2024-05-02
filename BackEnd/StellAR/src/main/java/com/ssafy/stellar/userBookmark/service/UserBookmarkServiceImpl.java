@@ -45,7 +45,7 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
             throw new IllegalArgumentException("Bookmark not found for given user and star");
         }
 
-        bookmark = new UserBookmarkEntity();
+        bookmark = bookmark == null ? new UserBookmarkEntity() : bookmark;
         bookmark.setUser(user);
         bookmark.setStar(star);
         bookmark.setBookmarkName(bookmarkRequestDto.getBookmarkName());

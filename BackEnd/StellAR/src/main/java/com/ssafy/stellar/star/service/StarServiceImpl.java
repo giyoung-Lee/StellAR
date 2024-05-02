@@ -74,7 +74,6 @@ public class StarServiceImpl implements StarService{
             dto.setPMRA(star.getPMRA());
             dto.setPMDEC(star.getPMDEC());
 
-            result.add(dto);
             JsonElement jsonElement = gson.toJsonTree(dto);
             jsonObject.add(star.getStarId(), jsonElement);
             System.out.println("dto.getCalX() = " + dto.getCalX());

@@ -1,9 +1,11 @@
 package com.ssafy.stellar.userBookmark.controller;
 
+import com.ssafy.stellar.user.dto.response.UserDto;
 import com.ssafy.stellar.userBookmark.dto.request.BookmarkRequestDto;
 import com.ssafy.stellar.userBookmark.dto.response.BookmarkDto;
 import com.ssafy.stellar.userBookmark.service.UserBookMarkService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -30,9 +32,9 @@ public class UserBookmarkController {
     }
 
     @Operation(summary = "유저 별마크 저장/수정", description = "POST: 별마크를 저장합니다. / PUT: 별마크를 수정합니다.")
-    @ApiResponse(responseCode = "200", description = "별마크 수정 성공", content = @Content)
-    @ApiResponse(responseCode = "201", description = "별마크 저장 성공", content = @Content)
-    @ApiResponse(responseCode = "400", description = "별마크 수정/저장 실패", content = @Content)
+    @ApiResponse(responseCode = "200", description = "별마크 수정 성공")
+    @ApiResponse(responseCode = "201", description = "별마크 저장 성공")
+    @ApiResponse(responseCode = "400", description = "별마크 수정/저장 실패")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<?> manageBookmark(@ParameterObject @ModelAttribute BookmarkRequestDto bookmarkRequestDto, HttpServletRequest request) {
         try {
@@ -57,8 +59,13 @@ public class UserBookmarkController {
     }
 
     @Operation(summary = "유저 별마크 조회", description = "사용자가 저장한 별마크를 조회합니다. 별마크 리스트 출력")
-    @ApiResponse(responseCode = "200", description = "별마크 조회 성공", content = @Content)
-    @ApiResponse(responseCode = "404", description = "유저 정보 없음", content = @Content)
+    @ApiResponse(responseCode = "200", description = "별마크 조회 성공",
+            content = @Content(
+                    mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = BookmarkDto.class))
+            )
+    )
+    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
     @GetMapping
     public ResponseEntity<?> getBookmark(@RequestParam String userId) {
         try {
@@ -75,9 +82,9 @@ public class UserBookmarkController {
         }
     }
     @Operation(summary = "별마크 삭제", description = "사용자가 저장한 별마크를 삭제합니다.")
-    @ApiResponse(responseCode = "204", description = "별마크 삭제", content = @Content)
-    @ApiResponse(responseCode = "400", description = "요청 데이터 에러", content = @Content)
-    @DeleteMapping
+    @ApiResponse(responseCode = "204", description = "별마크 삭제")
+    @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteBookmark(@RequestParam String userId, @RequestParam String starId) {
         try {
             userBookMarkService.deleteUserBookmark(userId, starId);

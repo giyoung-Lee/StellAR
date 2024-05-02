@@ -1,17 +1,24 @@
 import styled from 'styled-components';
 
 export const StarInfo = styled.p`
-  position: absolute;
-  width: 100%;
+  position: relative;
+  /* width: 100%; */
   top: 20%;
   left: 5%;
-  height: 55%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-export const StarName = styled.p`
+export const NameBox = styled.p``;
+
+export const StarName = styled.span`
+  font-size: 13px;
+  margin-left: 10px;
+`;
+
+export const BookMarkName = styled.span`
   color: var(--color-orange);
   font-size: 17px;
 `;
@@ -78,7 +85,30 @@ export const ToggleBtn = styled.button`
 
 export const MarkNameInput = styled.input`
   background-color: var(--color-lightorange);
-  color: var(--color-dark);
+  color: var(--color-navy);
   font-size: 0.9rem;
   padding: 3px 5px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px #a0774e68;
+  text-align: center;
+  &:focus-visible {
+    outline: none;
+  }
+`;
+
+export const BtnBox = styled.p`
+  /* background-color: red; */
+  position: relative;
+  margin-top: 3px;
+`;
+
+export const BackBtn = styled.button`
+  /* background-color: blue; */
+  position: absolute;
+  left: 0;
+`;
+export const SaveBtn = styled.button`
+  /* background-color: gold; */
+  font-size: 0.9rem;
+  color: var(--color-dark);
 `;

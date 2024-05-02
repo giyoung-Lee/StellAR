@@ -2,13 +2,21 @@ import React from 'react';
 import * as l from '../style/common/ListCardStyle';
 import MarkItem from './MarkItem';
 
-const MarkList = () => {
-  const marklist = new Array(10).fill(0);
+type Props = {
+  starMarkData: StarMarkType[];
+};
+
+const MarkList = ({ starMarkData }: Props) => {
+  const marklist = starMarkData;
   return (
     <l.Wrapper>
       {marklist.map((item, index) => (
         <l.Card>
-          <MarkItem />
+          <MarkItem
+            starId={item.starId}
+            bookmarkName={item.bookmarkName}
+            createTime={item.craeteTime}
+          />
         </l.Card>
       ))}
     </l.Wrapper>

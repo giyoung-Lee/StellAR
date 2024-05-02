@@ -31,7 +31,7 @@ const StarName = () => {
   return (
     <n.Wrapper ref={starNameRef}>
       {starStore.starId}
-      <MarkBtn />
+      <MarkBtn starName={starStore.starId} />
     </n.Wrapper>
   );
 };

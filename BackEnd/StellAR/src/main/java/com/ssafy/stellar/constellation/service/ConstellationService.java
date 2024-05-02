@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface ConstellationService {
 
-    List<ConstellationAllDto> findAllConstellation(String constellationType);
+    List<ConstellationAllDto> findAllConstellation(String constellationType) throws Exception;
 
     Map<String, Object> findConstellationLink(String constellationType);
 }

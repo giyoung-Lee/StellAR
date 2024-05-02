@@ -17,24 +17,35 @@ import MakeConstellation from './MakeConstellation';
 
 type Props = {};
 
-const MainCanvas = (props: Props) => {
-  const { isARMode } = useStarStore();
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  
-  const videoTexture = useCameraStream();
+interface BackgroundSetterProps {
+  videoTexture: THREE.VideoTexture | null;
+  isARMode: boolean;
+}
 
-  useDeviceOrientation(cameraRef.current);
+const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
+  videoTexture,
+  isARMode,
+}) => {
+  const { scene } = useThree();
+  const { camera } = useThree();
+
+  useDeviceOrientation(camera);
 
   useEffect(() => {
-    if (isARMode && cameraRef.current && videoTexture) {
-      // 카메라 및 씬에 비디오 텍스처를 배경으로 설정
-      cameraRef.current.background = videoTexture;
-      cameraRef.current.add(new THREE.Mesh(
-        new THREE.BoxGeometry(2, 2, 2),
-        new THREE.MeshBasicMaterial({ map: videoTexture })
-      ));
+    if (isARMode && videoTexture) {
+      scene.background = videoTexture;
+    } else {
+      scene.background = new THREE.Color(0x000000);
     }
-  }, [isARMode, cameraRef.current, videoTexture]);
+  }, [videoTexture, isARMode, scene]);
+
+  return null;
+};
+
+const MainCanvas = (props: Props) => {
+  const { isARMode } = useStarStore();
+
+  const videoTexture = useCameraStream();
 
   const {
     isLoading: isStarsLoading,
@@ -62,27 +73,22 @@ const MainCanvas = (props: Props) => {
     return <Loading />;
   }
 
+  // if (isARMode && videoTexture) {
   return (
     <Canvas
       gl={{ antialias: true }}
-      scene={{ background: new THREE.Color(0x000000) }}
-      camera={
-        isARMode && cameraRef.current
-          ? cameraRef.current
-          : {
-              fov: 70,
-              position: [
-                -0.5 / Math.sqrt(3),
-                -0.5 / Math.sqrt(3),
-                -0.5 / Math.sqrt(3),
-              ],
-              far: 100000,
-            }
-      }
-      onCreated={({ camera }) => {
-        cameraRef.current = camera as THREE.PerspectiveCamera;
+      camera={{
+        fov: 70,
+        position: [
+          -0.5 / Math.sqrt(3),
+          -0.5 / Math.sqrt(3),
+          -0.5 / Math.sqrt(3),
+        ],
+        far: 100000,
       }}
     >
+      <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+
       <Controls />
       <Lights />
       {Object.values(starData?.data).map((star: any) => (
@@ -126,7 +132,65 @@ const MainCanvas = (props: Props) => {
       <FloorMesh />
     </Canvas>
   );
+  // } else {
+  //   return (
+  //     <Canvas
+  //       gl={{ antialias: true }}
+  //       scene={{ background: new THREE.Color(0x000000) }}
+  // camera={{
+  //   fov: 70,
+  //   position: [
+  //     -0.5 / Math.sqrt(3),
+  //     -0.5 / Math.sqrt(3),
+  //     -0.5 / Math.sqrt(3),
+  //   ],
+  //   far: 100000,
+  // }}
+  //     >
+  //       <Controls />
+  //       <Lights />
+  //       {Object.values(starData?.data).map((star: any) => (
+  //         <StarMesh
+  //           starId={star.starId}
+  //           spType={star.spType}
+  //           key={star.starId}
+  //           position={
+  //             new THREE.Vector3(
+  //               star.calX * 20000,
+  //               star.calY * 20000,
+  //               star.calZ * 20000,
+  //             )
+  //           }
+  //           size={getRandomInt(80, 90)}
+  //         />
+  //       ))}
+
+  //       {constData?.data &&
+  //         starData?.data &&
+  //         Object.values(constData?.data).map((constellation: any) =>
+  //           constellation.map((starArr: string[]) => (
+  //             <MakeConstellation
+  //               pointA={
+  //                 new THREE.Vector3(
+  //                   starData?.data[starArr[0]].calX * 20000,
+  //                   starData?.data[starArr[0]].calY * 20000,
+  //                   starData?.data[starArr[0]].calZ * 20000,
+  //                 )
+  //               }
+  //               pointB={
+  //                 new THREE.Vector3(
+  //                   starData?.data[starArr[1]].calX * 20000,
+  //                   starData?.data[starArr[1]].calY * 20000,
+  //                   starData?.data[starArr[1]].calZ * 20000,
+  //                 )
+  //               }
+  //             />
+  //           )),
+  //         )}
+  //       <FloorMesh />
+  //     </Canvas>
+  //   );
+  // }
 };
 
 export default MainCanvas;
-

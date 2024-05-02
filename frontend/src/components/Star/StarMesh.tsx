@@ -13,7 +13,7 @@ type Props = {
 };
 
 const StarMesh = ({ position, size, starId, spType }: Props) => {
-  const starStore = useStarStore();
+  const { setStarClicked, setStarId, addStarToClicked, removeStarFromClicked, clickedStars } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
   const starColor: { [key: string]: string } = {
@@ -50,9 +50,16 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       starPosition.z / (-0.5 * alpha),
     );
 
+    // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
+    if (!clicked) {
+      addStarToClicked(starId);
+    } else {
+      removeStarFromClicked(starId);
+    }
+
     console.log(newCameraPosition);
-    starStore.setStarClicked(true);
-    starStore.setStarId(starId);
+    setStarClicked(true);
+    setStarId(starId);
 
     camera.position.set(
       newCameraPosition.x,
@@ -66,8 +73,10 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
   useEffect(() => {
     if (clicked) {
       meshRef.current.material.color = new THREE.Color('purple');
+    } else {
+      meshRef.current.material.color = new THREE.Color(starColor[spType]);
     }
-  }, [clicked]);
+  }, [clicked, spType, starColor]);
 
   return (
     <mesh

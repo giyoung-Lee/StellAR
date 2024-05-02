@@ -15,10 +15,8 @@ public interface UserConstellationRepository extends JpaRepository<UserConstella
 
     UserConstellationEntity findByUserAndUserConstellationId(UserEntity user, Long userConstellationId);
 
-    UserConstellationEntity findByUserAndName(UserEntity user, String name);
-
 
     @Transactional
-    void deleteByUserAndName(UserEntity user, String name);
+    void deleteByUserAndUserConstellationId(UserEntity user, Long userConstellationId);
 
 }

@@ -12,5 +12,5 @@ public interface UserConstellationService {
     List<UserConstellationDto> getUserConstellation(String userId);
     UserConstellationDto getUserConstellationById(String userId, Long userConstellationId);
 
-    void deleteUserConstellation(String userId, String constellationName);
+    void deleteUserConstellation(String userId, Long constellationId);
 }

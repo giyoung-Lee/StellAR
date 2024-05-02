@@ -37,7 +37,7 @@ public class UserConstellationController {
     @ApiResponse(responseCode = "201", description = "별자리 저장 성공")
     @ApiResponse(responseCode = "400", description = "별자리 수정/저장 실패")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> manageUserConstellation(@ParameterObject @RequestBody UserConstellationRequestDto userConstellationRequestDto, HttpServletRequest request) {
+    public ResponseEntity<?> manageUserConstellation(@RequestBody UserConstellationRequestDto userConstellationRequestDto, HttpServletRequest request) {
         try {
             boolean isUpdate = request.getMethod().equals("PUT");
 
@@ -109,10 +109,10 @@ public class UserConstellationController {
     @Operation(summary = "별마크 삭제", description = "사용자가 저장한 별자리를 삭제합니다.")
     @ApiResponse(responseCode = "204", description = "별자리 삭제")
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUserConstellation(@RequestParam String userId, @RequestParam String constellationName) {
+    @DeleteMapping("/delete//{userId}/{constellationId}")
+    public ResponseEntity<?> deleteUserConstellation(@PathVariable String userId, @PathVariable Long constellationId) {
         try {
-            userConstellationService.deleteUserConstellation(userId, constellationName);
+            userConstellationService.deleteUserConstellation(userId, constellationId);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

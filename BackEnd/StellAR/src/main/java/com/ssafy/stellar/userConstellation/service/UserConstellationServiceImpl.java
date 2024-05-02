@@ -41,15 +41,18 @@ public class UserConstellationServiceImpl implements UserConstellationService {
     public void manageUserConstellation(UserConstellationRequestDto userConstellationRequestDto, boolean isUpdate) {
         UserEntity user = validateUser(userConstellationRequestDto.getUserId());
         String name = userConstellationRequestDto.getName();
+        System.out.println("isUpdate = " + isUpdate);
+        Long constellationId = userConstellationRequestDto.getConstellationId();
+        System.out.println("constellationId = " + constellationId);
         List<List<String>> links = userConstellationRequestDto.getLinks();
-        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndName(user, name);
+        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndUserConstellationId(user, constellationId);
         
-        if (!isUpdate && userConstellation != null) {
-            throw new IllegalStateException("User Constellation already exists for given user and star");
+        if (!isUpdate && constellationId != null) {
+            throw new IllegalStateException("너 데이터 잘못 줬어");
         }
 
-        if (isUpdate && userConstellation == null) {
-            throw new IllegalArgumentException("User Constellation not found for given user and star");
+        if (isUpdate && constellationId == null && userConstellation == null) {
+            throw new IllegalArgumentException("User Constellation not found for given user and constellationId");
         }
 
         userConstellationLinkRepository.deleteByUserConstellation(userConstellation);
@@ -96,9 +99,9 @@ public class UserConstellationServiceImpl implements UserConstellationService {
 
     @Transactional
     @Override
-    public void deleteUserConstellation(String userId, String constellationName) {
+    public void deleteUserConstellation(String userId, Long constellationId) {
         UserEntity user = validateUser(userId);
-        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndName(user, constellationName);
+        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndUserConstellationId(user, constellationId);
 
 
         if (userConstellation == null) {

@@ -6,9 +6,11 @@ import { useQuery } from '@tanstack/react-query';
 import { GetStarMark } from '../apis/StarMarkApis';
 import Loading from '../components/common/Loading/Loading';
 import useUserStore from '../stores/userStore';
+import useStarStore from '../stores/starStore';
 
 const StarMarkPage = () => {
   const userStore = useUserStore();
+  const starStore = useStarStore();
 
   const {
     isLoading: isStarMarkLoading,
@@ -17,10 +19,14 @@ const StarMarkPage = () => {
     refetch: getStarMarkRefetch,
   } = useQuery({
     queryKey: ['get-starMarks'],
-    queryFn: () => {
-      return GetStarMark(userStore.userId);
-    },
+    queryFn: () => GetStarMark(userStore.userId),
   });
+
+  useEffect(() => {
+    if (starMarkData) {
+      starStore.setMarkedStars(starMarkData.data);
+    }
+  }, [starMarkData]);
 
   if (isStarMarkLoading) {
     return <Loading />;
@@ -31,7 +37,7 @@ const StarMarkPage = () => {
       <h.Header className="starmark">
         <h.Title>별마크</h.Title>
       </h.Header>
-      <MarkList starMarkData={starMarkData?.data} />
+      <MarkList starMarkData={starStore.markedStars} />
     </p.Wrapper>
   );
 };

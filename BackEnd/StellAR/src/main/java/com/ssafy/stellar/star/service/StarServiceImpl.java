@@ -76,7 +76,6 @@ public class StarServiceImpl implements StarService{
 
             JsonElement jsonElement = gson.toJsonTree(dto);
             jsonObject.add(star.getStarId(), jsonElement);
-            System.out.println("dto.getCalX() = " + dto.getCalX());
         }
         Map<String, Object> map = gson.fromJson(jsonObject, Map.class);
         return map;

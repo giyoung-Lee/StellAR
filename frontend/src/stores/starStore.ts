@@ -11,6 +11,12 @@ interface StarStoreType {
   clickedStars: string[]; // 클릭된 별의 ID들을 저장하는 배열
   addStarToClicked: (id: string) => void; // 별을 클릭된 목록에 추가
   removeStarFromClicked: (id: string) => void; // 별을 클릭된 목록에서 제거
+
+  markedStars: StarMarkType[];
+  setMarkedStars: (markedStars: StarMarkType[]) => void;
+
+  markSaveToggle: boolean;
+  setMarkSaveToggle: (toggle: boolean) => void;
 }
 
 const useStarStore = create<StarStoreType>(
@@ -25,17 +31,26 @@ const useStarStore = create<StarStoreType>(
       clickedStars: [],
       // 별을 클릭하면 해당 별을 배열에 보관
       addStarToClicked: (id: string) =>
-      set((state) => ({ clickedStars: [...state.clickedStars, id] })),
+        set((state) => ({ clickedStars: [...state.clickedStars, id] })),
       // 별을 클릭 취소하면 해당 별을 배열에서 제거
       removeStarFromClicked: (id: string) =>
         set((state) => ({
           clickedStars: state.clickedStars.filter((starId) => starId !== id),
         })),
+      markedStars: [],
+      setMarkedStars: (markedStars: StarMarkType[]) =>
+        set({ markedStars: markedStars }),
+      markSaveToggle: false,
+      setMarkSaveToggle: (toggle: boolean) => set({ markSaveToggle: toggle }),
     }),
     {
       name: 'StarStore',
       // 스토리지에는 starId랑 클릭된 별 배열만 저장
-      partialize: state => ({ starId: state.starId, clickedStars: state.clickedStars })
+      partialize: (state) => ({
+        starId: state.starId,
+        clickedStars: state.clickedStars,
+        markedStars: state.markedStars,
+      }),
     },
   ),
 );

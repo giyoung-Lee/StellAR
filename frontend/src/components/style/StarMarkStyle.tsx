@@ -71,7 +71,7 @@ export const Star = styled.span`
   }
 `;
 
-export const BtnWrapper = styled.span`
+export const BtnWrapper = styled.div`
   /* position: absolute;
   z-index: 1000;
   top: 20%;
@@ -81,6 +81,9 @@ export const BtnWrapper = styled.span`
 export const ToggleBtn = styled.button`
   color: var(--color-navy);
   font-size: 0.9rem;
+  path {
+    color: #ffd76a !important;
+  }
 `;
 
 export const MarkNameInput = styled.input`

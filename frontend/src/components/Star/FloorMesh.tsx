@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { getRandomInt } from '../../utils/random';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
-// import { fragment, vertex } from '../../utils/shader';
 
 const FloorMesh = () => {
-  const { camera } = useThree();
   const meshRef = useRef<THREE.Mesh>(null);
   const texture = useTexture('/img/wave.jpg');
 
@@ -47,13 +44,11 @@ const FloorMesh = () => {
 
   useFrame(({ clock }) => {
     uniforms.current.uTime.value = clock.getElapsedTime() * 4.0;
-    // console.log(camera.position);
   });
 
   return (
     <>
       <mesh ref={meshRef} position={[0, -50, 0]} rotation-x={-Math.PI / 2}>
-        {/* <circleGeometry args={[30000, 200]} /> */}
         <planeGeometry args={[15000, 15000, 50, 50]} />
         <shaderMaterial
           uniforms={uniforms.current}
@@ -63,10 +58,6 @@ const FloorMesh = () => {
           transparent
         />
       </mesh>
-      {/* <mesh position={[100, 100, 0]} castShadow={false} receiveShadow={false}>
-        <sphereGeometry args={[50]} />
-        <meshStandardMaterial />
-      </mesh> */}
     </>
   );
 };

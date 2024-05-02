@@ -16,9 +16,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest(classes = {ConstellationAllDto.class, ConstellationLinkDto.class, ConstellationEntity.class,
-        ConstellationLinkEntity.class, ConstellationRepository.class, ConstellationLinkRepository.class,
-        ConstellationServiceImpl.class, ConstellationService.class})
+@SpringBootTest
 @DisplayName("별자리 서비스 테스트")
 public class ConstellationServiceTest {
 

@@ -15,11 +15,6 @@ const StarName = () => {
     return star ? star.bookmarkName : null;
   };
 
-  const checkStarIdExists = (starId: string) => {
-    const star = starStore.markedStars.find((star) => star.starId === starId);
-    return star ? star.bookmarkName : null;
-  };
-
   const handleReset = () => {
     starStore.setStarClicked(false);
   };

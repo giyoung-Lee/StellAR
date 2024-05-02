@@ -67,8 +67,8 @@ public class UserConstellationController {
             )
     )
     @ApiResponse(responseCode = "404", description = "유저 정보 없음")
-    @GetMapping
-    public ResponseEntity<?> getUserConstellationById(@RequestParam String userId, @RequestParam Long constellationId) {
+    @GetMapping("/{userId}/{constellationId}")
+    public ResponseEntity<?> getUserConstellationById(@PathVariable String userId, @PathVariable Long constellationId) {
         try {
             UserConstellationDto userConstellations = userConstellationService.getUserConstellationById(userId, constellationId);
             return new ResponseEntity<UserConstellationDto>(userConstellations, HttpStatus.OK);

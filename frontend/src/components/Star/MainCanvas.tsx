@@ -17,16 +17,35 @@ import MakeConstellation from './MakeConstellation';
 
 type Props = {};
 
-const MainCanvas = (props: Props) => {
-  const { isARMode } = useStarStore();
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+interface BackgroundSetterProps {
+  videoTexture: THREE.VideoTexture | null;
+  isARMode: boolean;
+}
+
+const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
+  videoTexture,
+  isARMode,
+}) => {
+  const { scene } = useThree();
+  const { camera } = useThree();
+
+  useDeviceOrientation(camera);
 
   useEffect(() => {
-    if (isARMode && cameraRef.current) {
-      useCameraStream();
-      useDeviceOrientation({ camera: cameraRef.current });
+    if (isARMode && videoTexture) {
+      scene.background = videoTexture;
+    } else {
+      scene.background = new THREE.Color(0x000000);
     }
-  }, [cameraRef.current]);
+  }, [videoTexture, isARMode, scene]);
+
+  return null;
+};
+
+const MainCanvas = (props: Props) => {
+  const { isARMode } = useStarStore();
+
+  const videoTexture = useCameraStream();
 
   const {
     isLoading: isStarsLoading,
@@ -57,21 +76,18 @@ const MainCanvas = (props: Props) => {
   return (
     <Canvas
       gl={{ antialias: true }}
-      scene={{ background: new THREE.Color(0x000000) }}
-      camera={
-        isARMode && cameraRef.current
-          ? cameraRef.current
-          : {
-              fov: 100,
-              position: [
-                -0.5 / Math.sqrt(3),
-                -0.5 / Math.sqrt(3),
-                -0.5 / Math.sqrt(3),
-              ],
-              far: 100000,
-            }
-      }
+      camera={{
+        fov: 70,
+        position: [
+          -0.5 / Math.sqrt(3),
+          -0.5 / Math.sqrt(3),
+          -0.5 / Math.sqrt(3),
+        ],
+        far: 100000,
+      }}
     >
+      <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+
       <Controls />
       <Lights />
       {Object.values(starData?.data).map((star: any) => (
@@ -118,4 +134,3 @@ const MainCanvas = (props: Props) => {
 };
 
 export default MainCanvas;
-

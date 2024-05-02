@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';        
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { getRandomInt } from '../../utils/random';
 import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
@@ -13,7 +13,7 @@ type Props = {
 };
 
 const StarMesh = ({ position, size, starId, spType }: Props) => {
-  const starStore = useStarStore();
+  const { setStarClicked, setStarId, addStarToClicked, removeStarFromClicked, clickedStars } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
   const starColor: { [key: string]: string } = {
@@ -29,9 +29,6 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
   const colorIndex = getRandomInt(0, COLOR.length);
   const [clicked, setClicked] = useState(false);
   const { camera, gl, scene, controls } = useThree();
-  const [lookAtPosition, setLookAtPosition] = useState<THREE.Vector3 | null>(
-    null,
-  );
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
@@ -53,9 +50,16 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       starPosition.z / (-0.5 * alpha),
     );
 
+    // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
+    if (!clicked) {
+      addStarToClicked(starId);
+    } else {
+      removeStarFromClicked(starId);
+    }
+
     console.log(newCameraPosition);
-    starStore.setStarClicked(true);
-    starStore.setStarId(starId);
+    setStarClicked(true);
+    setStarId(starId);
 
     camera.position.set(
       newCameraPosition.x,
@@ -65,26 +69,14 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     camera.updateMatrixWorld();
   };
 
-  // useFrame((state) => {
-  //   if (clicked && lookAtPosition) {
-  //     state.camera.lookAt(lookAtPosition);
-  //     state.camera.updateMatrixWorld(); // 카메라의 변환을 강제로 업데이트
-  //   } else {
-  //     state.camera.lookAt(0, 0, 0);
-  //     // console.log(state.camera);
-  //   }
-  // });
 
   useEffect(() => {
     if (clicked) {
       meshRef.current.material.color = new THREE.Color('purple');
-      // 카메라의 변환을 업데이트하여 변경된 lookAt 적용
-      if (lookAtPosition) {
-        camera.lookAt(lookAtPosition);
-        camera.updateMatrixWorld();
-      }
+    } else {
+      meshRef.current.material.color = new THREE.Color(starColor[spType]);
     }
-  }, [clicked, lookAtPosition]);
+  }, [clicked, spType, starColor]);
 
   return (
     <mesh

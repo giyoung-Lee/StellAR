@@ -6,13 +6,14 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetConstellation, GetStars } from '../../apis/StarApis';
+import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
+import PlanetMesh from './PlanetMesh';
 
 type Props = {};
 
@@ -26,19 +27,13 @@ const MainCanvas = (props: Props) => {
 
   const videoTexture = useCameraStream();
 
-  const {
-    isLoading: isStarsLoading,
-    data: starData,
-  } = useQuery({
+  const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: GetStars,
     refetchInterval: false,
   });
 
-  const {
-    isLoading: isConstLoading,
-    data: constData,
-  } = useQuery({
+  const { isLoading: isConstLoading, data: constData } = useQuery({
     queryKey: ['get-consts'],
     queryFn: () => {
       return GetConstellation('hwangdo13');
@@ -46,7 +41,13 @@ const MainCanvas = (props: Props) => {
     refetchInterval: false,
   });
 
-  if (isStarsLoading || isConstLoading) {
+  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
+    queryKey: ['get-planets'],
+    queryFn: GetPlanets,
+    refetchInterval: false,
+  });
+
+  if (isStarsLoading || isConstLoading || isPlanetLoading) {
     return <Loading />;
   }
 
@@ -92,6 +93,22 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
+      {planetData?.data.map((planet: any) => (
+        <StarMesh
+          starId={planet.planetId}
+          spType={null}
+          key={planet.planetId}
+          position={
+            new THREE.Vector3(
+              planet.calX * 20000,
+              planet.calY * 20000,
+              planet.calZ * 20000,
+            )
+          }
+          size={600}
+        />
+      ))}
+
       {constData?.data &&
         starData?.data &&
         Object.values(constData?.data).map((constellation: any) =>
@@ -99,16 +116,22 @@ const MainCanvas = (props: Props) => {
             <MakeConstellation
               pointA={
                 new THREE.Vector3(
-                  starData?.data[starArr[0]].calX * starData?.data[starArr[0]].nomalizedMagV,
-                  starData?.data[starArr[0]].calY * starData?.data[starArr[0]].nomalizedMagV,
-                  starData?.data[starArr[0]].calZ * starData?.data[starArr[0]].nomalizedMagV,
+                  starData?.data[starArr[0]].calX *
+                    starData?.data[starArr[0]].nomalizedMagV,
+                  starData?.data[starArr[0]].calY *
+                    starData?.data[starArr[0]].nomalizedMagV,
+                  starData?.data[starArr[0]].calZ *
+                    starData?.data[starArr[0]].nomalizedMagV,
                 )
               }
               pointB={
                 new THREE.Vector3(
-                  starData?.data[starArr[1]].calX * starData?.data[starArr[1]].nomalizedMagV,
-                  starData?.data[starArr[1]].calY * starData?.data[starArr[1]].nomalizedMagV,
-                  starData?.data[starArr[1]].calZ * starData?.data[starArr[1]].nomalizedMagV,
+                  starData?.data[starArr[1]].calX *
+                    starData?.data[starArr[1]].nomalizedMagV,
+                  starData?.data[starArr[1]].calY *
+                    starData?.data[starArr[1]].nomalizedMagV,
+                  starData?.data[starArr[1]].calZ *
+                    starData?.data[starArr[1]].nomalizedMagV,
                 )
               }
             />

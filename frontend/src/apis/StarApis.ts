@@ -11,3 +11,7 @@ export const GetConstellation = async (type: string) => {
     },
   });
 };
+
+export const GetPlanets = async () => {
+  return await publicRequest.get('star/planet');
+};

@@ -1,4 +1,4 @@
-package com.ssafy.stellar.userBookmark.entity;
+package com.ssafy.stellar.userConstellation.entity;
 
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.user.entity.UserEntity;
@@ -11,34 +11,31 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity(name = "user_bookmark")
-@Builder
-public class UserBookmarkEntity {
+@Entity(name = "user_constellation")
+public class UserConstellationEntity {
 
     @Id
-    @Column(name = "bookmark_id")
+    @Column(name = "user_constellation_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookmarkId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "star_id")
-
-    private StarEntity star;
+    private Long userConstellationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(name = "bookmark_name")
-    private String bookmarkName;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "creation_date")
+    private LocalDateTime createDateTime;
 
     // 생성시간을 자동으로 설정하는 메서드
     @PrePersist
     protected void onCreate() {
-        createTime = LocalDateTime.now();
+        createDateTime = LocalDateTime.now();
     }
 
 }

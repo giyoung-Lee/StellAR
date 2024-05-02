@@ -88,7 +88,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     if (validateInputs()) {
-      console.log(loginData);
+      // console.log(loginData);
       mutate(loginData);
     }
   };
@@ -143,4 +143,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

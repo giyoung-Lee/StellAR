@@ -16,22 +16,21 @@ const MarkBtn = () => {
   };
 
   return (
-    <m.Star>
+    <m.BtnWrapper>
       {isInput ? null : (
-        <button onClick={hadleBtnClick}>별마크 등록하기</button>
+        <m.ToggleBtn onClick={hadleBtnClick}>별마크 등록하기</m.ToggleBtn>
       )}
       {isInput ? (
-        <input
+        <m.MarkNameInput
           type="text"
           value={markName}
           onChange={handleChange}
-          style={{ backgroundColor: 'red' }}
+          maxLength={12}
         />
       ) : null}
       {isInput ? <button onClick={hadleBtnClick}>ㅇ!!</button> : null}
-    </m.Star>
+    </m.BtnWrapper>
   );
 };
 
 export default MarkBtn;
-

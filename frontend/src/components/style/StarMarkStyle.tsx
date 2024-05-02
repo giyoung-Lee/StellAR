@@ -63,3 +63,22 @@ export const Star = styled.span`
     fill: #ffeb49;
   }
 `;
+
+export const BtnWrapper = styled.span`
+  /* position: absolute;
+  z-index: 1000;
+  top: 20%;
+  right: 0; */
+`;
+
+export const ToggleBtn = styled.button`
+  color: var(--color-navy);
+  font-size: 0.9rem;
+`;
+
+export const MarkNameInput = styled.input`
+  background-color: var(--color-lightorange);
+  color: var(--color-dark);
+  font-size: 0.9rem;
+  padding: 3px 5px;
+`;

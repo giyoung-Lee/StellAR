@@ -14,8 +14,8 @@ const HomePage = () => {
   return (
     <>
       <h.Wrapper>
-        {/* {starStore.starClicked ? <StarName /> : null} */}
-        {starStore.starClicked ? <MarkBtn /> : null}
+        {starStore.starClicked ? <StarName /> : null}
+        {/* {starStore.starClicked ? <MarkBtn /> : null} */}
         {/* <StarInfoCarousel active={0} /> */}
         <MainCanvas />
       </h.Wrapper>
@@ -24,4 +24,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

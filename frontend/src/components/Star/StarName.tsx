@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import useStarStore from '../../stores/starStore';
 import * as n from '../style/StarNameStyle';
+import MarkBtn from '../StarMark/MarkBtn';
 
 const StarName = () => {
   const starStore = useStarStore();
@@ -27,8 +28,12 @@ const StarName = () => {
     };
   }, [starStore]);
 
-  return <n.Wrapper ref={starNameRef}>{starStore.starId}</n.Wrapper>;
+  return (
+    <n.Wrapper ref={starNameRef}>
+      {starStore.starId}
+      <MarkBtn />
+    </n.Wrapper>
+  );
 };
 
 export default StarName;
-

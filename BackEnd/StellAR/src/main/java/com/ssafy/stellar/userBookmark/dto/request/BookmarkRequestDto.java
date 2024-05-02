@@ -1,6 +1,6 @@
-package com.ssafy.stellar.UserBookmark.dto.request;
+package com.ssafy.stellar.userBookmark.dto.request;
 
-import com.ssafy.stellar.UserBookmark.entity.UserBookmarkEntity;
+import com.ssafy.stellar.userBookmark.entity.UserBookmarkEntity;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.user.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,11 +23,4 @@ public class BookmarkRequestDto {
     @Schema(description = "북마크 이름", required = true)
     private String bookmarkName;
 
-    public UserBookmarkEntity toEntity(UserEntity user, StarEntity star) {
-        UserBookmarkEntity userBookmarkEntity = new UserBookmarkEntity();
-        userBookmarkEntity.setUser(user);
-        userBookmarkEntity.setStar(star);
-        userBookmarkEntity.setBookmakrName(this.bookmarkName);
-        return userBookmarkEntity;
-    }
 }

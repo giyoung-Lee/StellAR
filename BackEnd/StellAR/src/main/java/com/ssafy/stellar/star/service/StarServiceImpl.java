@@ -12,7 +12,6 @@ import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -33,9 +32,17 @@ public class StarServiceImpl implements StarService{
     @Override
     public Map<String, Object> returnAllStar() {
         List<StarEntity> list = starRepository.findAll();
-        List<StarDto> result = new ArrayList<>();
+
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
+        double minMagV = list.stream()
+                .mapToDouble(star -> Double.parseDouble(star.getMagV()))
+                .min()
+                .orElse(Double.MAX_VALUE);
+        double maxMagV = list.stream()
+                .mapToDouble(star -> Double.parseDouble(star.getMagV()))
+                .max()
+                .orElse(Double.MIN_VALUE);
 
         LocalDate startDate = LocalDate.of(2000, 1, 1);
         LocalDate today = LocalDate.now();
@@ -48,8 +55,9 @@ public class StarServiceImpl implements StarService{
             double newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
             double newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
+            double normalizedMagV = 10000 + (Double.parseDouble(star.getMagV()) - minMagV) * (50000 - 10000) / (maxMagV - minMagV);
 
-            StarDto dto = new StarDto();
+            StarDto dto = getStarDto(star, xyz, normalizedMagV);
 
             dto.setStarId(star.getStarId());
             dto.setStarType(star.getStarType());
@@ -177,6 +185,26 @@ public class StarServiceImpl implements StarService{
 
     private static double convertDecToRadians(double dec) {
         return Math.toRadians(dec);
+    }
+
+    private static StarDto getStarDto(StarEntity star, double[] xyz, double nomaliedMagV) {
+        StarDto dto = new StarDto();
+        dto.setStarId(star.getStarId());
+        dto.setStarType(star.getStarType());
+        dto.setCalX(xyz[0]);
+        dto.setCalY(xyz[1]);
+        dto.setCalZ(xyz[2]);
+        dto.setConstellation(star.getConstellation());
+        dto.setParallax(star.getParallax());
+        dto.setSpType(star.getSP_TYPE());
+        dto.setHd(star.getHD());
+        dto.setMagV(star.getMagV());
+        dto.setNomalizedMagV(nomaliedMagV);
+        dto.setRA(star.getRA());
+        dto.setDeclination(star.getDeclination());
+        dto.setPMRA(star.getPMRA());
+        dto.setPMDEC(star.getPMDEC());
+        return dto;
     }
 
 }

@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
 public class SignUpDto {
 
     @Schema(description = "사용자 ID", required = true)
@@ -22,13 +21,5 @@ public class SignUpDto {
 
     @Schema(description = "성별", required = false)
     private String gender;
-
-    public UserEntity toEntity() {
-        return UserEntity.builder()
-                .userId(this.userId)
-                .password(this.password)
-                .name(this.name)
-                .build();
-    }
 
 }

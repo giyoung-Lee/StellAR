@@ -29,9 +29,9 @@ public class StarController {
     @GetMapping("/all")
     public ResponseEntity<?> returnAllStar() {
         try {
-            Map<String, Object> object = starService.returnAllStar();
+            Map<String, Object> map = starService.returnAllStar();
 
-            return new ResponseEntity<>(object, HttpStatus.OK);
+            return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

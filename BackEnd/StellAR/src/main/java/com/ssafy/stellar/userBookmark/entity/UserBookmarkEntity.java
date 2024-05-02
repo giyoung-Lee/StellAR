@@ -1,4 +1,4 @@
-package com.ssafy.stellar.UserBookmark.entity;
+package com.ssafy.stellar.userBookmark.entity;
 
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.user.entity.UserEntity;
@@ -29,7 +29,7 @@ public class UserBookmarkEntity {
     private UserEntity user;
 
     @Column(name = "bookmark_name")
-    private String bookmakrName;
+    private String bookmarkName;
 
     @Column(name = "create_time")
     private LocalDateTime createTime;
@@ -39,4 +39,5 @@ public class UserBookmarkEntity {
     protected void onCreate() {
         createTime = LocalDateTime.now();
     }
+
 }

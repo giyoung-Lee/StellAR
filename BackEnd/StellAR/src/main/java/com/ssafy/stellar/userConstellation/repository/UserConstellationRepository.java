@@ -13,6 +13,8 @@ import java.util.List;
 public interface UserConstellationRepository extends JpaRepository<UserConstellationEntity, Long> {
     List<UserConstellationEntity> findByUser(UserEntity user);
 
+    UserConstellationEntity findByUserAndUserConstellationId(UserEntity user, Long userConstellationId);
+
     UserConstellationEntity findByUserAndName(UserEntity user, String name);
 
 

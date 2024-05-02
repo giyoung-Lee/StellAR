@@ -75,11 +75,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         List<UserConstellationDto> userConstellationDto = new ArrayList<>();
 
         for (UserConstellationEntity userConstellation : allConstellationByUser) {
-            UserConstellationDto dto = new UserConstellationDto();
-
-            dto.setName(userConstellation.getName());
-            dto.setDescription(userConstellation.getDescription());
-            dto.setCreateTime(userConstellation.getCreateDateTime());
+            UserConstellationDto dto = getUserConstellationDto(userConstellation);
 
             List<UserConstellationLinkEntity> linksByUserConstellationId = userConstellationLinkRepository.findByUserConstellation(userConstellation);
             List<UserConstellationLinkDto> userLinks = getUserConstellationLinkDtos(userConstellation, linksByUserConstellationId);
@@ -88,6 +84,14 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         }
 
         return userConstellationDto;
+    }
+
+    @Override
+    public UserConstellationDto getUserConstellationById(String userId, Long userConstellationId) {
+        UserEntity user = validateUser(userId);
+        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndUserConstellationId(user, userConstellationId);
+
+        return getUserConstellationDto(userConstellation);
     }
 
     @Transactional
@@ -122,6 +126,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         return star;
     }
 
+
     private void saveUserConstellationLinks(List<List<String>> links, UserConstellationEntity userConstellation) {
         for (List<String> link : links) {
             StarEntity startStar = validateStar(link.get(0));  // 추가된 유효성 검사
@@ -133,6 +138,15 @@ public class UserConstellationServiceImpl implements UserConstellationService {
 
             userConstellationLinkRepository.save(userLink);
         }
+    }
+
+    private static UserConstellationDto getUserConstellationDto(UserConstellationEntity userConstellation) {
+        UserConstellationDto dto = new UserConstellationDto();
+        dto.setUserConstellationId(userConstellation.getUserConstellationId());
+        dto.setName(userConstellation.getName());
+        dto.setDescription(userConstellation.getDescription());
+        dto.setCreateTime(userConstellation.getCreateDateTime());
+        return dto;
     }
 
     private static List<UserConstellationLinkDto> getUserConstellationLinkDtos(UserConstellationEntity userConstellation, List<UserConstellationLinkEntity> linksByUserConstellationId) {

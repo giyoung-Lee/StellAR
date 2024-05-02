@@ -59,6 +59,30 @@ public class UserConstellationController {
         }
     }
 
+    @Operation(summary = "유저 별자리 개별 조회", description = "사용자가 저장한 개별 별자리를 조회합니다.")
+    @ApiResponse(responseCode = "200", description = "별자리 조회 성공",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = UserConstellationDto.class)
+            )
+    )
+    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
+    @GetMapping
+    public ResponseEntity<?> getUserConstellationById(@RequestParam String userId, @RequestParam Long constellationId) {
+        try {
+            UserConstellationDto userConstellations = userConstellationService.getUserConstellationById(userId, constellationId);
+            return new ResponseEntity<UserConstellationDto>(userConstellations, HttpStatus.OK);
+        } catch (UsernameNotFoundException e) {
+
+            log.error("User not found", e);
+            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+
+        } catch (Exception e) {
+            log.error("Internal server error", e);
+            return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @Operation(summary = "유저 별자리 조회", description = "사용자가 저장한 별자리를 조회합니다. 별자리 리스트 출력")
     @ApiResponse(responseCode = "200", description = "별자리 조회 성공",
             content = @Content(

@@ -3,8 +3,7 @@ import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
 import { Canvas, useThree } from '@react-three/fiber';
-import Controls from './Controls';
-import GLBModel from './GLBModel';
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
 import { GetConstellation, GetStars } from '../../apis/StarApis';
@@ -21,26 +20,6 @@ interface BackgroundSetterProps {
   videoTexture: THREE.VideoTexture | null;
   isARMode: boolean;
 }
-
-const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
-  videoTexture,
-  isARMode,
-}) => {
-  const { scene } = useThree();
-  const { camera } = useThree();
-
-  useDeviceOrientation(camera);
-
-  useEffect(() => {
-    if (isARMode && videoTexture) {
-      scene.background = videoTexture;
-    } else {
-      scene.background = new THREE.Color(0x000000);
-    }
-  }, [videoTexture, isARMode, scene]);
-
-  return null;
-};
 
 const MainCanvas = (props: Props) => {
   const { isARMode } = useStarStore();
@@ -74,21 +53,30 @@ const MainCanvas = (props: Props) => {
   }
 
   return (
-    <Canvas
-      gl={{ antialias: true }}
-      camera={{
-        fov: 70,
-        position: [
-          -0.5 / Math.sqrt(3),
-          -0.5 / Math.sqrt(3),
-          -0.5 / Math.sqrt(3),
-        ],
-        far: 100000,
-      }}
-    >
+    <Canvas gl={{ antialias: true }}>
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+      <PerspectiveCamera
+        makeDefault
+        fov={70}
+        near={1}
+        far={100000}
+        position={[
+          -0.5 / Math.sqrt(3),
+          -0.5 / Math.sqrt(3),
+          -0.5 / Math.sqrt(3),
+        ]}
+      />
+      <OrbitControls
+        target={[0, 0, 0]}
+        rotateSpeed={-0.25}
+        zoomSpeed={10}
+        minDistance={2}
+        maxDistance={7}
+        enableDamping
+        dampingFactor={0.1}
+        // enableZoom={false}
+      />
 
-      <Controls />
       <Lights />
       {Object.values(starData?.data).map((star: any) => (
         <StarMesh
@@ -131,6 +119,26 @@ const MainCanvas = (props: Props) => {
       <FloorMesh />
     </Canvas>
   );
+};
+
+const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
+  videoTexture,
+  isARMode,
+}) => {
+  const { scene } = useThree();
+  const { camera } = useThree();
+
+  useDeviceOrientation(camera);
+
+  useEffect(() => {
+    if (isARMode && videoTexture) {
+      scene.background = videoTexture;
+    } else {
+      scene.background = new THREE.Color(0x000000);
+    }
+  }, [videoTexture, isARMode, scene]);
+
+  return null;
 };
 
 export default MainCanvas;

@@ -60,20 +60,8 @@ public class UserConstellationServiceImpl implements UserConstellationService {
 
         userConstellationRepository.save(userConstellation);
 
-        System.out.println("links = " + links);
 
-        for (List<String> link : links) {
-            System.out.println("link = " + link);
-            StarEntity startStar = validateStar(link.get(0));  // 추가된 유효성 검사
-            StarEntity endStar = validateStar(link.get(1));    // 추가된 유효성 검사
-            UserConstellationLinkEntity userLink = new UserConstellationLinkEntity();
-            userLink.setUserConstellation(userConstellation);
-            userLink.setStartStar(starRepository.findByStarId(startStar.getStarId()));
-            userLink.setEndStar(starRepository.findByStarId(endStar.getStarId()));
-
-            userConstellationLinkRepository.save(userLink);
-        }
-
+        saveUserConstellationLinks(links, userConstellation);
 
     }
 
@@ -94,17 +82,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
             dto.setCreateTime(userConstellation.getCreateDateTime());
 
             List<UserConstellationLinkEntity> linksByUserConstellationId = userConstellationLinkRepository.findByUserConstellation(userConstellation);
-            List<UserConstellationLinkDto> userLinks = new ArrayList<>();
-
-            for (UserConstellationLinkEntity link : linksByUserConstellationId) {
-                UserConstellationLinkDto userConstellationLink = new UserConstellationLinkDto();
-                
-                userConstellationLink.setUserConstellationId(userConstellation.getUserConstellationId());
-                userConstellationLink.setStartStar(link.getStartStar().getStarId());
-                userConstellationLink.setEndStar(link.getEndStar().getStarId());
-
-                userLinks.add(userConstellationLink);
-            }
+            List<UserConstellationLinkDto> userLinks = getUserConstellationLinkDtos(userConstellation, linksByUserConstellationId);
             dto.setLinks(userLinks);
             userConstellationDto.add(dto);
         }
@@ -142,6 +120,34 @@ public class UserConstellationServiceImpl implements UserConstellationService {
             throw new IllegalArgumentException("Star not found with id: " + starId);
         }
         return star;
+    }
+
+    private void saveUserConstellationLinks(List<List<String>> links, UserConstellationEntity userConstellation) {
+        for (List<String> link : links) {
+            StarEntity startStar = validateStar(link.get(0));  // 추가된 유효성 검사
+            StarEntity endStar = validateStar(link.get(1));    // 추가된 유효성 검사
+            UserConstellationLinkEntity userLink = new UserConstellationLinkEntity();
+            userLink.setUserConstellation(userConstellation);
+            userLink.setStartStar(starRepository.findByStarId(startStar.getStarId()));
+            userLink.setEndStar(starRepository.findByStarId(endStar.getStarId()));
+
+            userConstellationLinkRepository.save(userLink);
+        }
+    }
+
+    private static List<UserConstellationLinkDto> getUserConstellationLinkDtos(UserConstellationEntity userConstellation, List<UserConstellationLinkEntity> linksByUserConstellationId) {
+        List<UserConstellationLinkDto> userLinks = new ArrayList<>();
+
+        for (UserConstellationLinkEntity link : linksByUserConstellationId) {
+            UserConstellationLinkDto userConstellationLink = new UserConstellationLinkDto();
+
+            userConstellationLink.setUserConstellationId(userConstellation.getUserConstellationId());
+            userConstellationLink.setStartStar(link.getStartStar().getStarId());
+            userConstellationLink.setEndStar(link.getEndStar().getStarId());
+
+            userLinks.add(userConstellationLink);
+        }
+        return userLinks;
     }
 
 }

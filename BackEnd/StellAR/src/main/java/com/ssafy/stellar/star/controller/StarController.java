@@ -1,7 +1,7 @@
 package com.ssafy.stellar.star.controller;
 
 
-import com.ssafy.stellar.star.dto.response.StarDto;
+import com.ssafy.stellar.star.dto.response.PlanetDto;
 import com.ssafy.stellar.star.service.StarService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +32,17 @@ public class StarController {
             Map<String, Object> map = starService.returnAllStar();
 
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/planet")
+    public ResponseEntity<?> returnPlanet() {
+        try {
+            List<PlanetDto> list = starService.returnPlanet();
+            return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class constellationInfo {
+public class ConstellationInfo {
 
     private final ConstellationLinkRepository constellationLinkRepository;
     private final StarRepository starRepository;
 
     @Autowired
-    public constellationInfo(ConstellationLinkRepository constellationLinkRepository,
+    public ConstellationInfo(ConstellationLinkRepository constellationLinkRepository,
                              StarRepository starRepository) {
         this.constellationLinkRepository = constellationLinkRepository;
         this.starRepository = starRepository;

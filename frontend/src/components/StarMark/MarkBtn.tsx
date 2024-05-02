@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import * as m from '../style/StarMarkStyle';
 import useUserStore from '../../stores/userStore';
 import { useMutation } from '@tanstack/react-query';
@@ -54,27 +53,27 @@ const MarkBtn = ({ starName }: Props) => {
 
   return (
     <m.BtnWrapper>
-      {isInput ? null : (
+      {!isInput && (
         <m.ToggleBtn onClick={() => setIsInput(true)}>
           별마크 등록하기
         </m.ToggleBtn>
       )}
-      {isInput ? (
-        <m.MarkNameInput
-          type="text"
-          value={markName}
-          onChange={handleChange}
-          maxLength={12}
-        />
-      ) : null}
-      {isInput ? (
-        <m.BtnBox>
-          <m.BackBtn onClick={() => setIsInput(false)}>
-            <FontAwesomeIcon icon="arrow-left" color="black" />
-          </m.BackBtn>
-          <m.SaveBtn onClick={handleSaveBtnClick}>저장하기</m.SaveBtn>
-        </m.BtnBox>
-      ) : null}
+      {isInput && (
+        <>
+          <m.MarkNameInput
+            type="text"
+            value={markName}
+            onChange={handleChange}
+            maxLength={12}
+          />
+          <m.BtnBox>
+            <m.BackBtn onClick={() => setIsInput(false)}>
+              <FontAwesomeIcon icon="arrow-left" color="black" />
+            </m.BackBtn>
+            <m.SaveBtn onClick={handleSaveBtnClick}>저장하기</m.SaveBtn>
+          </m.BtnBox>
+        </>
+      )}
     </m.BtnWrapper>
   );
 };

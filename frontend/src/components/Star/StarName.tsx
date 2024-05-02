@@ -2,37 +2,30 @@ import React, { useEffect, useRef } from 'react';
 import useStarStore from '../../stores/starStore';
 import * as n from '../style/StarNameStyle';
 import MarkBtn from '../StarMark/MarkBtn';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../pages/style/Fontawsome';
 
 const StarName = () => {
   const starStore = useStarStore();
   const starNameRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      event.stopPropagation();
-      if (
-        starNameRef.current &&
-        !starNameRef.current.contains(event.target as Node)
-      ) {
-        starStore.setStarClicked(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('mousemove', handleClickOutside);
-    document.addEventListener('touchmove', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('mousemove', handleClickOutside);
-      document.removeEventListener('touchmove', handleClickOutside);
-    };
-  }, [starStore]);
+  const handleReset = () => {
+    starStore.setStarClicked(false);
+  };
 
   return (
-    <n.Wrapper ref={starNameRef}>
-      {starStore.starId}
-      <MarkBtn starName={starStore.starId} />
-    </n.Wrapper>
+    <>
+      <n.Wrapper ref={starNameRef}>
+        <div className="flex justify-between p-1">
+          <span>별 이름: </span>
+          <div onClick={handleReset}>
+          <FontAwesomeIcon icon="xmark" />
+          </div>
+        </div>
+        <span className=''>{starStore.starId}</span>
+        <MarkBtn starName={starStore.starId} />
+      </n.Wrapper>
+    </>
   );
 };
 

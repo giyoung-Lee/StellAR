@@ -3,11 +3,15 @@ package com.ssafy.stellar.star.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.ssafy.stellar.star.dto.response.PlanetDto;
 import com.ssafy.stellar.star.dto.response.StarDto;
+import com.ssafy.stellar.star.entity.PlanetEntity;
 import com.ssafy.stellar.star.entity.StarEntity;
+import com.ssafy.stellar.star.repository.PlanetRepository;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -17,103 +21,154 @@ import java.util.Map;
 public class StarServiceImpl implements StarService{
 
     private final StarRepository starRepository;
+    private final PlanetRepository planetRepository;
 
-    public StarServiceImpl(StarRepository starRepository) {
+    public StarServiceImpl(StarRepository starRepository,
+                           PlanetRepository planetRepository) {
         this.starRepository = starRepository;
+        this.planetRepository = planetRepository;
     }
 
     @Override
     public Map<String, Object> returnAllStar() {
         List<StarEntity> list = starRepository.findAll();
+
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
-
+        double minMagV = list.stream()
+                .mapToDouble(star -> Double.parseDouble(star.getMagV()))
+                .min()
+                .orElse(Double.MAX_VALUE);
+        double maxMagV = list.stream()
+                .mapToDouble(star -> Double.parseDouble(star.getMagV()))
+                .max()
+                .orElse(Double.MIN_VALUE);
 
         LocalDate startDate = LocalDate.of(2000, 1, 1);
         LocalDate today = LocalDate.now();
         long yearsBetween = ChronoUnit.YEARS.between(startDate, today);
 
         for (StarEntity star : list) {
-            double pmRA = Double.parseDouble(star.getPMRA());
-            double pmDec = Double.parseDouble(star.getPMDEC());
+            double pmRA = Double.parseDouble(star.getPMRA()); // 초(arcsec) 단위
+            double pmDec = Double.parseDouble(star.getPMDEC()); // 초(arcsec) 단위
 
-            String newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
-            String newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
+            double newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
+            double newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
+            double normalizedMagV = 10000 + (Double.parseDouble(star.getMagV()) - minMagV) * (50000 - 10000) / (maxMagV - minMagV);
 
-            StarDto dto = getStarDto(star, xyz);
+            StarDto dto = getStarDto(star, xyz, normalizedMagV);
+
+            dto.setStarId(star.getStarId());
+            dto.setStarType(star.getStarType());
+            dto.setCalX(xyz[0]);
+            dto.setCalY(xyz[1]);
+            dto.setCalZ(xyz[2]);
+            dto.setConstellation(star.getConstellation());
+            dto.setParallax(star.getParallax());
+            dto.setSpType(star.getSP_TYPE());
+            dto.setHd(star.getHD());
+            dto.setMagV(star.getMagV());
+            dto.setRA(star.getRA());
+            dto.setDeclination(star.getDeclination());
+            dto.setPMRA(star.getPMRA());
+            dto.setPMDEC(star.getPMDEC());
 
             JsonElement jsonElement = gson.toJsonTree(dto);
             jsonObject.add(star.getStarId(), jsonElement);
         }
         Map<String, Object> map = gson.fromJson(jsonObject, Map.class);
         return map;
+
     }
 
+    @Override
+    public List<PlanetDto> returnPlanet() {
+
+        List<PlanetEntity> list = planetRepository.findAll();
+        List<PlanetDto> result = new ArrayList<>();
+        for (PlanetEntity entity : list) {
+            PlanetDto dto = new PlanetDto();
+
+            dto.setPlanetId(entity.getPlanetId());
+            dto.setPlanetRA(entity.getPlanetRA());
+            dto.setPlanetDEC(entity.getPlanetDEC());
+            dto.setPlanetMagV(entity.getPlanetMagV());
+
+            String[] raParts = entity.getPlanetRA().split(" ");
+
+            double ra_hours = Double.parseDouble(raParts[0]);
+            double ra_minutes = Double.parseDouble(raParts[1]);
+            double ra_seconds = Double.parseDouble(raParts[2]);
+
+            double ra_degrees = (ra_hours * 15) + (ra_minutes / 4) + (ra_seconds / 240);
+
+            boolean isNegative = entity.getPlanetDEC().startsWith("-");
+            String[] decParts = entity.getPlanetDEC().substring(isNegative ? 1 : 0).split(" ");
+
+            int buho = isNegative ? -1 : 1;
+            double dec_degrees = Double.parseDouble(decParts[0]) * buho;
+            double dec_minutes = Double.parseDouble(decParts[1]);
+            double dec_seconds = Double.parseDouble(decParts[2]);
+
+            dec_degrees += dec_minutes / 60 + dec_seconds / 3600;
 
 
+            double[] xyz = calculateXYZCoordinates(ra_degrees, dec_degrees);
+            dto.setCalX(xyz[0]);
+            dto.setCalY(xyz[1]);
+            dto.setCalZ(xyz[2]);
 
-    private static String calculateNewRA(String initialRA, double pmRA, long years) {
+            result.add(dto);
+        }
+
+        return result;
+    }
+
+    private static double calculateNewRA(String initialRA, double pmRA, long years) {
         try {
             String[] raParts = initialRA.split(" ");
             if (raParts.length != 3) {
                 System.out.println("Invalid RA format: " + initialRA);
-                return "00 00 00.0000";  // 기본 값 반환
+                return 0;
             }
             double hours = Double.parseDouble(raParts[0]);
             double minutes = Double.parseDouble(raParts[1]);
             double seconds = Double.parseDouble(raParts[2]);
 
-            double totalSeconds = hours * 3600 + minutes * 60 + seconds;
-            double newTotalSeconds = totalSeconds + pmRA * years;
-
-            hours = Math.floor(newTotalSeconds / 3600);
-            minutes = Math.floor((newTotalSeconds % 3600) / 60);
-            seconds = newTotalSeconds % 60;
-
-            return String.format("%02d %02d %.4f", (int)hours, (int)minutes, seconds);
+            double degrees = hours * 15 + minutes / 4 + seconds / 240 + pmRA / 3600000 * years;
+            return degrees;
         } catch (NumberFormatException e) {
             System.out.println("Error parsing RA values: " + initialRA);
-            return "00 00 00.0000";  // 기본 값 반환
+            return 0;
         }
     }
 
-    private static String calculateNewDec(String initialDec, double pmDec, long years) {
+    private static double calculateNewDec(String initialDec, double pmDec, long years) {
         try {
             boolean isNegative = initialDec.startsWith("-");
             String[] decParts = initialDec.substring(isNegative ? 1 : 0).split(" ");
             if (decParts.length != 3) {
                 System.out.println("Invalid Dec format: " + initialDec);
-                return "+00 00 00.000";  // 기본 값 반환
+                return 0;
             }
-            double degrees = Double.parseDouble(decParts[0]);
+            int buho = isNegative ? -1 : 1;
+            double degrees = Double.parseDouble(decParts[0]) * buho;
             double minutes = Double.parseDouble(decParts[1]);
             double seconds = Double.parseDouble(decParts[2]);
 
-            double totalSeconds = Math.abs(degrees) * 3600 + minutes * 60 + seconds;
-            if (isNegative) {
-                totalSeconds = -totalSeconds;
-            }
-            double newTotalSeconds = totalSeconds + pmDec * years;
-
-            isNegative = newTotalSeconds < 0;
-            newTotalSeconds = Math.abs(newTotalSeconds);
-            degrees = Math.floor(newTotalSeconds / 3600);
-            minutes = Math.floor((newTotalSeconds % 3600) / 60);
-            seconds = newTotalSeconds % 60;
-
-            return String.format("%s%02d %02d %.3f", isNegative ? "-" : "+", (int)degrees, (int)minutes, seconds);
+            degrees += minutes / 60 + seconds / 3600 + pmDec / 3600000 * years;
+            return degrees;
         } catch (NumberFormatException e) {
             System.out.println("Error parsing Dec values: " + initialDec);
-            return "+00 00 00.000";  // 기본 값 반환
+            return 0;
         }
     }
 
-    public static double[] calculateXYZCoordinates(String newRA, String newDec) {
+    public static double[] calculateXYZCoordinates(double newRA, double newDec) {
         // RA와 Dec를 라디안으로 변환합니다.
         double raRadians = convertRaToRadians(newRA);
         double decRadians = convertDecToRadians(newDec);
-
         // 3차원 좌표를 계산합니다.
         double x = Math.cos(decRadians) * Math.cos(raRadians);
         double y = Math.cos(decRadians) * Math.sin(raRadians);
@@ -122,56 +177,15 @@ public class StarServiceImpl implements StarService{
         return new double[]{x, y, z};
     }
 
-    private static double convertRaToRadians(String ra) {
-        String[] raParts = ra.split(" ");
-        double degrees;
-        // RA 형식을 확인하고 올바르게 파싱합니다.
-        if (raParts.length >= 3) {
-            double hours = Double.parseDouble(raParts[0]);
-            double minutes = Double.parseDouble(raParts[1]);
-            double seconds = Double.parseDouble(raParts[2]);
-            degrees = hours * 15 + minutes * 15 / 60.0 + seconds * 15 / 3600.0;
-        } else if (raParts.length == 2) {
-            // 분까지만 있는 경우
-            double hours = Double.parseDouble(raParts[0]);
-            double minutes = Double.parseDouble(raParts[1]);
-            degrees = hours * 15 + minutes * 15 / 60.0;
-        } else if (raParts.length == 1) {
-            // 시간만 있는 경우
-            degrees = Double.parseDouble(raParts[0]) * 15;
-        } else {
-            throw new IllegalArgumentException("Invalid RA format: " + ra);
-        }
-        return Math.toRadians(degrees);
+    private static double convertRaToRadians(double ra) {
+        return Math.toRadians(ra);
     }
 
-    private static double convertDecToRadians(String dec) {
-        // Dec는 도 단위로 주어지므로, 직접 라디안으로 변환합니다.
-        boolean isNegative = dec.startsWith("-");
-        String[] decParts = dec.split(" ");
-        double degrees;
-        // Dec 형식을 확인하고 올바르게 파싱합니다.
-        if (decParts.length >= 3) {
-            degrees = Double.parseDouble(decParts[0]);
-            double arcMinutes = Double.parseDouble(decParts[1]);
-            double arcSeconds = Double.parseDouble(decParts[2]);
-            degrees += (arcMinutes / 60.0) + (arcSeconds / 3600.0);
-        } else if (decParts.length == 2) {
-            // 분까지만 있는 경우
-            degrees = Double.parseDouble(decParts[0]);
-            double arcMinutes = Double.parseDouble(decParts[1]);
-            degrees += (arcMinutes / 60.0);
-        } else if (decParts.length == 1) {
-            // 도만 있는 경우
-            degrees = Double.parseDouble(decParts[0]);
-        } else {
-            throw new IllegalArgumentException("Invalid Dec format: " + dec);
-        }
-
-        return Math.toRadians(degrees);
+    private static double convertDecToRadians(double dec) {
+        return Math.toRadians(dec);
     }
 
-    private static StarDto getStarDto(StarEntity star, double[] xyz) {
+    private static StarDto getStarDto(StarEntity star, double[] xyz, double nomaliedMagV) {
         StarDto dto = new StarDto();
         dto.setStarId(star.getStarId());
         dto.setStarType(star.getStarType());
@@ -183,6 +197,7 @@ public class StarServiceImpl implements StarService{
         dto.setSpType(star.getSP_TYPE());
         dto.setHd(star.getHD());
         dto.setMagV(star.getMagV());
+        dto.setNomalizedMagV(nomaliedMagV);
         dto.setRA(star.getRA());
         dto.setDeclination(star.getDeclination());
         dto.setPMRA(star.getPMRA());

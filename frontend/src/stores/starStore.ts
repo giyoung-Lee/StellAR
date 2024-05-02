@@ -17,6 +17,9 @@ interface StarStoreType {
 
   markSaveToggle: boolean;
   setMarkSaveToggle: (toggle: boolean) => void;
+
+  resetClickedStars: () => void; // 별 초기화 하기
+
 }
 
 const useStarStore = create<StarStoreType>(
@@ -37,11 +40,16 @@ const useStarStore = create<StarStoreType>(
         set((state) => ({
           clickedStars: state.clickedStars.filter((starId) => starId !== id),
         })),
+
       markedStars: [],
       setMarkedStars: (markedStars: StarMarkType[]) =>
         set({ markedStars: markedStars }),
       markSaveToggle: false,
       setMarkSaveToggle: (toggle: boolean) => set({ markSaveToggle: toggle }),
+
+      // 별 초기화 하기 함수
+      resetClickedStars: () => set({ clickedStars: [] }),
+
     }),
     {
       name: 'StarStore',
@@ -49,7 +57,9 @@ const useStarStore = create<StarStoreType>(
       partialize: (state) => ({
         starId: state.starId,
         clickedStars: state.clickedStars,
+
         markedStars: state.markedStars,
+
       }),
     },
   ),

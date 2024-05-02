@@ -45,8 +45,6 @@ const HomePage = () => {
     <>
       <h.Wrapper>
         {starStore.starClicked ? <StarName /> : null}
-        {/* {starStore.starClicked ? <MarkBtn /> : null} */}
-        {/* <StarInfoCarousel active={0} /> */}
         <MainCanvas />
       </h.Wrapper>
     </>

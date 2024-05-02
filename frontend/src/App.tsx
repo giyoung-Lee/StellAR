@@ -6,6 +6,8 @@ import AppRoutes from './routes/AppRoutes';
 import GlobalStyle from './GlobalStyle';
 import "./index.css";
 import NavIcon from '../src/components/common/NavBar/NavIcon';
+import useStarStore from '../src/stores/starStore';
+import { useEffect } from "react";
 
 // 네비게이션바 예외 처리
 const ConditionalNav = () => {
@@ -23,6 +25,13 @@ const ConditionalNav = () => {
 };
 
 const App = () => {
+
+  const resetClickedStars = useStarStore(state => state.resetClickedStars);
+
+  useEffect(() => {
+    // 마운트 시 클릭된 별 배열 초기화
+    resetClickedStars();
+  }, [resetClickedStars]);
 
   return (
     <>

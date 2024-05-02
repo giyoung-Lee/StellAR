@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { getRandomInt } from '../../utils/random';
 import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
 
@@ -12,7 +11,15 @@ type Props = {
 };
 
 const StarMesh = ({ position, size, starId, spType }: Props) => {
-  const { setStarClicked, setStarId, addStarToClicked, removeStarFromClicked, clickedStars } = useStarStore();
+  const {
+    setStarClicked,
+    setStarId,
+    addStarToClicked,
+    removeStarFromClicked,
+    setZoomX,
+    setZoomY,
+    setZoomZ,
+  } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
   const starColor: { [key: string]: string } = {
@@ -25,7 +32,6 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     M: '#ff6565',
   };
   const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
-  const colorIndex = getRandomInt(0, COLOR.length);
   const [clicked, setClicked] = useState(false);
   const { camera, gl, scene, controls } = useThree();
 
@@ -52,8 +58,14 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
     if (!clicked) {
       addStarToClicked(starId);
+      setZoomX(starPosition.x);
+      setZoomY(starPosition.y);
+      setZoomZ(starPosition.z);
     } else {
       removeStarFromClicked(starId);
+      setZoomX(0);
+      setZoomY(0);
+      setZoomZ(0);
     }
 
     console.log(newCameraPosition);
@@ -65,9 +77,9 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       newCameraPosition.y,
       newCameraPosition.z,
     );
+
     camera.updateMatrixWorld();
   };
-
 
   useEffect(() => {
     if (clicked) {

@@ -13,10 +13,10 @@ import java.util.List;
 public interface UserConstellationRepository extends JpaRepository<UserConstellationEntity, Long> {
     List<UserConstellationEntity> findByUser(UserEntity user);
 
-    UserConstellationEntity findByUserAndName(UserEntity user, String name);
+    UserConstellationEntity findByUserAndUserConstellationId(UserEntity user, Long userConstellationId);
 
 
     @Transactional
-    void deleteByUserAndName(UserEntity user, String name);
+    void deleteByUserAndUserConstellationId(UserEntity user, Long userConstellationId);
 
 }

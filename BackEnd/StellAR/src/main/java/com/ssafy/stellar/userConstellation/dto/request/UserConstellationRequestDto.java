@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,6 +18,9 @@ public class UserConstellationRequestDto {
 
     @Schema(description = "유저 ID", required = true)
     private String userId;
+
+    @Schema(description = "유저 ID")
+    private Long constellationId;
 
     @Schema(description = "유저 별자리 이름", required = true)
     private String name;

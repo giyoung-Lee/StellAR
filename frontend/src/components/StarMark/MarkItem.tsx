@@ -16,7 +16,7 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', {
-      year: 'numerisc',
+      year: 'numeric',
       month: '2-digit',
       day: '2-digit',
     });

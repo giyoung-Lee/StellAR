@@ -25,19 +25,21 @@ const StarName = () => {
         <div className="flex justify-between p-1">
           <span>별 이름: </span>
           <div onClick={handleReset}>
-          <FontAwesomeIcon icon="xmark" />
+            <FontAwesomeIcon icon="xmark" />
           </div>
         </div>
-        <span className=''>{starStore.starId}</span>
+        <span className="">{starStore.starId}</span>
         {checkStarIdExists(starStore.starId) ? (
-        <p>
-          <FontAwesomeIcon icon={['fas', 'star']} />
-          <n.BookMarkName>{checkStarIdExists(starStore.starId)}</n.BookMarkName>
-        </p>
-      ) : (
-        <MarkBtn starName={starStore.starId} />
+          <p>
+            <FontAwesomeIcon icon={['fas', 'star']} />
+            <n.BookMarkName>
+              {checkStarIdExists(starStore.starId)}
+            </n.BookMarkName>
+          </p>
+        ) : (
+          <MarkBtn starName={starStore.starId} />
         )}
-    </n.Wrapper>
+      </n.Wrapper>
     </>
   );
 };

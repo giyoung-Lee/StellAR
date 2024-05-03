@@ -22,6 +22,10 @@ interface BackgroundSetterProps {
   isARMode: boolean;
 }
 
+interface ConstellationData {
+  [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
+}
+
 const MainCanvas = (props: Props) => {
   const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
 
@@ -60,10 +64,7 @@ const MainCanvas = (props: Props) => {
           fov={70}
           near={1}
           far={100000}
-          position={[
-            zoomX * 0.8, 
-            zoomY * 0.8, 
-            zoomZ * 0.8]}
+          position={[zoomX * 0.8, zoomY * 0.8, zoomZ * 0.8]}
         />
       ) : (
         <PerspectiveCamera
@@ -116,7 +117,7 @@ const MainCanvas = (props: Props) => {
               star.calZ * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(80, 90)}
+          size={getRandomInt(140, 160)}
         />
       ))}
 
@@ -138,31 +139,34 @@ const MainCanvas = (props: Props) => {
 
       {constData?.data &&
         starData?.data &&
-        Object.values(constData?.data).map((constellation: any) =>
-          constellation.map((starArr: string[]) => (
-            <MakeConstellation
-              pointA={
-                new THREE.Vector3(
-                  starData?.data[starArr[0]].calX *
-                    starData?.data[starArr[0]].nomalizedMagV,
-                  starData?.data[starArr[0]].calY *
-                    starData?.data[starArr[0]].nomalizedMagV,
-                  starData?.data[starArr[0]].calZ *
-                    starData?.data[starArr[0]].nomalizedMagV,
-                )
-              }
-              pointB={
-                new THREE.Vector3(
-                  starData?.data[starArr[1]].calX *
-                    starData?.data[starArr[1]].nomalizedMagV,
-                  starData?.data[starArr[1]].calY *
-                    starData?.data[starArr[1]].nomalizedMagV,
-                  starData?.data[starArr[1]].calZ *
-                    starData?.data[starArr[1]].nomalizedMagV,
-                )
-              }
-            />
-          )),
+        Object.entries(constData.data as ConstellationData).map(
+          ([constellation, connections]) =>
+            (connections as string[][]).map((starArr, index) => (
+              <MakeConstellation
+                key={index}
+                constellation={constellation}
+                pointA={
+                  new THREE.Vector3(
+                    starData.data[starArr[0]].calX *
+                      starData.data[starArr[0]].nomalizedMagV,
+                    starData.data[starArr[0]].calY *
+                      starData.data[starArr[0]].nomalizedMagV,
+                    starData.data[starArr[0]].calZ *
+                      starData.data[starArr[0]].nomalizedMagV,
+                  )
+                }
+                pointB={
+                  new THREE.Vector3(
+                    starData.data[starArr[1]].calX *
+                      starData.data[starArr[1]].nomalizedMagV,
+                    starData.data[starArr[1]].calY *
+                      starData.data[starArr[1]].nomalizedMagV,
+                    starData.data[starArr[1]].calZ *
+                      starData.data[starArr[1]].nomalizedMagV,
+                  )
+                }
+              />
+            )),
         )}
       <FloorMesh />
     </Canvas>

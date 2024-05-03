@@ -32,9 +32,7 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
     onSuccess(result: string) {
       console.log(result);
     },
-    onError(error) {
-      console.log(error);
-    },
+    onError(error) {},
   });
 
   return (

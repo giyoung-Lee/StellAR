@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-display: flex;
+  display: flex;
   flex-direction: column;
   position: absolute;
   top: 60%;
@@ -15,18 +15,6 @@ display: flex;
     path {
       color: #ffd43b !important;
     }
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: -30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 15px solid #ebb77bd9;
   }
 `;
 

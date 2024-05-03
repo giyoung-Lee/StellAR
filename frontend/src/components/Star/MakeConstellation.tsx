@@ -1,58 +1,54 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { Line2 } from 'three/examples/jsm/lines/Line2.js';
+import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
+import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
+
+import { useThree } from '@react-three/fiber';
 
 type Props = {
+  constellation: string;
   pointA: THREE.Vector3;
   pointB: THREE.Vector3;
 };
 
-const MakeConstellation = ({ pointA, pointB }: Props) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  // let t = 0;
-  // let direction = 1;
+const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
+  const lineRef = useRef<Line2>(null);
 
-  // function animate() {
-  //   requestAnimationFrame(animate);
+  const { scene } = useThree();
 
-  //   t += 0.01 * direction;
-  //   if (t > 1 || t < 0) direction *= -1;
-  //   if (meshRef.current) {
-  //     meshRef.current.position.lerpVectors(pointA, pointB, t);
-  //   }
-  // }
+  const handleClick = () => {
+    console.log('Line clicked:', constellation);
+  };
 
-  // useEffect(() => {
-  //   console.log(pointA, pointB);
-  //   animate();
-  // }, []);
+  useEffect(() => {
+    if (lineRef.current) {
+      const lineGeometry = new LineGeometry();
+      lineGeometry.setPositions([
+        pointA.x,
+        pointA.y,
+        pointA.z,
+        pointB.x,
+        pointB.y,
+        pointB.z,
+      ]);
+
+      const lineMaterial = new LineMaterial({
+        color: 0xffffff,
+        linewidth: 1.5,
+        resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
+      });
+
+      lineRef.current.geometry = lineGeometry;
+      lineRef.current.material = lineMaterial;
+    }
+  }, [pointA, pointB]);
 
   return (
-    <line
-    //   ref={meshRef}
-    // position={pointA}
-    // castShadow={false}
-    // receiveShadow={false}
-    >
-      <bufferGeometry
-        attach="geometry"
-        ref={(geometry) => {
-          if (geometry && pointA && pointB) {
-            const vectorA = new THREE.Vector3(pointA.x, pointA.y, pointA.z);
-            const vectorB = new THREE.Vector3(pointB.x, pointB.y, pointB.z);
-            const points = [vectorA, vectorB];
-            geometry.setFromPoints(points);
-            geometry.setAttribute(
-              'lineWidth',
-              new THREE.Float32BufferAttribute([1000, 1000], 1),
-            );
-          }
-        }}
-      />
-
-      <lineBasicMaterial color={'white'} />
-    </line>
+    <>
+      <primitive ref={lineRef} object={new Line2()} onClick={handleClick} />
+    </>
   );
 };
 
 export default MakeConstellation;
-

@@ -2,10 +2,10 @@ import { publicRequest } from '../hooks/requestMethods';
 import useStarStore from '../stores/starStore';
 
 export const PostStarMark = async (markData: markApiType) => {
-  const formData = new FormData();
-  formData.append('userId', markData.userId);
-  formData.append('starId', markData.starId);
-  formData.append('bookmarkName', markData.bookmarkName);
+  // const formData = new FormData();
+  // formData.append('userId', markData.userId);
+  // formData.append('starId', markData.starId);
+  // formData.append('bookmarkName', markData.bookmarkName);
 
   return publicRequest
     .post(`bookmark/create`, markData)

@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as m from '../style/StarMarkStyle';
+import { useMutation } from '@tanstack/react-query';
+import { DeleteStarMark } from '../../apis/StarMarkApis';
+import useUserStore from '../../stores/userStore';
 
 type Props = {
   starId: string;
@@ -8,14 +11,31 @@ type Props = {
 };
 
 const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
+  const [isSaved, setIsSaved] = useState(true);
+  const { userId } = useUserStore();
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
+      year: 'numerisc',
       month: '2-digit',
       day: '2-digit',
     });
   };
+
+  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSaved(!isSaved);
+    mutate({ userId, starId });
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: DeleteStarMark,
+    onSuccess(result: string) {
+      console.log(result);
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
 
   return (
     <>
@@ -24,10 +44,14 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
           <m.BookMarkName>{bookmarkName}</m.BookMarkName>
           <m.StarName>{starId}</m.StarName>
         </m.NameBox>
-        <m.Date>{formatDate(createTime)}</m.Date>
+        {/* <m.Date>{formatDate(createTime)}</m.Date> */}
         <m.Star>
           <label className="container">
-            <input type="checkbox" defaultChecked={true} />
+            <input
+              type="checkbox"
+              checked={isSaved}
+              onChange={handleCheckBox}
+            />
             <svg
               id="Layer_1"
               version="1.2"

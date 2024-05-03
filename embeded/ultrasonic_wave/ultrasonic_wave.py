@@ -1,15 +1,34 @@
 import gpiod
 import time
+import paho.mqtt.client as mqtt
+import json
 
 TRIG_PIN = 23
 ECHO_PIN = 23
 
 chip = gpiod.Chip('gpiochip4')
-before_time = time.time()
-before_distance = 0
 state = 0
-drag_num = 0
 out_count = 0
+last_distance = 0
+
+def make_to_json(action,sensor_num=None,height=None):
+  action={
+  "action": action,
+  "sensor_num": sensor_num,
+  "height":height
+  }
+
+  data=json.dumps(action)
+  return data
+
+def publish(client,msg):
+  client.publish("galaxy/action",msg)
+  
+broker_address="k10c105.p.ssafy.io"
+
+#broker에 연결 
+client=mqtt.Client("Publisher")
+client.connect(broker_address,1883)
 
 try:
     while True:
@@ -32,36 +51,29 @@ try:
         
         check_time = stop - start
         distance = check_time * 34300/2
-        print("Distance : %.1f " %distance)
+        #print("Distance : %.1f " %distance)
         if distance <= 110 and distance >= 30:
-            state = 0
             out_count = 0
-            print(abs(before_distance-distance))
-            if abs(before_distance-distance) >= 3:
-                if time.time()-before_time >= 0.3:
-                    state = 0
-                else:
-                    drag_num += 1
-                    if drag_num >= 6:
-                        state = 1
-            else:
-                state = 0
+            if state == 0:
+                state=1
+                data=make_to_json("down",ECHO_PIN,distance)
+                publish(client,data)
+                last_distance = distance
+                print("action: Down!!!!!!!!!!!!!!!!!!!!!\nsensor_num: %d\nheight: %d" % (ECHO_PIN, distance))
 
-            before_time = time.time()
-            before_distance = distance
+            else:
+                data=make_to_json("move",ECHO_PIN,distance)
+                publish(client,data)
+                last_distance = distance
+                print("action: Move\nsensor_num: %d\nheight: %d" % (ECHO_PIN, distance))
 
         else:
-            if out_count == 3:
-                if state == 0:
-                    print("Touch")
-                else:
-                    print("Drag")
-                #print(state)
-                drag_num = 0
             out_count += 1
-            #drag_num = 0
-            #if out_count == 3:
-            #    print(state)
+            if out_count == 3:
+                state = 0
+                data=make_to_json("Up",ECHO_PIN,last_distance)
+                publish(client,data)
+                print("action: Up\nsensor_num: %d\nheight: %d" % (ECHO_PIN, last_distance))
 
         #print("Distance : %.2f cm" % distance)
         #print(time.time())

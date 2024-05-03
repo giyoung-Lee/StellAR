@@ -30,6 +30,8 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
         this.starRepository = starRepository;
     }
 
+
+
     @Override
     public void manageUserBookmark(BookmarkRequestDto bookmarkRequestDto, boolean isUpdate) {
 
@@ -53,6 +55,51 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
         userBookmarkRepository.save(bookmark);
     }
 
+    @Override
+    public List<BookmarkDto> getUserBookmark(String userId) {
+        UserEntity user = validateUser(userId);
+
+        List<UserBookmarkEntity> allBookmarkByUser = userBookmarkRepository.findByUser(user);
+        List<BookmarkDto> bookmarksDto = new ArrayList<>();
+
+        for (UserBookmarkEntity bookmark : allBookmarkByUser) {
+            BookmarkDto dto = getBookmarkDto(bookmark);
+            bookmarksDto.add(dto);
+        }
+
+        return bookmarksDto;
+    }
+
+    @Override
+    public BookmarkDto getUserBookmarkByStar(String userId, String starId) {
+        UserEntity user = validateUser(userId);
+        StarEntity star = validateStar(starId);
+        UserBookmarkEntity bookmark = validateUserBookmark(user, star);
+
+        return getBookmarkDto(bookmark);
+    }
+
+    @Override
+    public void deleteUserBookmark(String userId, String starId) {
+        UserEntity user = validateUser(userId);
+        StarEntity star = validateStar(starId);
+
+        UserBookmarkEntity bookmark = validateUserBookmark(user, star);
+
+        userBookmarkRepository.delete(bookmark);
+    }
+
+    private static BookmarkDto getBookmarkDto(UserBookmarkEntity bookmark) {
+
+        BookmarkDto dto = new BookmarkDto();
+
+        dto.setUserId(bookmark.getUser().getUserId());
+        dto.setStarId(bookmark.getStar().getStarId());
+        dto.setBookmarkName(bookmark.getBookmarkName());
+        dto.setCraeteTime(bookmark.getCreateTime());
+        return dto;
+    }
+
     private UserEntity validateUser(String userId) {
         UserEntity user = userRepository.findByUserId(userId);
         if (user == null) {
@@ -69,39 +116,11 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
         return star;
     }
 
-
-    @Override
-    public List<BookmarkDto> getUserBookmark(String userId) {
-        UserEntity user = userRepository.findByUserId(userId);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with id: " + userId);
-        }
-        List<UserBookmarkEntity> allBookmarkByUser = userBookmarkRepository.findByUser(user);
-        List<BookmarkDto> bookmarksDto = new ArrayList<>();
-
-        for (UserBookmarkEntity bookmark : allBookmarkByUser) {
-            BookmarkDto dto = new BookmarkDto();
-
-            dto.setUserId(bookmark.getUser().getUserId());
-            dto.setStarId(bookmark.getStar().getStarId());
-            dto.setBookmarkName(bookmark.getBookmarkName());
-            dto.setCraeteTime(bookmark.getCreateTime());
-            bookmarksDto.add(dto);
-        }
-
-        return bookmarksDto;
-    }
-
-    @Override
-    public void deleteUserBookmark(String userId, String starId) {
-        UserEntity user = validateUser(userId);
-        StarEntity star = validateStar(starId);
-
+    private UserBookmarkEntity validateUserBookmark(UserEntity user, StarEntity star) {
         UserBookmarkEntity bookmark = userBookmarkRepository.findByUserAndStar(user, star);
         if (bookmark == null) {
             throw new IllegalArgumentException("Bookmark not found for given user and star");
         }
-
-        userBookmarkRepository.delete(bookmark);
+        return bookmark;
     }
 }

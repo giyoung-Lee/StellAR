@@ -15,8 +15,6 @@ public interface UserBookmarkRepository extends JpaRepository<UserBookmarkEntity
 
     UserBookmarkEntity findByUserAndStar(UserEntity user, StarEntity star);
 
-//    UserBookmarkEntity findB
-
     @Transactional
     void deleteByUserAndStar(UserEntity user, StarEntity star);
 

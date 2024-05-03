@@ -41,15 +41,17 @@ public class UserConstellationServiceImpl implements UserConstellationService {
     public void manageUserConstellation(UserConstellationRequestDto userConstellationRequestDto, boolean isUpdate) {
         UserEntity user = validateUser(userConstellationRequestDto.getUserId());
         String name = userConstellationRequestDto.getName();
+        Long constellationId = userConstellationRequestDto.getConstellationId();
         List<List<String>> links = userConstellationRequestDto.getLinks();
-        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndName(user, name);
+
+        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndUserConstellationId(user, constellationId);
         
-        if (!isUpdate && userConstellation != null) {
-            throw new IllegalStateException("User Constellation already exists for given user and star");
+        if (!isUpdate && constellationId != null) {
+            throw new IllegalStateException("너 데이터 잘못 줬어");
         }
 
-        if (isUpdate && userConstellation == null) {
-            throw new IllegalArgumentException("User Constellation not found for given user and star");
+        if (isUpdate && constellationId == null && userConstellation == null) {
+            throw new IllegalArgumentException("User Constellation not found for given user and constellationId");
         }
 
         userConstellationLinkRepository.deleteByUserConstellation(userConstellation);
@@ -60,26 +62,17 @@ public class UserConstellationServiceImpl implements UserConstellationService {
 
         userConstellationRepository.save(userConstellation);
 
-
         saveUserConstellationLinks(links, userConstellation);
-
     }
 
     @Override
     public List<UserConstellationDto> getUserConstellation(String userId) {
-        UserEntity user = userRepository.findByUserId(userId);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with id: " + userId);
-        }
+        UserEntity user = validateUser(userId);
         List<UserConstellationEntity> allConstellationByUser = userConstellationRepository.findByUser(user);
         List<UserConstellationDto> userConstellationDto = new ArrayList<>();
 
         for (UserConstellationEntity userConstellation : allConstellationByUser) {
-            UserConstellationDto dto = new UserConstellationDto();
-
-            dto.setName(userConstellation.getName());
-            dto.setDescription(userConstellation.getDescription());
-            dto.setCreateTime(userConstellation.getCreateDateTime());
+            UserConstellationDto dto = getUserConstellationDto(userConstellation);
 
             List<UserConstellationLinkEntity> linksByUserConstellationId = userConstellationLinkRepository.findByUserConstellation(userConstellation);
             List<UserConstellationLinkDto> userLinks = getUserConstellationLinkDtos(userConstellation, linksByUserConstellationId);
@@ -90,20 +83,60 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         return userConstellationDto;
     }
 
+    @Override
+    public UserConstellationDto getUserConstellationById(String userId, Long userConstellationId) {
+        UserEntity user = validateUser(userId);
+        UserConstellationEntity userConstellation = validateUserConstellation(userConstellationId, user);
+
+        return getUserConstellationDto(userConstellation);
+    }
+
     @Transactional
     @Override
-    public void deleteUserConstellation(String userId, String constellationName) {
+    public void deleteUserConstellation(String userId, Long userConstellationId) {
         UserEntity user = validateUser(userId);
-        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndName(user, constellationName);
-
-
-        if (userConstellation == null) {
-            throw new IllegalArgumentException("User Constellation not found for given user and star");
-        }
+        UserConstellationEntity userConstellation = validateUserConstellation(userConstellationId, user);
 
         userConstellationLinkRepository.deleteByUserConstellation(userConstellation);
         userConstellationRepository.delete(userConstellation);
 
+    }
+
+    private void saveUserConstellationLinks(List<List<String>> links, UserConstellationEntity userConstellation) {
+        for (List<String> link : links) {
+            StarEntity startStar = validateStar(link.get(0));
+            StarEntity endStar = validateStar(link.get(1));
+            UserConstellationLinkEntity userLink = new UserConstellationLinkEntity();
+            userLink.setUserConstellation(userConstellation);
+            userLink.setStartStar(starRepository.findByStarId(startStar.getStarId()));
+            userLink.setEndStar(starRepository.findByStarId(endStar.getStarId()));
+
+            userConstellationLinkRepository.save(userLink);
+        }
+    }
+
+    private static UserConstellationDto getUserConstellationDto(UserConstellationEntity userConstellation) {
+        UserConstellationDto dto = new UserConstellationDto();
+        dto.setUserConstellationId(userConstellation.getUserConstellationId());
+        dto.setName(userConstellation.getName());
+        dto.setDescription(userConstellation.getDescription());
+        dto.setCreateTime(userConstellation.getCreateDateTime());
+        return dto;
+    }
+
+    private static List<UserConstellationLinkDto> getUserConstellationLinkDtos(UserConstellationEntity userConstellation, List<UserConstellationLinkEntity> linksByUserConstellationId) {
+        List<UserConstellationLinkDto> userLinks = new ArrayList<>();
+
+        for (UserConstellationLinkEntity link : linksByUserConstellationId) {
+            UserConstellationLinkDto userConstellationLink = new UserConstellationLinkDto();
+
+            userConstellationLink.setUserConstellationId(userConstellation.getUserConstellationId());
+            userConstellationLink.setStartStar(link.getStartStar().getStarId());
+            userConstellationLink.setEndStar(link.getEndStar().getStarId());
+
+            userLinks.add(userConstellationLink);
+        }
+        return userLinks;
     }
 
     private UserEntity validateUser(String userId) {
@@ -122,32 +155,13 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         return star;
     }
 
-    private void saveUserConstellationLinks(List<List<String>> links, UserConstellationEntity userConstellation) {
-        for (List<String> link : links) {
-            StarEntity startStar = validateStar(link.get(0));  // 추가된 유효성 검사
-            StarEntity endStar = validateStar(link.get(1));    // 추가된 유효성 검사
-            UserConstellationLinkEntity userLink = new UserConstellationLinkEntity();
-            userLink.setUserConstellation(userConstellation);
-            userLink.setStartStar(starRepository.findByStarId(startStar.getStarId()));
-            userLink.setEndStar(starRepository.findByStarId(endStar.getStarId()));
+    private UserConstellationEntity validateUserConstellation(Long constellationId, UserEntity user) {
+        UserConstellationEntity userConstellation = userConstellationRepository.findByUserAndUserConstellationId(user, constellationId);
 
-            userConstellationLinkRepository.save(userLink);
+        if (userConstellation == null) {
+            throw new IllegalArgumentException("User Constellation not found for given user and userConstellationId");
         }
-    }
-
-    private static List<UserConstellationLinkDto> getUserConstellationLinkDtos(UserConstellationEntity userConstellation, List<UserConstellationLinkEntity> linksByUserConstellationId) {
-        List<UserConstellationLinkDto> userLinks = new ArrayList<>();
-
-        for (UserConstellationLinkEntity link : linksByUserConstellationId) {
-            UserConstellationLinkDto userConstellationLink = new UserConstellationLinkDto();
-
-            userConstellationLink.setUserConstellationId(userConstellation.getUserConstellationId());
-            userConstellationLink.setStartStar(link.getStartStar().getStarId());
-            userConstellationLink.setEndStar(link.getEndStar().getStarId());
-
-            userLinks.add(userConstellationLink);
-        }
-        return userLinks;
+        return userConstellation;
     }
 
 }

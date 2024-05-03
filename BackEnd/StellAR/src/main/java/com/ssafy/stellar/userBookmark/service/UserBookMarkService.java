@@ -11,5 +11,7 @@ public interface UserBookMarkService {
 
     List<BookmarkDto> getUserBookmark(String userId);
 
+    BookmarkDto getUserBookmarkByStar(String userId, String starId);
+
     void deleteUserBookmark(String userId, String starId);
 }

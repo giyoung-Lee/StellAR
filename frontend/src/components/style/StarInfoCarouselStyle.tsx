@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   height: 60vh;
   width: 100vw;
-  position: relative;
+  position: absolute;
+  z-index: 1000;
+  /* position: relative; */
   display: flex;
   align-self: center;
   justify-content: center;

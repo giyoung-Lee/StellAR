@@ -6,6 +6,7 @@ import { Line2 } from 'three/examples/jsm/lines/Line2.js';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 import { Vector3, CatmullRomCurve3 } from 'three';
+import useConstellationStore from '../../stores/constellationStore';
 
 extend({ Line2, LineGeometry, LineMaterial });
 
@@ -16,11 +17,14 @@ type Props = {
 };
 
 const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
+  const ConstellationStore = useConstellationStore();
   const lineRef = useRef<THREE.BufferGeometry | null>(null);
   const { scene } = useThree();
 
   const handleClick = () => {
     console.log('Line clicked:', constellation);
+    ConstellationStore.setConstellationClicked(true);
+    ConstellationStore.setConstellationName(constellation);
   };
 
   // 두꺼운 클릭 영역을 생성하기 위한 투명 튜브

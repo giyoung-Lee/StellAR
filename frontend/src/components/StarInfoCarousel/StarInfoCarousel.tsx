@@ -1,15 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as s from '../style/StarInfoCarouselStyle';
 import StarInfoImage from './StarInfoImage';
 import StarInfoScience from './StarInfoScience';
 import StarInfoStory from './StarInfoStory';
+import useConstellationStore from '../../stores/constellationStore';
 
 const StarInfoCarousel = ({ active }: { active: number }) => {
   const [activeSlide, setActiveSlide] = useState(active);
   const [dragStartX, setDragStartX] = useState(0);
   const [dragged, setDragged] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const Ref = useRef<HTMLDivElement>(null);
   const carousel = ['image', 'science', 'story'];
+  const constellationStore = useConstellationStore();
 
   const handleTouchStart = (event: React.TouchEvent) => {
     setDragStartX(event.touches[0].clientX);
@@ -69,8 +72,18 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
       };
   };
 
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (Ref.current && !Ref.current.contains(e.target as Node)) {
+        constellationStore.setConstellationClicked(false);
+      }
+    };
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
+  }, [Ref]);
+
   return (
-    <s.Wrapper>
+    <s.Wrapper ref={Ref}>
       <s.Carousel
         ref={carouselRef}
         onTouchStart={handleTouchStart}
@@ -80,7 +93,9 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         {carousel.map((card, idx) => (
           <s.CarouselItem key={idx} style={{ ...getStyles(idx) }}>
             {card === 'image' ? (
-              <StarInfoImage />
+              <StarInfoImage
+                constellationName={constellationStore.constellationName}
+              />
             ) : card === 'science' ? (
               <StarInfoScience />
             ) : (
@@ -94,4 +109,3 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
 };
 
 export default StarInfoCarousel;
-

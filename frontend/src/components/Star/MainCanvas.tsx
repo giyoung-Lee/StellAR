@@ -74,11 +74,7 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={1}
           far={100000}
-          position={[
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-          ]}
+          position={[0, -0.5 / Math.sqrt(3), 0]}
         />
       )}
 

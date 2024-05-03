@@ -40,7 +40,7 @@ def on_message(client, userdata, message):
         pyautogui.scroll(300)
         
         
-    # scroll_dwon 일 때
+    # scroll_down 일 때
     elif action == "scroll_down":
         pyautogui.scroll(-300)
 

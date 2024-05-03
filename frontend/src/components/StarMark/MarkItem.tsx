@@ -3,6 +3,7 @@ import * as m from '../style/StarMarkStyle';
 import { useMutation } from '@tanstack/react-query';
 import { DeleteStarMark } from '../../apis/StarMarkApis';
 import useUserStore from '../../stores/userStore';
+import useStarStore from '../../stores/starStore';
 
 type Props = {
   starId: string;
@@ -13,6 +14,7 @@ type Props = {
 const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
   const [isSaved, setIsSaved] = useState(true);
   const { userId } = useUserStore();
+  const starStore = useStarStore();
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', {
@@ -31,8 +33,8 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
     mutationFn: DeleteStarMark,
     onSuccess(result: string) {
       console.log(result);
+      starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
-    onError(error) {},
   });
 
   return (
@@ -42,7 +44,7 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
           <m.BookMarkName>{bookmarkName}</m.BookMarkName>
           <m.StarName>{starId}</m.StarName>
         </m.NameBox>
-        {/* <m.Date>{formatDate(createTime)}</m.Date> */}
+        <m.Date>{formatDate(createTime)}</m.Date>
         <m.Star>
           <label className="container">
             <input

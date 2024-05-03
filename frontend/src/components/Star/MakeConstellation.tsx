@@ -13,7 +13,7 @@ type Props = {
 };
 
 const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
-  const lineRef = useRef<Line2>(null);
+  const lineRef = useRef<Line2 | null>(null);
 
   const { scene } = useThree();
 

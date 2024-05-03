@@ -69,7 +69,7 @@ public class UserConstellationController {
     )
     @ApiResponse(responseCode = "400", description = "잘못된 데이터")
     @GetMapping
-    public ResponseEntity<?> getUserConstellationById(@PathVariable String userId, @PathVariable Long constellationId) {
+    public ResponseEntity<?> getUserConstellationById(@RequestParam String userId, @RequestParam Long constellationId) {
         try {
             UserConstellationDto userConstellations = userConstellationService.getUserConstellationById(userId, constellationId);
             return new ResponseEntity<UserConstellationDto>(userConstellations, HttpStatus.OK);
@@ -111,7 +111,7 @@ public class UserConstellationController {
     @ApiResponse(responseCode = "204", description = "별자리 삭제")
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUserConstellation(@PathVariable String userId, @PathVariable Long constellationId) {
+    public ResponseEntity<?> deleteUserConstellation(@RequestParam String userId, @RequestParam Long constellationId) {
         try {
             userConstellationService.deleteUserConstellation(userId, constellationId);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

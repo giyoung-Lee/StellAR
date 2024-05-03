@@ -63,7 +63,7 @@ const MainCanvas = (props: Props) => {
       {starClicked ? (
         <PerspectiveCamera
           makeDefault
-          fov={70}
+          fov={80}
           near={1}
           far={100000}
           position={[zoomX * 0.85, zoomY * 0.85, zoomZ * 0.85]}
@@ -71,7 +71,7 @@ const MainCanvas = (props: Props) => {
       ) : (
         <PerspectiveCamera
           makeDefault
-          fov={70}
+          fov={80}
           near={1}
           far={100000}
           position={[
@@ -119,7 +119,7 @@ const MainCanvas = (props: Props) => {
               star.calZ * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(80, 100)}
+          size={getRandomInt(80, 90)}
         />
       ))}
 

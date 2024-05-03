@@ -9,6 +9,7 @@ import com.ssafy.stellar.star.entity.PlanetEntity;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.PlanetRepository;
 import com.ssafy.stellar.star.repository.StarRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +24,12 @@ public class StarServiceImpl implements StarService{
     private final StarRepository starRepository;
     private final PlanetRepository planetRepository;
 
+    @Value("${stellar.star.max-magv}")
+    private Double starMaxMagv;
+
+    @Value("${stellar.star.min-magv}")
+    private Double starMinMagv;
+
     public StarServiceImpl(StarRepository starRepository,
                            PlanetRepository planetRepository) {
         this.starRepository = starRepository;
@@ -30,19 +37,14 @@ public class StarServiceImpl implements StarService{
     }
 
     @Override
-    public Map<String, Object> returnAllStar() {
-        List<StarEntity> list = starRepository.findAll();
+    public Map<String, Object> returnAllStar(String maxMagv) {
+        List<StarEntity> list = starRepository.findAllByMagVLessThan(maxMagv);
 
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
-        double minMagV = list.stream()
-                .mapToDouble(star -> Double.parseDouble(star.getMagV()))
-                .min()
-                .orElse(Double.MAX_VALUE);
-        double maxMagV = list.stream()
-                .mapToDouble(star -> Double.parseDouble(star.getMagV()))
-                .max()
-                .orElse(Double.MIN_VALUE);
+
+        double minMagV = starMinMagv;
+        double maxMagV = starMaxMagv;
 
         LocalDate startDate = LocalDate.of(2000, 1, 1);
         LocalDate today = LocalDate.now();
@@ -55,25 +57,10 @@ public class StarServiceImpl implements StarService{
             double newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
             double newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
-            double normalizedMagV = 10000 + (Double.parseDouble(star.getMagV()) - minMagV) * (50000 - 10000) / (maxMagV - minMagV);
+            double normalizedMagV = 20000
+                    + Math.exp((Double.parseDouble(star.getMagV()) - minMagV) * 2 / (maxMagV - minMagV));
 
             StarDto dto = getStarDto(star, xyz, normalizedMagV);
-
-            dto.setStarId(star.getStarId());
-            dto.setStarType(star.getStarType());
-            dto.setCalX(xyz[0]);
-            dto.setCalY(xyz[1]);
-            dto.setCalZ(xyz[2]);
-            dto.setConstellation(star.getConstellation());
-            dto.setParallax(star.getParallax());
-            dto.setSpType(star.getSP_TYPE());
-            dto.setHd(star.getHD());
-            dto.setMagV(star.getMagV());
-            dto.setRA(star.getRA());
-            dto.setDeclination(star.getDeclination());
-            dto.setPMRA(star.getPMRA());
-            dto.setPMDEC(star.getPMDEC());
-
             JsonElement jsonElement = gson.toJsonTree(dto);
             jsonObject.add(star.getStarId(), jsonElement);
         }
@@ -87,6 +74,16 @@ public class StarServiceImpl implements StarService{
 
         List<PlanetEntity> list = planetRepository.findAll();
         List<PlanetDto> result = new ArrayList<>();
+
+        double minMagV = list.stream()
+                .mapToDouble(planet -> Double.parseDouble(planet.getPlanetMagV()))
+                .min()
+                .orElse(Double.MAX_VALUE);
+        double maxMagV = list.stream()
+                .mapToDouble(planet -> Double.parseDouble(planet.getPlanetMagV()))
+                .max()
+                .orElse(Double.MIN_VALUE);
+
         for (PlanetEntity entity : list) {
             PlanetDto dto = new PlanetDto();
 
@@ -94,6 +91,12 @@ public class StarServiceImpl implements StarService{
             dto.setPlanetRA(entity.getPlanetRA());
             dto.setPlanetDEC(entity.getPlanetDEC());
             dto.setPlanetMagV(entity.getPlanetMagV());
+
+            double rate = (Double.parseDouble(entity.getPlanetMagV()) - minMagV) / (maxMagV - minMagV);
+            double normalizedMagV = 20000
+                    + Math.exp(rate * 2 / (starMaxMagv - starMinMagv));
+
+            dto.setNomalizedMagV(normalizedMagV);
 
             String[] raParts = entity.getPlanetRA().split(" ");
 
@@ -112,7 +115,6 @@ public class StarServiceImpl implements StarService{
             double dec_seconds = Double.parseDouble(decParts[2]);
 
             dec_degrees += dec_minutes / 60 + dec_seconds / 3600;
-
 
             double[] xyz = calculateXYZCoordinates(ra_degrees, dec_degrees);
             dto.setCalX(xyz[0]);

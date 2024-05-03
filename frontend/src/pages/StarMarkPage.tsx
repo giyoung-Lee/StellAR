@@ -28,6 +28,10 @@ const StarMarkPage = () => {
     }
   }, [starMarkData]);
 
+  useEffect(() => {
+    getStarMarkRefetch();
+  }, [starStore.markSaveToggle]);
+
   if (isStarMarkLoading) {
     return <Loading />;
   }

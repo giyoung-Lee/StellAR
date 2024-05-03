@@ -13,6 +13,7 @@ type Props = {
 const StarMesh = ({ position, size, starId, spType }: Props) => {
   const {
     setStarClicked,
+    starClicked,
     setStarId,
     addStarToClicked,
     removeStarFromClicked,
@@ -32,13 +33,16 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     M: '#ff6565',
   };
   const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
-  const [clicked, setClicked] = useState(false);
   const { camera, gl, scene, controls } = useThree();
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setClicked(!clicked);
-    event.object.material.color = new THREE.Color('purple');
+    setStarClicked(!starClicked);
+    
+    const mesh = event.object as THREE.Mesh;  // 타입 단언
+    if (mesh.material && 'color' in mesh.material) {
+      (mesh.material as THREE.MeshStandardMaterial).color.set('purple');
+    }
 
     const starPosition = event.object.position;
     console.log(starPosition);
@@ -56,7 +60,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     );
 
     // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
-    if (!clicked) {
+    if (!starClicked) {
       addStarToClicked(starId);
       setZoomX(starPosition.x);
       setZoomY(starPosition.y);
@@ -80,16 +84,6 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
     camera.updateMatrixWorld();
   };
-
-  useEffect(() => {
-    if (clicked) {
-      meshRef.current.material.color = new THREE.Color('purple');
-    } else {
-      meshRef.current.material.color = new THREE.Color(
-        starColor[spType as string],
-      );
-    }
-  }, [clicked, spType, starColor]);
 
   return (
     <mesh

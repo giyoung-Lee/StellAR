@@ -6,24 +6,41 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
-  size: number;
-  starId: string;
+  targetSize: number;
+  planetId: string;
   spType: string | null;
 };
 
-const PlanetMesh = ({ position, size, starId, spType }: Props) => {
-  const { setStarClicked, setStarId, addStarToClicked, removeStarFromClicked } =
-    useStarStore();
+const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
+  const {
+    starClicked,
+    setStarClicked,
+    setStarId,
+    setZoomX,
+    setZoomY,
+    setZoomZ,
+  } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
 
-  const [clicked, setClicked] = useState(false);
   const { camera, gl, controls } = useThree();
-  const { scene, animations } = useGLTF('/img/star1.glb');
+  const { scene, animations } = useGLTF(`/img/${planetId}.glb`);
+
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    if (scene) {
+      const box = new THREE.Box3().setFromObject(scene);
+      const size = new THREE.Vector3();
+      box.getSize(size);
+      const maxDimension = Math.max(size.x, size.y, size.z);
+      const scaleFactor = targetSize / maxDimension; // 타겟 크기에 맞게 스케일 팩터 계산
+      setScale(scaleFactor);
+    }
+  }, [scene, targetSize]);
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setClicked(!clicked);
+    setStarClicked(!starClicked);
 
     const starPosition = position;
     console.log(starPosition);
@@ -40,16 +57,20 @@ const PlanetMesh = ({ position, size, starId, spType }: Props) => {
       starPosition.z / (-0.5 * alpha),
     );
 
-    // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
-    if (!clicked) {
-      addStarToClicked(starId);
+    // 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
+    if (!starClicked) {
+      setZoomX(starPosition.x);
+      setZoomY(starPosition.y);
+      setZoomZ(starPosition.z);
     } else {
-      removeStarFromClicked(starId);
+      setZoomX(0);
+      setZoomY(0);
+      setZoomZ(0);
     }
 
     console.log(newCameraPosition);
     setStarClicked(true);
-    setStarId(starId);
+    setStarId(planetId);
 
     camera.position.set(
       newCameraPosition.x,
@@ -67,7 +88,7 @@ const PlanetMesh = ({ position, size, starId, spType }: Props) => {
         castShadow={false}
         receiveShadow={false}
         onClick={click}
-        scale={50}
+        scale={[scale, scale, scale]}
         object={scene}
       />
     </>

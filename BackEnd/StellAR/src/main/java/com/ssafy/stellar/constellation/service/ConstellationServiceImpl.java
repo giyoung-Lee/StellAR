@@ -82,7 +82,7 @@ public class ConstellationServiceImpl implements ConstellationService{
 
         temp.setConstellationId(entity.getConstellationId());
         temp.setConstellationSeason(entity.getConstellationSeason());
-        temp.setConstellationDesc(entity.getConstellationDesc());
+        temp.setConstellationDesc(entity.getConstellationAlpha());
         temp.setConstellationSubName(entity.getConstellationSubName());
         temp.setConstellationStartObservation(entity.getConstellationStartObservation());
 

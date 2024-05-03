@@ -38,6 +38,7 @@ public class UserConstellationController {
     @ApiResponse(responseCode = "400", description = "별자리 수정/저장 실패")
     @RequestMapping(path = "/create", method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<?> manageUserConstellation(@RequestBody UserConstellationRequestDto userConstellationRequestDto, HttpServletRequest request) {
+        System.out.println("userConstellationRequestDto = " + userConstellationRequestDto);
         try {
             boolean isUpdate = request.getMethod().equals("PUT");
 

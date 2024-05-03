@@ -14,5 +14,6 @@ public class PlanetDto {
     private double calX;
     private double calY;
     private double calZ;
+    private double nomalizedMagV;
 
 }

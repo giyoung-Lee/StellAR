@@ -17,7 +17,7 @@ public class ConstellationEntity {
     private String constellationSeason;
 
     @Column
-    private String constellationDesc;
+    private String constellationAlpha;
 
     @Column
     private String constellationSubName;
@@ -37,5 +37,10 @@ public class ConstellationEntity {
     @Column
     private String constellationEndObservation;
 
+    @Column
+    private String constellationAlphaTitle;
+
+    @Column
+    private String constellationAlphaDesc;
 
 }

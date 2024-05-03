@@ -4,7 +4,6 @@ import * as n from '../style/StarNameStyle';
 import MarkBtn from '../StarMark/MarkBtn';
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 
 const StarName = () => {
   const starStore = useStarStore();

@@ -119,7 +119,7 @@ const MainCanvas = (props: Props) => {
               star.calZ * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(100, 120)}
+          size={getRandomInt(80, 100)}
         />
       ))}
 
@@ -135,7 +135,7 @@ const MainCanvas = (props: Props) => {
               planet.calZ * planet.nomalizedMagV,
             )
           }
-          targetSize={600}
+          targetSize={800}
         />
       ))}
 
@@ -170,7 +170,7 @@ const MainCanvas = (props: Props) => {
               />
             )),
         )}
-      {/* <FloorMesh /> */}
+      <FloorMesh />
     </Canvas>
   );
 };

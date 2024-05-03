@@ -27,6 +27,7 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
   const { scene, animations } = useGLTF(`/img/${planetId}.glb`);
 
   const [scale, setScale] = useState(1);
+  
   useEffect(() => {
     if (scene) {
       const box = new THREE.Box3().setFromObject(scene);

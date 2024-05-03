@@ -60,10 +60,7 @@ const MainCanvas = (props: Props) => {
           fov={70}
           near={1}
           far={100000}
-          position={[
-            zoomX * 0.8, 
-            zoomY * 0.8, 
-            zoomZ * 0.8]}
+          position={[zoomX * 0.85, zoomY * 0.85, zoomZ * 0.85]}
         />
       ) : (
         <PerspectiveCamera
@@ -121,8 +118,8 @@ const MainCanvas = (props: Props) => {
       ))}
 
       {planetData?.data.map((planet: any) => (
-        <StarMesh
-          starId={planet.planetId}
+        <PlanetMesh
+          planetId={planet.planetId}
           spType={null}
           key={planet.planetId}
           position={
@@ -132,7 +129,7 @@ const MainCanvas = (props: Props) => {
               planet.calZ * 20000,
             )
           }
-          size={600}
+          targetSize={600}
         />
       ))}
 
@@ -164,7 +161,7 @@ const MainCanvas = (props: Props) => {
             />
           )),
         )}
-      <FloorMesh />
+      {/* <FloorMesh /> */}
     </Canvas>
   );
 };

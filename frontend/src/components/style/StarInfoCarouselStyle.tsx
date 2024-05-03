@@ -25,7 +25,7 @@ export const Carousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background-color: #ffffff27;
+  background-color: #373737cf;
   border-radius: 11px;
   border: 1px solid #ffffff74;
   width: 80%;

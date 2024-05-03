@@ -34,7 +34,7 @@ const MainCanvas = (props: Props) => {
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('6.4');
+      return GetStars('5');
     },
     refetchInterval: false,
   });

@@ -42,7 +42,7 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
           <m.BookMarkName>{bookmarkName}</m.BookMarkName>
           <m.StarName>{starId}</m.StarName>
         </m.NameBox>
-        {/* <m.Date>{formatDate(createTime)}</m.Date> */}
+        <m.Date>{formatDate(createTime)}</m.Date>
         <m.Star>
           <label className="container">
             <input

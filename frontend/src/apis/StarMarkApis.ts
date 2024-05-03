@@ -24,3 +24,9 @@ export const GetStarMark = async (userId: string) => {
   });
   // .then((res) => useStarStore.getState().setMarkedStars(res.data));
 };
+
+export const DeleteStarMark = async (deleteData: deleteMarkApiType) => {
+  return await publicRequest.delete('bookmark/delete', {
+    params: deleteData,
+  });
+};

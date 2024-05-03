@@ -11,7 +11,7 @@ const MarkList = ({ starMarkData }: Props) => {
   return (
     <l.Wrapper>
       {marklist.map((item, index) => (
-        <l.Card>
+        <l.Card key={index}>
           <MarkItem
             starId={item.starId}
             bookmarkName={item.bookmarkName}

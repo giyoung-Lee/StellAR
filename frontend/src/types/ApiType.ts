@@ -13,3 +13,8 @@ interface markApiType {
   starId: string;
   bookmarkName: string;
 }
+
+interface deleteMarkApiType {
+  userId: string;
+  starId: string;
+}

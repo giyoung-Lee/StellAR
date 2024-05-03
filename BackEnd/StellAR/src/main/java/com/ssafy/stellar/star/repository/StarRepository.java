@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface StarRepository extends JpaRepository<StarEntity, String> {
 
-    @Query("SELECT s FROM star s WHERE s.MagV < :maxMagv")
+    @Query("SELECT s FROM star s WHERE s.MagV < :maxMagv OR s.starType = 'constellation'")
     List<StarEntity> findAllByMagVLessThan(@Param("maxMagv") String maxMagv);
     StarEntity findByStarId(String starId);
 }

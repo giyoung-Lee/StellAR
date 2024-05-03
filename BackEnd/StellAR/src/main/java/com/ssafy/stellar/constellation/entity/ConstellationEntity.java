@@ -38,9 +38,6 @@ public class ConstellationEntity {
     private String constellationEndObservation;
 
     @Column
-    private String constellationAlphaTitle;
-
-    @Column
     private String constellationAlphaDesc;
 
 }

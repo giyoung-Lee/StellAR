@@ -35,8 +35,8 @@ public class UserBookmarkController {
     @ApiResponse(responseCode = "200", description = "별마크 수정 성공")
     @ApiResponse(responseCode = "201", description = "별마크 저장 성공")
     @ApiResponse(responseCode = "400", description = "별마크 수정/저장 실패")
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
-    public ResponseEntity<?> manageBookmark(@ParameterObject @ModelAttribute BookmarkRequestDto bookmarkRequestDto, HttpServletRequest request) {
+    @RequestMapping(path = "/create", method = {RequestMethod.POST, RequestMethod.PUT})
+    public ResponseEntity<?> manageBookmark(@RequestBody BookmarkRequestDto bookmarkRequestDto, HttpServletRequest request) {
         try {
             boolean isUpdate = request.getMethod().equals("PUT");
 
@@ -58,6 +58,28 @@ public class UserBookmarkController {
         }
     }
 
+    @Operation(summary = "유저 별마크 개별 조회", description = "사용자가 저장한 별마크를 조회합니다")
+    @ApiResponse(responseCode = "200", description = "별마크 조회 성공",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = BookmarkDto.class)
+            )
+    )
+    @ApiResponse(responseCode = "400", description = "잘못된 데이터")
+    @GetMapping
+    public ResponseEntity<?> getBookmarkByStar(@RequestParam String userId, @RequestParam String starId) {
+        try {
+            BookmarkDto userBookmark = userBookMarkService.getUserBookmarkByStar(userId, starId);
+            return new ResponseEntity<BookmarkDto>(userBookmark, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+
+        } catch (Exception e) {
+            log.error("Internal server error", e);
+            return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @Operation(summary = "유저 별마크 조회", description = "사용자가 저장한 별마크를 조회합니다. 별마크 리스트 출력")
     @ApiResponse(responseCode = "200", description = "별마크 조회 성공",
             content = @Content(
@@ -65,27 +87,29 @@ public class UserBookmarkController {
                     array = @ArraySchema(schema = @Schema(implementation = BookmarkDto.class))
             )
     )
-    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
-    @GetMapping
+    @ApiResponse(responseCode = "400", description = "유저 정보 없음")
+    @GetMapping("/all")
     public ResponseEntity<?> getBookmark(@RequestParam String userId) {
         try {
             List<BookmarkDto> userBookmarks = userBookMarkService.getUserBookmark(userId);
             return new ResponseEntity<List<BookmarkDto>>(userBookmarks, HttpStatus.OK);
-        } catch (UsernameNotFoundException e) {
+        } catch (IllegalArgumentException e) {
 
             log.error("User not found", e);
-            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
         } catch (Exception e) {
             log.error("Internal server error", e);
             return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @Operation(summary = "별마크 삭제", description = "사용자가 저장한 별마크를 삭제합니다.")
     @ApiResponse(responseCode = "204", description = "별마크 삭제")
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteBookmark(@RequestParam String userId, @RequestParam String starId) {
+        System.out.println("userId = " + userId);
         try {
             userBookMarkService.deleteUserBookmark(userId, starId);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

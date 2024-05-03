@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface StarService {
 
-    public Map<String, Object> returnAllStar();
+    public Map<String, Object> returnAllStar(String maxMagV);
 
     public List<PlanetDto> returnPlanet();
 }

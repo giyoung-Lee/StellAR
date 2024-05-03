@@ -15,39 +15,30 @@ const StarName = () => {
     return star ? star.bookmarkName : null;
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      event.stopPropagation();
-      if (
-        starNameRef.current &&
-        !starNameRef.current.contains(event.target as Node)
-      ) {
-        starStore.setStarClicked(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('mousemove', handleClickOutside);
-    document.addEventListener('touchmove', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('mousemove', handleClickOutside);
-      document.removeEventListener('touchmove', handleClickOutside);
-    };
-  }, [starStore]);
+  const handleReset = () => {
+    starStore.setStarClicked(false);
+  };
 
   return (
-    <n.Wrapper ref={starNameRef}>
-      {starStore.starId}
-      {checkStarIdExists(starStore.starId) ? (
+    <>
+      <n.Wrapper ref={starNameRef}>
+        <div className="flex justify-between p-1">
+          <span>별 이름: </span>
+          <div onClick={handleReset}>
+          <FontAwesomeIcon icon="xmark" />
+          </div>
+        </div>
+        <span className=''>{starStore.starId}</span>
+        {checkStarIdExists(starStore.starId) ? (
         <p>
           <FontAwesomeIcon icon={['fas', 'star']} />
           <n.BookMarkName>{checkStarIdExists(starStore.starId)}</n.BookMarkName>
         </p>
       ) : (
         <MarkBtn starName={starStore.starId} />
-      )}
+        )}
     </n.Wrapper>
+    </>
   );
 };
 

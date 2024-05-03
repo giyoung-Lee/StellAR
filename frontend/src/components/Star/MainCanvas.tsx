@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -23,7 +23,7 @@ interface BackgroundSetterProps {
 }
 
 const MainCanvas = (props: Props) => {
-  const { isARMode } = useStarStore();
+  const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
 
   const videoTexture = useCameraStream();
 
@@ -54,27 +54,54 @@ const MainCanvas = (props: Props) => {
   return (
     <Canvas gl={{ antialias: true }}>
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
-      <PerspectiveCamera
-        makeDefault
-        fov={70}
-        near={1}
-        far={100000}
-        position={[
-          -0.5 / Math.sqrt(3),
-          -0.5 / Math.sqrt(3),
-          -0.5 / Math.sqrt(3),
-        ]}
-      />
-      <OrbitControls
-        target={[0, 0, 0]}
-        rotateSpeed={-0.25}
-        zoomSpeed={10}
-        minDistance={1}
-        maxDistance={100000}
-        enableDamping
-        dampingFactor={0.1}
-        // enableZoom={false}
-      />
+      {starClicked ? (
+        <PerspectiveCamera
+          makeDefault
+          fov={70}
+          near={1}
+          far={100000}
+          position={[
+            zoomX * 0.8, 
+            zoomY * 0.8, 
+            zoomZ * 0.8]}
+        />
+      ) : (
+        <PerspectiveCamera
+          makeDefault
+          fov={70}
+          near={1}
+          far={100000}
+          position={[
+            -0.5 / Math.sqrt(3),
+            -0.5 / Math.sqrt(3),
+            -0.5 / Math.sqrt(3),
+          ]}
+        />
+      )}
+
+      {starClicked ? (
+        <OrbitControls
+          target={[zoomX, zoomY, zoomZ]}
+          rotateSpeed={-0.25}
+          zoomSpeed={10}
+          minDistance={1}
+          maxDistance={100000}
+          enableDamping
+          dampingFactor={0.1}
+          // enableZoom={false}
+        />
+      ) : (
+        <OrbitControls
+          target={[0, 0, 0]}
+          rotateSpeed={-0.25}
+          zoomSpeed={10}
+          minDistance={1}
+          maxDistance={100000}
+          enableDamping
+          dampingFactor={0.1}
+          // enableZoom={false}
+        />
+      )}
 
       <Lights />
       {Object.values(starData?.data).map((star: any) => (

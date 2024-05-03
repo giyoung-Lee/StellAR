@@ -5,10 +5,10 @@ import {
   faArrowLeft,
   faBell,
   faStar as solidStar,
-  faUser,
+  faUser, faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faCopy, faStar } from '@fortawesome/free-regular-svg-icons';
 
 // 사용할 아이콘을 라이브러리에 추가
-library.add(faArrowLeft, faUser, faBell, faCopy, solidStar, faStar);
+library.add(faArrowLeft, faUser, faBell, faCopy, faXmark, solidStar, faStar);

@@ -19,7 +19,12 @@ interface StarStoreType {
   setMarkSaveToggle: (toggle: boolean) => void;
 
   resetClickedStars: () => void; // 별 초기화 하기
-
+  zoomX: number;
+  setZoomX: (zoomX: number) => void;
+  zoomY: number;
+  setZoomY: (zoomY: number) => void;
+  zoomZ: number;
+  setZoomZ: (zoomZ: number) => void;
 }
 
 const useStarStore = create<StarStoreType>(
@@ -49,7 +54,13 @@ const useStarStore = create<StarStoreType>(
 
       // 별 초기화 하기 함수
       resetClickedStars: () => set({ clickedStars: [] }),
-
+      // 줌인 타겟 팩터
+      zoomX: 0,
+      setZoomX: (zoomX: number) => set({ zoomX: zoomX }),
+      zoomY: 0,
+      setZoomY: (zoomY: number) => set({ zoomY: zoomY }),
+      zoomZ: 0,
+      setZoomZ: (zoomZ: number) => set({ zoomZ: zoomZ }),
     }),
     {
       name: 'StarStore',

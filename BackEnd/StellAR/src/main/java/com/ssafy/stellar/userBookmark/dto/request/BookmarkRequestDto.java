@@ -10,9 +10,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class BookmarkRequestDto {
-
 
     @Schema(description = "사용자 ID", required = true)
     private String userId;

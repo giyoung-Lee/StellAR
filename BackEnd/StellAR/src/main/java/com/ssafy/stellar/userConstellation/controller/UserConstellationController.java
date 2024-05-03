@@ -36,7 +36,7 @@ public class UserConstellationController {
     @ApiResponse(responseCode = "200", description = "별자리 수정 성공")
     @ApiResponse(responseCode = "201", description = "별자리 저장 성공")
     @ApiResponse(responseCode = "400", description = "별자리 수정/저장 실패")
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT})
+    @RequestMapping(path = "/create", method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<?> manageUserConstellation(@RequestBody UserConstellationRequestDto userConstellationRequestDto, HttpServletRequest request) {
         try {
             boolean isUpdate = request.getMethod().equals("PUT");
@@ -66,8 +66,8 @@ public class UserConstellationController {
                     schema = @Schema(implementation = UserConstellationDto.class)
             )
     )
-    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
-    @GetMapping("/{userId}/{constellationId}")
+    @ApiResponse(responseCode = "400", description = "잘못된 데이터")
+    @GetMapping
     public ResponseEntity<?> getUserConstellationById(@PathVariable String userId, @PathVariable Long constellationId) {
         try {
             UserConstellationDto userConstellations = userConstellationService.getUserConstellationById(userId, constellationId);
@@ -75,7 +75,7 @@ public class UserConstellationController {
         } catch (UsernameNotFoundException e) {
 
             log.error("User not found", e);
-            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>("User not found", HttpStatus.BAD_REQUEST);
 
         } catch (Exception e) {
             log.error("Internal server error", e);
@@ -91,7 +91,7 @@ public class UserConstellationController {
             )
     )
     @ApiResponse(responseCode = "404", description = "유저 정보 없음")
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<?> getUserConstellation(@RequestParam String userId) {
         try {
             List<UserConstellationDto> userConstellations = userConstellationService.getUserConstellation(userId);
@@ -109,7 +109,7 @@ public class UserConstellationController {
     @Operation(summary = "별마크 삭제", description = "사용자가 저장한 별자리를 삭제합니다.")
     @ApiResponse(responseCode = "204", description = "별자리 삭제")
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
-    @DeleteMapping("/delete//{userId}/{constellationId}")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteUserConstellation(@PathVariable String userId, @PathVariable Long constellationId) {
         try {
             userConstellationService.deleteUserConstellation(userId, constellationId);

@@ -1,7 +1,11 @@
 import { publicRequest } from '../hooks/requestMethods';
 
-export const GetStars = async () => {
-  return await publicRequest.get('star/all');
+export const GetStars = async (maxMagv: string) => {
+  return await publicRequest.get('star/all', {
+    params: {
+      maxMagv: maxMagv,
+    },
+  });
 };
 
 export const GetConstellation = async (type: string) => {

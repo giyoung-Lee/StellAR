@@ -8,7 +8,7 @@ export const PostStarMark = async (markData: markApiType) => {
   formData.append('bookmarkName', markData.bookmarkName);
 
   return publicRequest
-    .post(`bookmark`, formData)
+    .post(`bookmark/create`, formData)
     .then((res) => res.data)
     .catch((error) => {
       console.log(error);
@@ -17,7 +17,7 @@ export const PostStarMark = async (markData: markApiType) => {
 };
 
 export const GetStarMark = async (userId: string) => {
-  return await publicRequest.get('bookmark', {
+  return await publicRequest.get('bookmark/all', {
     params: {
       userId: userId,
     },

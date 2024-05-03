@@ -33,7 +33,9 @@ const MainCanvas = (props: Props) => {
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
-    queryFn: GetStars,
+    queryFn: () => {
+      return GetStars('6.4');
+    },
     refetchInterval: false,
   });
 
@@ -117,7 +119,7 @@ const MainCanvas = (props: Props) => {
               star.calZ * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(140, 160)}
+          size={getRandomInt(100, 120)}
         />
       ))}
 
@@ -128,9 +130,9 @@ const MainCanvas = (props: Props) => {
           key={planet.planetId}
           position={
             new THREE.Vector3(
-              planet.calX * 20000,
-              planet.calY * 20000,
-              planet.calZ * 20000,
+              planet.calX * planet.nomalizedMagV,
+              planet.calY * planet.nomalizedMagV,
+              planet.calZ * planet.nomalizedMagV,
             )
           }
           targetSize={600}
@@ -147,22 +149,22 @@ const MainCanvas = (props: Props) => {
                 constellation={constellation}
                 pointA={
                   new THREE.Vector3(
-                    starData.data[starArr[0]].calX *
-                      starData.data[starArr[0]].nomalizedMagV,
-                    starData.data[starArr[0]].calY *
-                      starData.data[starArr[0]].nomalizedMagV,
-                    starData.data[starArr[0]].calZ *
-                      starData.data[starArr[0]].nomalizedMagV,
+                    starData.data[starArr[0]]?.calX *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calY *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calZ *
+                      starData.data[starArr[0]]?.nomalizedMagV,
                   )
                 }
                 pointB={
                   new THREE.Vector3(
-                    starData.data[starArr[1]].calX *
-                      starData.data[starArr[1]].nomalizedMagV,
-                    starData.data[starArr[1]].calY *
-                      starData.data[starArr[1]].nomalizedMagV,
-                    starData.data[starArr[1]].calZ *
-                      starData.data[starArr[1]].nomalizedMagV,
+                    starData.data[starArr[1]]?.calX *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calY *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calZ *
+                      starData.data[starArr[1]]?.nomalizedMagV,
                   )
                 }
               />

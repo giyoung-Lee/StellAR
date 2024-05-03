@@ -18,6 +18,7 @@ const HomePage = () => {
 
   useEffect(() => {
     starStore.setStarClicked(false);
+    constellationStore.setConstellationClicked(false);
   }, []);
 
   const {

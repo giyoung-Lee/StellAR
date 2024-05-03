@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
+import { useAnimations, useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
@@ -23,6 +24,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
   } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
+
   const starColor: { [key: string]: string } = {
     O: '#3db8ff',
     B: '#6bffe1',

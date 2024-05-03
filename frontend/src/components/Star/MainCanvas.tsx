@@ -135,7 +135,7 @@ const MainCanvas = (props: Props) => {
               planet.calZ * planet.nomalizedMagV,
             )
           }
-          targetSize={600}
+          targetSize={800}
         />
       ))}
 

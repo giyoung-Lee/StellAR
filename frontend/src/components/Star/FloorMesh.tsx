@@ -10,7 +10,7 @@ const FloorMesh = () => {
   const uniforms = useRef({
     uTexture: { value: texture },
     uTime: { value: 0 },
-    uAmplitude: { value: 10.0 },
+    uAmplitude: { value: 20.0 },
     uWaveLength: { value: 0.5 },
     opacity: { value: 0.7 },
   });
@@ -26,7 +26,7 @@ const FloorMesh = () => {
         vec3 newPosition = position;
         float wave = sin(position.x * uWaveLength + uTime) * uAmplitude;
         newPosition.z += wave;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 2.0);
     }
   `;
 
@@ -49,7 +49,7 @@ const FloorMesh = () => {
   return (
     <>
       <mesh ref={meshRef} position={[0, -50, 0]} rotation-x={-Math.PI / 2}>
-        <planeGeometry args={[15000, 15000, 50, 50]} />
+        <planeGeometry args={[60000, 60000, 100, 100]} />
         <shaderMaterial
           uniforms={uniforms.current}
           // wireframe={true}

@@ -2,13 +2,10 @@ package com.ssafy.stellar.utils.stars;
 
 import com.ssafy.stellar.star.entity.PlanetEntity;
 import com.ssafy.stellar.star.repository.PlanetRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,8 +26,8 @@ public class RefreshPlanet {
 
     public void returnPlanet() {
 
-        String[] identifiers = {"199", "299", "499", "599", "699", "799", "899", "301", "401", "402", "501", "502", "503", "504", "606", "607", "608", "610", "611", "704", "705", "706", "707", "708", "801", "10"};
-        String[] names = {"Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Moon", "Phobos", "Deimos", "Io", "Europa", "Ganymede", "Callisto", "Titan", "Rhea", "Iapetus", "Dione", "Tethys", "Titania", "Oberon", "Ariel", "Umbriel", "Miranda", "Triton", "Sun"};
+        String[] identifiers = {"199", "299", "499", "599", "699", "799", "899", "301", "10"};
+        String[] names = {"Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Moon", "Sun"};
 
         Map<String, Map<String, String>> planetData = fetchCelestialData(identifiers, names);
 
@@ -105,6 +102,7 @@ public class RefreshPlanet {
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ api 참고
 //    @PostConstruct
 //    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(cron = " 0 * * * * * ")
     public void init() {
         try {
             returnPlanet();

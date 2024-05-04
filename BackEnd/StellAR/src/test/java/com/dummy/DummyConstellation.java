@@ -1,10 +1,10 @@
 package com.dummy;
 
-import com.ssafy.stellar.constellation.dto.response.ConstellationAllDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 
 public class DummyConstellation {
-    public static ConstellationAllDto getConstellationAllDto1() {
-        return new ConstellationAllDto("Aquarius", "가을", "물병자리설명",
+    public static ConstellationDto getConstellationAllDto1() {
+        return new ConstellationDto("Aquarius", "가을", "물병자리설명",
                 "물병자리", "2.16", "Aquarius.png",
                 "그리스 신화에 의하면 물병자리는 독수리에게 납치당해 신들에게 술을 따르는 일을 하게 된 트로이의 왕자 가니메데로 알려져 있다. " +
                         "청춘의 여신 헤베가 신들을 위해 술을 따르는 일을 하고 있었는데, 어느 날 발목을 삐어 그 일을 할 수 없게 되자 제우스는 독수리로 변하여 이다(Ida)산에서" +
@@ -12,8 +12,8 @@ public class DummyConstellation {
                 , "hwangdo13", "3.11");
     }
 
-    public static ConstellationAllDto getConstellationAllDto2() {
-        return new ConstellationAllDto("Aries", "가을", "양자리설명",
+    public static ConstellationDto getConstellationAllDto2() {
+        return new ConstellationDto("Aries", "가을", "양자리설명",
                 "양자리", "4.19", "Aries.png",
                 "그리스 신화에 따르면 테살리에 야타마스라고 불리는 왕이 살고 있었는데, " +
                         "그에게는 프릭수스와 헬레라는 두 남매가 있었다. 이들이 어렸을 때 " +

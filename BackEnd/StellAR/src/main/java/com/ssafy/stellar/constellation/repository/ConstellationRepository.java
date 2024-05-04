@@ -1,6 +1,7 @@
 package com.ssafy.stellar.constellation.repository;
 
 
+import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.entity.ConstellationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,7 @@ public interface ConstellationRepository extends JpaRepository<ConstellationEnti
 
     @Query("SELECT c.constellationId FROM constellation c WHERE c.constellationType = :constellationType")
     List<String> findByConstellationType(String constellationType);
+
+    ConstellationEntity findAllByConstellationId(String constellationId);
 
 }

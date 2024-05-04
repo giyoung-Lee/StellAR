@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import Background from '/img/background.jpg'
+import Background from '/img/background.jpg';
 
 const GlobalStyle = createGlobalStyle`
     html {
@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         /* background-color: var(--color-dark); */
+        background-color: black;
         background-image: url(${Background});
         background-size: cover;
     }
@@ -26,3 +27,4 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
+

@@ -1,7 +1,7 @@
 package com.ssafy.stellar.constellation.controller;
 
 import com.dummy.DummyConstellation;
-import com.ssafy.stellar.constellation.dto.response.ConstellationAllDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.service.ConstellationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,6 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ConstellationController.class,
         excludeAutoConfiguration = SecurityAutoConfiguration.class)
@@ -36,7 +35,7 @@ public class ConstellationControllerTest {
 
     @MockBean
     ConstellationService constellationService;
-    List<ConstellationAllDto> expectedConstellations;
+    List<ConstellationDto> expectedConstellations;
 
     @BeforeEach
     void setUp() {

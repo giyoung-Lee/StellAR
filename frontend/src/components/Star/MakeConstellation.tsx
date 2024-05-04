@@ -29,7 +29,7 @@ const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
 
   // 두꺼운 클릭 영역을 생성하기 위한 투명 튜브
   const path = new CatmullRomCurve3([pointA, pointB]);
-  const tubeGeometry = new TubeGeometry(path, 20, 130, 8, false);
+  const tubeGeometry = new TubeGeometry(path, 20, 100, 8, false);
   const tubeMaterial = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     opacity: 0.2,
@@ -47,3 +47,4 @@ const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
 };
 
 export default MakeConstellation;
+

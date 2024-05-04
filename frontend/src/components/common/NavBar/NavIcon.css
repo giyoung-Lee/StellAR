@@ -2,6 +2,7 @@
 .checkbox-wrapper * {
   -webkit-tap-highlight-color: transparent;
   outline: none;
+  z-index: 1001;
 }
 
 /* 실제 체크박스 숨김 효과 */

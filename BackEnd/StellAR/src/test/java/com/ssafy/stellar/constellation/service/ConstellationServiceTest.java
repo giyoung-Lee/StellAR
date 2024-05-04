@@ -1,11 +1,6 @@
 package com.ssafy.stellar.constellation.service;
 
-import com.ssafy.stellar.constellation.dto.response.ConstellationAllDto;
-import com.ssafy.stellar.constellation.dto.response.ConstellationLinkDto;
-import com.ssafy.stellar.constellation.entity.ConstellationEntity;
-import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
-import com.ssafy.stellar.constellation.repository.ConstellationLinkRepository;
-import com.ssafy.stellar.constellation.repository.ConstellationRepository;
+import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +22,7 @@ public class ConstellationServiceTest {
     @Test
     @DisplayName("별자리 전체 정보")
     public void getConstellation() throws Exception {
-        List<ConstellationAllDto> constellation = constellationService.findAllConstellation("hwangdo13");
+        List<ConstellationDto> constellation = constellationService.findAllConstellation("hwangdo13");
         assertNotNull(constellation);
     }
 

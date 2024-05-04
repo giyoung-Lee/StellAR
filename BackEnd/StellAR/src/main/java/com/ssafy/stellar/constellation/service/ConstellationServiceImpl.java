@@ -3,7 +3,7 @@ package com.ssafy.stellar.constellation.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.ssafy.stellar.constellation.dto.response.ConstellationAllDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.entity.ConstellationEntity;
 import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
 import com.ssafy.stellar.constellation.repository.ConstellationLinkRepository;
@@ -36,14 +36,14 @@ public class ConstellationServiceImpl implements ConstellationService{
 
 
     @Override
-    public List<ConstellationAllDto> findAllConstellation(String constellationType) throws Exception {
+    public List<ConstellationDto> findAllConstellation(String constellationType) throws Exception {
 
         List<ConstellationEntity> ConstellationEntity =
                 constellationRepository.findAllByConstellationType(constellationType);
-        List<ConstellationAllDto> dto = new ArrayList<>();
+        List<ConstellationDto> dto = new ArrayList<>();
 
         for(ConstellationEntity entity : ConstellationEntity) {
-            ConstellationAllDto temp = getConstellationAllDto(entity);
+            ConstellationDto temp = getConstellationAllDto(entity);
             dto.add(temp);
         }
         return dto;
@@ -73,12 +73,30 @@ public class ConstellationServiceImpl implements ConstellationService{
         return map;
     }
 
+    @Override
+    public ConstellationDto findConstellationById(String constellationId) {
+
+        ConstellationDto dto = new ConstellationDto();
+        ConstellationEntity entity = constellationRepository.findAllByConstellationId(constellationId);
+        dto.setConstellationId(entity.getConstellationId());
+        dto.setConstellationSeason(entity.getConstellationSeason());
+        dto.setConstellationDesc(entity.getConstellationAlphaDesc());
+        dto.setConstellationImg(entity.getConstellationImg());
+        dto.setConstellationStory(entity.getConstellationStory());
+        dto.setConstellationType(entity.getConstellationType());
+        dto.setConstellationEndObservation(entity.getConstellationEndObservation());
+        dto.setConstellationStartObservation(entity.getConstellationStartObservation());
+        dto.setConstellationSubName(entity.getConstellationSubName());
+
+        return dto;
+    }
+
     private StarEntity findByStarId (String starId) {
         return starRepository.findByStarId(starId);
     }
 
-    private static ConstellationAllDto getConstellationAllDto(ConstellationEntity entity) throws Exception {
-        ConstellationAllDto temp = new ConstellationAllDto();
+    private static ConstellationDto getConstellationAllDto(ConstellationEntity entity) throws Exception {
+        ConstellationDto temp = new ConstellationDto();
 
         temp.setConstellationId(entity.getConstellationId());
         temp.setConstellationSeason(entity.getConstellationSeason());

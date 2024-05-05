@@ -25,7 +25,7 @@ export const Carousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background-color: #373737cf;
+  background-color: #373737e7;
   border-radius: 11px;
   border: 1px solid #ffffff74;
   width: 80%;
@@ -43,7 +43,7 @@ export const CardWrapper = styled.div`
   align-items: center;
   height: 90%;
   width: 85%;
-  padding-bottom: 5vh;
+  /* padding-bottom: 5vh; */
 `;
 
 export const CardTitle = styled.p`
@@ -88,7 +88,7 @@ export const ScienceInfo = styled.div`
   }
   p:nth-child(3) {
     margin-bottom: 0;
-    line-height: 1.5;
+    line-height: 1.7;
   }
 `;
 
@@ -96,10 +96,11 @@ export const Mythology = styled.div`
   width: 100%;
   margin: 10px 0;
   padding: 0 5px;
-  height: 87%;
+  height: 95%;
   font-size: 18px;
   font-weight: 100;
   color: white;
   overflow-y: auto;
-  line-height: 1.5;
+  line-height: 1.7;
 `;
+

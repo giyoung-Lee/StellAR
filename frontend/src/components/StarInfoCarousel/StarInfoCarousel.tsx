@@ -4,6 +4,9 @@ import StarInfoImage from './StarInfoImage';
 import StarInfoScience from './StarInfoScience';
 import StarInfoStory from './StarInfoStory';
 import useConstellationStore from '../../stores/constellationStore';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../common/Loading/Loading';
+import { GetConstellationDetail } from '../../apis/StarApis';
 
 const StarInfoCarousel = ({ active }: { active: number }) => {
   const [activeSlide, setActiveSlide] = useState(active);
@@ -12,6 +15,7 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const Ref = useRef<HTMLDivElement>(null);
   const carousel = ['image', 'science', 'story'];
+
   const constellationStore = useConstellationStore();
 
   const handleTouchStart = (event: React.TouchEvent) => {
@@ -82,6 +86,17 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
     return () => window.removeEventListener('mousedown', handleClick);
   }, [Ref]);
 
+  const { isLoading: isConstellationLoading, data: constellationData } =
+    useQuery({
+      queryKey: ['get-constellation-detail'],
+      queryFn: () =>
+        GetConstellationDetail(constellationStore.constellationName),
+    });
+
+  if (isConstellationLoading) {
+    <Loading />;
+  }
+
   return (
     <s.Wrapper ref={Ref}>
       <s.Carousel
@@ -94,12 +109,12 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
           <s.CarouselItem key={idx} style={{ ...getStyles(idx) }}>
             {card === 'image' ? (
               <StarInfoImage
-                constellationName={constellationStore.constellationName}
+                constellationImg={constellationData?.data.constellationImg}
               />
             ) : card === 'science' ? (
-              <StarInfoScience />
+              <StarInfoScience constellationData={constellationData?.data} />
             ) : (
-              <StarInfoStory />
+              <StarInfoStory constellationData={constellationData?.data} />
             )}
           </s.CarouselItem>
         ))}
@@ -109,3 +124,4 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
 };
 
 export default StarInfoCarousel;
+

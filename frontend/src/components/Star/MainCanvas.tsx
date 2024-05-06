@@ -75,9 +75,9 @@ const MainCanvas = (props: Props) => {
           near={0.1}
           far={100000}
           position={[
+            0,
             -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
+            0,
           ]}
         />
       )}
@@ -86,23 +86,27 @@ const MainCanvas = (props: Props) => {
         <OrbitControls
           target={[zoomX, zoomY, zoomZ]}
           rotateSpeed={-0.25}
-          zoomSpeed={10}
+          zoomSpeed={5}
           minDistance={1}
+          // 지구 밖으로 나가지 않는 정도
+          // maxDistance={20000}
           maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
-          // enableZoom={false}
+          enableZoom={true}
         />
       ) : (
         <OrbitControls
           target={[0, 0, 0]}
           rotateSpeed={-0.25}
-          zoomSpeed={10}
+          zoomSpeed={5}
           minDistance={1}
+          // 지구 밖으로 나가지 않는 정도
+          // maxDistance={20000}
           maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
-          // enableZoom={false}
+          enableZoom={true}
         />
       )}
 

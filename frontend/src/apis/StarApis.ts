@@ -58,3 +58,11 @@ export const MakeUserConstellation = async (userConstellationData: userConstella
       throw new Error('나만의 별자리 만들기 api 에러');
     });
 };
+
+export const DeleteUserConstellation = async (deleteData: deleteuserApiType) => {
+  return await publicRequest
+    .delete('user-constellation/delete', {
+      params: deleteData,
+    })
+    .then((res) => res.data);
+};

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect  } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -27,6 +27,7 @@ interface ConstellationData {
 }
 
 const MainCanvas = (props: Props) => {
+  // 스토어에서 필요한 요소 가져오기
   const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
 
   const videoTexture = useCameraStream();
@@ -34,7 +35,7 @@ const MainCanvas = (props: Props) => {
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('5');
+      return GetStars('4.8');
     },
   });
 
@@ -50,14 +51,14 @@ const MainCanvas = (props: Props) => {
     },
   });
 
-  const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
-    queryKey: ['get-my-consts'],
-    queryFn: () => {
-      return GetUserConstellation('1');
-    },
-  });
+  // const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
+  //   queryKey: ['get-my-consts'],
+  //   queryFn: () => {
+  //     return GetUserConstellation('1');
+  //   },
+  // });
 
-  if (isStarsLoading || isConstLoading || isPlanetLoading || isMyConstLoading) {
+  if (isStarsLoading || isConstLoading || isPlanetLoading ) {
     return <Loading />;
   }
 
@@ -93,8 +94,7 @@ const MainCanvas = (props: Props) => {
           zoomSpeed={5}
           minDistance={1}
           // 지구 밖으로 나가지 않는 정도
-          // maxDistance={20000}
-          maxDistance={100000}
+          maxDistance={3000}
           enableDamping
           dampingFactor={0.1}
           enableZoom={true}
@@ -185,7 +185,7 @@ const MainCanvas = (props: Props) => {
         )}
 
       {/* 나만의 별자리 호출 및 선긋기 */}
-      {myConstData?.data &&
+      {/* {myConstData?.data &&
         starData?.data &&
         Object.entries(myConstData.data as ConstellationData).map(
           ([constellation, connections]) =>
@@ -215,7 +215,7 @@ const MainCanvas = (props: Props) => {
                 }
               />
             )),
-        )}
+        )} */}
 
       <FloorMesh />
     </Canvas>

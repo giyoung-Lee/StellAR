@@ -1,6 +1,6 @@
 package com.ssafy.stellar.constellation.controller;
 
-import com.ssafy.stellar.constellation.dto.response.ConstellationAllDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.service.ConstellationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class ConstellationController {
     @GetMapping("/all")
     public ResponseEntity<?> returnAllConstellation(@RequestParam String constellationType) {
         try {
-            List<ConstellationAllDto> dto = constellationService.findAllConstellation(constellationType);
+            List<ConstellationDto> dto = constellationService.findAllConstellation(constellationType);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,6 +43,17 @@ public class ConstellationController {
         try {
             Map<String, Object> object = constellationService.findConstellationLink(constellationType);
             return new ResponseEntity<>(object, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<?> returnConstellationById(@RequestParam String constellationId) {
+        try {
+            ConstellationDto dto = constellationService.findConstellationById(constellationId);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

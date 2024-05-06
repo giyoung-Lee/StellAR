@@ -196,3 +196,4 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
+

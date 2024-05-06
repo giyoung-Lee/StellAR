@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConstellationAllDto {
+public class ConstellationDto {
 
     private String constellationId;
     private String constellationSeason;

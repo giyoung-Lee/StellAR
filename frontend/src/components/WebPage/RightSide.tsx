@@ -6,7 +6,15 @@ const RightSide = () => {
   return (
     <r.RightWrapper>
       <r.CanvasContainer>
-        <MainCanvas />
+        <div className="card">
+          <div className="content">
+            <div className="back">
+              <div className="back-content">
+                <MainCanvas />
+              </div>
+            </div>
+          </div>
+        </div>
       </r.CanvasContainer>
     </r.RightWrapper>
   );

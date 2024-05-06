@@ -16,6 +16,7 @@ const StarName = () => {
 
   const handleReset = () => {
     starStore.setStarClicked(false);
+    starStore.removeStarFromClicked(starStore.starId);
   };
 
   return (

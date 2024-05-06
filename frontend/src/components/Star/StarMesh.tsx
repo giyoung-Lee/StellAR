@@ -61,18 +61,10 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       starPosition.z / (-0.5 * alpha),
     );
 
-    // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
-    if (!starClicked) {
       addStarToClicked(starId);
       setZoomX(starPosition.x);
       setZoomY(starPosition.y);
       setZoomZ(starPosition.z);
-    } else {
-      removeStarFromClicked(starId);
-      setZoomX(0);
-      setZoomY(0);
-      setZoomZ(0);
-    }
 
     console.log(newCameraPosition);
     setStarClicked(true);

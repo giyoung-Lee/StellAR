@@ -10,7 +10,7 @@ const useDeviceOrientation = (camera: THREE.Camera | null) => {
       camera.rotation.set(
         THREE.MathUtils.degToRad(beta ?? 0),
         THREE.MathUtils.degToRad(alpha ?? 0),
-        THREE.MathUtils.degToRad(-gamma ?? 0)
+        THREE.MathUtils.degToRad(-(gamma ?? 0))
       );
     };
 

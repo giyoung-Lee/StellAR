@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
   /* background-color: #f4f4f4; */
-  background-color: var(--color-dark);
+  background-color: var(--color-light);
   border-radius: 20px;
   width: 80vw;
   height: 90vh;

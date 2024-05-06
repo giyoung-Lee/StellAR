@@ -6,7 +6,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
+import { GetConstellation, GetPlanets, GetStars, GetUserConstellation } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
@@ -36,7 +36,11 @@ const MainCanvas = (props: Props) => {
     queryFn: () => {
       return GetStars('5');
     },
-    refetchInterval: false,
+  });
+
+  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
+    queryKey: ['get-planets'],
+    queryFn: GetPlanets,
   });
 
   const { isLoading: isConstLoading, data: constData } = useQuery({
@@ -44,22 +48,25 @@ const MainCanvas = (props: Props) => {
     queryFn: () => {
       return GetConstellation('hwangdo13');
     },
-    refetchInterval: false,
   });
 
-  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
-    queryKey: ['get-planets'],
-    queryFn: GetPlanets,
-    refetchInterval: false,
+  const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
+    queryKey: ['get-my-consts'],
+    queryFn: () => {
+      return GetUserConstellation('1');
+    },
   });
 
-  if (isStarsLoading || isConstLoading || isPlanetLoading) {
+  if (isStarsLoading || isConstLoading || isPlanetLoading || isMyConstLoading) {
     return <Loading />;
   }
 
   return (
     <Canvas gl={{ antialias: true }}>
+      {/* 배경 설정 */}
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+
+      {/* 카메라 설정 */}
       {starClicked ? (
         <PerspectiveCamera
           makeDefault
@@ -74,14 +81,11 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[
-            0,
-            -0.5 / Math.sqrt(3),
-            0,
-          ]}
+          position={[0, -0.5 / Math.sqrt(3), 0]}
         />
       )}
 
+      {/* 카메라 시점 관련 설정 */}
       {starClicked ? (
         <OrbitControls
           target={[zoomX, zoomY, zoomZ]}
@@ -110,7 +114,10 @@ const MainCanvas = (props: Props) => {
         />
       )}
 
+      {/* 조명 설정 */}
       <Lights />
+
+      {/* 별 정보 불러오기 */}
       {Object.values(starData?.data).map((star: any) => (
         <StarMesh
           starId={star.starId}
@@ -127,6 +134,7 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
+      {/* 행성 정보 불러오기 */}
       {planetData?.data.map((planet: any) => (
         <PlanetMesh
           planetId={planet.planetId}
@@ -143,6 +151,7 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
+      {/* 별자리 호출 및 선긋기 */}
       {constData?.data &&
         starData?.data &&
         Object.entries(constData.data as ConstellationData).map(
@@ -174,6 +183,40 @@ const MainCanvas = (props: Props) => {
               />
             )),
         )}
+
+      {/* 나만의 별자리 호출 및 선긋기 */}
+      {myConstData?.data &&
+        starData?.data &&
+        Object.entries(myConstData.data as ConstellationData).map(
+          ([constellation, connections]) =>
+            (connections as string[][]).map((starArr, index) => (
+              <MakeConstellation
+                key={index}
+                constellation={constellation}
+                pointA={
+                  new THREE.Vector3(
+                    starData.data[starArr[0]]?.calX *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calY *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calZ *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                  )
+                }
+                pointB={
+                  new THREE.Vector3(
+                    starData.data[starArr[1]]?.calX *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calY *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calZ *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                  )
+                }
+              />
+            )),
+        )}
+
       <FloorMesh />
     </Canvas>
   );
@@ -200,4 +243,3 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
-

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import useStarStore from '../../../stores/starStore';
+import useUserStore from '../../../stores/userStore';
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -139,6 +140,7 @@ const NavBar = () => {
   const [isChecked, setIsChecked] = useState(true);
 
   const { isARMode, setARMode } = useStarStore();
+  const userStore = useUserStore()
 
   const handleARButtonClick = () => {
     setARMode(!isARMode);
@@ -257,7 +259,7 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/myStar/1">
+            <Link to={`/myStar/${userStore.userId}`}>
                 <div className="flex flex-col">
                   <img
                     src="/img/Constellation.svg"
@@ -269,7 +271,7 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/starMark/1">
+            <Link to={`/starMark/${userStore.userId}`}>
                 <div className="flex flex-col">
                   <img src="/img/Starmark.svg" alt="Home" className="p-2" />
                   <span>별마크</span>

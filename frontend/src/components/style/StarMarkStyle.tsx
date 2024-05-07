@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StarInfo = styled.p`
+export const StarInfo = styled.div`
   position: relative;
   /* width: 100%; */
   top: 20%;

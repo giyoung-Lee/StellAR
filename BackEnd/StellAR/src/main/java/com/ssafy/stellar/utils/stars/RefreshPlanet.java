@@ -102,11 +102,7 @@ public class RefreshPlanet {
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ api 참고
 //    @PostConstruct
 //    @Scheduled(fixedDelay = 10000)
-<<<<<<< Updated upstream
 //    @Scheduled(cron = " 0 * * * * * ")
-=======
-//    @Scheduled(cron = "0 * * * * *")
->>>>>>> Stashed changes
     public void init() {
         try {
             returnPlanet();

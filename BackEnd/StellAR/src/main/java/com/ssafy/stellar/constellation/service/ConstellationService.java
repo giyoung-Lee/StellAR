@@ -11,5 +11,5 @@ public interface ConstellationService {
 
     Map<String, Object> findConstellationLink(String constellationType);
 
-    ConstellationDto findConstellationById(String constellationId);
+    ConstellationDto findConstellationById(String constellationId) throws Exception;
 }

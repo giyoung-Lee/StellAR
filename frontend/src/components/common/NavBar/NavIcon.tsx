@@ -130,6 +130,7 @@ const CheckboxWrapper = styled.div`
 
 const NavBar = () => {
   const ulRef = useRef<HTMLUListElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [centerX, setCenterX] = useState(0);
   const [centerY, setCenterY] = useState(0);
   const [touchX, setTouchX] = useState(0);
@@ -210,8 +211,18 @@ const NavBar = () => {
     setIsDragging(false);
   };
 
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (ulRef.current && !ulRef.current.contains(e.target as Node)) {
+        setIsChecked(true);
+      }
+    };
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
+  }, [ulRef]);
+
   return (
-    <FixedContainer>
+    <FixedContainer ref={containerRef}>
       <CheckboxWrapper>
         {!isChecked && (
           <ul

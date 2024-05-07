@@ -34,6 +34,7 @@ public class UserConstellationEntity {
 
     // 생성시간을 자동으로 설정하는 메서드
     @PrePersist
+    @PreUpdate
     protected void onCreate() {
         createDateTime = LocalDateTime.now();
     }

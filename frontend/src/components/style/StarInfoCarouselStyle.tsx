@@ -52,10 +52,19 @@ export const CardTitle = styled.p`
   padding-bottom: 5%;
 `;
 
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  overflow: hidden;
+  border-radius: 11px;
+`;
+
 export const CardImage = styled.img`
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  /* height: 90%; */
   object-fit: cover;
+  filter: grayscale(70%);
 `;
 
 export const CardHeader = styled.div`
@@ -103,4 +112,3 @@ export const Mythology = styled.div`
   overflow-y: auto;
   line-height: 1.7;
 `;
-

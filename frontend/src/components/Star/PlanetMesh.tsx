@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
+import { ThreeEvent } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import { useAnimations, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
@@ -13,8 +13,8 @@ type Props = {
 
 const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
   const {
-    starClicked,
     setStarClicked,
+    setPlanetClicked,
     setStarId,
     setZoomX,
     setZoomY,
@@ -23,7 +23,6 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 
   const meshRef = useRef<THREE.Mesh>(null!);
 
-  const { camera, gl, controls } = useThree();
   const { scene, animations } = useGLTF(`/img/${planetId}.glb`);
 
   const [scale, setScale] = useState(1);
@@ -41,36 +40,16 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setStarClicked(true);
+    setStarId(planetId);
+    setStarClicked(false);
+    setPlanetClicked(true)
 
     const starPosition = position;
-    console.log(starPosition);
-
-    const alpha = Math.sqrt(
-      starPosition.x * starPosition.x +
-        starPosition.y * starPosition.y +
-        starPosition.z * starPosition.z,
-    );
-
-    const newCameraPosition = new THREE.Vector3(
-      starPosition.x / (-0.5 * alpha),
-      starPosition.y / (-0.5 * alpha),
-      starPosition.z / (-0.5 * alpha),
-    );
+    console.log("행성 클릭 지점"+starPosition);
 
     setZoomX(starPosition.x);
     setZoomY(starPosition.y);
     setZoomZ(starPosition.z);
-
-    console.log(newCameraPosition);
-    setStarId(planetId);
-
-    camera.position.set(
-      newCameraPosition.x,
-      newCameraPosition.y,
-      newCameraPosition.z,
-    );
-    camera.updateMatrixWorld();
   };
 
   return (

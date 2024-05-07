@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import * as THREE from 'three';
-import { ThreeEvent, useThree } from '@react-three/fiber';
+import { ThreeEvent } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import { useLoader } from '@react-three/fiber';
 
 type Props = {
   position: THREE.Vector3;
@@ -15,6 +14,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
   const {
     setStarClicked,
     setStarId,
+    setPlanetClicked,
     addStarToClicked,
     removeStarFromClicked,
     setZoomX,
@@ -33,12 +33,13 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     K: '#ff9100',
     M: '#ff6565',
   };
-  const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
-  const { camera } = useThree();
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
+    setStarId(starId);
     setStarClicked(true);
+    setPlanetClicked(false);
+    addStarToClicked(starId)
 
     const mesh = event.object as THREE.Mesh; // 타입 단언
     if (mesh.material && 'color' in mesh.material) {
@@ -46,35 +47,12 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     }
 
     const starPosition = event.object.position;
-    console.log(starPosition);
 
-    const alpha = Math.sqrt(
-      starPosition.x * starPosition.x +
-        starPosition.y * starPosition.y +
-        starPosition.z * starPosition.z,
-    );
+    console.log("별 클릭 지점"+starPosition);
 
-    const newCameraPosition = new THREE.Vector3(
-      starPosition.x / (-0.5 * alpha),
-      starPosition.y / (-0.5 * alpha),
-      starPosition.z / (-0.5 * alpha),
-    );
-
-    addStarToClicked(starId);
     setZoomX(starPosition.x);
     setZoomY(starPosition.y);
     setZoomZ(starPosition.z);
-
-    console.log(newCameraPosition);
-    setStarId(starId);
-
-    camera.position.set(
-      newCameraPosition.x,
-      newCameraPosition.y,
-      newCameraPosition.z,
-    );
-
-    camera.updateMatrixWorld();
   };
 
   return (

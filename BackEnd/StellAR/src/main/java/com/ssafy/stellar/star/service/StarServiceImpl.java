@@ -12,11 +12,14 @@ import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
+import static java.lang.Math.*;
 
 @Service
 public class StarServiceImpl implements StarService{
@@ -29,6 +32,9 @@ public class StarServiceImpl implements StarService{
 
     @Value("${stellar.star.min-magv}")
     private Double starMinMagv;
+
+    final static double longitude = 126.8526; // 예: 광주 경도
+    final static double latitude = 35.1595; // 예: 광주 위도
 
     public StarServiceImpl(StarRepository starRepository,
                            PlanetRepository planetRepository) {
@@ -115,7 +121,20 @@ public class StarServiceImpl implements StarService{
             double dec_seconds = Double.parseDouble(decParts[2]);
 
             dec_degrees += dec_minutes / 60 + dec_seconds / 3600;
-
+            
+//            ZonedDateTime now = ZonedDateTime.now();
+//            System.out.println("now = " + now);
+//
+//            // 현재 시간을 UTC 시간대로 변환합니다.
+//            ZonedDateTime utcNow = now.withZoneSameInstant(ZoneId.of("UTC"));
+//
+//            double lst = calculateLocalSiderealTime(longitude, utcNow);
+//            double ha = calculateHourAngle(lst, ra_degrees);
+//            double[] azAlt = calculateAzimuthAndAltitude(ha, dec_degrees, latitude);
+//            System.out.println("entity = " + entity.getPlanetId());
+//            System.out.println("Azimuth: " + azAlt[0] + " degrees");
+//            System.out.println("Altitude: " + azAlt[1] + " degrees");
+//            double[] xyz = calculateXYZCoordinates(azAlt[0], azAlt[1]);
             double[] xyz = calculateXYZCoordinates(ra_degrees, dec_degrees);
             dto.setCalX(xyz[0]);
             dto.setCalY(xyz[1]);
@@ -206,5 +225,50 @@ public class StarServiceImpl implements StarService{
         dto.setPMDEC(star.getPMDEC());
         return dto;
     }
+
+
+    // 현지 항성시를 계산하는 메서드
+    private static double calculateLocalSiderealTime(double longitude, ZonedDateTime dateTime) {
+        double jd = dateTime.toLocalDate().toEpochDay() + 2440587.5 + (dateTime.toLocalTime().toSecondOfDay() / 86400.0);
+        double t = (jd - 2451545.0) / 36525.0;
+        double gst = (100.46061837 + 36000.770053608 * t + 0.000387933 * t * t - t * t * t / 38710000.0) % 360;
+        double lst = (gst + longitude / 15) % 360; // 경도를 시간 단위로 변환
+        System.out.println("gst = " + gst);
+        System.out.println("lst = " + lst);
+        return lst < 0 ? lst + 360 : lst;
+    }
+
+    // 시간각을 계산하는 메서드
+    private static double calculateHourAngle(double lst, double ra) {
+        double hourAngle = lst - ra;
+        System.out.println("hourAngle = " + hourAngle);
+        return hourAngle < 0 ? hourAngle + 360 : hourAngle;
+    }
+
+    // 방위각과 고도를 계산하는 메서드
+    private static double[] calculateAzimuthAndAltitude(double ha, double dec, double latitude) {
+        ha = toRadians(ha);
+        System.out.println("ha = " + toDegrees(ha));
+        dec = toRadians(dec);
+        latitude = toRadians(latitude);
+
+        double sinAltitude = sin(dec) * sin(latitude) + cos(dec) * cos(latitude) * cos(ha);
+        double altitude = asin(sinAltitude);
+
+        double cosAzimuth = (sin(dec) - sin(altitude) * sin(latitude)) / (cos(altitude) * cos(latitude));
+        double azimuth = acos(cosAzimuth);
+
+        // sin(ha)가 양수일 때, 방위각을 360에서 결과 값으로 빼줘야 정확한 방위각이 계산됨
+        azimuth = sin(ha) > 0 ? 2 * PI - azimuth : azimuth;
+        azimuth = toDegrees(azimuth);
+
+        // 방위각이 음수일 경우 360을 더해주어 항상 양수로 만듦
+        if (azimuth < 0) {
+            azimuth += 360;
+        }
+
+        return new double[]{azimuth, toDegrees(altitude)};
+    }
+
 
 }

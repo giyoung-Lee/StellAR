@@ -1,8 +1,12 @@
 import React from 'react';
 import * as s from '../style/ShopStyle';
 import image from '/icons/stella_logo.gif';
+import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../stores/userStore';
 
 const GiftCard = () => {
+  const navigate = useNavigate();
+  const userStore = useUserStore();
   return (
     <s.CardWrapper>
       <div className="card">
@@ -19,7 +23,12 @@ const GiftCard = () => {
             <li>- 사이즈 x * y * z</li>
           </ul>
           <p className="text price">20,000,000 원</p>
-          <p className="btn">구매하기</p>
+          <p
+            className="btn"
+            onClick={() => navigate(`/order/${userStore.userId}`)}
+          >
+            구매하기
+          </p>
         </div>
       </div>
     </s.CardWrapper>
@@ -27,4 +36,3 @@ const GiftCard = () => {
 };
 
 export default GiftCard;
-

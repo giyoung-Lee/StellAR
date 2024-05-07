@@ -64,11 +64,15 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       onClick={click}
     >
       <sphereGeometry args={[size, 32, 16]} />
-      <meshMatcapMaterial
+      <meshPhongMaterial
         color={spType ? starColor[spType as string] : 'red'}
+        emissive={'black'}
+        specular={'white'}
+        shininess={50}
       />
     </mesh>
   );
 };
 
 export default StarMesh;
+

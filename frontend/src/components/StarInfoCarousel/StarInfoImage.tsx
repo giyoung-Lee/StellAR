@@ -12,12 +12,10 @@ type Props = {
 const StarInfoImage = ({ constellationImg }: Props) => {
   const constellationStore = useConstellationStore();
   return (
-    <s.CardWrapper>
-      <s.CardTitle>{constellationStore.constellationName}</s.CardTitle>
-      <s.CardImage src={Tau} alt="mythology_image" />
-    </s.CardWrapper>
+    <s.ImageWrapper>
+      <s.CardImage src={constellationImg} alt="mythology_image" />
+    </s.ImageWrapper>
   );
 };
 
 export default StarInfoImage;
-

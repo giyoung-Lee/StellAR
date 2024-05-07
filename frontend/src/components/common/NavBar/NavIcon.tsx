@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import useStarStore from '../../../stores/starStore';
-import useUserStore from '../../../stores/userStore';
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -10,6 +9,7 @@ const FixedContainer = styled.div`
   justify-content: center;
   min-width: 100%;
   bottom: 0;
+  z-index: 2000;
 `;
 
 const CheckboxWrapper = styled.div`
@@ -129,18 +129,17 @@ const CheckboxWrapper = styled.div`
 
 const NavBar = () => {
   const ulRef = useRef<HTMLUListElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [centerX, setCenterX] = useState(0);
-  const [centerY, setCenterY] = useState(0);
   const [touchX, setTouchX] = useState(0);
-  const [touchY, setTouchY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [currAngle, setCurrAngle] = useState(0);
   const [prevAngle, setPrevAngle] = useState(0);
   const [finalAngle, setFinalAngle] = useState(0);
   const [isChecked, setIsChecked] = useState(true);
+  const userStore = useUserStore();
 
   const { isARMode, setARMode } = useStarStore();
-  const userStore = useUserStore()
 
   const handleARButtonClick = () => {
     setARMode(!isARMode);
@@ -209,8 +208,18 @@ const NavBar = () => {
     setIsDragging(false);
   };
 
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (ulRef.current && !ulRef.current.contains(e.target as Node)) {
+        setIsChecked(true);
+      }
+    };
+    window.addEventListener('mousedown', handleClick);
+    return () => window.removeEventListener('mousedown', handleClick);
+  }, [ulRef]);
+
   return (
-    <FixedContainer>
+    <FixedContainer ref={containerRef}>
       <CheckboxWrapper>
         {!isChecked && (
           <ul

@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import json
 import pyautogui
+import sys
 
 screen_width, screen_hegint=pyautogui.size()
 
@@ -11,6 +12,11 @@ def on_connect(client, userdata, flags, rc):
     else:
         print("연결 실패")
 
+def on_disconnect(client, userdata, rc):
+    print("mqtt 연결이 끊겼습니다. 종료합니다.")
+    
+    sys.exit(0)
+    
 
 #on_message 콜백함수, 새로운 메세지가 들어올 때 마다 실행 됨
 def on_message(client, userdata, message):

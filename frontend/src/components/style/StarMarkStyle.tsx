@@ -11,7 +11,7 @@ export const StarInfo = styled.div`
   justify-content: space-between;
 `;
 
-export const NameBox = styled.p``;
+export const NameBox = styled.div``;
 
 export const StarName = styled.span`
   font-size: 13px;

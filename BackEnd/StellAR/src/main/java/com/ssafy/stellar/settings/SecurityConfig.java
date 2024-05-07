@@ -19,7 +19,8 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final String releaseHostName ;
+    @Value("${releaseHostName}")
+    private String releaseHostName;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

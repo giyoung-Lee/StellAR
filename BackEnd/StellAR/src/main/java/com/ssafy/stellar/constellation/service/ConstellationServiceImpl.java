@@ -36,7 +36,7 @@ public class ConstellationServiceImpl implements ConstellationService{
 
 
     @Override
-    public List<ConstellationDto> findAllConstellation(String constellationType) throws Exception {
+    public List<ConstellationDto> findAllConstellation(String constellationType) {
 
         List<ConstellationEntity> ConstellationEntity =
                 constellationRepository.findAllByConstellationType(constellationType);
@@ -74,28 +74,16 @@ public class ConstellationServiceImpl implements ConstellationService{
     }
 
     @Override
-    public ConstellationDto findConstellationById(String constellationId) {
-
-        ConstellationDto dto = new ConstellationDto();
+    public ConstellationDto findConstellationById(String constellationId){
         ConstellationEntity entity = constellationRepository.findAllByConstellationId(constellationId);
-        dto.setConstellationId(entity.getConstellationId());
-        dto.setConstellationSeason(entity.getConstellationSeason());
-        dto.setConstellationDesc(entity.getConstellationAlphaDesc());
-        dto.setConstellationImg(entity.getConstellationImg());
-        dto.setConstellationStory(entity.getConstellationStory());
-        dto.setConstellationType(entity.getConstellationType());
-        dto.setConstellationEndObservation(entity.getConstellationEndObservation());
-        dto.setConstellationStartObservation(entity.getConstellationStartObservation());
-        dto.setConstellationSubName(entity.getConstellationSubName());
-
-        return dto;
+        return getConstellationAllDto(entity);
     }
 
     private StarEntity findByStarId (String starId) {
         return starRepository.findByStarId(starId);
     }
 
-    private static ConstellationDto getConstellationAllDto(ConstellationEntity entity) throws Exception {
+    private static ConstellationDto getConstellationAllDto(ConstellationEntity entity) {
         ConstellationDto temp = new ConstellationDto();
 
         temp.setConstellationId(entity.getConstellationId());

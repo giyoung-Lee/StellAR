@@ -4,7 +4,7 @@ const Lights = () => {
   const lightRef = useRef(null);
   return (
     <>
-      {/* <directionalLight */}
+      {/* <directionalLight position={[0, 0, 5]} /> */}
       <ambientLight
         ref={lightRef}
         args={[0xffffff, 3]}

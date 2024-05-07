@@ -83,7 +83,6 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
     public void deleteUserBookmark(String userId, String starId) {
         UserEntity user = validateUser(userId);
         StarEntity star = validateStar(starId);
-
         UserBookmarkEntity bookmark = validateUserBookmark(user, star);
 
         userBookmarkRepository.delete(bookmark);

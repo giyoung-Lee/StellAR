@@ -33,8 +33,9 @@ public class UserController {
     public HttpEntity<?> signUp(@ParameterObject @ModelAttribute SignUpDto user) {
         try {
             userService.signUp(user);
-
             return new ResponseEntity<Void>(HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<String>("응 아니야", HttpStatus.BAD_REQUEST);
@@ -46,11 +47,15 @@ public class UserController {
     @ApiResponse(responseCode = "400", description = "잘못된 비밀번호", content = @Content)
     @DeleteMapping
     public HttpEntity<?> deleteUser(@RequestParam String userId, @RequestParam String password) {
-        if (userService.checkPassword(userId, password)) {
-            userService.deleteUser(userId);
+        try {
+            userService.deleteUser(userId, password);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<String>("Invalid password", HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
     }
 
@@ -59,13 +64,14 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "로그인 성공", content = @Content(schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "400", description = "로그인 실패", content = @Content)
     public HttpEntity<?> login(@RequestParam String userId, @RequestParam String password) {
-
-        UserDto user = userService.logIn(userId, password);
-
-        if (user != null) {
+        try {
+            UserDto user = userService.logIn(userId, password);
             return new ResponseEntity<UserDto>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<String>("응 아니야", HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

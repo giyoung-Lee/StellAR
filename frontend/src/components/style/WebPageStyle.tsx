@@ -173,7 +173,7 @@ export const ServiceInfo = styled.div`
 `;
 
 export const GoApp = styled.span`
-  margin-top: 2%;
+  margin-top: 5%;
   width: 20%;
   aspect-ratio: 1;
   .light-button button.bt {

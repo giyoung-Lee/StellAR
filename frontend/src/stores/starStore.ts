@@ -54,6 +54,7 @@ const useStarStore = create<StarStoreType>(
 
       // 별 초기화 하기 함수
       resetClickedStars: () => set({ clickedStars: [] }),
+      
       // 줌인 타겟 팩터
       zoomX: 0,
       setZoomX: (zoomX: number) => set({ zoomX: zoomX }),

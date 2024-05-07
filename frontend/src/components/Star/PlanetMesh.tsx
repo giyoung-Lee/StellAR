@@ -27,7 +27,7 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
   const { scene, animations } = useGLTF(`/img/${planetId}.glb`);
 
   const [scale, setScale] = useState(1);
-  
+
   useEffect(() => {
     if (scene) {
       const box = new THREE.Box3().setFromObject(scene);
@@ -41,7 +41,7 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setStarClicked(!starClicked);
+    setStarClicked(true);
 
     const starPosition = position;
     console.log(starPosition);
@@ -58,19 +58,11 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
       starPosition.z / (-0.5 * alpha),
     );
 
-    // 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
-    if (!starClicked) {
-      setZoomX(starPosition.x);
-      setZoomY(starPosition.y);
-      setZoomZ(starPosition.z);
-    } else {
-      setZoomX(0);
-      setZoomY(0);
-      setZoomZ(0);
-    }
+    setZoomX(starPosition.x);
+    setZoomY(starPosition.y);
+    setZoomZ(starPosition.z);
 
     console.log(newCameraPosition);
-    setStarClicked(true);
     setStarId(planetId);
 
     camera.position.set(

@@ -49,7 +49,7 @@ const FloorMesh = () => {
   return (
     <>
       <mesh ref={meshRef} position={[0, -50, 0]} rotation-x={-Math.PI / 2}>
-        <planeGeometry args={[60000, 60000, 100, 100]} />
+        <planeGeometry args={[100000, 100000, 1000, 1000]} />
         <shaderMaterial
           uniforms={uniforms.current}
           // wireframe={true}

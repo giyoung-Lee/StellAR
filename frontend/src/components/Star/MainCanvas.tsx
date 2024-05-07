@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect  } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
+import { GetConstellation, GetPlanets, GetStars, GetUserConstellation } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
@@ -27,6 +27,7 @@ interface ConstellationData {
 }
 
 const MainCanvas = (props: Props) => {
+  // 스토어에서 필요한 요소 가져오기
   const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
 
   const videoTexture = useCameraStream();
@@ -34,9 +35,13 @@ const MainCanvas = (props: Props) => {
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('5');
+      return GetStars('4.8');
     },
-    refetchInterval: false,
+  });
+
+  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
+    queryKey: ['get-planets'],
+    queryFn: GetPlanets,
   });
 
   const { isLoading: isConstLoading, data: constData } = useQuery({
@@ -44,27 +49,30 @@ const MainCanvas = (props: Props) => {
     queryFn: () => {
       return GetConstellation('hwangdo13');
     },
-    refetchInterval: false,
   });
 
-  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
-    queryKey: ['get-planets'],
-    queryFn: GetPlanets,
-    refetchInterval: false,
-  });
+  // const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
+  //   queryKey: ['get-my-consts'],
+  //   queryFn: () => {
+  //     return GetUserConstellation('1');
+  //   },
+  // });
 
-  if (isStarsLoading || isConstLoading || isPlanetLoading) {
+  if (isStarsLoading || isConstLoading || isPlanetLoading ) {
     return <Loading />;
   }
 
   return (
     <Canvas gl={{ antialias: true }}>
+      {/* 배경 설정 */}
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+
+      {/* 카메라 설정 */}
       {starClicked ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={1}
+          near={0.1}
           far={100000}
           position={[zoomX * 0.85, zoomY * 0.85, zoomZ * 0.85]}
         />
@@ -72,41 +80,44 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={1}
+          near={0.1}
           far={100000}
-          position={[
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-          ]}
+          position={[0, -0.5 / Math.sqrt(3), 0]}
         />
       )}
 
+      {/* 카메라 시점 관련 설정 */}
       {starClicked ? (
         <OrbitControls
           target={[zoomX, zoomY, zoomZ]}
           rotateSpeed={-0.25}
-          zoomSpeed={10}
+          zoomSpeed={5}
           minDistance={1}
-          maxDistance={100000}
+          // 지구 밖으로 나가지 않는 정도
+          maxDistance={3000}
           enableDamping
           dampingFactor={0.1}
-          // enableZoom={false}
+          enableZoom={true}
         />
       ) : (
         <OrbitControls
           target={[0, 0, 0]}
           rotateSpeed={-0.25}
-          zoomSpeed={10}
+          zoomSpeed={5}
           minDistance={1}
+          // 지구 밖으로 나가지 않는 정도
+          // maxDistance={20000}
           maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
-          // enableZoom={false}
+          enableZoom={true}
         />
       )}
 
+      {/* 조명 설정 */}
       <Lights />
+
+      {/* 별 정보 불러오기 */}
       {Object.values(starData?.data).map((star: any) => (
         <StarMesh
           starId={star.starId}
@@ -123,6 +134,7 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
+      {/* 행성 정보 불러오기 */}
       {planetData?.data.map((planet: any) => (
         <PlanetMesh
           planetId={planet.planetId}
@@ -139,6 +151,7 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
+      {/* 별자리 호출 및 선긋기 */}
       {constData?.data &&
         starData?.data &&
         Object.entries(constData.data as ConstellationData).map(
@@ -170,6 +183,40 @@ const MainCanvas = (props: Props) => {
               />
             )),
         )}
+
+      {/* 나만의 별자리 호출 및 선긋기 */}
+      {/* {myConstData?.data &&
+        starData?.data &&
+        Object.entries(myConstData.data as ConstellationData).map(
+          ([constellation, connections]) =>
+            (connections as string[][]).map((starArr, index) => (
+              <MakeConstellation
+                key={index}
+                constellation={constellation}
+                pointA={
+                  new THREE.Vector3(
+                    starData.data[starArr[0]]?.calX *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calY *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calZ *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                  )
+                }
+                pointB={
+                  new THREE.Vector3(
+                    starData.data[starArr[1]]?.calX *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calY *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calZ *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                  )
+                }
+              />
+            )),
+        )} */}
+
       <FloorMesh />
     </Canvas>
   );
@@ -196,4 +243,3 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
-

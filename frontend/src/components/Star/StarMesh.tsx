@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
+import { ThreeEvent, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import { useAnimations, useGLTF } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
 
 type Props = {
   position: THREE.Vector3;
@@ -14,7 +14,6 @@ type Props = {
 const StarMesh = ({ position, size, starId, spType }: Props) => {
   const {
     setStarClicked,
-    starClicked,
     setStarId,
     addStarToClicked,
     removeStarFromClicked,
@@ -35,13 +34,13 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     M: '#ff6565',
   };
   const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
-  const { camera, gl, scene, controls } = useThree();
+  const { camera } = useThree();
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setStarClicked(!starClicked);
-    
-    const mesh = event.object as THREE.Mesh;  // 타입 단언
+    setStarClicked(true);
+
+    const mesh = event.object as THREE.Mesh; // 타입 단언
     if (mesh.material && 'color' in mesh.material) {
       (mesh.material as THREE.MeshStandardMaterial).color.set('purple');
     }
@@ -61,21 +60,12 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       starPosition.z / (-0.5 * alpha),
     );
 
-    // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
-    if (!starClicked) {
-      addStarToClicked(starId);
-      setZoomX(starPosition.x);
-      setZoomY(starPosition.y);
-      setZoomZ(starPosition.z);
-    } else {
-      removeStarFromClicked(starId);
-      setZoomX(0);
-      setZoomY(0);
-      setZoomZ(0);
-    }
+    addStarToClicked(starId);
+    setZoomX(starPosition.x);
+    setZoomY(starPosition.y);
+    setZoomZ(starPosition.z);
 
     console.log(newCameraPosition);
-    setStarClicked(true);
     setStarId(starId);
 
     camera.position.set(
@@ -96,7 +86,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       onClick={click}
     >
       <sphereGeometry args={[size, 32, 16]} />
-      <meshStandardMaterial
+      <meshMatcapMaterial
         color={spType ? starColor[spType as string] : 'red'}
       />
     </mesh>

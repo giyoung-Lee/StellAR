@@ -11,6 +11,8 @@ public class PlanetDto {
     private String planetDEC;
     private String planetMagV;
     private String planetRA;
+    private double hourRA;
+    private double degreeDEC;
     private double calX;
     private double calY;
     private double calZ;

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -11,11 +11,11 @@ import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
-import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
+import { Euler, Quaternion } from 'three';
 
 type Props = {};
 
@@ -204,7 +204,11 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[0, -0.5, 0]}
+          position={[
+            0,
+            -0.5 / Math.sqrt(3),
+            0,
+          ]}
         />
       )}
 
@@ -388,18 +392,54 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
   videoTexture,
   isARMode,
 }) => {
-  const { scene } = useThree();
-  const { camera } = useThree();
+  const { scene, camera } = useThree();
 
-  useDeviceOrientation(camera);
+  // 자이로센서 데이터를 저장할 상태
+  const gyroData = useRef({ alpha: 0, beta: 0, gamma: 0 });
 
   useEffect(() => {
     if (isARMode && videoTexture) {
       scene.background = videoTexture;
     } else {
-      scene.background = new THREE.Color(0x000000);
+      scene.background = new THREE.Color('#000000');
     }
-  }, [videoTexture, isARMode, scene]);
+  }, [videoTexture, isARMode, scene, camera]);
+
+  useEffect(() => {
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const alpha = event.alpha ?? 0; // alpha가 null일 경우 0을 사용
+      const beta = event.beta ?? 0;   // beta가 null일 경우 0을 사용
+      const gamma = event.gamma ?? 0; // gamma가 null일 경우 0을 사용
+      gyroData.current = { alpha, beta, gamma };
+    };
+
+    if (isARMode) {
+      window.addEventListener('deviceorientation', handleOrientation, true);
+      return () => {
+        window.removeEventListener('deviceorientation', handleOrientation);
+      };
+    }
+  }, [isARMode]);
+
+  // useFrame 훅은 여기에서 직접 호출합니다.
+  useFrame(() => {
+    if (isARMode) {
+      const scaleFactor = 2;
+      // 자이로센서 데이터를 바탕으로 Euler 객체 생성
+      const { alpha, beta, gamma } = gyroData.current;
+      const euler = new Euler(
+        THREE.MathUtils.degToRad(beta*scaleFactor),
+        THREE.MathUtils.degToRad(gamma*scaleFactor),
+        THREE.MathUtils.degToRad(-alpha*scaleFactor),
+        'YXZ',
+      );
+      // Euler 객체를 쿼터니언으로 변환
+      const quaternion = new Quaternion().setFromEuler(euler);
+
+      // 카메라의 쿼터니언을 업데이트
+      camera.quaternion.slerp(quaternion, 0.1); // slerp를 사용하여 부드러운 전환 적용
+    }
+  });
 
   return null;
 };

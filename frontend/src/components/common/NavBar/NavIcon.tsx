@@ -157,15 +157,6 @@ const NavBar = () => {
     setIsChecked(!isChecked);
   };
 
-  // useEffect(() => {
-  //   if (ulRef.current) {
-  //     const rect = ulRef.current.getBoundingClientRect();
-  //     const centerY = rect.top + rect.height / 2; // ul의 중심 Y 위치 계산
-  //     // console.log('UL의 y 위치:', centerY);
-  //     setCenterY(centerY);
-  //   }
-  // }, [centerY]);
-
   const handleTouchStart = (e: React.TouchEvent) => {
     const touchX = e.touches[0].clientX;
     const touchY = e.touches[0].clientY;

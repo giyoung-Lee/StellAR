@@ -6,12 +6,15 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
+import {
+  GetConstellation,
+  GetPlanets,
+  GetStars,
+} from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
-import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
@@ -243,26 +246,6 @@ const EmbCanvas = (props: Props) => {
       <FloorMesh />
     </Canvas>
   );
-};
-
-const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
-  videoTexture,
-  isARMode,
-}) => {
-  const { scene } = useThree();
-  const { camera } = useThree();
-
-  useDeviceOrientation(camera);
-
-  useEffect(() => {
-    if (isARMode && videoTexture) {
-      scene.background = videoTexture;
-    } else {
-      scene.background = new THREE.Color(0x000000);
-    }
-  }, [videoTexture, isARMode, scene]);
-
-  return null;
 };
 
 export default EmbCanvas;

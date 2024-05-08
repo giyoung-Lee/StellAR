@@ -24,60 +24,38 @@ interface BackgroundSetterProps {
   isARMode: boolean;
 }
 
-interface ConstellationData {
-  [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
-}
-
-interface StarData {
-  starId: string;
-  starType: string;
-  calX: number;
-  calY: number;
-  calZ: number;
-  constellation: string;
-  parallax: string;
-  spType: string;
-  hd: string;
-  magV: string;
-  nomalizedMagV: number;
-  RA: string;
-  Declination: string;
-  hourRA: number;
-  degreeDEC: number;
-  PMRA: string;
-  PMDEC: string;
-}
-
-interface StarDataMap {
-  [key: string]: StarData;
-}
-
-interface PlanetData {
-  planetId: string;
-  planetDEC: string;
-  planetMagV: string;
-  planetRA: string;
-  hourRA: number;
-  degreeDEC: number;
-  calX: number;
-  calY: number;
-  calZ: number;
-  nomalizedMagV: number;
-}
-interface PlanetPosition {
-  planetId: string;
-  calX: number;
-  calY: number;
-  calZ: number;
-  nomalizedMagV: number;
-}
-
 const MainCanvas = (props: Props) => {
   // 스토어에서 필요한 요소 가져오기
   const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
     useStarStore();
 
   const videoTexture = useCameraStream();
+  // 광주시청을 기본값으로
+  const [position, setPosition] = useState<Position>({
+    lat: 35.1595,
+    lng: 126.8526,
+  });
+
+  useEffect(() => {
+    const getCurrentLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setPosition({ lat: latitude, lng: longitude });
+            console.log(position);
+          },
+          (error) => {
+            console.error('Geolocation 에러: ', error);
+          }
+        );
+      } else {
+        console.error('위치 허용을 지원하지 않는 브라우저일 수 있습니다.');
+      }
+    };
+
+    getCurrentLocation();
+  }, []);
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
@@ -114,7 +92,7 @@ const MainCanvas = (props: Props) => {
   // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
   const calculateStarPositions = (data: StarDataMap) => {
     const time = new Date();
-    const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
+    const observer = new Astronomy.Observer(position.lat, position.lng, 0);
     const result: StarDataMap = {};
 
     Object.keys(data).forEach((key) => {
@@ -204,11 +182,7 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[
-            0,
-            -0.5 / Math.sqrt(3),
-            0,
-          ]}
+          position={[0, -0.5 / Math.sqrt(3), 0]}
         />
       )}
 
@@ -408,7 +382,7 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
       const alpha = event.alpha ?? 0; // alpha가 null일 경우 0을 사용
-      const beta = event.beta ?? 0;   // beta가 null일 경우 0을 사용
+      const beta = event.beta ?? 0; // beta가 null일 경우 0을 사용
       const gamma = event.gamma ?? 0; // gamma가 null일 경우 0을 사용
       gyroData.current = { alpha, beta, gamma };
     };
@@ -421,23 +395,23 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
     }
   }, [isARMode]);
 
-  // useFrame 훅은 여기에서 직접 호출합니다.
   useFrame(() => {
     if (isARMode) {
-      const scaleFactor = 2;
-      // 자이로센서 데이터를 바탕으로 Euler 객체 생성
+      const scaleFactor = 2.5; // 스케일 팩터로 감도 조정
       const { alpha, beta, gamma } = gyroData.current;
-      const euler = new Euler(
-        THREE.MathUtils.degToRad(beta*scaleFactor),
-        THREE.MathUtils.degToRad(gamma*scaleFactor),
-        THREE.MathUtils.degToRad(-alpha*scaleFactor),
-        'YXZ',
-      );
-      // Euler 객체를 쿼터니언으로 변환
-      const quaternion = new Quaternion().setFromEuler(euler);
 
-      // 카메라의 쿼터니언을 업데이트
-      camera.quaternion.slerp(quaternion, 0.1); // slerp를 사용하여 부드러운 전환 적용
+      // 쿼터니언으로 변환하기 전에 각도를 스케일링
+      const alphaRad = THREE.MathUtils.degToRad(alpha) * scaleFactor;
+      const betaRad = THREE.MathUtils.degToRad(beta) * scaleFactor;
+      const gammaRad = THREE.MathUtils.degToRad(gamma) * scaleFactor;
+
+      // ZYX 순서로 쿼터니언 생성
+      const quaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(betaRad, gammaRad, -alphaRad, 'YXZ'),
+      );
+
+      // 카메라 쿼터니언을 새 쿼터니언으로 부드럽게 전환
+      camera.quaternion.slerp(quaternion, 0.1);
     }
   });
 

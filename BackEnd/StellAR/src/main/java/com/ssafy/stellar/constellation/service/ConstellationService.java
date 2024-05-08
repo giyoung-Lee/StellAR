@@ -1,6 +1,7 @@
 package com.ssafy.stellar.constellation.service;
 
 import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationEventDto;
 
 import java.util.List;
 import java.util.Map;
@@ -12,4 +13,6 @@ public interface ConstellationService {
     Map<String, Object> findConstellationLink(String constellationType);
 
     ConstellationDto findConstellationById(String constellationId) throws Exception;
+
+    List<ConstellationEventDto> returnConstellationEvent();
 }

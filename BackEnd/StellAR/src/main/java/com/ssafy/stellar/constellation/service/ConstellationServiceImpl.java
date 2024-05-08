@@ -4,8 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationEventDto;
 import com.ssafy.stellar.constellation.entity.ConstellationEntity;
+import com.ssafy.stellar.constellation.entity.ConstellationEventEntity;
 import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
+import com.ssafy.stellar.constellation.repository.ConstellationEventRepository;
 import com.ssafy.stellar.constellation.repository.ConstellationLinkRepository;
 import com.ssafy.stellar.constellation.repository.ConstellationRepository;
 import com.ssafy.stellar.star.entity.StarEntity;
@@ -14,9 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class ConstellationServiceImpl implements ConstellationService{
@@ -24,14 +31,17 @@ public class ConstellationServiceImpl implements ConstellationService{
     private final ConstellationRepository constellationRepository;
     private final StarRepository starRepository;
     private final ConstellationLinkRepository constellationLinkRepository;
+    private final ConstellationEventRepository constellationEventRepository;
 
 
     public ConstellationServiceImpl(ConstellationRepository constellationRepository,
                                     StarRepository starRepository,
-                                    ConstellationLinkRepository constellationLinkRepository) {
+                                    ConstellationLinkRepository constellationLinkRepository,
+                                    ConstellationEventRepository constellationEventRepository) {
         this.constellationRepository = constellationRepository;
         this.starRepository = starRepository;
         this.constellationLinkRepository = constellationLinkRepository;
+        this.constellationEventRepository = constellationEventRepository;
     }
 
 
@@ -79,6 +89,21 @@ public class ConstellationServiceImpl implements ConstellationService{
         return getConstellationAllDto(entity);
     }
 
+    @Override
+    public List<ConstellationEventDto> returnConstellationEvent() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate today = LocalDate.now();
+        String formattedDate = today.format(formatter);
+        LocalDate startDate = LocalDate.parse(formattedDate, formatter);
+        LocalDate endDate = startDate.plusMonths(1);
+
+        List<ConstellationEventEntity> entities = constellationEventRepository.findAllByLocdateBetween(startDate, endDate);
+
+        return entities.stream()
+                .map(entity -> new ConstellationEventDto(entity.getAstroEvent(), entity.getAstroTime(), entity.getLocdate()))
+                .collect(Collectors.toList());
+    }
+
     private StarEntity findByStarId (String starId) {
         return starRepository.findByStarId(starId);
     }
@@ -92,13 +117,17 @@ public class ConstellationServiceImpl implements ConstellationService{
         temp.setConstellationSubName(entity.getConstellationSubName());
         temp.setConstellationStartObservation(entity.getConstellationStartObservation());
 
-        String DIRECTORY = "/resources/dump/constellationImg/";
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(DIRECTORY)
-                .path(entity.getConstellationImg())
-                .toUriString();
+        if (!Objects.equals(entity.getConstellationImg(), "null")) {
+            String DIRECTORY = "/resources/dump/constellationImg/";
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path(DIRECTORY)
+                    .path(entity.getConstellationImg())
+                    .toUriString();
 
-        temp.setConstellationImg(fileDownloadUri);
+            temp.setConstellationImg(fileDownloadUri);
+        } else {
+            temp.setConstellationImg("이미지가 없습니다만..");
+        }
         temp.setConstellationStory(entity.getConstellationStory());
         temp.setConstellationType(entity.getConstellationType());
         temp.setConstellationEndObservation(entity.getConstellationEndObservation());

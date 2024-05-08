@@ -3,7 +3,7 @@ import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, DeviceOrientationControls } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
 import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
@@ -15,7 +15,6 @@ import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
-import { Euler, Quaternion } from 'three';
 
 type Props = {};
 
@@ -36,6 +35,7 @@ const MainCanvas = (props: Props) => {
     lng: 126.8526,
   });
 
+  // 현재 위치 불러오기
   useEffect(() => {
     const getCurrentLocation = () => {
       if (navigator.geolocation) {
@@ -43,11 +43,10 @@ const MainCanvas = (props: Props) => {
           (position) => {
             const { latitude, longitude } = position.coords;
             setPosition({ lat: latitude, lng: longitude });
-            console.log(position);
           },
           (error) => {
             console.error('Geolocation 에러: ', error);
-          }
+          },
         );
       } else {
         console.error('위치 허용을 지원하지 않는 브라우저일 수 있습니다.');
@@ -160,7 +159,15 @@ const MainCanvas = (props: Props) => {
       {!isARMode && <Background />}
 
       {/* 카메라 설정 */}
-      {starClicked ? (
+      {isARMode ? (
+        <PerspectiveCamera
+          makeDefault
+          fov={80}
+          near={0.1}
+          far={100000}
+          position={[0, 0, 0]}
+        />
+      ) : starClicked ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
@@ -182,12 +189,14 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[0, -0.5 / Math.sqrt(3), 0]}
+          position={[0.5 / Math.sqrt(3), 0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3)]}
         />
       )}
 
       {/* 카메라 시점 관련 설정 */}
-      {starClicked ? (
+      {isARMode ? (
+        <DeviceOrientationControls />
+      ) : starClicked ? (
         <OrbitControls
           target={[zoomX, zoomY, zoomZ]}
           rotateSpeed={-0.25}
@@ -397,13 +406,12 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 
   useFrame(() => {
     if (isARMode) {
-      const scaleFactor = 2.5; // 스케일 팩터로 감도 조정
       const { alpha, beta, gamma } = gyroData.current;
 
       // 쿼터니언으로 변환하기 전에 각도를 스케일링
-      const alphaRad = THREE.MathUtils.degToRad(alpha) * scaleFactor;
-      const betaRad = THREE.MathUtils.degToRad(beta) * scaleFactor;
-      const gammaRad = THREE.MathUtils.degToRad(gamma) * scaleFactor;
+      const alphaRad = THREE.MathUtils.degToRad(alpha);
+      const betaRad = THREE.MathUtils.degToRad(beta);
+      const gammaRad = THREE.MathUtils.degToRad(gamma);
 
       // ZYX 순서로 쿼터니언 생성
       const quaternion = new THREE.Quaternion().setFromEuler(

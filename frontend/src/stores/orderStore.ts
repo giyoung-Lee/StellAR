@@ -1,5 +1,4 @@
 import create from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface OrderStoreType {
   isModalOpen: boolean;
@@ -16,18 +15,11 @@ interface OrderStoreType {
   }) => void;
 }
 
-const useOrderStore = create<OrderStoreType>(
-  persist(
-    (set, get) => ({
-      isModalOpen: false,
-      setIsModalOpen: (isOpen: boolean) => set({ isModalOpen: isOpen }),
-      address: { postcode: '', address: '', extraAddress: '' },
-      setAddress: (address) => set({ address: address }),
-    }),
-    {
-      name: 'OrderStore',
-    },
-  ),
-);
+const useOrderStore = create<OrderStoreType>((set, get) => ({
+  isModalOpen: false,
+  setIsModalOpen: (isOpen: boolean) => set({ isModalOpen: isOpen }),
+  address: { postcode: '', address: '', extraAddress: '' },
+  setAddress: (address) => set({ address: address }),
+}));
 
 export default useOrderStore;

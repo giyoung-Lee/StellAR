@@ -17,6 +17,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     setPlanetClicked,
     addStarToClicked,
     removeStarFromClicked,
+    clickedStars,
     setZoomX,
     setZoomY,
     setZoomZ,
@@ -50,9 +51,11 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
     console.log('별 클릭 지점' + starPosition);
 
-    setZoomX(starPosition.x);
-    setZoomY(starPosition.y);
-    setZoomZ(starPosition.z);
+    if (clickedStars.length < 1) {
+      setZoomX(starPosition.x);
+      setZoomY(starPosition.y);
+      setZoomZ(starPosition.z);
+    }
   };
 
   return (

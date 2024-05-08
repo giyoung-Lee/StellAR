@@ -3,6 +3,7 @@ package com.ssafy.stellar.utils.stars;
 import com.ssafy.stellar.star.entity.PlanetEntity;
 import com.ssafy.stellar.star.repository.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Component
 public class RefreshPlanet {
 
     @Autowired

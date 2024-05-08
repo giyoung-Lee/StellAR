@@ -29,6 +29,7 @@ const MainCanvas = (props: Props) => {
     useStarStore();
 
   const videoTexture = useCameraStream();
+
   // 광주시청을 기본값으로
   const [position, setPosition] = useState<Position>({
     lat: 35.1595,
@@ -189,7 +190,7 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[0.5 / Math.sqrt(3), 0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3)]}
+          position={[-0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3)]}
         />
       )}
 

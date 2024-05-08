@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.ssafy.stellar.star.entity.StarEntity;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+@Component
 public class StarInfo {
     private final StarRepository starRepository;
 

@@ -3,4 +3,6 @@ interface StarMarkType {
   starId: string;
   bookmarkName: string;
   craeteTime: string;
+  hourRA: number;
+  degreeDEC: number;
 }

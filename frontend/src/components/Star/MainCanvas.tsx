@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
@@ -14,6 +14,7 @@ import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
+import * as Astronomy from 'astronomy-engine';
 
 type Props = {};
 
@@ -26,6 +27,50 @@ interface ConstellationData {
   [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
 }
 
+interface StarData {
+  starId: string;
+  starType: string;
+  calX: number;
+  calY: number;
+  calZ: number;
+  constellation: string;
+  parallax: string;
+  spType: string;
+  hd: string;
+  magV: string;
+  nomalizedMagV: number;
+  RA: string;
+  Declination: string;
+  hourRA: number;
+  degreeDEC: number;
+  PMRA: string;
+  PMDEC: string;
+}
+
+interface StarDataMap {
+  [key: string]: StarData;
+}
+
+interface PlanetData {
+  planetId: string;
+  planetDEC: string;
+  planetMagV: string;
+  planetRA: string;
+  hourRA: number;
+  degreeDEC: number;
+  calX: number;
+  calY: number;
+  calZ: number;
+  nomalizedMagV: number;
+}
+interface PlanetPosition {
+  planetId: string;
+  calX: number;
+  calY: number;
+  calZ: number;
+  nomalizedMagV: number;
+}
+
 const MainCanvas = (props: Props) => {
   const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
 
@@ -34,7 +79,7 @@ const MainCanvas = (props: Props) => {
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('6.4');
+      return GetStars('5');
     },
     refetchInterval: false,
   });
@@ -52,6 +97,71 @@ const MainCanvas = (props: Props) => {
     queryFn: GetPlanets,
     refetchInterval: false,
   });
+
+  // 상태 관리를 위해 useState 사용
+  const [planetPositions, setPlanetPositions] = useState<PlanetData[]>([]);
+
+  // Define the state for holding star data as a StarDataMap
+  const [starPositions, setStarPositions] = useState<StarDataMap>({});
+
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
+  const calculateStarPositions = (data: StarDataMap): StarDataMap => {
+    const time = new Date();
+    const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
+    const result: StarDataMap = {};
+
+    Object.keys(data).forEach((key) => {
+      const star = data[key];
+      const horizontal = Astronomy.Horizon(
+        time,
+        observer,
+        star.hourRA,
+        star.degreeDEC,
+        'normal',
+      );
+      const radius = 1;
+      const azimuthRad = (horizontal.azimuth * Math.PI) / 180;
+      const altitudeRad = (horizontal.altitude * Math.PI) / 180;
+      const x = radius * Math.cos(altitudeRad) * Math.sin(azimuthRad);
+      const y = radius * Math.cos(altitudeRad) * Math.cos(azimuthRad);
+      const z = radius * Math.sin(altitudeRad);
+      result[key] = { ...star, calX: x, calY: y, calZ: z };
+    });
+
+    return result;
+  };
+
+  const calculatePlanetPositions = (data: PlanetData[]) => {
+    const time = new Date();
+    const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
+    return data.map((planet) => {
+      const horizontal = Astronomy.Horizon(
+        time,
+        observer,
+        planet.hourRA,
+        planet.degreeDEC,
+        'normal',
+      );
+      const radius = 1;
+      const azimuthRad = (horizontal.azimuth * Math.PI) / 180;
+      const altitudeRad = (horizontal.altitude * Math.PI) / 180;
+      const x = radius * Math.cos(altitudeRad) * Math.sin(azimuthRad);
+      const y = radius * Math.cos(altitudeRad) * Math.cos(azimuthRad);
+      const z = radius * Math.sin(altitudeRad);
+      return { ...planet, calX: x, calY: y, calZ: z };
+    });
+  };
+
+  useEffect(() => {
+    if (planetData?.data) {
+      const newPlanetPositions = calculatePlanetPositions(planetData.data);
+      setPlanetPositions(newPlanetPositions);
+    }
+    if (starData?.data) {
+      const newStarPositions = calculateStarPositions(starData.data);
+      setStarPositions(newStarPositions);
+    }
+  }, [planetData, starData]);
 
   if (isStarsLoading || isConstLoading || isPlanetLoading) {
     return <Loading />;
@@ -74,11 +184,7 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={1}
           far={100000}
-          position={[
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-            -0.5 / Math.sqrt(3),
-          ]}
+          position={[0, -0.5, 0]}
         />
       )}
 
@@ -107,32 +213,32 @@ const MainCanvas = (props: Props) => {
       )}
 
       <Lights />
-      {Object.values(starData?.data).map((star: any) => (
+      {Object.values(starPositions).map((star: any) => (
         <StarMesh
           starId={star.starId}
           spType={star.spType}
           key={star.starId}
           position={
             new THREE.Vector3(
-              star.calX * star.nomalizedMagV,
-              star.calY * star.nomalizedMagV,
+              -star.calX * star.nomalizedMagV,
               star.calZ * star.nomalizedMagV,
+              star.calY * star.nomalizedMagV,
             )
           }
           size={getRandomInt(80, 90)}
         />
       ))}
 
-      {planetData?.data.map((planet: any) => (
+      {planetPositions.map((planet: any) => (
         <PlanetMesh
           planetId={planet.planetId}
           spType={null}
           key={planet.planetId}
           position={
             new THREE.Vector3(
-              planet.calX * planet.nomalizedMagV,
-              planet.calY * planet.nomalizedMagV,
+              -planet.calX * planet.nomalizedMagV,
               planet.calZ * planet.nomalizedMagV,
+              planet.calY * planet.nomalizedMagV,
             )
           }
           targetSize={800}
@@ -140,7 +246,7 @@ const MainCanvas = (props: Props) => {
       ))}
 
       {constData?.data &&
-        starData?.data &&
+        starPositions &&
         Object.entries(constData.data as ConstellationData).map(
           ([constellation, connections]) =>
             (connections as string[][]).map((starArr, index) => (
@@ -149,22 +255,22 @@ const MainCanvas = (props: Props) => {
                 constellation={constellation}
                 pointA={
                   new THREE.Vector3(
-                    starData.data[starArr[0]]?.calX *
-                      starData.data[starArr[0]]?.nomalizedMagV,
-                    starData.data[starArr[0]]?.calY *
-                      starData.data[starArr[0]]?.nomalizedMagV,
-                    starData.data[starArr[0]]?.calZ *
-                      starData.data[starArr[0]]?.nomalizedMagV,
+                    -starPositions[starArr[0]]?.calX *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                    starPositions[starArr[0]]?.calZ *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                    starPositions[starArr[0]]?.calY *
+                      starPositions[starArr[0]]?.nomalizedMagV,
                   )
                 }
                 pointB={
                   new THREE.Vector3(
-                    starData.data[starArr[1]]?.calX *
-                      starData.data[starArr[1]]?.nomalizedMagV,
-                    starData.data[starArr[1]]?.calY *
-                      starData.data[starArr[1]]?.nomalizedMagV,
-                    starData.data[starArr[1]]?.calZ *
-                      starData.data[starArr[1]]?.nomalizedMagV,
+                    -starPositions[starArr[1]]?.calX *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                    starPositions[starArr[1]]?.calZ *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                    starPositions[starArr[1]]?.calY *
+                      starPositions[starArr[1]]?.nomalizedMagV,
                   )
                 }
               />

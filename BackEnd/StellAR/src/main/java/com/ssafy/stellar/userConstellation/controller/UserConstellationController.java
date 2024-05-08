@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "userConstellation", description = "유저 별자리와 관련된 문서입니다.")
 @RestController
@@ -107,6 +107,32 @@ public class UserConstellationController {
             return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Operation(summary = "유저 별자리 링크 조회", description = "사용자가 저장한 별자리 연결선을 조회합니다.")
+    @ApiResponse(responseCode = "200", description = "조회 성공",
+            content = @Content(
+                    mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = UserConstellationDto.class))
+            )
+    )
+    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
+    @GetMapping("/link")
+    public ResponseEntity<?> getUserConstellationLink(@RequestParam String userId) {
+        try {
+            Map<String, Object> userConstellationsLink = userConstellationService.getUserConstellationLink(userId);
+            return new ResponseEntity<>(userConstellationsLink, HttpStatus.OK);
+        } catch (UsernameNotFoundException e) {
+
+            log.error("User not found", e);
+            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
+
+        } catch (Exception e) {
+            log.error("Internal server error", e);
+            return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @Operation(summary = "별마크 삭제", description = "사용자가 저장한 별자리를 삭제합니다.")
     @ApiResponse(responseCode = "204", description = "별자리 삭제")
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")

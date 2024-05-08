@@ -31,4 +31,10 @@ public class UserConstellationDto {
     @Schema(description = "유저 별자리 선")
     private List<UserConstellationLinkDto> links;
 
+    @Schema(description = "유저 별자리 RA(시간기준)", required = true)
+    private double hourRA;
+
+    @Schema(description = "유저 별자리 DEC(도기준)", required = true)
+    private double degreeDEC;
+
 }

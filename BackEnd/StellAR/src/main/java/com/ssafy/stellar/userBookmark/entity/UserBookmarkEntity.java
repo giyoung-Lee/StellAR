@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name = "user_bookmark")
-@Builder
 public class UserBookmarkEntity {
 
     @Id
@@ -20,11 +19,11 @@ public class UserBookmarkEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookmarkId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "star_id")
     private StarEntity star;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
@@ -34,10 +33,15 @@ public class UserBookmarkEntity {
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    // 생성시간을 자동으로 설정하는 메서드
     @PrePersist
     protected void onCreate() {
         createTime = LocalDateTime.now();
     }
 
+    @PreUpdate
+    protected void onUpdate() {
+        createTime = LocalDateTime.now();
+    }
 }
+
+

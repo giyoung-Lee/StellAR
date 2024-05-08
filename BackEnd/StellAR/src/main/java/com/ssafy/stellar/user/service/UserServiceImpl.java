@@ -5,7 +5,6 @@ import com.ssafy.stellar.user.dto.response.UserDto;
 import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,29 +25,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(SignUpDto signUpDto) {
-
         String encodePassword = bCryptPasswordEncoder.encode(signUpDto.getPassword());
         String userId = signUpDto.getUserId();
 
         if (userRepository.findByUserId(userId) != null) {
-            throw new RuntimeException("User already exists with id: " + userId);
+            throw new IllegalArgumentException("User already exists with id: " + userId);
         }
 
         UserEntity user = new UserEntity();
         user.setUserId(userId);
         user.setPassword(encodePassword);
-
         userRepository.save(user);
     }
 
     @Override
     public UserDto logIn(String userId, String password) {
-
-        UserEntity user = userRepository.findByUserId(userId);
-        if (user == null) {
-            // 로그인 실패 처리 로직 또는 예외 발생
-            throw new UsernameNotFoundException("User not found with id: " + userId);
-        }
+        UserEntity user = validateUser(userId);
 
         if (checkPassword(userId, password)) {
             UserDto userDto = new UserDto();
@@ -63,22 +55,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String userId) {
-
-        if (!userRepository.existsById(userId)) {
-            throw new UsernameNotFoundException("User not found with id: " + userId);
+    public void deleteUser(String userId, String password) {
+        validateUser(userId);
+        if (!checkPassword(userId, password)) {
+            throw new IllegalArgumentException("아이디 비밀번호를 잘못 입력하였습니다.");
         }
-
         userRepository.deleteById(userId);
     }
 
     @Override
     public boolean checkPassword(String userId, String password) {
-        UserEntity user = userRepository.findByUserId(userId);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with id: " + userId);
-        }
+        UserEntity user = validateUser(userId);
         return bCryptPasswordEncoder.matches(password, user.getPassword());
     }
 
+    private UserEntity validateUser(String userId) {
+        UserEntity user = userRepository.findByUserId(userId);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found with id: " + userId);
+        }
+        return user;
+    }
 }

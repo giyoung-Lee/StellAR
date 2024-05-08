@@ -34,17 +34,47 @@ const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
     color: 0xffffff,
     opacity: 0.2,
     transparent: true,
+    polygonOffset: true,
+    polygonOffsetFactor: -6,
+    polygonOffsetUnits: -6,
+  });
+
+  const clearTubeGeometry = new TubeGeometry(path, 20, 300, 8, false);
+  const clearTubeMaterial = new THREE.MeshBasicMaterial({
+    color: 0x000000,
+    opacity: 0,
+    transparent: true,
+    polygonOffset: true,
+    polygonOffsetFactor: 6,
+    polygonOffsetUnits: 6,
   });
 
   return (
-    <mesh geometry={tubeGeometry} material={tubeMaterial} onClick={handleClick}>
-      <line>
-        <bufferGeometry attach="geometry" ref={lineRef} />
-        <lineBasicMaterial color={'white'} />
-      </line>
-    </mesh>
+    <>
+      <mesh
+        geometry={tubeGeometry}
+        material={tubeMaterial}
+        onClick={handleClick}
+      >
+        <line>
+          <bufferGeometry attach="geometry" ref={lineRef} />
+          <lineBasicMaterial color={'white'} />
+        </line>
+      </mesh>
+
+      <mesh
+        geometry={clearTubeGeometry}
+        material={clearTubeMaterial}
+        position={[0, 0.001, 0]} // Z축으로 조금 이동
+        onClick={handleClick}
+      >
+        <line>
+          <bufferGeometry attach="geometry" ref={lineRef} />
+          <lineBasicMaterial color={'white'} />
+        </line>
+      </mesh>
+    </>
   );
 };
 
 export default MakeConstellation;
-

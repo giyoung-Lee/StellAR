@@ -28,8 +28,10 @@ const App = () => {
 
   useEffect(() => {
     // 마운트 시 클릭된 별 배열 초기화
-    resetClickedStars();
-    console.log(`클릭 되었는가? ${starStore.starClicked}`)
+    if (!starStore.starClicked) {
+      resetClickedStars();
+    }
+    // console.log(`클릭 되었는가? ${starStore.starClicked}`)
   }, [resetClickedStars, starStore.starClicked]);
 
   return (

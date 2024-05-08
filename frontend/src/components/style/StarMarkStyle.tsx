@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StarInfo = styled.p`
+export const StarInfo = styled.div`
   position: relative;
   /* width: 100%; */
   top: 20%;
@@ -11,7 +11,7 @@ export const StarInfo = styled.p`
   justify-content: space-between;
 `;
 
-export const NameBox = styled.p``;
+export const NameBox = styled.div``;
 
 export const StarName = styled.span`
   font-size: 13px;

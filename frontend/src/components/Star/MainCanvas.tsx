@@ -1,4 +1,4 @@
-import React, { useEffect  } from 'react';
+import React, { useEffect } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
@@ -6,7 +6,12 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
-import { GetConstellation, GetPlanets, GetStars, GetUserConstellation } from '../../apis/StarApis';
+import {
+  GetConstellation,
+  GetPlanets,
+  GetStars,
+  GetUserConstellation,
+} from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
@@ -14,6 +19,7 @@ import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
+import Background from './BackGround';
 
 type Props = {};
 
@@ -28,14 +34,15 @@ interface ConstellationData {
 
 const MainCanvas = (props: Props) => {
   // 스토어에서 필요한 요소 가져오기
-  const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
+  const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
+    useStarStore();
 
   const videoTexture = useCameraStream();
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('4.8');
+      return GetStars('4.5');
     },
   });
 
@@ -58,17 +65,26 @@ const MainCanvas = (props: Props) => {
   //   },
   // });
 
-  if (isStarsLoading || isConstLoading || isPlanetLoading ) {
+  if (isStarsLoading || isConstLoading || isPlanetLoading) {
     return <Loading />;
   }
 
   return (
-    <Canvas gl={{ antialias: true }}>
+    <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 배경 설정 */}
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+      <Background />
 
       {/* 카메라 설정 */}
       {starClicked ? (
+        <PerspectiveCamera
+          makeDefault
+          fov={80}
+          near={0.1}
+          far={100000}
+          position={[zoomX * 0.5, zoomY * 0.5, zoomZ * 0.5]}
+        />
+      ) : planetClicked ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
@@ -92,9 +108,19 @@ const MainCanvas = (props: Props) => {
           target={[zoomX, zoomY, zoomZ]}
           rotateSpeed={-0.25}
           zoomSpeed={5}
+          minDistance={5000}
+          maxDistance={30000}
+          enableDamping
+          dampingFactor={0.1}
+          enableZoom={true}
+        />
+      ) : planetClicked ? (
+        <OrbitControls
+          target={[zoomX, zoomY, zoomZ]}
+          rotateSpeed={-0.25}
+          zoomSpeed={5}
           minDistance={1}
-          // 지구 밖으로 나가지 않는 정도
-          maxDistance={3000}
+          maxDistance={30000}
           enableDamping
           dampingFactor={0.1}
           enableZoom={true}

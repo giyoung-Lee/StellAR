@@ -28,6 +28,8 @@ const MainCanvas = (props: Props) => {
   const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
     useStarStore();
 
+  const isFromOther = localStorage.getItem('zoomFromOther');
+  
   const videoTexture = useCameraStream();
 
   // 광주시청을 기본값으로
@@ -168,7 +170,7 @@ const MainCanvas = (props: Props) => {
           far={100000}
           position={[0, 0, 0]}
         />
-      ) : starClicked ? (
+      ) : starClicked || isFromOther ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
@@ -197,7 +199,7 @@ const MainCanvas = (props: Props) => {
       {/* 카메라 시점 관련 설정 */}
       {isARMode ? (
         <DeviceOrientationControls />
-      ) : starClicked ? (
+      ) : starClicked || isFromOther ? (
         <OrbitControls
           target={[zoomX, zoomY, zoomZ]}
           rotateSpeed={-0.25}

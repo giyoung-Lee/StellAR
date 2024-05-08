@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+import { useThree, extend } from '@react-three/fiber';
 import * as THREE from 'three';
+import { TubeGeometry } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2.js';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
+import { Vector3, CatmullRomCurve3 } from 'three';
+import useConstellationStore from '../../stores/constellationStore';
 
-import { useThree } from '@react-three/fiber';
+extend({ Line2, LineGeometry, LineMaterial });
 
 type Props = {
   constellation: string;
@@ -13,42 +17,34 @@ type Props = {
 };
 
 const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
-  const lineRef = useRef<Line2 | null>(null);
-
+  const ConstellationStore = useConstellationStore();
+  const lineRef = useRef<THREE.BufferGeometry | null>(null);
   const { scene } = useThree();
 
   const handleClick = () => {
     console.log('Line clicked:', constellation);
+    ConstellationStore.setConstellationClicked(true);
+    ConstellationStore.setConstellationName(constellation);
   };
 
-  useEffect(() => {
-    if (lineRef.current) {
-      const lineGeometry = new LineGeometry();
-      lineGeometry.setPositions([
-        pointA.x,
-        pointA.y,
-        pointA.z,
-        pointB.x,
-        pointB.y,
-        pointB.z,
-      ]);
-
-      const lineMaterial = new LineMaterial({
-        color: 0xffffff,
-        linewidth: 1.5,
-        resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
-      });
-
-      lineRef.current.geometry = lineGeometry;
-      lineRef.current.material = lineMaterial;
-    }
-  }, [pointA, pointB]);
+  // 두꺼운 클릭 영역을 생성하기 위한 투명 튜브
+  const path = new CatmullRomCurve3([pointA, pointB]);
+  const tubeGeometry = new TubeGeometry(path, 20, 100, 8, false);
+  const tubeMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    opacity: 0.2,
+    transparent: true,
+  });
 
   return (
-    <>
-      <primitive ref={lineRef} object={new Line2()} onClick={handleClick} />
-    </>
+    <mesh geometry={tubeGeometry} material={tubeMaterial} onClick={handleClick}>
+      <line>
+        <bufferGeometry attach="geometry" ref={lineRef} />
+        <lineBasicMaterial color={'white'} />
+      </line>
+    </mesh>
   );
 };
 
 export default MakeConstellation;
+

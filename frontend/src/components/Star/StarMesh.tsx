@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import * as THREE from 'three';
-import { ThreeEvent, useFrame, useThree } from '@react-three/fiber';
+import { ThreeEvent } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import { useAnimations, useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
@@ -14,10 +13,11 @@ type Props = {
 const StarMesh = ({ position, size, starId, spType }: Props) => {
   const {
     setStarClicked,
-    starClicked,
     setStarId,
+    setPlanetClicked,
     addStarToClicked,
     removeStarFromClicked,
+    clickedStars,
     setZoomX,
     setZoomY,
     setZoomZ,
@@ -34,57 +34,28 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     K: '#ff9100',
     M: '#ff6565',
   };
-  const COLOR = ['#88beff', 'lightgreen', '#f9d397', '#fd6b6b', '#ffffac'];
-  const { camera, gl, scene, controls } = useThree();
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setStarClicked(!starClicked);
-    
-    const mesh = event.object as THREE.Mesh;  // 타입 단언
+    setStarId(starId);
+    setStarClicked(true);
+    setPlanetClicked(false);
+    addStarToClicked(starId);
+
+    const mesh = event.object as THREE.Mesh; // 타입 단언
     if (mesh.material && 'color' in mesh.material) {
       (mesh.material as THREE.MeshStandardMaterial).color.set('purple');
     }
 
     const starPosition = event.object.position;
-    console.log(starPosition);
 
-    const alpha = Math.sqrt(
-      starPosition.x * starPosition.x +
-        starPosition.y * starPosition.y +
-        starPosition.z * starPosition.z,
-    );
+    console.log('별 클릭 지점' + starPosition);
 
-    const newCameraPosition = new THREE.Vector3(
-      starPosition.x / (-0.5 * alpha),
-      starPosition.y / (-0.5 * alpha),
-      starPosition.z / (-0.5 * alpha),
-    );
-
-    // 별 클릭하면 클릭 배열에 추가하는 코드, 클릭 해제하면 배열에서 삭제
-    if (!starClicked) {
-      addStarToClicked(starId);
+    if (clickedStars.length < 1) {
       setZoomX(starPosition.x);
       setZoomY(starPosition.y);
       setZoomZ(starPosition.z);
-    } else {
-      removeStarFromClicked(starId);
-      setZoomX(0);
-      setZoomY(0);
-      setZoomZ(0);
     }
-
-    console.log(newCameraPosition);
-    setStarClicked(true);
-    setStarId(starId);
-
-    camera.position.set(
-      newCameraPosition.x,
-      newCameraPosition.y,
-      newCameraPosition.z,
-    );
-
-    camera.updateMatrixWorld();
   };
 
   return (
@@ -95,9 +66,13 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       receiveShadow={false}
       onClick={click}
     >
-      <sphereGeometry args={[size, 32, 16]} />
-      <meshStandardMaterial
+      <tetrahedronGeometry args={[size, 2]} />
+      <meshPhongMaterial
         color={spType ? starColor[spType as string] : 'red'}
+        // emissive={'black'}
+        specular={'white'}
+        shininess={40}
+        flatShading={true}
       />
     </mesh>
   );

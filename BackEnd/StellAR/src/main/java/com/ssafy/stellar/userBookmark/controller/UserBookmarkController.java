@@ -39,7 +39,7 @@ public class UserBookmarkController {
     public ResponseEntity<?> manageBookmark(@RequestBody BookmarkRequestDto bookmarkRequestDto, HttpServletRequest request) {
         try {
             boolean isUpdate = request.getMethod().equals("PUT");
-
+            System.out.println("isUpdate = " + isUpdate);
             userBookMarkService.manageUserBookmark(bookmarkRequestDto, isUpdate);
             HttpStatusCode status;
 
@@ -73,7 +73,6 @@ public class UserBookmarkController {
             return new ResponseEntity<BookmarkDto>(userBookmark, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-
         } catch (Exception e) {
             log.error("Internal server error", e);
             return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -109,7 +108,6 @@ public class UserBookmarkController {
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteBookmark(@RequestParam String userId, @RequestParam String starId) {
-        System.out.println("userId = " + userId);
         try {
             userBookMarkService.deleteUserBookmark(userId, starId);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

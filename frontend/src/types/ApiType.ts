@@ -18,3 +18,16 @@ interface deleteMarkApiType {
   userId: string;
   starId: string;
 }
+
+interface MyConstellationApiType {
+  userId: string;
+  constellationId:Number;
+  name: string;
+  description: string;
+  links: [];
+}
+
+interface deleteMyConstellationApiype {
+  userId: string;
+  constellationId: Number;
+}

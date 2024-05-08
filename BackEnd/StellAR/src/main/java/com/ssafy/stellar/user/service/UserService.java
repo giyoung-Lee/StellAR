@@ -2,7 +2,6 @@ package com.ssafy.stellar.user.service;
 
 import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.dto.response.UserDto;
-import com.ssafy.stellar.user.entity.UserEntity;
 
 public interface UserService {
 
@@ -10,7 +9,7 @@ public interface UserService {
 
     UserDto logIn(String userId, String password);
 
-    void deleteUser(String userId);
+    void deleteUser(String userId, String password);
 
     boolean checkPassword(String userId, String password);
 }

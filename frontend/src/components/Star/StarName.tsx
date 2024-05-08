@@ -16,13 +16,14 @@ const StarName = () => {
 
   const handleReset = () => {
     starStore.setStarClicked(false);
+    starStore.setPlanetClicked(false);
+    starStore.removeStarFromClicked(starStore.starId);
   };
 
   return (
     <>
       <n.Wrapper ref={starNameRef}>
-        <div className="flex justify-between p-1">
-          <span>별 이름: </span>
+        <div className="flex justify-end">
           <div onClick={handleReset}>
             <FontAwesomeIcon icon="xmark" />
           </div>

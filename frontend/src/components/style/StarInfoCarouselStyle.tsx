@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   height: 60vh;
   width: 100vw;
-  position: relative;
+  position: absolute;
+  z-index: 1000;
+  /* position: relative; */
   display: flex;
   align-self: center;
   justify-content: center;
@@ -23,7 +25,7 @@ export const Carousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background-color: #ffffff27;
+  background-color: #373737e7;
   border-radius: 11px;
   border: 1px solid #ffffff74;
   width: 80%;
@@ -41,7 +43,7 @@ export const CardWrapper = styled.div`
   align-items: center;
   height: 90%;
   width: 85%;
-  padding-bottom: 5vh;
+  /* padding-bottom: 5vh; */
 `;
 
 export const CardTitle = styled.p`
@@ -50,10 +52,19 @@ export const CardTitle = styled.p`
   padding-bottom: 5%;
 `;
 
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  overflow: hidden;
+  border-radius: 11px;
+`;
+
 export const CardImage = styled.img`
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  /* height: 90%; */
   object-fit: cover;
+  filter: grayscale(70%);
 `;
 
 export const CardHeader = styled.div`
@@ -86,7 +97,7 @@ export const ScienceInfo = styled.div`
   }
   p:nth-child(3) {
     margin-bottom: 0;
-    line-height: 1.5;
+    line-height: 1.7;
   }
 `;
 
@@ -94,10 +105,10 @@ export const Mythology = styled.div`
   width: 100%;
   margin: 10px 0;
   padding: 0 5px;
-  height: 87%;
+  height: 95%;
   font-size: 18px;
   font-weight: 100;
   color: white;
   overflow-y: auto;
-  line-height: 1.5;
+  line-height: 1.7;
 `;

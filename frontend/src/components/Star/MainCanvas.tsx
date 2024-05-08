@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -14,6 +14,7 @@ import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
+import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
 
 type Props = {};
@@ -72,16 +73,22 @@ interface PlanetPosition {
 }
 
 const MainCanvas = (props: Props) => {
-  const { zoomX, zoomY, zoomZ, isARMode, starClicked } = useStarStore();
+  // 스토어에서 필요한 요소 가져오기
+  const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
+    useStarStore();
 
   const videoTexture = useCameraStream();
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('5');
+      return GetStars('4.5');
     },
-    refetchInterval: false,
+  });
+
+  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
+    queryKey: ['get-planets'],
+    queryFn: GetPlanets,
   });
 
   const { isLoading: isConstLoading, data: constData } = useQuery({
@@ -89,14 +96,14 @@ const MainCanvas = (props: Props) => {
     queryFn: () => {
       return GetConstellation('hwangdo13');
     },
-    refetchInterval: false,
   });
 
-  const { isLoading: isPlanetLoading, data: planetData } = useQuery({
-    queryKey: ['get-planets'],
-    queryFn: GetPlanets,
-    refetchInterval: false,
-  });
+  // const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
+  //   queryKey: ['get-my-consts'],
+  //   queryFn: () => {
+  //     return GetUserConstellation('1');
+  //   },
+  // });
 
   // 상태 관리를 위해 useState 사용
   const [planetPositions, setPlanetPositions] = useState<PlanetData[]>([]);
@@ -168,13 +175,26 @@ const MainCanvas = (props: Props) => {
   }
 
   return (
-    <Canvas gl={{ antialias: true }}>
+    <Canvas gl={{ antialias: true, alpha: true }}>
+      {/* 배경 설정 */}
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+
+      {!isARMode && <Background />}
+
+      {/* 카메라 설정 */}
       {starClicked ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={1}
+          near={0.1}
+          far={100000}
+          position={[zoomX * 0.5, zoomY * 0.5, zoomZ * 0.5]}
+        />
+      ) : planetClicked ? (
+        <PerspectiveCamera
+          makeDefault
+          fov={80}
+          near={0.1}
           far={100000}
           position={[zoomX * 0.85, zoomY * 0.85, zoomZ * 0.85]}
         />
@@ -182,36 +202,51 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={1}
+          near={0.1}
           far={100000}
           position={[0, -0.5, 0]}
         />
       )}
 
+      {/* 카메라 시점 관련 설정 */}
       {starClicked ? (
         <OrbitControls
           target={[zoomX, zoomY, zoomZ]}
           rotateSpeed={-0.25}
-          zoomSpeed={10}
-          minDistance={1}
-          maxDistance={100000}
+          zoomSpeed={5}
+          minDistance={5000}
+          maxDistance={30000}
           enableDamping
           dampingFactor={0.1}
-          // enableZoom={false}
+          enableZoom={true}
+        />
+      ) : planetClicked ? (
+        <OrbitControls
+          target={[zoomX, zoomY, zoomZ]}
+          rotateSpeed={-0.25}
+          zoomSpeed={5}
+          minDistance={1}
+          maxDistance={30000}
+          enableDamping
+          dampingFactor={0.1}
+          enableZoom={true}
         />
       ) : (
         <OrbitControls
           target={[0, 0, 0]}
           rotateSpeed={-0.25}
-          zoomSpeed={10}
+          zoomSpeed={5}
           minDistance={1}
+          // 지구 밖으로 나가지 않는 정도
+          // maxDistance={20000}
           maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
-          // enableZoom={false}
+          enableZoom={true}
         />
       )}
 
+      {/* 조명 설정 */}
       <Lights />
       {Object.values(starPositions).map((star: any) => (
         <StarMesh
@@ -225,7 +260,7 @@ const MainCanvas = (props: Props) => {
               star.calY * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(80, 90)}
+          size={getRandomInt(100, 110)}
         />
       ))}
 
@@ -245,6 +280,7 @@ const MainCanvas = (props: Props) => {
         />
       ))}
 
+      {/* 별자리 호출 및 선긋기 */}
       {constData?.data &&
         starPositions &&
         Object.entries(constData.data as ConstellationData).map(
@@ -276,6 +312,73 @@ const MainCanvas = (props: Props) => {
               />
             )),
         )}
+
+      {/* 나만의 별자리 호출 및 선긋기 */}
+      {/* {myConstData?.data &&
+        starData?.data &&
+        Object.entries(myConstData.data as ConstellationData).map(
+          ([constellation, connections]) =>
+            (connections as string[][]).map((starArr, index) => (
+              <MakeConstellation
+                key={index}
+                constellation={constellation}
+                pointA={
+                  new THREE.Vector3(
+                    -starPositions[starArr[0]]?.calX *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                    starPositions[starArr[0]]?.calZ *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                    starPositions[starArr[0]]?.calY *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                  )
+                }
+                pointB={
+                  new THREE.Vector3(
+                    -starPositions[starArr[1]]?.calX *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                    starPositions[starArr[1]]?.calZ *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                    starPositions[starArr[1]]?.calY *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                  )
+                }
+              />
+            )),
+        )}
+
+      {/* 나만의 별자리 호출 및 선긋기 */}
+      {/* {myConstData?.data &&
+        starData?.data &&
+        Object.entries(myConstData.data as ConstellationData).map(
+          ([constellation, connections]) =>
+            (connections as string[][]).map((starArr, index) => (
+              <MakeConstellation
+                key={index}
+                constellation={constellation}
+                pointA={
+                  new THREE.Vector3(
+                    starData.data[starArr[0]]?.calX *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calY *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                    starData.data[starArr[0]]?.calZ *
+                      starData.data[starArr[0]]?.nomalizedMagV,
+                  )
+                }
+                pointB={
+                  new THREE.Vector3(
+                    starData.data[starArr[1]]?.calX *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calY *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                    starData.data[starArr[1]]?.calZ *
+                      starData.data[starArr[1]]?.nomalizedMagV,
+                  )
+                }
+              />
+            )),
+        )} */}
+
       <FloorMesh />
     </Canvas>
   );

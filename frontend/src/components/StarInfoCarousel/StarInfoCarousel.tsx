@@ -8,6 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import Loading from '../common/Loading/Loading';
 import { GetConstellationDetail } from '../../apis/StarApis';
 
+import prevArrow from '/img/prev.png';
+
 const StarInfoCarousel = ({ active }: { active: number }) => {
   const [activeSlide, setActiveSlide] = useState(active);
   const [dragStartX, setDragStartX] = useState(0);
@@ -94,11 +96,23 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
     });
 
   if (isConstellationLoading) {
-    <Loading />;
+    return <Loading />;
   }
 
   return (
     <s.Wrapper ref={Ref}>
+      <img
+        className="prev arrow"
+        src={prevArrow}
+        alt="prev_button"
+        onClick={prev}
+      />
+      <img
+        className="next arrow"
+        src={prevArrow}
+        alt="next_button"
+        onClick={next}
+      />
       <s.Carousel
         ref={carouselRef}
         onTouchStart={handleTouchStart}
@@ -124,4 +138,3 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
 };
 
 export default StarInfoCarousel;
-

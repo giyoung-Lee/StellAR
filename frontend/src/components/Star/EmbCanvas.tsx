@@ -10,13 +10,11 @@ import {
   GetConstellation,
   GetPlanets,
   GetStars,
-  GetUserConstellation,
 } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
-import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
@@ -153,12 +151,12 @@ const EmbCanvas = (props: Props) => {
           key={star.starId}
           position={
             new THREE.Vector3(
-              star.calX * star.nomalizedMagV * 0.7,
-              star.calY * star.nomalizedMagV * 0.7,
-              star.calZ * star.nomalizedMagV * 0.7,
+              star.calX * star.nomalizedMagV,
+              star.calY * star.nomalizedMagV,
+              star.calZ * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(80, 90)}
+          size={getRandomInt(150, 200)}
         />
       ))}
 
@@ -170,9 +168,9 @@ const EmbCanvas = (props: Props) => {
           key={planet.planetId}
           position={
             new THREE.Vector3(
-              planet.calX * planet.nomalizedMagV * 0.7,
-              planet.calY * planet.nomalizedMagV * 0.7,
-              planet.calZ * planet.nomalizedMagV * 0.7,
+              planet.calX * planet.nomalizedMagV,
+              planet.calY * planet.nomalizedMagV,
+              planet.calZ * planet.nomalizedMagV,
             )
           }
           targetSize={800}
@@ -191,27 +189,21 @@ const EmbCanvas = (props: Props) => {
                 pointA={
                   new THREE.Vector3(
                     starData.data[starArr[0]]?.calX *
-                      starData.data[starArr[0]]?.nomalizedMagV *
-                      0.7,
+                      starData.data[starArr[0]]?.nomalizedMagV,
                     starData.data[starArr[0]]?.calY *
-                      starData.data[starArr[0]]?.nomalizedMagV *
-                      0.7,
+                      starData.data[starArr[0]]?.nomalizedMagV,
                     starData.data[starArr[0]]?.calZ *
-                      starData.data[starArr[0]]?.nomalizedMagV *
-                      0.7,
+                      starData.data[starArr[0]]?.nomalizedMagV,
                   )
                 }
                 pointB={
                   new THREE.Vector3(
                     starData.data[starArr[1]]?.calX *
-                      starData.data[starArr[1]]?.nomalizedMagV *
-                      0.7,
+                      starData.data[starArr[1]]?.nomalizedMagV,
                     starData.data[starArr[1]]?.calY *
-                      starData.data[starArr[1]]?.nomalizedMagV *
-                      0.7,
+                      starData.data[starArr[1]]?.nomalizedMagV,
                     starData.data[starArr[1]]?.calZ *
-                      starData.data[starArr[1]]?.nomalizedMagV *
-                      0.7,
+                      starData.data[starArr[1]]?.nomalizedMagV,
                   )
                 }
               />
@@ -254,26 +246,6 @@ const EmbCanvas = (props: Props) => {
       <FloorMesh />
     </Canvas>
   );
-};
-
-const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
-  videoTexture,
-  isARMode,
-}) => {
-  const { scene } = useThree();
-  const { camera } = useThree();
-
-  useDeviceOrientation(camera);
-
-  useEffect(() => {
-    if (isARMode && videoTexture) {
-      scene.background = videoTexture;
-    } else {
-      scene.background = new THREE.Color(0x000000);
-    }
-  }, [videoTexture, isARMode, scene]);
-
-  return null;
 };
 
 export default EmbCanvas;

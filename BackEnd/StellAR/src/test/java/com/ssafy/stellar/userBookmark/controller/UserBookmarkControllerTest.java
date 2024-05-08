@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -64,7 +66,7 @@ class UserBookmarkControllerTest {
     }
 
     @Test
-    @DisplayName("북마크 manage 실패 테스트")
+    @DisplayName("북마크 manage 실패 테스트 - 내부 서버 오류")
     void manageBookmarkSaveFailuer1() throws Exception {
         BookmarkRequestDto bookmarkRequestDto = new BookmarkRequestDto("user1", "star1", "My Bookmark");
         String bookmarkRequestDtoJson = objectMapper.writeValueAsString(bookmarkRequestDto);
@@ -77,7 +79,7 @@ class UserBookmarkControllerTest {
     }
 
     @Test
-    @DisplayName("북마크 저장 실패 테스트")
+    @DisplayName("북마크 저장 실패 테스트 - 이미 있는 북마크")
     void manageBookmarkSaveFailuer2() throws Exception {
         BookmarkRequestDto bookmarkRequestDto = new BookmarkRequestDto("user1", "star1", "My Bookmark");
         String bookmarkRequestDtoJson = objectMapper.writeValueAsString(bookmarkRequestDto);
@@ -91,19 +93,17 @@ class UserBookmarkControllerTest {
     }
 
     @Test
-    @DisplayName("북마크 저장 실패 테스트")
+    @DisplayName("북마크 저장 실패 테스트 - 저장되지 않은 북마크")
     void manageBookmarkSaveFailuer3() throws Exception {
         BookmarkRequestDto bookmarkRequestDto = new BookmarkRequestDto("user1", "star1", "My Bookmark");
         String bookmarkRequestDtoJson = objectMapper.writeValueAsString(bookmarkRequestDto);
-        doThrow(new IllegalArgumentException("Bookmark not found for given user and star")).when(userBookMarkService).manageUserBookmark(any(BookmarkRequestDto.class), eq(false));
+        doThrow(new IllegalArgumentException("Bookmark not found for given user and star")).when(userBookMarkService).manageUserBookmark(any(BookmarkRequestDto.class), eq(true));
         mockMvc.perform(put("/bookmark/create")
                         .with(httpBasic("user", "password")) // HTTP Basic 인증 추가
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookmarkRequestDtoJson).with(csrf()))
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
     }
-
-
 
 
     @Test
@@ -132,7 +132,7 @@ class UserBookmarkControllerTest {
     }
 
     @Test
-    @DisplayName("북마크 개별 조회 실패 테스트 - 내부 서버 오류")
+    @DisplayName("북마크 개별 조회 실패 테스트 - 서버 에러")
     void getBookmarkByStarFailureInternalServerError() throws Exception {
         when(userBookMarkService.getUserBookmarkByStar("user1", "star1")).thenThrow(new RuntimeException("Internal server error"));
 
@@ -145,10 +145,68 @@ class UserBookmarkControllerTest {
 
 
     @Test
-    void getBookmark() {
+    @DisplayName("북마크 조회 성공 테스트")
+    void getBookmarkSuccess() throws Exception{
+        List<BookmarkDto> BookmarkListDto = new ArrayList<BookmarkDto>();
+        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now());
+        BookmarkListDto.add(bookmarkDto);
+        when(userBookMarkService.getUserBookmark("user1")).thenReturn(BookmarkListDto);
+
+        mockMvc.perform(get("/bookmark/all")
+                        .param("userId", "user1"))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void deleteBookmark() {
+    @DisplayName("북마크 조회 실패 테스트 - 서버 에러")
+    void getBookmarkFailureInternalError() throws Exception{
+
+        doThrow(new RuntimeException("Internal server error")).when(userBookMarkService).getUserBookmark("user1");
+        mockMvc.perform(get("/bookmark/all")
+                        .param("userId", "user1"))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("북마크 조회 실패 테스트 - 유저 없음")
+    void getBookmarkFailureBadRequest() throws Exception{
+
+        doThrow(new IllegalArgumentException("User not found with id: " + "user1")).when(userBookMarkService).getUserBookmark("user1");
+        mockMvc.perform(get("/bookmark/all")
+                        .param("userId", "user1"))
+                .andExpect(status().isBadRequest());
+    }
+    @Test
+    @DisplayName("북마크 삭제 성공 테스트")
+    void deleteBookmarkSuccess() throws Exception {
+
+        doNothing().when(userBookMarkService).deleteUserBookmark("user1", "star1");
+        mockMvc.perform(delete("/bookmark/delete")
+                        .param("userId", "user1")
+                        .param("starId", "star1"))
+                .andExpect(status().isNoContent());
+
+    }
+
+    @Test
+    @DisplayName("북마크 삭제 실패 테스트 - 북마크 없음")
+    void deleteBookmarkFailureBadRequest() throws Exception {
+
+        doThrow(new IllegalArgumentException("Bookmark not found for given user and star")).when(userBookMarkService).deleteUserBookmark("user1", "star1");
+        mockMvc.perform(delete("/bookmark/delete")
+                        .param("userId", "user1")
+                        .param("starId", "star1"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("북마크 삭제 실패 테스트 - 서버 에러")
+    void deleteBookmarkFailureInternalServerError() throws Exception {
+
+        doThrow(new RuntimeException("Internal server error")).when(userBookMarkService).deleteUserBookmark("user1", "star1");
+        mockMvc.perform(delete("/bookmark/delete")
+                        .param("userId", "user1")
+                        .param("starId", "star1"))
+                .andExpect(status().isInternalServerError());
     }
 }

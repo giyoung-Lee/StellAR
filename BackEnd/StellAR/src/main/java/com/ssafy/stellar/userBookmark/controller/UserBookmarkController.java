@@ -108,7 +108,6 @@ public class UserBookmarkController {
     @ApiResponse(responseCode = "400", description = "요청 데이터 에러")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteBookmark(@RequestParam String userId, @RequestParam String starId) {
-        System.out.println("userId = " + userId);
         try {
             userBookMarkService.deleteUserBookmark(userId, starId);
             return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

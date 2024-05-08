@@ -17,7 +17,7 @@ const useCameraStream = () => {
         texture.magFilter = THREE.LinearFilter;
         texture.format = THREE.RGBFormat;
         setVideoTexture(texture);
-        console.log('카메라 스트림 성공');
+        // console.log('카메라 스트림 성공');
       })
       .catch((error) => {
         console.error('Unable to access camera:', error);

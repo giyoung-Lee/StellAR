@@ -1,6 +1,7 @@
+import * as THREE from 'three';
+import * as Astronomy from 'astronomy-engine';
 import React, { useEffect, useState, useRef } from 'react';
 import { getRandomInt } from '../../utils/random';
-import * as THREE from 'three';
 import StarMesh from './StarMesh';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
@@ -14,7 +15,6 @@ import useCameraStream from '../../hooks/useCameraStream';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
-import * as Astronomy from 'astronomy-engine';
 import { Euler, Quaternion } from 'three';
 
 type Props = {};
@@ -204,11 +204,7 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[
-            0,
-            -0.5 / Math.sqrt(3),
-            0,
-          ]}
+          position={[0, -0.5 / Math.sqrt(3), 0]}
         />
       )}
 
@@ -408,7 +404,7 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
   useEffect(() => {
     const handleOrientation = (event: DeviceOrientationEvent) => {
       const alpha = event.alpha ?? 0; // alpha가 null일 경우 0을 사용
-      const beta = event.beta ?? 0;   // beta가 null일 경우 0을 사용
+      const beta = event.beta ?? 0; // beta가 null일 경우 0을 사용
       const gamma = event.gamma ?? 0; // gamma가 null일 경우 0을 사용
       gyroData.current = { alpha, beta, gamma };
     };
@@ -428,9 +424,9 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
       // 자이로센서 데이터를 바탕으로 Euler 객체 생성
       const { alpha, beta, gamma } = gyroData.current;
       const euler = new Euler(
-        THREE.MathUtils.degToRad(beta*scaleFactor),
-        THREE.MathUtils.degToRad(gamma*scaleFactor),
-        THREE.MathUtils.degToRad(-alpha*scaleFactor),
+        THREE.MathUtils.degToRad(beta * scaleFactor),
+        THREE.MathUtils.degToRad(gamma * scaleFactor),
+        THREE.MathUtils.degToRad(-alpha * scaleFactor),
         'YXZ',
       );
       // Euler 객체를 쿼터니언으로 변환

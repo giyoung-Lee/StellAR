@@ -57,8 +57,8 @@ public class StarServiceImpl implements StarService{
             double newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
             double newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
-            double normalizedMagV = 20000
-                    + Math.exp((Double.parseDouble(star.getMagV()) - minMagV) * 2 / (maxMagV - minMagV));
+            double normalizedMagV = 8000
+                    * (1 + Math.exp((Double.parseDouble(star.getMagV()) - minMagV) * 1 / (maxMagV - minMagV)));
 
             StarDto dto = getStarDto(star, xyz, normalizedMagV);
             JsonElement jsonElement = gson.toJsonTree(dto);

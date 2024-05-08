@@ -72,7 +72,10 @@ const MainCanvas = (props: Props) => {
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 배경 설정 */}
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+
+      {!isARMode &&
       <Background />
+      }
 
       {/* 카메라 설정 */}
       {starClicked ? (
@@ -155,7 +158,7 @@ const MainCanvas = (props: Props) => {
               star.calZ * star.nomalizedMagV,
             )
           }
-          size={getRandomInt(80, 90)}
+          size={getRandomInt(100, 110)}
         />
       ))}
 

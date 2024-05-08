@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import useStarStore from '../../../stores/starStore';
+import useUserStore from '../../../stores/userStore';
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -131,7 +132,9 @@ const NavBar = () => {
   const ulRef = useRef<HTMLUListElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [centerX, setCenterX] = useState(0);
+  const [centerY, setCenterY] = useState(0);
   const [touchX, setTouchX] = useState(0);
+  const [touchY, setTouchY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [currAngle, setCurrAngle] = useState(0);
   const [prevAngle, setPrevAngle] = useState(0);
@@ -268,7 +271,7 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-            <Link to={`/myStar/${userStore.userId}`}>
+              <Link to={`/myStar/${userStore.userId}`}>
                 <div className="flex flex-col">
                   <img
                     src="/img/Constellation.svg"
@@ -280,7 +283,7 @@ const NavBar = () => {
               </Link>
             </li>
             <li>
-            <Link to={`/starMark/${userStore.userId}`}>
+              <Link to={`/starMark/${userStore.userId}`}>
                 <div className="flex flex-col">
                   <img src="/img/Starmark.svg" alt="Home" className="p-2" />
                   <span>별마크</span>

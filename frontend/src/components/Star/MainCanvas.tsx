@@ -10,7 +10,6 @@ import {
   GetConstellation,
   GetPlanets,
   GetStars,
-  GetUserConstellation,
 } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';

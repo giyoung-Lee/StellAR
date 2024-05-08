@@ -62,7 +62,7 @@ const useStarStore = create<StarStoreType>(
       setMarkedStars: (markedStars: StarMarkType[]) => set({ markedStars: markedStars }),
       markSaveToggle: false,
       setMarkSaveToggle: (toggle: boolean) => set({ markSaveToggle: toggle }),
-      resetClickedStars: () => set({ clickedStars: [] }),
+      resetClickedStars: () => set({ clickedStars: [], starId:'' }),
       zoomX: 0,
       setZoomX: (zoomX: number) => set({ zoomX: zoomX }),
       zoomY: 0,

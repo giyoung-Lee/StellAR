@@ -1,5 +1,8 @@
 package com.ssafy.stellar.userConstellation.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import com.ssafy.stellar.user.entity.UserEntity;
@@ -11,12 +14,12 @@ import com.ssafy.stellar.userConstellation.entity.UserConstellationEntity;
 import com.ssafy.stellar.userConstellation.entity.UserConstellationLinkEntity;
 import com.ssafy.stellar.userConstellation.repository.UserConstellationLinkRepository;
 import com.ssafy.stellar.userConstellation.repository.UserConstellationRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserConstellationServiceImpl implements UserConstellationService {
@@ -100,6 +103,28 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         userConstellationLinkRepository.deleteByUserConstellation(userConstellation);
         userConstellationRepository.delete(userConstellation);
 
+    }
+
+    @Override
+    public Map<String, Object> getUserConstellationLink(String userId) {
+        List<Long> userConstellationList = userConstellationRepository.findUserConstellationIdsByUserId(userId);
+
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+        for(Long constellationId : userConstellationList) {
+            List<UserConstellationLinkEntity> temp =
+                    userConstellationLinkRepository.findByUserConstellationId(constellationId);
+            JsonArray jsonArray = new JsonArray();
+            for(UserConstellationLinkEntity entity : temp) {
+                JsonArray pairArray = new JsonArray();
+                pairArray.add(entity.getStartStar().getStarId());
+                pairArray.add(entity.getEndStar().getStarId());
+                jsonArray.add(pairArray);
+            }
+            jsonObject.add(constellationId.toString(), jsonArray);
+        }
+        Map<String, Object> map = gson.fromJson(jsonObject, Map.class);
+        return map;
     }
 
     private void saveUserConstellationLinks(List<List<String>> links, UserConstellationEntity userConstellation) {

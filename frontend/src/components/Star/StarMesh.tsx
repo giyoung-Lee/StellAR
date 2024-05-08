@@ -40,7 +40,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
     setStarId(starId);
     setStarClicked(true);
     setPlanetClicked(false);
-    addStarToClicked(starId)
+    addStarToClicked(starId);
 
     const mesh = event.object as THREE.Mesh; // 타입 단언
     if (mesh.material && 'color' in mesh.material) {
@@ -49,7 +49,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
     const starPosition = event.object.position;
 
-    console.log("별 클릭 지점"+starPosition);
+    console.log('별 클릭 지점' + starPosition);
 
     if (clickedStars.length < 1) {
       setZoomX(starPosition.x);
@@ -66,16 +66,16 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       receiveShadow={false}
       onClick={click}
     >
-      <sphereGeometry args={[size, 32, 16]} />
+      <tetrahedronGeometry args={[size, 2]} />
       <meshPhongMaterial
         color={spType ? starColor[spType as string] : 'red'}
-        emissive={'black'}
+        // emissive={'black'}
         specular={'white'}
-        shininess={50}
+        shininess={40}
+        flatShading={true}
       />
     </mesh>
   );
 };
 
 export default StarMesh;
-

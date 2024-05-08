@@ -18,6 +18,7 @@ import useCameraStream from '../../hooks/useCameraStream';
 import useDeviceOrientation from '../../hooks/useDeviceOrientation';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
+import Background from './BackGround';
 
 type Props = {};
 
@@ -68,9 +69,10 @@ const MainCanvas = (props: Props) => {
   }
 
   return (
-    <Canvas gl={{ antialias: true }}>
+    <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 배경 설정 */}
       <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
+      <Background />
 
       {/* 카메라 설정 */}
       {starClicked ? (

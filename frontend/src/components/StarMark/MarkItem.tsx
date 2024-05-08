@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { DeleteStarMark } from '../../apis/StarMarkApis';
 import useUserStore from '../../stores/userStore';
 import useStarStore from '../../stores/starStore';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   starId: string;
@@ -37,11 +38,17 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
     },
   });
 
+  const navigate = useNavigate()
+  const findMyStar = () => {
+    localStorage.setItem('zoomFromOther', 'true');
+    navigate('/')
+  }
+
   return (
     <>
       <m.StarInfo>
         <m.NameBox>
-          <m.BookMarkName>{bookmarkName}</m.BookMarkName>
+          <m.BookMarkName onClick={findMyStar}>{bookmarkName}</m.BookMarkName>
           <m.StarName>{starId}</m.StarName>
         </m.NameBox>
         <m.Date>{formatDate(createTime)}</m.Date>

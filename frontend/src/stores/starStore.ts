@@ -75,6 +75,7 @@ const useStarStore = create<StarStoreType>(
       partialize: (state) => ({
         starId: state.starId,
         clickedStars: state.clickedStars,
+        markedStars: state.markedStars,
       }),
     },
   ),

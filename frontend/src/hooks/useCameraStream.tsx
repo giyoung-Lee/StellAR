@@ -2,10 +2,23 @@ import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 const useCameraStream = () => {
-  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
+  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(
+    null,
+  );
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const constraints = {
+      video: {
+        facingMode: 'environment',
+        width: { ideal: width },
+        height: { ideal: height },
+      }
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
       .then((stream) => {
         const video = document.createElement('video');
         video.srcObject = stream;
@@ -16,16 +29,16 @@ const useCameraStream = () => {
         texture.minFilter = THREE.LinearFilter;
         texture.magFilter = THREE.LinearFilter;
         texture.format = THREE.RGBFormat;
+
         setVideoTexture(texture);
-        // console.log('카메라 스트림 성공');
+        console.log('카메라 스트림 성공');
       })
       .catch((error) => {
-        console.error('Unable to access camera:', error);
+        console.error('카메라 접근 불가:', error);
       });
   }, []);
 
   return videoTexture;
 };
-
 
 export default useCameraStream;

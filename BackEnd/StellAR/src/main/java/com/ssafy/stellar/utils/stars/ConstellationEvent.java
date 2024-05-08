@@ -1,16 +1,14 @@
 package com.ssafy.stellar.utils.stars;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.ssafy.stellar.constellation.entity.ConstellationEventEntity;
 import com.ssafy.stellar.constellation.repository.ConstellationEventRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,11 +16,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
 
-@Service
+@Component
 public class ConstellationEvent {
 
     private final ConstellationEventRepository constellationEventRepository;
@@ -61,15 +58,50 @@ public class ConstellationEvent {
         }
         rd.close();
         conn.disconnect();
-        System.out.println(sb.toString());
+
+        String jsonData = sb.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        // 파싱을 위해 JsonParser 객체 생성
+        JsonElement rootElement = JsonParser.parseString(jsonData);
+        JsonObject rootObject = rootElement.getAsJsonObject();
+        JsonObject response = rootObject.getAsJsonObject("response");
+        JsonObject body = response.getAsJsonObject("body");
+        JsonObject items = body.getAsJsonObject("items");
+        JsonArray itemArray = items.getAsJsonArray("item");
+
+        // 배열의 각 요소를 처리
+        for (JsonElement itemElement : itemArray) {
+            JsonObject item = itemElement.getAsJsonObject();
+            String astroEvent = item.get("astroEvent").getAsString();
+            String astroTime = item.get("astroTime").getAsString();
+            String temp_locdate = item.get("locdate").getAsString();
+
+            if (!astroTime.isEmpty()) {
+                LocalDate locdate = LocalDate.parse(temp_locdate, formatter);
+                ConstellationEventEntity entity = new ConstellationEventEntity();
+                entity.setAstroEvent(astroEvent);
+                entity.setAstroTime(astroTime);
+                entity.setLocdate(locdate);
+
+                constellationEventRepository.save(entity);
+            }
+        }
     }
 
-    @PostConstruct
+    // 특정 월의 데이터를 임의로 넣고싶다면 아래 어노테이션을 주석을 풀고,
+    // setConstellationEvent 에 직접 값을 입력
+    //  @PostConstruct
+    @Scheduled(cron = "0 0 0 1 * ?")
     public void init() {
         try {
             LocalDate today = LocalDate.now();
-            String year = String.valueOf(today.getYear());
-            String month = String.format("%02d", today.getMonthValue());
+            // 오늘로부터 1달 후의 날짜 계산
+            LocalDate nextMonth = today.plusMonths(1);
+
+            // 년도와 월을 문자열로 추출
+            String year = String.valueOf(nextMonth.getYear());
+            String month = String.format("%02d", nextMonth.getMonthValue());
 
             setConstellationEvent(year, month);
             System.out.println("Data successfully loaded and saved.");

@@ -45,7 +45,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
     const mesh = event.object as THREE.Mesh; // 타입 단언
     if (mesh.material && 'color' in mesh.material) {
-      (mesh.material as THREE.MeshStandardMaterial).color.set('purple');
+      (mesh.material as THREE.MeshPhongMaterial).color.set('black');
     }
 
     const starPosition = event.object.position;
@@ -79,17 +79,21 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
       </mesh>
 
       {/* 터치 영역 확장을 위한 투명 mesh입니다만 */}
-      <mesh
-        ref={touchAreaRef}
-        position={position}
-        onClick={click}
-        visible={false} // 보이지마!
-      >
-        <sphereGeometry args={[size * 3, 16, 16]} />
-        <meshBasicMaterial transparent opacity={0} />
+      <mesh ref={touchAreaRef} position={position} onClick={click}>
+        <sphereGeometry args={[size * 3, 20, 20]} />
+        <meshPhongMaterial
+          transparent
+          color={'#fff200'}
+          opacity={0.15}
+          // emissive={'#ffffff'}
+          emissiveIntensity={1}
+          specular={'#ffffff'}
+          shininess={100}
+        />
       </mesh>
     </>
   );
 };
 
 export default StarMesh;
+

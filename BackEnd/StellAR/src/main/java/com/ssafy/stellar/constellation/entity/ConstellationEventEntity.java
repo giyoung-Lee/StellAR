@@ -1,18 +1,19 @@
 package com.ssafy.stellar.constellation.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
-@Entity
+@Entity(name = "constellation_event")
 public class ConstellationEventEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer constellationEventId;
 
@@ -23,9 +24,6 @@ public class ConstellationEventEntity {
     private String astroTime;
 
     @Column
-    private String astroTitle;
-
-    @Column
-    private String locdate;
+    private LocalDate locdate;
 
 }

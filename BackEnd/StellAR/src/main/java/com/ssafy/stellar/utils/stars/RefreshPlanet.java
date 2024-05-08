@@ -5,6 +5,7 @@ import com.ssafy.stellar.star.repository.PlanetRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Component
 public class RefreshPlanet {
 
     @Autowired
@@ -104,7 +105,7 @@ public class RefreshPlanet {
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ api 참고
     @PostConstruct
 //    @Scheduled(fixedDelay = 10000)
-    @Scheduled(cron = " 0 * * * * * ")
+//    @Scheduled(cron = " 0 * * * * * ")
     public void init() {
         try {
             returnPlanet();

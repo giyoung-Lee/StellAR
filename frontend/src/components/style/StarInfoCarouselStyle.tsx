@@ -11,11 +11,39 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
+  .arrow {
+    height: 100px;
+    position: absolute;
+    z-index: 1001;
+
+    cursor: pointer;
+
+    &.prev {
+      left: 10%;
+      transform: rotate(180deg);
+    }
+
+    &.next {
+      right: 10%;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .arrow {
+      display: none;
+    }
+  }
+  @media (min-width: 576px) {
+    .arrow {
+      display: inline-block;
+    }
+  }
 `;
 
 export const Carousel = styled.div`
-  width: 100%;
-  height: 90%;
+  width: 400px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +63,7 @@ export const CarouselItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 export const CardWrapper = styled.div`
@@ -55,16 +84,15 @@ export const CardTitle = styled.p`
 export const ImageWrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: black;
   overflow: hidden;
   border-radius: 11px;
 `;
 
 export const CardImage = styled.img`
-  width: 100%;
-  /* height: 90%; */
   object-fit: cover;
-  filter: grayscale(70%);
+  height: 100%;
+  width: 100%;
+  filter: grayscale(50%);
 `;
 
 export const CardHeader = styled.div`

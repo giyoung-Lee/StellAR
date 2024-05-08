@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as s from '../style/StarInfoCarouselStyle';
 import Tau from '/img/taurus.webp';
 import useConstellationStore from '../../stores/constellationStore';
@@ -11,6 +11,7 @@ type Props = {
 
 const StarInfoImage = ({ constellationImg }: Props) => {
   const constellationStore = useConstellationStore();
+
   return (
     <s.ImageWrapper>
       <s.CardImage src={constellationImg} alt="mythology_image" />

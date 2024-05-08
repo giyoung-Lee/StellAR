@@ -16,6 +16,11 @@ const GlobalStyle = createGlobalStyle`
         background-color: black;
         background-image: url(${Background});
         background-size: cover;
+
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none
     }
 
     /* div {
@@ -27,4 +32,3 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
-

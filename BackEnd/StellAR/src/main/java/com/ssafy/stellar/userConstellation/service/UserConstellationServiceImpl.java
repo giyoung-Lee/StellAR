@@ -14,12 +14,14 @@ import com.ssafy.stellar.userConstellation.entity.UserConstellationEntity;
 import com.ssafy.stellar.userConstellation.entity.UserConstellationLinkEntity;
 import com.ssafy.stellar.userConstellation.repository.UserConstellationLinkRepository;
 import com.ssafy.stellar.userConstellation.repository.UserConstellationRepository;
+import com.ssafy.stellar.utils.stars.CalcStarLocation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 public class UserConstellationServiceImpl implements UserConstellationService {
@@ -28,18 +30,22 @@ public class UserConstellationServiceImpl implements UserConstellationService {
     private final UserConstellationLinkRepository userConstellationLinkRepository;
     private final UserRepository userRepository;
     private final StarRepository starRepository;
+    private final CalcStarLocation calc;
 
     public UserConstellationServiceImpl(
             UserConstellationRepository userConstellationRepository,
             UserConstellationLinkRepository userConstellationLinkRepository,
             UserRepository userRepository,
-            StarRepository starRepository) {
+            StarRepository starRepository,
+            CalcStarLocation calc) {
         this.userConstellationRepository = userConstellationRepository;
         this.userConstellationLinkRepository = userConstellationLinkRepository;
         this.userRepository = userRepository;
         this.starRepository = starRepository;
+        this.calc = calc;
     }
 
+    @Transactional
     @Override
     public void manageUserConstellation(UserConstellationRequestDto userConstellationRequestDto, boolean isUpdate) {
         UserEntity user = validateUser(userConstellationRequestDto.getUserId());
@@ -56,6 +62,9 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         if (isUpdate && constellationId == null && userConstellation == null) {
             throw new IllegalArgumentException("User Constellation not found for given user and constellationId");
         }
+
+        // 링크 데이터 확인
+        validateLinks(links);
 
         userConstellationLinkRepository.deleteByUserConstellation(userConstellation);
         userConstellation = userConstellation == null ? new UserConstellationEntity() : userConstellation;
@@ -140,12 +149,20 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         }
     }
 
-    private static UserConstellationDto getUserConstellationDto(UserConstellationEntity userConstellation) {
+    private UserConstellationDto getUserConstellationDto(UserConstellationEntity userConstellation) {
+        List<UserConstellationLinkEntity> userConstellationLinks =  userConstellationLinkRepository.findByUserConstellation(userConstellation);
+
+        StarEntity star = starRepository.findByStarId(userConstellationLinks.get(0).getStartStar().getStarId());
+        double degreeDEC = calc.calculateNewDec(star.getDeclination(), Double.parseDouble(star.getPMDEC()));
+        double hourRA = calc.calculateNewRA(star.getRA(), Double.parseDouble(star.getPMRA()));
+
         UserConstellationDto dto = new UserConstellationDto();
         dto.setUserConstellationId(userConstellation.getUserConstellationId());
         dto.setName(userConstellation.getName());
         dto.setDescription(userConstellation.getDescription());
         dto.setCreateTime(userConstellation.getCreateDateTime());
+        dto.setDegreeDEC(degreeDEC);
+        dto.setHourRA(hourRA);
         return dto;
     }
 
@@ -187,6 +204,20 @@ public class UserConstellationServiceImpl implements UserConstellationService {
             throw new IllegalArgumentException("User Constellation not found for given user and userConstellationId");
         }
         return userConstellation;
+    }
+
+    public void validateLinks(List<List<String>> links) {
+        // links가 null이거나 비어 있는지 확인
+        if (Objects.isNull(links) || links.isEmpty()) {
+            throw new IllegalArgumentException("Links list cannot be null or empty");
+        }
+
+        // 각 리스트의 길이가 2인지 확인
+        for (List<String> link : links) {
+            if (Objects.isNull(link) || link.size() != 2) {
+                throw new IllegalArgumentException("Each link must contain exactly 2 elements");
+            }
+        }
     }
 
 }

@@ -25,4 +25,10 @@ public class BookmarkDto {
     @Schema(description = "별마크 설정 시간", required = true)
     private LocalDateTime craeteTime;
 
+    @Schema(description = "별마크 RA(시간기준)", required = true)
+    private double hourRA;
+
+    @Schema(description = "별마크 DEC(도기준)", required = true)
+    private double degreeDEC;
+
 }

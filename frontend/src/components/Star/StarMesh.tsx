@@ -24,6 +24,7 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
   } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
+  const touchAreaRef = useRef<THREE.Mesh>(null!); // 터치 영역 확장을 위한 투명 mesh입니다만
 
   const starColor: { [key: string]: string } = {
     O: '#3db8ff',
@@ -59,22 +60,35 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
   };
 
   return (
-    <mesh
-      ref={meshRef}
-      position={position}
-      castShadow={false}
-      receiveShadow={false}
-      onClick={click}
-    >
-      <tetrahedronGeometry args={[size, 2]} />
-      <meshPhongMaterial
-        color={spType ? starColor[spType as string] : 'red'}
-        // emissive={'black'}
-        specular={'white'}
-        shininess={40}
-        flatShading={true}
-      />
-    </mesh>
+    <>
+      <mesh
+        ref={meshRef}
+        position={position}
+        castShadow={false}
+        receiveShadow={false}
+        onClick={click}
+      >
+        <tetrahedronGeometry args={[size, 2]} />
+        <meshPhongMaterial
+          color={spType ? starColor[spType as string] : 'red'}
+          // emissive={'black'}
+          specular={'white'}
+          shininess={40}
+          flatShading={true}
+        />
+      </mesh>
+
+      {/* 터치 영역 확장을 위한 투명 mesh입니다만 */}
+      <mesh
+        ref={touchAreaRef}
+        position={position}
+        onClick={click}
+        visible={false} // 보이지마!
+      >
+        <sphereGeometry args={[size * 3, 16, 16]} />
+        <meshBasicMaterial transparent opacity={0} />
+      </mesh>
+    </>
   );
 };
 

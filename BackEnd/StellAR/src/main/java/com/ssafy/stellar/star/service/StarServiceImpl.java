@@ -93,8 +93,8 @@ public class StarServiceImpl implements StarService{
             dto.setPlanetMagV(entity.getPlanetMagV());
 
             double rate = (Double.parseDouble(entity.getPlanetMagV()) - minMagV) / (maxMagV - minMagV);
-            double normalizedMagV = 20000
-                    + Math.exp(rate * 2 / (starMaxMagv - starMinMagv));
+            double normalizedMagV = 18000
+                    * Math.exp(rate * 3 / (starMaxMagv - starMinMagv));
 
             dto.setNomalizedMagV(normalizedMagV);
 

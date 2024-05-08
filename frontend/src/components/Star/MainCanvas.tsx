@@ -112,7 +112,7 @@ const MainCanvas = (props: Props) => {
   const [starPositions, setStarPositions] = useState<StarDataMap>({});
 
   // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
-  const calculateStarPositions = (data: StarDataMap): StarDataMap => {
+  const calculateStarPositions = (data: StarDataMap) => {
     const time = new Date();
     const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
     const result: StarDataMap = {};

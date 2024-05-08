@@ -80,11 +80,11 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
       {/* 터치 영역 확장을 위한 투명 mesh입니다만 */}
       <mesh ref={touchAreaRef} position={position} onClick={click}>
-        <tetrahedronGeometry args={[size * 3, 2]} />
+        <sphereGeometry args={[size * 3, 20, 20]} />
         <meshPhongMaterial
           transparent
           color={'#fff200'}
-          opacity={0.2}
+          opacity={0.15}
           // emissive={'#ffffff'}
           emissiveIntensity={1}
           specular={'#ffffff'}
@@ -96,3 +96,4 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 };
 
 export default StarMesh;
+

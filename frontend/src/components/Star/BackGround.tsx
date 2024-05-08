@@ -1,18 +1,50 @@
 import { Environment, Sphere } from '@react-three/drei';
 import { Gradient, LayerMaterial } from 'lamina';
+import { useRef } from 'react';
 import * as THREE from 'three';
+
+const vertexShader = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const fragmentShader = `
+  uniform float time;
+  varying vec2 vUv;
+  void main() {
+    vec3 colorA = vec3(0.75, 0.315, 1.298); // 진한 파랑
+    vec3 colorB = vec3(0.075, 0.015, 0.298);
+    vec3 colorC = vec3(0.075, 0.015, 0.298);
+    float mixFactor = smoothstep(0.0, 1.0, vUv.y);
+    vec3 color = mix(colorA, colorB, mixFactor);
+    color = mix(color, colorC, mixFactor * mixFactor); // 두 번째 mix로 중간 색상과 부드럽게 연결
+    gl_FragColor = vec4(color, 1.0);
+  }
+`;
 
 export default function Background() {
   //   const colorA = '#1b1b9e';
-  const colorA = '#130e4c';
+  const colorA = '#0e0a34';
   const colorB = '#1b1b9e';
-  const start = 0.8;
-  const end = -0.8;
+  // const colorB = '#00229e';
+  const start = 0.5;
+  const end = -0.5;
 
   return (
     <>
       <Sphere scale={[27000, 27000, 27000]}>
-        <LayerMaterial
+        <shaderMaterial
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={{
+            time: { value: 0 },
+          }}
+          side={THREE.BackSide}
+        />
+        {/* <LayerMaterial
           color={'#ffffff'}
           side={THREE.BackSide}
           polygonOffset={true}
@@ -26,25 +58,9 @@ export default function Background() {
             start={start}
             end={end}
           />
-        </LayerMaterial>
+        </LayerMaterial> */}
       </Sphere>
-      {/* <Environment resolution={256}>
-        <Sphere
-          scale={[100, 100, 100]}
-          rotation-y={Math.PI / 2}
-          rotation-x={Math.PI} // 구름 아래 부분이 어둡게 보여 자연스러움
-        >
-          <LayerMaterial color={'#ffffff'} side={THREE.BackSide}>
-            <Gradient
-              colorA={colorA}
-              colorB={colorB}
-              axes={'y'}
-              start={start}
-              end={end}
-            />
-          </LayerMaterial>
-        </Sphere>
-      </Environment> */}
     </>
   );
 }
+

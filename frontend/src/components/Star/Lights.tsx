@@ -5,17 +5,17 @@ const Lights = () => {
   return (
     <>
       <directionalLight
-        color={'0x11E8BB'}
-        position={[0.75, 1, 0.5]}
+        color={'#0x11E8BB'}
+        position={[0.75, 10, 0.5]}
         intensity={1}
       />
       <directionalLight
-        color={'0x8200C9'}
-        position={[-0.75, -1, 0.5]}
-        intensity={1}
+        color={'#0x8200C9'}
+        position={[-0.75, -1, 0.8]}
+        intensity={5}
       />
       <ambientLight
-        color={'0x999999'}
+        color={'#0x999999'}
         ref={lightRef}
         args={[0xffffff, 3]}
         position={[-90, -10, 10]}

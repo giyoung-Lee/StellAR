@@ -10,6 +10,7 @@ import {
   GetConstellation,
   GetPlanets,
   GetStars,
+  GetUserConstellation,
 } from '../../apis/StarApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
@@ -31,7 +32,7 @@ interface ConstellationData {
   [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
 }
 
-const MainCanvas = (props: Props) => {
+const EmbCanvas = (props: Props) => {
   // 스토어에서 필요한 요소 가져오기
   const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
     useStarStore();
@@ -41,7 +42,7 @@ const MainCanvas = (props: Props) => {
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
-      return GetStars('4.5');
+      return GetStars('4');
     },
   });
 
@@ -70,12 +71,7 @@ const MainCanvas = (props: Props) => {
 
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
-      {/* 배경 설정 */}
-      <BackgroundSetter videoTexture={videoTexture} isARMode={isARMode} />
-
-      {!isARMode &&
       <Background />
-      }
 
       {/* 카메라 설정 */}
       {starClicked ? (
@@ -100,7 +96,11 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[0, -0.5 / Math.sqrt(3), 0]}
+          position={[
+            -0.5 / Math.sqrt(3),
+            -0.5 / Math.sqrt(3),
+            -0.5 / Math.sqrt(3),
+          ]}
         />
       )}
 
@@ -153,12 +153,12 @@ const MainCanvas = (props: Props) => {
           key={star.starId}
           position={
             new THREE.Vector3(
-              star.calX * star.nomalizedMagV,
-              star.calY * star.nomalizedMagV,
-              star.calZ * star.nomalizedMagV,
+              star.calX * star.nomalizedMagV * 0.7,
+              star.calY * star.nomalizedMagV * 0.7,
+              star.calZ * star.nomalizedMagV * 0.7,
             )
           }
-          size={getRandomInt(100, 110)}
+          size={getRandomInt(80, 90)}
         />
       ))}
 
@@ -170,9 +170,9 @@ const MainCanvas = (props: Props) => {
           key={planet.planetId}
           position={
             new THREE.Vector3(
-              planet.calX * planet.nomalizedMagV,
-              planet.calY * planet.nomalizedMagV,
-              planet.calZ * planet.nomalizedMagV,
+              planet.calX * planet.nomalizedMagV * 0.7,
+              planet.calY * planet.nomalizedMagV * 0.7,
+              planet.calZ * planet.nomalizedMagV * 0.7,
             )
           }
           targetSize={800}
@@ -191,21 +191,27 @@ const MainCanvas = (props: Props) => {
                 pointA={
                   new THREE.Vector3(
                     starData.data[starArr[0]]?.calX *
-                      starData.data[starArr[0]]?.nomalizedMagV,
+                      starData.data[starArr[0]]?.nomalizedMagV *
+                      0.7,
                     starData.data[starArr[0]]?.calY *
-                      starData.data[starArr[0]]?.nomalizedMagV,
+                      starData.data[starArr[0]]?.nomalizedMagV *
+                      0.7,
                     starData.data[starArr[0]]?.calZ *
-                      starData.data[starArr[0]]?.nomalizedMagV,
+                      starData.data[starArr[0]]?.nomalizedMagV *
+                      0.7,
                   )
                 }
                 pointB={
                   new THREE.Vector3(
                     starData.data[starArr[1]]?.calX *
-                      starData.data[starArr[1]]?.nomalizedMagV,
+                      starData.data[starArr[1]]?.nomalizedMagV *
+                      0.7,
                     starData.data[starArr[1]]?.calY *
-                      starData.data[starArr[1]]?.nomalizedMagV,
+                      starData.data[starArr[1]]?.nomalizedMagV *
+                      0.7,
                     starData.data[starArr[1]]?.calZ *
-                      starData.data[starArr[1]]?.nomalizedMagV,
+                      starData.data[starArr[1]]?.nomalizedMagV *
+                      0.7,
                   )
                 }
               />
@@ -270,4 +276,4 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
   return null;
 };
 
-export default MainCanvas;
+export default EmbCanvas;

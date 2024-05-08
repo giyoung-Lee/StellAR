@@ -56,6 +56,9 @@ const FloorMesh = () => {
           vertexShader={vertex}
           fragmentShader={fragment}
           transparent
+          polygonOffset={true}
+          polygonOffsetFactor={0.1}
+          polygonOffsetUnits={0.1}
         />
       </mesh>
     </>

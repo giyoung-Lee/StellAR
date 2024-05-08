@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @DisplayName("User Star Bookmark Entity Unit-Test")
 class UserBookmarkEntityTest {
 

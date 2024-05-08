@@ -1,13 +1,12 @@
 package com.ssafy.stellar.user.dto.request;
 
-import com.ssafy.stellar.user.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class SignUpDto {
 
     @Schema(description = "사용자 ID", required = true)

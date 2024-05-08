@@ -12,11 +12,15 @@ import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
+import static java.lang.Math.*;
 
 @Service
 public class StarServiceImpl implements StarService{
@@ -61,6 +65,8 @@ public class StarServiceImpl implements StarService{
                     + Math.exp((Double.parseDouble(star.getMagV()) - minMagV) * 2 / (maxMagV - minMagV));
 
             StarDto dto = getStarDto(star, xyz, normalizedMagV);
+            dto.setHourRA(newRA / 15);
+            dto.setDegreeDEC(newDec);
             JsonElement jsonElement = gson.toJsonTree(dto);
             jsonObject.add(star.getStarId(), jsonElement);
         }
@@ -105,7 +111,6 @@ public class StarServiceImpl implements StarService{
             double ra_seconds = Double.parseDouble(raParts[2]);
 
             double ra_degrees = (ra_hours * 15) + (ra_minutes / 4) + (ra_seconds / 240);
-
             boolean isNegative = entity.getPlanetDEC().startsWith("-");
             String[] decParts = entity.getPlanetDEC().substring(isNegative ? 1 : 0).split(" ");
 
@@ -115,6 +120,9 @@ public class StarServiceImpl implements StarService{
             double dec_seconds = Double.parseDouble(decParts[2]);
 
             dec_degrees += dec_minutes / 60 + dec_seconds / 3600;
+            
+            dto.setHourRA(ra_degrees / 15);
+            dto.setDegreeDEC(dec_degrees);
 
             double[] xyz = calculateXYZCoordinates(ra_degrees, dec_degrees);
             dto.setCalX(xyz[0]);
@@ -187,7 +195,7 @@ public class StarServiceImpl implements StarService{
         return Math.toRadians(dec);
     }
 
-    private static StarDto getStarDto(StarEntity star, double[] xyz, double nomaliedMagV) {
+    private static StarDto  getStarDto(StarEntity star, double[] xyz, double nomaliedMagV) {
         StarDto dto = new StarDto();
         dto.setStarId(star.getStarId());
         dto.setStarType(star.getStarType());
@@ -206,5 +214,4 @@ public class StarServiceImpl implements StarService{
         dto.setPMDEC(star.getPMDEC());
         return dto;
     }
-
 }

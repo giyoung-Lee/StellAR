@@ -5,9 +5,9 @@ const useCameraStream = () => {
   const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
 
   useEffect(() => {
-    // 화면 방향에 따라 width와 height 결정
-    const setDimensions = () => {
-      const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    // 디바이스 방향에 따라 해상도를 설정하는 함수
+    const adjustVideoSettings = (alpha, beta, gamma) => {
+      const isLandscape = Math.abs(gamma) > 45; // gamma 각도가 45도를 넘으면 가로 모드로 간주
       const width = isLandscape ? window.innerHeight : window.innerWidth;
       const height = isLandscape ? window.innerWidth : window.innerHeight;
 
@@ -15,7 +15,7 @@ const useCameraStream = () => {
         video: {
           facingMode: 'environment',
           width: { ideal: width },
-          height: { ideal: height },
+          height: { ideal: height }
         }
       };
 
@@ -32,21 +32,22 @@ const useCameraStream = () => {
           texture.format = THREE.RGBFormat;
 
           setVideoTexture(texture);
-          console.log('카메라 스트림 성공');
+          console.log('Camera stream adjusted for orientation.');
         })
         .catch((error) => {
-          console.error('카메라 접근 불가:', error);
+          console.error('Cannot access camera:', error);
         });
     };
 
-    setDimensions();  // 초기 카메라 스트림 설정
+    const handleOrientationChange = (event:DeviceOrientationEvent) => {
+      const { alpha, beta, gamma } = event;
+      adjustVideoSettings(alpha, beta, gamma);
+    };
 
-    // 화면 방향 변경 감지
-    window.addEventListener('resize', setDimensions);
+    window.addEventListener('deviceorientation', handleOrientationChange);
 
-    // 컴포넌트 정리 시 리스너 제거
     return () => {
-      window.removeEventListener('resize', setDimensions);
+      window.removeEventListener('deviceorientation', handleOrientationChange);
     };
   }, []);
 

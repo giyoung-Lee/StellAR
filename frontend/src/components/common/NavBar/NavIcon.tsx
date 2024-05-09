@@ -147,12 +147,7 @@ const NavBar = () => {
   const handleARButtonClick = () => {
     setARMode(!isARMode);
   };
-
-  // isARmode 테스트 코드
-  useEffect(() => {
-    console.log(isARMode);
-  }, [isARMode]);
-
+  
   const handleCheckbox = () => {
     setIsChecked(!isChecked);
   };

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -14,17 +13,11 @@ import {
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
-import useCameraStream from '../../hooks/useCameraStream';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
 
 type Props = {};
-
-interface BackgroundSetterProps {
-  videoTexture: THREE.VideoTexture | null;
-  isARMode: boolean;
-}
 
 interface ConstellationData {
   [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
@@ -32,10 +25,7 @@ interface ConstellationData {
 
 const EmbCanvas = (props: Props) => {
   // 스토어에서 필요한 요소 가져오기
-  const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
-    useStarStore();
-
-  const videoTexture = useCameraStream();
+  const starStore = useStarStore();
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
@@ -56,13 +46,6 @@ const EmbCanvas = (props: Props) => {
     },
   });
 
-  // const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
-  //   queryKey: ['get-my-consts'],
-  //   queryFn: () => {
-  //     return GetUserConstellation('1');
-  //   },
-  // });
-
   if (isStarsLoading || isConstLoading || isPlanetLoading) {
     return <Loading />;
   }
@@ -72,21 +55,21 @@ const EmbCanvas = (props: Props) => {
       <Background />
 
       {/* 카메라 설정 */}
-      {starClicked ? (
+      {starStore.starClicked ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
           near={0.1}
           far={100000}
-          position={[zoomX * 0.5, zoomY * 0.5, zoomZ * 0.5]}
+          position={[starStore.zoomX * 0.5, starStore.zoomY * 0.5, starStore.zoomZ * 0.5]}
         />
-      ) : planetClicked ? (
+      ) : starStore.planetClicked ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
           near={0.1}
           far={100000}
-          position={[zoomX * 0.85, zoomY * 0.85, zoomZ * 0.85]}
+          position={[starStore.zoomX * 0.85, starStore.zoomY * 0.85, starStore.zoomZ * 0.85]}
         />
       ) : (
         <PerspectiveCamera
@@ -103,9 +86,9 @@ const EmbCanvas = (props: Props) => {
       )}
 
       {/* 카메라 시점 관련 설정 */}
-      {starClicked ? (
+      {starStore.starClicked ? (
         <OrbitControls
-          target={[zoomX, zoomY, zoomZ]}
+          target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
           rotateSpeed={-0.25}
           zoomSpeed={5}
           minDistance={5000}
@@ -114,9 +97,9 @@ const EmbCanvas = (props: Props) => {
           dampingFactor={0.1}
           enableZoom={true}
         />
-      ) : planetClicked ? (
+      ) : starStore.planetClicked ? (
         <OrbitControls
-          target={[zoomX, zoomY, zoomZ]}
+          target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
           rotateSpeed={-0.25}
           zoomSpeed={5}
           minDistance={1}
@@ -146,7 +129,7 @@ const EmbCanvas = (props: Props) => {
       {/* 별 정보 불러오기 */}
       {Object.values(starData?.data).map((star: any) => (
         <StarMesh
-          starId={star.starId}
+          propstarId={star.starId}
           spType={star.spType}
           key={star.starId}
           position={
@@ -211,39 +194,8 @@ const EmbCanvas = (props: Props) => {
         )}
 
       {/* 나만의 별자리 호출 및 선긋기 */}
-      {/* {myConstData?.data &&
-        starData?.data &&
-        Object.entries(myConstData.data as ConstellationData).map(
-          ([constellation, connections]) =>
-            (connections as string[][]).map((starArr, index) => (
-              <MakeConstellation
-                key={index}
-                constellation={constellation}
-                pointA={
-                  new THREE.Vector3(
-                    starData.data[starArr[0]]?.calX *
-                      starData.data[starArr[0]]?.nomalizedMagV,
-                    starData.data[starArr[0]]?.calY *
-                      starData.data[starArr[0]]?.nomalizedMagV,
-                    starData.data[starArr[0]]?.calZ *
-                      starData.data[starArr[0]]?.nomalizedMagV,
-                  )
-                }
-                pointB={
-                  new THREE.Vector3(
-                    starData.data[starArr[1]]?.calX *
-                      starData.data[starArr[1]]?.nomalizedMagV,
-                    starData.data[starArr[1]]?.calY *
-                      starData.data[starArr[1]]?.nomalizedMagV,
-                    starData.data[starArr[1]]?.calZ *
-                      starData.data[starArr[1]]?.nomalizedMagV,
-                  )
-                }
-              />
-            )),
-        )} */}
 
-      <FloorMesh />
+      {!starStore.isARMode && <FloorMesh />}
     </Canvas>
   );
 };

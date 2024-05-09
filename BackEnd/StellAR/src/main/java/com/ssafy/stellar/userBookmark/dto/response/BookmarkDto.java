@@ -1,7 +1,5 @@
 package com.ssafy.stellar.userBookmark.dto.response;
 
-import com.ssafy.stellar.star.entity.StarEntity;
-import com.ssafy.stellar.user.entity.UserEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -30,5 +28,8 @@ public class BookmarkDto {
 
     @Schema(description = "별마크 DEC(도기준)", required = true)
     private double degreeDEC;
+
+    @Schema(description = "별위치 정규화", required = true)
+    private double nomalizedMagV;
 
 }

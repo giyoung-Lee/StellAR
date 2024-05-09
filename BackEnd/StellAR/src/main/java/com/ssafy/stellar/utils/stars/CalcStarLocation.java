@@ -1,15 +1,21 @@
 package com.ssafy.stellar.utils.stars;
+import com.ssafy.stellar.star.entity.StarEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-
-import static java.lang.Math.*;
 
 @Component
 public class CalcStarLocation {
+
+    @Value("${stellar.star.max-magv}")
+    private Double starMaxMagv;
+
+    @Value("${stellar.star.min-magv}")
+    private Double starMinMagv;
+
 
     // J2000.0 기준 시각
     private static final Instant J2000 = LocalDateTime.of(2000, 1, 1, 12, 0).toInstant(ZoneOffset.UTC);
@@ -74,5 +80,9 @@ public class CalcStarLocation {
 
     private double toSosu(double degrees, double minutes, double seconds, double pm, double yearsBetween) {
         return degrees + minutes / 60 + seconds / 3600 + pm / 3600000 * yearsBetween;
+    }
+
+    public double calculateNormalizedMagV(StarEntity star) {
+        return 8000 * (1 + Math.exp((Double.parseDouble(star.getMagV()) - starMinMagv) * 1 / (starMaxMagv - starMinMagv)));
     }
 }

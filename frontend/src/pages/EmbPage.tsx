@@ -1,9 +1,7 @@
 import * as h from './style/HomePageStyle';
-import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
-import React, { useEffect } from 'react';
-import MarkBtn from '../components/StarMark/MarkBtn';
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GetStarMark } from '../apis/StarMarkApis';
 import useUserStore from '../stores/userStore';

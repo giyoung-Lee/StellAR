@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
   PerspectiveCamera,
@@ -19,6 +19,7 @@ import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
+import useUserStore from '../../stores/userStore';
 
 type Props = {};
 
@@ -29,12 +30,21 @@ interface BackgroundSetterProps {
 
 const MainCanvas = (props: Props) => {
   // 스토어에서 필요한 요소 가져오기
-  const { zoomX, zoomY, zoomZ, isARMode, starClicked, planetClicked } =
-    useStarStore();
+  const {
+    zoomX,
+    zoomY,
+    zoomZ,
+    isARMode,
+    starClicked,
+    planetClicked,
+    zoomFromOther,
+    setZoomFromOther,
+  } = useStarStore();
 
-  const isFromOther = localStorage.getItem('zoomFromOther');
+  const isFromOther = zoomFromOther;
 
   const videoTexture = useCameraStream();
+  const userStore = useUserStore();
 
   // 광주시청을 기본값으로
   const [position, setPosition] = useState<Position>({
@@ -50,6 +60,8 @@ const MainCanvas = (props: Props) => {
           (position) => {
             const { latitude, longitude } = position.coords;
             setPosition({ lat: latitude, lng: longitude });
+            userStore.setUserLat(latitude);
+            userStore.setUserLng(longitude);
           },
           (error) => {
             console.error('Geolocation 에러: ', error);

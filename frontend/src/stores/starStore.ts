@@ -13,7 +13,7 @@ interface StarStoreType {
   // 카메라 모드 상태 관리
   isARMode: boolean;
   setARMode: (isAR: boolean) => void;
-  
+
   clickedStars: string[]; // 클릭된 별의 ID들을 저장하는 배열
   addStarToClicked: (id: string) => void; // 별을 클릭된 목록에 추가
   removeStarFromClicked: (id: string) => void; // 별을 클릭된 목록에서 제거
@@ -33,6 +33,10 @@ interface StarStoreType {
   setZoomY: (zoomY: number) => void;
   zoomZ: number;
   setZoomZ: (zoomZ: number) => void;
+
+  // 다른 페이지에서 홈 이동하기
+  zoomFromOther: boolean;
+  setZoomFromOther: (zoomFromOther: boolean) => void;
 }
 
 const useStarStore = create<StarStoreType>(
@@ -56,19 +60,23 @@ const useStarStore = create<StarStoreType>(
         }),
       removeStarFromClicked: (id: string) =>
         set((state) => ({
-          clickedStars: state.clickedStars.filter(starId => starId !== id),
+          clickedStars: state.clickedStars.filter((starId) => starId !== id),
         })),
       markedStars: [],
-      setMarkedStars: (markedStars: StarMarkType[]) => set({ markedStars: markedStars }),
+      setMarkedStars: (markedStars: StarMarkType[]) =>
+        set({ markedStars: markedStars }),
       markSaveToggle: false,
       setMarkSaveToggle: (toggle: boolean) => set({ markSaveToggle: toggle }),
-      resetClickedStars: () => set({ clickedStars: [], starId:'' }),
+      resetClickedStars: () => set({ clickedStars: [] }),
       zoomX: 0,
       setZoomX: (zoomX: number) => set({ zoomX: zoomX }),
       zoomY: 0,
       setZoomY: (zoomY: number) => set({ zoomY: zoomY }),
       zoomZ: 0,
       setZoomZ: (zoomZ: number) => set({ zoomZ: zoomZ }),
+      zoomFromOther: false,
+      setZoomFromOther: (zoomFromOther: boolean) =>
+        set({ zoomFromOther: zoomFromOther }),
     }),
     {
       name: 'StarStore',
@@ -76,6 +84,11 @@ const useStarStore = create<StarStoreType>(
         starId: state.starId,
         clickedStars: state.clickedStars,
         markedStars: state.markedStars,
+        zoomFromOther: state.zoomFromOther,
+        zoomX: state.zoomX,
+        zoomY: state.zoomY,
+        zoomZ: state.zoomZ,
+        starClicked: state.starClicked,
       }),
     },
   ),

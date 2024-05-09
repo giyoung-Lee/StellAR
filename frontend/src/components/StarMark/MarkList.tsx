@@ -16,6 +16,8 @@ const MarkList = ({ starMarkData }: Props) => {
             starId={item.starId}
             bookmarkName={item.bookmarkName}
             createTime={item.craeteTime}
+            RA={item.hourRA}
+            DEC={item.degreeDEC}
           />
         </l.Card>
       ))}

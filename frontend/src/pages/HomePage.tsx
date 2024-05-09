@@ -48,7 +48,11 @@ const HomePage = () => {
   return (
     <>
       <h.Wrapper>
-        {starStore.starClicked || starStore.planetClicked ? <StarName /> : null}
+        {starStore.starClicked ||
+        starStore.planetClicked ||
+        starStore.zoomFromOther ? (
+          <StarName />
+        ) : null}
         {constellationStore.constellationClicked ? (
           <StarInfoCarousel active={0} />
         ) : null}

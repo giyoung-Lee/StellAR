@@ -8,6 +8,7 @@ import {
   faUser,
   faXmark,
   faMagnifyingGlass,
+  faO,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faCopy, faStar } from '@fortawesome/free-regular-svg-icons';
@@ -22,4 +23,6 @@ library.add(
   solidStar,
   faStar,
   faMagnifyingGlass,
+  faO,
 );
+

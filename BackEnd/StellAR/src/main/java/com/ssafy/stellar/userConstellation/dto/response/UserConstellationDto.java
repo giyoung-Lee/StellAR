@@ -1,9 +1,6 @@
 package com.ssafy.stellar.userConstellation.dto.response;
 
-import com.ssafy.stellar.user.entity.UserEntity;
-import com.ssafy.stellar.userConstellation.entity.UserConstellationLinkEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -36,5 +33,8 @@ public class UserConstellationDto {
 
     @Schema(description = "유저 별자리 DEC(도기준)", required = true)
     private double degreeDEC;
+
+    @Schema(description = "별위치 정규화", required = true)
+    private double nomalizedMagV;
 
 }

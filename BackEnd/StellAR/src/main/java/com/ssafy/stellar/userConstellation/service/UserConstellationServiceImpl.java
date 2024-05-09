@@ -15,6 +15,7 @@ import com.ssafy.stellar.userConstellation.entity.UserConstellationLinkEntity;
 import com.ssafy.stellar.userConstellation.repository.UserConstellationLinkRepository;
 import com.ssafy.stellar.userConstellation.repository.UserConstellationRepository;
 import com.ssafy.stellar.utils.stars.CalcStarLocation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,12 @@ public class UserConstellationServiceImpl implements UserConstellationService {
     private final UserRepository userRepository;
     private final StarRepository starRepository;
     private final CalcStarLocation calc;
+
+    @Value("${stellar.star.max-magv}")
+    private Double starMaxMagv;
+
+    @Value("${stellar.star.min-magv}")
+    private Double starMinMagv;
 
     public UserConstellationServiceImpl(
             UserConstellationRepository userConstellationRepository,
@@ -155,6 +162,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         StarEntity star = starRepository.findByStarId(userConstellationLinks.get(0).getStartStar().getStarId());
         double degreeDEC = calc.calculateNewDec(star.getDeclination(), Double.parseDouble(star.getPMDEC()));
         double hourRA = calc.calculateNewRA(star.getRA(), Double.parseDouble(star.getPMRA()));
+        double normalizedMagV = calc.calculateNormalizedMagV(star);
 
         UserConstellationDto dto = new UserConstellationDto();
         dto.setUserConstellationId(userConstellation.getUserConstellationId());
@@ -163,6 +171,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         dto.setCreateTime(userConstellation.getCreateDateTime());
         dto.setDegreeDEC(degreeDEC);
         dto.setHourRA(hourRA);
+        dto.setNomalizedMagV(normalizedMagV);
         return dto;
     }
 

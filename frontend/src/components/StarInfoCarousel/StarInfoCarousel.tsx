@@ -18,6 +18,8 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
   const Ref = useRef<HTMLDivElement>(null);
   const carousel = ['image', 'science', 'story'];
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
   const constellationStore = useConstellationStore();
 
   const handleTouchStart = (event: React.TouchEvent) => {
@@ -81,12 +83,14 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (Ref.current && !Ref.current.contains(e.target as Node)) {
-        constellationStore.setConstellationClicked(false);
+        if (!isModalOpen) {
+          constellationStore.setConstellationClicked(false);
+        }
       }
     };
     window.addEventListener('mousedown', handleClick);
     return () => window.removeEventListener('mousedown', handleClick);
-  }, [Ref]);
+  }, [isModalOpen, Ref]);
 
   const { isLoading: isConstellationLoading, data: constellationData } =
     useQuery({
@@ -128,7 +132,10 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
             ) : card === 'science' ? (
               <StarInfoScience constellationData={constellationData?.data} />
             ) : (
-              <StarInfoStory constellationData={constellationData?.data} />
+              <StarInfoStory
+                constellationData={constellationData?.data}
+                setModalOpen={setModalOpen}
+              />
             )}
           </s.CarouselItem>
         ))}
@@ -138,3 +145,4 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
 };
 
 export default StarInfoCarousel;
+

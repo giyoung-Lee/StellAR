@@ -6,22 +6,12 @@ import useStarStore from '../../stores/starStore';
 type Props = {
   position: THREE.Vector3;
   size: number;
-  starId: string;
+  propstarId: string;
   spType: string | null;
 };
 
-const StarMesh = ({ position, size, starId, spType }: Props) => {
-  const {
-    setStarClicked,
-    setStarId,
-    setPlanetClicked,
-    addStarToClicked,
-    removeStarFromClicked,
-    clickedStars,
-    setZoomX,
-    setZoomY,
-    setZoomZ,
-  } = useStarStore();
+const StarMesh = ({ position, size, propstarId, spType }: Props) => {
+  const starStore= useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
   const touchAreaRef = useRef<THREE.Mesh>(null!); // 터치 영역 확장을 위한 투명 mesh입니다만
@@ -38,10 +28,16 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
   const click = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
-    setStarId(starId);
-    setStarClicked(true);
-    setPlanetClicked(false);
-    addStarToClicked(starId);
+    const currentStarId = starStore.starId;
+  
+    if (currentStarId) {
+      starStore.addStarToClicked([currentStarId, propstarId]);
+    }
+  
+    starStore.setStarId(propstarId);
+    starStore.setStarClicked(true);
+    starStore.setPlanetClicked(false);
+
 
     const mesh = event.object as THREE.Mesh; // 타입 단언
     if (mesh.material && 'color' in mesh.material) {
@@ -50,12 +46,10 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 
     const starPosition = event.object.position;
 
-    console.log('별 클릭 지점' + starPosition);
-
-    if (clickedStars.length < 1) {
-      setZoomX(starPosition.x);
-      setZoomY(starPosition.y);
-      setZoomZ(starPosition.z);
+    if (starStore.linkedStars.length < 1) {
+      starStore.setZoomX(starPosition.x);
+      starStore.setZoomY(starPosition.y);
+      starStore.setZoomZ(starPosition.z);
     }
   };
 

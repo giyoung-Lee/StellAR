@@ -35,7 +35,7 @@ export default function Background() {
 
   return (
     <>
-      <Sphere scale={[27000, 27000, 27000]}>
+      <Sphere args={[27000, 100, 100]}>
         <shaderMaterial
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
@@ -43,6 +43,9 @@ export default function Background() {
             time: { value: 0 },
           }}
           side={THREE.BackSide}
+          polygonOffset={true}
+          polygonOffsetFactor={1}
+          polygonOffsetUnits={-0.1}
         />
         {/* <LayerMaterial
           color={'#ffffff'}

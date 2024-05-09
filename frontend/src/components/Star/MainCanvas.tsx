@@ -182,7 +182,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[0, 0, 0]}
         />
@@ -190,7 +190,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[zoomX * 0.5, zoomY * 0.5, zoomZ * 0.5]}
         />
@@ -198,7 +198,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[zoomX * 0.85, zoomY * 0.85, zoomZ * 0.85]}
         />
@@ -206,7 +206,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[
             -0.5 / Math.sqrt(3),

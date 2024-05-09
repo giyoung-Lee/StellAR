@@ -71,9 +71,8 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
         <tetrahedronGeometry args={[size, 2]} />
         <meshPhongMaterial
           color={spType ? starColor[spType as string] : 'red'}
-          // emissive={'black'}
           specular={'white'}
-          shininess={40}
+          shininess={100}
           flatShading={true}
         />
       </mesh>
@@ -85,7 +84,6 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
           transparent
           color={'#fff200'}
           opacity={0.15}
-          // emissive={'#ffffff'}
           emissiveIntensity={1}
           specular={'#ffffff'}
           shininess={100}
@@ -96,4 +94,3 @@ const StarMesh = ({ position, size, starId, spType }: Props) => {
 };
 
 export default StarMesh;
-

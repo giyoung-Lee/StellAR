@@ -336,7 +336,7 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
     if (isARMode && videoTexture) {
       scene.background = videoTexture;
     } else {
-      scene.background = new THREE.Color('#000000');
+      scene.background = new THREE.Color('#6428C4');
     }
   }, [videoTexture, isARMode, scene, camera]);
 

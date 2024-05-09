@@ -13,9 +13,17 @@ type Props = {
   createTime: string;
   RA: number;
   DEC: number;
+  nomalizedMagV: number;
 };
 
-const MarkItem = ({ starId, bookmarkName, createTime, RA, DEC }: Props) => {
+const MarkItem = ({
+  starId,
+  bookmarkName,
+  createTime,
+  RA,
+  DEC,
+  nomalizedMagV,
+}: Props) => {
   const [isSaved, setIsSaved] = useState(true);
   const { userId } = useUserStore();
   const starStore = useStarStore();
@@ -46,9 +54,9 @@ const MarkItem = ({ starId, bookmarkName, createTime, RA, DEC }: Props) => {
   const findMyStar = () => {
     starStore.setZoomFromOther(true);
     const { x, y, z } = getXYZ(RA, DEC, userStore.userLat, userStore.userLng);
-    starStore.setZoomX(x);
-    starStore.setZoomY(y);
-    starStore.setZoomZ(z);
+    starStore.setZoomX(-1 * x * nomalizedMagV);
+    starStore.setZoomY(z * nomalizedMagV);
+    starStore.setZoomZ(y * nomalizedMagV);
     starStore.setStarId(starId);
     starStore.setStarClicked(true);
     navigate('/');

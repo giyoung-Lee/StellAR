@@ -248,8 +248,8 @@ const MainCanvas = (props: Props) => {
           zoomSpeed={5}
           minDistance={1}
           // 지구 밖으로 나가지 않는 정도
-          // maxDistance={20000}
-          maxDistance={100000}
+          maxDistance={20000}
+          // maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
           enableZoom={true}

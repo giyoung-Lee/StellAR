@@ -18,6 +18,7 @@ const MarkList = ({ starMarkData }: Props) => {
             createTime={item.craeteTime}
             RA={item.hourRA}
             DEC={item.degreeDEC}
+            nomalizedMagV={item.nomalizedMagV}
           />
         </l.Card>
       ))}

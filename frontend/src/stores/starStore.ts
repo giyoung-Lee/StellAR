@@ -1,9 +1,17 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
+import * as THREE from 'three';
 
 interface StarStoreType {
   starId: string;
   setStarId: (nowId: string) => void;
+
+  zoomStarId: string;
+  setZoomStarId: (nowId: string) => void;
+
+  starPosition: THREE.Vector3 | null;
+  setStarPosition: (nowPosition: THREE.Vector3 | null) => void;
+
   // 별 클릭 상태 관리
   starClicked: boolean;
   setStarClicked: (clicked: boolean) => void;
@@ -17,7 +25,6 @@ interface StarStoreType {
   linkedStars: string[][]; // 2차원 배열로 클릭된 별의 ID 그룹을 저장
   addStarToClicked: (ids: string[]) => void; // 별 그룹을 클릭된 목록에 추가
   removeStarFromClicked: (id: string[]) => void; // 별 그룹을 클릭된 목록에서 제거
-
 
   // 별마크 상태 관리
   markedStars: StarMarkType[];
@@ -45,6 +52,12 @@ const useStarStore = create<StarStoreType>(
     (set, get) => ({
       starId: '',
       setStarId: (nowId: string) => set({ starId: nowId }),
+      zoomStarId: '',
+      setZoomStarId: (nowId: string) => set({ zoomStarId: nowId }),
+
+      starPosition: null,
+      setStarPosition: (nowPosition: THREE.Vector3 | null) =>
+        set({ starPosition: nowPosition }),
 
       starClicked: false as boolean,
       setStarClicked: (clicked) => set({ starClicked: clicked }),
@@ -57,16 +70,18 @@ const useStarStore = create<StarStoreType>(
 
       linkedStars: [],
       addStarToClicked: (ids: string[]) =>
-      set((state) => ({
-        linkedStars: [...state.linkedStars, ids] // ids 배열 전체를 linkedStars에 추가
-      })),
-    
+        set((state) => ({
+          linkedStars: [...state.linkedStars, ids], // ids 배열 전체를 linkedStars에 추가
+        })),
+
       removeStarFromClicked: (ids: string[]) =>
-      set((state) => ({
-        linkedStars: state.linkedStars.filter(group => !group.every(id => ids.includes(id)))
-      })),
-    
-      resetLinkedStars: () => set({ linkedStars: [], starId: '' }),
+        set((state) => ({
+          linkedStars: state.linkedStars.filter(
+            (group) => !group.every((id) => ids.includes(id)),
+          ),
+        })),
+
+      resetLinkedStars: () => set({ linkedStars: [] }),
 
       markedStars: [],
       setMarkedStars: (markedStars: StarMarkType[]) =>
@@ -89,6 +104,9 @@ const useStarStore = create<StarStoreType>(
       name: 'StarStore',
       partialize: (state) => ({
         starId: state.starId,
+        zoomStarId: state.zoomStarId,
+        starPosition: state.starPosition,
+
         linkedStars: state.linkedStars,
         markedStars: state.markedStars,
         zoomFromOther: state.zoomFromOther,

@@ -24,15 +24,15 @@ const ConditionalNav = () => {
 
 const App = () => {
   const starStore = useStarStore()
-  const resetClickedStars = useStarStore(state => state.resetClickedStars);
+  const resetLinkedStars = useStarStore(state => state.resetLinkedStars);
 
   useEffect(() => {
     // 마운트 시 클릭된 별 배열 초기화
     if (!starStore.starClicked) {
-      resetClickedStars();
+      resetLinkedStars();
     }
     // console.log(`클릭 되었는가? ${starStore.starClicked}`)
-  }, [resetClickedStars, starStore.starClicked]);
+  }, [resetLinkedStars, starStore.starClicked]);
 
   return (
     <>

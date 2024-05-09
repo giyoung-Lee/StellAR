@@ -27,26 +27,24 @@ const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
     ConstellationStore.setConstellationName(constellation);
   };
 
-  // 두꺼운 클릭 영역을 생성하기 위한 투명 튜브
   const path = new CatmullRomCurve3([pointA, pointB]);
-  const tubeGeometry = new TubeGeometry(path, 20, 100, 8, false);
-  const tubeMaterial = new THREE.MeshBasicMaterial({
+
+  const tubeGeometry = new TubeGeometry(path, 20, 110, 6, false);
+  const tubeMaterial = new THREE.MeshPhongMaterial({
     color: 0xffffff,
+    specular: 0xffffff,
     opacity: 0.2,
     transparent: true,
-    polygonOffset: true,
-    polygonOffsetFactor: -6,
-    polygonOffsetUnits: -6,
+    shininess: 100,
+    flatShading: true,
   });
 
-  const clearTubeGeometry = new TubeGeometry(path, 20, 300, 8, false);
+  // 두꺼운 클릭 영역을 생성하기 위한 투명 튜브
+  const clearTubeGeometry = new TubeGeometry(path, 50, 300, 4, false);
   const clearTubeMaterial = new THREE.MeshBasicMaterial({
     color: 0x000000,
     opacity: 0,
     transparent: true,
-    polygonOffset: true,
-    polygonOffsetFactor: 6,
-    polygonOffsetUnits: 6,
   });
 
   return (
@@ -55,24 +53,17 @@ const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
         geometry={tubeGeometry}
         material={tubeMaterial}
         onClick={handleClick}
-      >
-        <line>
-          <bufferGeometry attach="geometry" ref={lineRef} />
-          <lineBasicMaterial color={'white'} />
-        </line>
-      </mesh>
+        castShadow={false}
+        receiveShadow={false}
+        renderOrder={1}
+      ></mesh>
 
       <mesh
         geometry={clearTubeGeometry}
         material={clearTubeMaterial}
-        position={[0, 0.001, 0]} // Z축으로 조금 이동
         onClick={handleClick}
-      >
-        <line>
-          <bufferGeometry attach="geometry" ref={lineRef} />
-          <lineBasicMaterial color={'white'} />
-        </line>
-      </mesh>
+        renderOrder={2}
+      ></mesh>
     </>
   );
 };

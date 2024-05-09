@@ -48,7 +48,12 @@ const FloorMesh = () => {
 
   return (
     <>
-      <mesh ref={meshRef} position={[0, -50, 0]} rotation-x={-Math.PI / 2}>
+      <mesh
+        ref={meshRef}
+        position={[0, -50, 0]}
+        rotation-x={-Math.PI / 2}
+        renderOrder={3}
+      >
         <planeGeometry args={[100000, 100000, 1000, 1000]} />
         <shaderMaterial
           uniforms={uniforms.current}
@@ -57,7 +62,7 @@ const FloorMesh = () => {
           fragmentShader={fragment}
           transparent
           polygonOffset={true}
-          polygonOffsetFactor={0.1}
+          polygonOffsetFactor={1}
           polygonOffsetUnits={0.1}
         />
       </mesh>

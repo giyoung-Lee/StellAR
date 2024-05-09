@@ -5,17 +5,29 @@ import { DeleteStarMark } from '../../apis/StarMarkApis';
 import useUserStore from '../../stores/userStore';
 import useStarStore from '../../stores/starStore';
 import { useNavigate } from 'react-router-dom';
+import getXYZ from '../../hooks/getXYZ';
 
 type Props = {
   starId: string;
   bookmarkName: string;
   createTime: string;
+  RA: number;
+  DEC: number;
+  nomalizedMagV: number;
 };
 
-const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
+const MarkItem = ({
+  starId,
+  bookmarkName,
+  createTime,
+  RA,
+  DEC,
+  nomalizedMagV,
+}: Props) => {
   const [isSaved, setIsSaved] = useState(true);
   const { userId } = useUserStore();
   const starStore = useStarStore();
+  const userStore = useUserStore();
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ko-KR', {
@@ -38,11 +50,17 @@ const MarkItem = ({ starId, bookmarkName, createTime }: Props) => {
     },
   });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const findMyStar = () => {
-    localStorage.setItem('zoomFromOther', 'true');
-    navigate('/')
-  }
+    starStore.setZoomFromOther(true);
+    const { x, y, z } = getXYZ(RA, DEC, userStore.userLat, userStore.userLng);
+    starStore.setZoomX(-1 * x * nomalizedMagV);
+    starStore.setZoomY(z * nomalizedMagV);
+    starStore.setZoomZ(y * nomalizedMagV);
+    starStore.setStarId(starId);
+    starStore.setStarClicked(true);
+    navigate('/');
+  };
 
   return (
     <>

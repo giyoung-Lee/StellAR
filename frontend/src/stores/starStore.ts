@@ -34,6 +34,10 @@ interface StarStoreType {
   setZoomY: (zoomY: number) => void;
   zoomZ: number;
   setZoomZ: (zoomZ: number) => void;
+
+  // 다른 페이지에서 홈 이동하기
+  zoomFromOther: boolean;
+  setZoomFromOther: (zoomFromOther: boolean) => void;
 }
 
 const useStarStore = create<StarStoreType>(
@@ -77,6 +81,9 @@ const useStarStore = create<StarStoreType>(
       setZoomY: (zoomY: number) => set({ zoomY: zoomY }),
       zoomZ: 0,
       setZoomZ: (zoomZ: number) => set({ zoomZ: zoomZ }),
+      zoomFromOther: false,
+      setZoomFromOther: (zoomFromOther: boolean) =>
+        set({ zoomFromOther: zoomFromOther }),
     }),
     {
       name: 'StarStore',
@@ -84,6 +91,11 @@ const useStarStore = create<StarStoreType>(
         starId: state.starId,
         linkedStars: state.linkedStars,
         markedStars: state.markedStars,
+        zoomFromOther: state.zoomFromOther,
+        zoomX: state.zoomX,
+        zoomY: state.zoomY,
+        zoomZ: state.zoomZ,
+        starClicked: state.starClicked,
       }),
     },
   ),

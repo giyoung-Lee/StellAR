@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
   PerspectiveCamera,
@@ -34,9 +34,10 @@ const MainCanvas = (props: Props) => {
   const starStore = useStarStore();
   const userStore = useUserStore();
 
-  const isFromOther = localStorage.getItem('zoomFromOther');
+  const isFromOther = zoomFromOther;
 
   const videoTexture = useCameraStream();
+  const userStore = useUserStore();
 
   // 광주시청을 기본값으로
   const [position, setPosition] = useState<Position>({
@@ -52,6 +53,8 @@ const MainCanvas = (props: Props) => {
           (position) => {
             const { latitude, longitude } = position.coords;
             setPosition({ lat: latitude, lng: longitude });
+            userStore.setUserLat(latitude);
+            userStore.setUserLng(longitude);
           },
           (error) => {
             console.error('Geolocation 에러: ', error);
@@ -172,7 +175,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[0, 0, 0]}
         />
@@ -180,7 +183,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[starStore.zoomX * 0.5, starStore.zoomY * 0.5, starStore.zoomZ * 0.5]}
         />
@@ -188,7 +191,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[starStore.zoomX * 0.85, starStore.zoomY * 0.85, starStore.zoomZ * 0.85]}
         />
@@ -196,7 +199,7 @@ const MainCanvas = (props: Props) => {
         <PerspectiveCamera
           makeDefault
           fov={80}
-          near={0.1}
+          near={1}
           far={100000}
           position={[
             -0.5 / Math.sqrt(3),
@@ -238,8 +241,8 @@ const MainCanvas = (props: Props) => {
           zoomSpeed={5}
           minDistance={1}
           // 지구 밖으로 나가지 않는 정도
-          // maxDistance={20000}
-          maxDistance={100000}
+          maxDistance={20000}
+          // maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
           enableZoom={true}

@@ -18,7 +18,6 @@ const StarName = () => {
     starStore.setStarClicked(false);
     starStore.setPlanetClicked(false);
     starStore.setZoomFromOther(false);
-    starStore.removeStarFromClicked(starStore.starId);
   };
 
   return (

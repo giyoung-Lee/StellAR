@@ -57,7 +57,7 @@ const MarkItem = ({
     starStore.setZoomX(-1 * x * nomalizedMagV);
     starStore.setZoomY(z * nomalizedMagV);
     starStore.setZoomZ(y * nomalizedMagV);
-    starStore.setStarId(starId);
+    starStore.setZoomStarId(starId);
     starStore.setStarClicked(true);
     navigate('/');
   };

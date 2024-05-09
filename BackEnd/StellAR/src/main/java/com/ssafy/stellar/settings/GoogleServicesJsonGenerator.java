@@ -32,8 +32,14 @@ public class GoogleServicesJsonGenerator {
 
         try {
             // 템플릿 파일 읽기
-            File templateFile = templateResource.getFile();
-            String content = new String(Files.readAllBytes(templateFile.toPath()), StandardCharsets.UTF_8);
+            InputStream inputStream = templateResource.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append(System.lineSeparator());
+            }
+            String content = stringBuilder.toString();
             System.out.println("step 3");
 
             // 프로퍼티 값으로 치환

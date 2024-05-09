@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Header = styled.div`
   width: 100vw;
-  margin-top: 8vh;
+  margin-top: 5vh;
   position: sticky;
   top: 0;
   &.eventTitle {

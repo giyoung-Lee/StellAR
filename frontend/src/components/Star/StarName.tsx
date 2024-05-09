@@ -17,6 +17,7 @@ const StarName = () => {
   const handleReset = () => {
     starStore.setStarClicked(false);
     starStore.setPlanetClicked(false);
+    starStore.setZoomFromOther(false);
     starStore.removeStarFromClicked(starStore.starId);
   };
 

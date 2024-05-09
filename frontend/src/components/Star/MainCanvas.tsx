@@ -21,6 +21,7 @@ import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellation } from '../../apis/MyConstApis';
+import { CameraAnimator } from '../../hooks/CameraAnimator';
 
 type Props = {};
 
@@ -168,6 +169,9 @@ const MainCanvas = (props: Props) => {
       <BackgroundSetter videoTexture={videoTexture} isARMode={starStore.isARMode} />
 
       {!starStore.isARMode && <Background />}
+
+      {/* 카메라 이동 설정 */}
+      <CameraAnimator />
 
       {/* 카메라 설정 */}
       {starStore.isARMode ? (

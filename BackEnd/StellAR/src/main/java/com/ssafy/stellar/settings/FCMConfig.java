@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +27,6 @@ public class FCMConfig {
 
     @Bean
     FirebaseMessaging firebaseMessaging() throws IOException {
-        // 원본 JSON 파일을 문자열로 읽어오기
         ClassPathResource resource = new ClassPathResource("stellar-e2012-firebase.json");
         InputStream inputStream = resource.getInputStream();
 

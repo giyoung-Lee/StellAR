@@ -27,8 +27,8 @@ const StarName = () => {
   };
 
   return (
-    <>
-      <n.Wrapper ref={starNameRef}>
+    <div ref={starNameRef} className="text-center absolute z-[1000] top-[55%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+      {/* <n.Wrapper ref={starNameRef}> */}
         <div className="flex justify-end">
           <div onClick={handleReset}>
             <FontAwesomeIcon icon="xmark" />
@@ -54,8 +54,8 @@ const StarName = () => {
         ) : (
           <MarkBtn starName={starStore.starId} />
         )}
-      </n.Wrapper>
-    </>
+      {/* </n.Wrapper> */}
+    </div>
   );
 };
 

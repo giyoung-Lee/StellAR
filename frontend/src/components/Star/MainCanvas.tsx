@@ -231,7 +231,7 @@ const MainCanvas = (props: Props) => {
           target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
           rotateSpeed={-0.25}
           zoomSpeed={5}
-          minDistance={1}
+          minDistance={1000}
           maxDistance={30000}
           enableDamping
           dampingFactor={0.1}
@@ -336,7 +336,7 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
     if (isARMode && videoTexture) {
       scene.background = videoTexture;
     } else {
-      scene.background = new THREE.Color('#000000');
+      scene.background = new THREE.Color('#6428C4');
     }
   }, [videoTexture, isARMode, scene, camera]);
 

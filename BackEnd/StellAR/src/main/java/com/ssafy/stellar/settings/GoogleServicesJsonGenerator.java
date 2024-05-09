@@ -25,19 +25,23 @@ public class GoogleServicesJsonGenerator {
     @PostConstruct
     public void generateGoogleServicesJson() {
         // 리소스 파일 경로 지정
+        System.out.println("step 1");
         Resource templateResource = new ClassPathResource("google-services-template.json");
         String targetPath = "google-services.json"; // 일반적으로 src/main/resources에 쓰기는 권장하지 않음
+        System.out.println("step 2");
 
         try {
             // 템플릿 파일 읽기
             File templateFile = templateResource.getFile();
             String content = new String(Files.readAllBytes(templateFile.toPath()), StandardCharsets.UTF_8);
+            System.out.println("step 3");
 
             // 프로퍼티 값으로 치환
             content = content.replace("${googleApiKey}", apiKeyProvider.getGoogleApiKey());
 
             // `google-services.json` 파일 생성
             // src/main/resources 디렉토리는 빌드 후 변경할 수 없으므로 다른 위치에 파일을 생성합니다.
+            System.out.println("step 4");
             File targetFile = new File(targetPath);
             Files.write(targetFile.toPath(), content.getBytes(StandardCharsets.UTF_8),
                     StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);

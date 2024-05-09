@@ -9,6 +9,11 @@ interface UserType {
 
   isLogin: boolean;
   setIsLogin: (isLogin: boolean) => void;
+
+  userLat: number;
+  userLng: number;
+  setUserLat: (lat: number) => void;
+  setUserLng: (lng: number) => void;
 }
 
 // 사용할 초기 상태 정의
@@ -18,6 +23,11 @@ const initialState: UserType = {
   setUser: () => {}, // 초기 상태에서는 빈 함수로 정의
   isLogin: false,
   setIsLogin: () => {},
+
+  userLat: 35.1595,
+  userLng: 126.8526,
+  setUserLat: () => {},
+  setUserLng: () => {},
 };
 
 const useUserStore = create<UserType>(
@@ -30,6 +40,8 @@ const useUserStore = create<UserType>(
           ...newData,
         })),
       setIsLogin: (isLogin: boolean) => set({ isLogin: isLogin }),
+      setUserLat: (lat: number) => set({ userLat: lat }),
+      setUserLng: (lng: number) => set({ userLng: lng }),
     }),
     {
       name: 'userStore', // localStorage에 저장될 이름
@@ -38,4 +50,3 @@ const useUserStore = create<UserType>(
 );
 
 export default useUserStore;
-

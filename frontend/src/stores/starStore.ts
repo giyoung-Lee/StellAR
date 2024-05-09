@@ -1,9 +1,17 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
+import * as THREE from 'three';
 
 interface StarStoreType {
   starId: string;
   setStarId: (nowId: string) => void;
+
+  zoomStarId: string;
+  setZoomStarId: (nowId: string) => void;
+
+  starPosition: THREE.Vector3 | null;
+  setStarPosition: (nowPosition: THREE.Vector3 | null) => void;
+
   // 별 클릭 상태 관리
   starClicked: boolean;
   setStarClicked: (clicked: boolean) => void;
@@ -13,10 +21,9 @@ interface StarStoreType {
   // 카메라 모드 상태 관리
   isARMode: boolean;
   setARMode: (isAR: boolean) => void;
-  
-  clickedStars: string[]; // 클릭된 별의 ID들을 저장하는 배열
-  addStarToClicked: (id: string) => void; // 별을 클릭된 목록에 추가
-  removeStarFromClicked: (id: string) => void; // 별을 클릭된 목록에서 제거
+
+  linkedStars: string[][]; // 2차원 배열로 클릭된 별의 ID 그룹을 저장
+  addStarToClicked: (ids: string[]) => void; // 별 그룹을 클릭된 목록에 추가
 
   // 별마크 상태 관리
   markedStars: StarMarkType[];
@@ -26,13 +33,17 @@ interface StarStoreType {
   setMarkSaveToggle: (toggle: boolean) => void;
 
   // 별 초기화 하기
-  resetClickedStars: () => void;
+  resetLinkedStars: () => void;
   zoomX: number;
   setZoomX: (zoomX: number) => void;
   zoomY: number;
   setZoomY: (zoomY: number) => void;
   zoomZ: number;
   setZoomZ: (zoomZ: number) => void;
+
+  // 다른 페이지에서 홈 이동하기
+  zoomFromOther: boolean;
+  setZoomFromOther: (zoomFromOther: boolean) => void;
 }
 
 const useStarStore = create<StarStoreType>(
@@ -40,42 +51,62 @@ const useStarStore = create<StarStoreType>(
     (set, get) => ({
       starId: '',
       setStarId: (nowId: string) => set({ starId: nowId }),
-      starClicked: false,
-      setStarClicked: (clicked: boolean) => set({ starClicked: clicked }),
-      planetClicked: false,
-      setPlanetClicked: (clicked: boolean) => set({ planetClicked: clicked }),
-      isARMode: false,
-      setARMode: (isAR: boolean) => set({ isARMode: isAR }),
-      clickedStars: [],
-      addStarToClicked: (id: string) =>
-        set((state) => {
-          if (!state.clickedStars.includes(id)) {
-            return { clickedStars: [...state.clickedStars, id] };
-          }
-          return state;
-        }),
-      removeStarFromClicked: (id: string) =>
+      zoomStarId: '',
+      setZoomStarId: (nowId: string) => set({ zoomStarId: nowId }),
+
+      starPosition: null,
+      setStarPosition: (nowPosition: THREE.Vector3 | null) =>
+        set({ starPosition: nowPosition }),
+
+      starClicked: false as boolean,
+      setStarClicked: (clicked) => set({ starClicked: clicked }),
+
+      planetClicked: false as boolean,
+      setPlanetClicked: (clicked) => set({ planetClicked: clicked }),
+
+      isARMode: false as boolean,
+      setARMode: (isAR) => set({ isARMode: isAR }),
+
+      linkedStars: [],
+      addStarToClicked: (ids: string[]) =>
         set((state) => ({
-          clickedStars: state.clickedStars.filter(starId => starId !== id),
+          linkedStars: [...state.linkedStars, ids], // ids 배열 전체를 linkedStars에 추가
         })),
+
+      resetLinkedStars: () => set({ linkedStars: [], starId: '' }),
+
       markedStars: [],
-      setMarkedStars: (markedStars: StarMarkType[]) => set({ markedStars: markedStars }),
+      setMarkedStars: (markedStars: StarMarkType[]) =>
+        set({ markedStars: markedStars }),
+
       markSaveToggle: false,
       setMarkSaveToggle: (toggle: boolean) => set({ markSaveToggle: toggle }),
-      resetClickedStars: () => set({ clickedStars: [], starId:'' }),
+
       zoomX: 0,
       setZoomX: (zoomX: number) => set({ zoomX: zoomX }),
       zoomY: 0,
       setZoomY: (zoomY: number) => set({ zoomY: zoomY }),
       zoomZ: 0,
       setZoomZ: (zoomZ: number) => set({ zoomZ: zoomZ }),
+
+      zoomFromOther: false,
+      setZoomFromOther: (zoomFromOther: boolean) =>
+        set({ zoomFromOther: zoomFromOther }),
     }),
     {
       name: 'StarStore',
       partialize: (state) => ({
         starId: state.starId,
-        clickedStars: state.clickedStars,
+        zoomStarId: state.zoomStarId,
+        starPosition: state.starPosition,
+
+        linkedStars: state.linkedStars,
         markedStars: state.markedStars,
+        zoomFromOther: state.zoomFromOther,
+        zoomX: state.zoomX,
+        zoomY: state.zoomY,
+        zoomZ: state.zoomZ,
+        starClicked: state.starClicked,
       }),
     },
   ),

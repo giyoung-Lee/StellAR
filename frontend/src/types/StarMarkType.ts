@@ -5,4 +5,5 @@ interface StarMarkType {
   craeteTime: string;
   hourRA: number;
   degreeDEC: number;
+  nomalizedMagV: number;
 }

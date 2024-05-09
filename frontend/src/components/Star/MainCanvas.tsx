@@ -3,8 +3,12 @@ import * as Astronomy from 'astronomy-engine';
 import React, { useEffect, useState, useRef } from 'react';
 import { getRandomInt } from '../../utils/random';
 import StarMesh from './StarMesh';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, DeviceOrientationControls } from '@react-three/drei';
+import { Canvas, useThree } from '@react-three/fiber';
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  DeviceOrientationControls,
+} from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
 import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
@@ -29,7 +33,7 @@ const MainCanvas = (props: Props) => {
     useStarStore();
 
   const isFromOther = localStorage.getItem('zoomFromOther');
-  
+
   const videoTexture = useCameraStream();
 
   // 광주시청을 기본값으로
@@ -192,7 +196,11 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={0.1}
           far={100000}
-          position={[-0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3), -0.5 / Math.sqrt(3)]}
+          position={[
+            -0.5 / Math.sqrt(3),
+            -0.5 / Math.sqrt(3),
+            -0.5 / Math.sqrt(3),
+          ]}
         />
       )}
 
@@ -369,7 +377,7 @@ const MainCanvas = (props: Props) => {
             )),
         )} */}
 
-      <FloorMesh />
+      {!isARMode && <FloorMesh />}
     </Canvas>
   );
 };
@@ -380,9 +388,6 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 }) => {
   const { scene, camera } = useThree();
 
-  // 자이로센서 데이터를 저장할 상태
-  const gyroData = useRef({ alpha: 0, beta: 0, gamma: 0 });
-
   useEffect(() => {
     if (isARMode && videoTexture) {
       scene.background = videoTexture;
@@ -390,41 +395,6 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
       scene.background = new THREE.Color('#000000');
     }
   }, [videoTexture, isARMode, scene, camera]);
-
-  useEffect(() => {
-    const handleOrientation = (event: DeviceOrientationEvent) => {
-      const alpha = event.alpha ?? 0; // alpha가 null일 경우 0을 사용
-      const beta = event.beta ?? 0; // beta가 null일 경우 0을 사용
-      const gamma = event.gamma ?? 0; // gamma가 null일 경우 0을 사용
-      gyroData.current = { alpha, beta, gamma };
-    };
-
-    if (isARMode) {
-      window.addEventListener('deviceorientation', handleOrientation, true);
-      return () => {
-        window.removeEventListener('deviceorientation', handleOrientation);
-      };
-    }
-  }, [isARMode]);
-
-  useFrame(() => {
-    if (isARMode) {
-      const { alpha, beta, gamma } = gyroData.current;
-
-      // 쿼터니언으로 변환하기 전에 각도를 스케일링
-      const alphaRad = THREE.MathUtils.degToRad(alpha);
-      const betaRad = THREE.MathUtils.degToRad(beta);
-      const gammaRad = THREE.MathUtils.degToRad(gamma);
-
-      // ZYX 순서로 쿼터니언 생성
-      const quaternion = new THREE.Quaternion().setFromEuler(
-        new THREE.Euler(betaRad, gammaRad, -alphaRad, 'YXZ'),
-      );
-
-      // 카메라 쿼터니언을 새 쿼터니언으로 부드럽게 전환
-      camera.quaternion.slerp(quaternion, 0.1);
-    }
-  });
 
   return null;
 };

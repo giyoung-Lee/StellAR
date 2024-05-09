@@ -1,8 +1,7 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ThreeEvent, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import MakeConstellation from './MakeConstellation';
 
 type Props = {
   position: THREE.Vector3;
@@ -27,12 +26,17 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     M: '#ff6565',
   };
 
-  // const makeConstellationLine = (
-  //   positionA: THREE.Vector3,
-  //   positionB: THREE.Vector3,
-  // ) => {
-  //   return;
-  // };
+  const [materialColor, setMaterialColor] = useState('#ffffff');
+
+  useEffect(() => {
+    if (!starStore.starClicked) {
+      // isStarClicked가 false일 때 mesh 색상을 초기 색상으로 복구
+      if (touchAreaRef.current) {
+        const touchArea = touchAreaRef.current;
+        (touchArea.material as THREE.MeshPhongMaterial).color.set('#ffffff');
+      }
+    }
+  }, [starStore.starClicked, materialColor]);
 
   const { scene } = useThree();
 
@@ -40,6 +44,8 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     event.stopPropagation();
     const currentStarId = starStore.starId;
     const currentStarPosition = starStore.starPosition;
+
+    setMaterialColor('black'); // 클릭 시 색상 변경
 
     if (starStore.linkedStars.some((link) => link.includes(propstarId))) return;
 
@@ -68,12 +74,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     starStore.setStarId(propstarId);
     starStore.setStarClicked(true);
     starStore.setPlanetClicked(false);
-    starStore.setZoomFromOther(false);
-
-    const mesh = event.object as THREE.Mesh; // 타입 단언
-    if (mesh.material && 'color' in mesh.material) {
-      (mesh.material as THREE.MeshPhongMaterial).color.set('black');
-    }
+    starStore.setZoomFromOther(false);    
 
     const starPosition = event.object.position;
 
@@ -107,7 +108,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
         <sphereGeometry args={[size * 3, 20, 20]} />
         <meshPhongMaterial
           transparent
-          color={'#fff200'}
+          color={materialColor}
           opacity={0.15}
           emissiveIntensity={1}
           specular={'#ffffff'}

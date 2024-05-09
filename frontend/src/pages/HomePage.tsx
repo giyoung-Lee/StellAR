@@ -15,7 +15,7 @@ const HomePage = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
   const constellationStore = useConstellationStore();
-  const [renderKey, setRenderKey] = useState(0); // 강제 렌더링을 위한 key
+  // const [renderKey, setRenderKey] = useState(0); // 강제 렌더링을 위한 key
 
   useEffect(() => {
     starStore.setStarClicked(false);
@@ -24,9 +24,9 @@ const HomePage = () => {
     constellationStore.setConstellationClicked(false);
   }, []);
 
-  useEffect(() => {
-    setRenderKey((prevKey) => prevKey + 1);
-  }, [starStore.starClicked]);
+  // useEffect(() => {
+  //   setRenderKey((prevKey) => prevKey + 1);
+  // }, [starStore.starClicked]);
 
   const {
     isLoading: isStarMarkLoading,
@@ -63,11 +63,11 @@ const HomePage = () => {
 
         {starStore.linkedStars.length > 0 ? (
           <div className="absolute flex flex-col justify-between h-[200px] z-[1000]">
-            <button className="p-3 bg-white bg-opacity-25 border border-white rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+            <button className="p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
               나만의 별자리 생성
             </button>
 
-            <button className="p-3 bg-white bg-opacity-25 border border-white rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+            <button className="p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
               다시 선택하기
             </button>
           </div>
@@ -76,7 +76,7 @@ const HomePage = () => {
         {constellationStore.constellationClicked ? (
           <StarInfoCarousel active={0} />
         ) : null}
-        <MainCanvas key={renderKey} />
+        <MainCanvas />
       </h.Wrapper>
     </>
   );

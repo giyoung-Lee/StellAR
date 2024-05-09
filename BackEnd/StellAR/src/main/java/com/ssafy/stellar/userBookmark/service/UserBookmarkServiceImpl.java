@@ -9,7 +9,6 @@ import com.ssafy.stellar.star.repository.StarRepository;
 import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.repository.UserRepository;
 import com.ssafy.stellar.utils.stars.CalcStarLocation;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -97,6 +96,7 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
         StarEntity star = starRepository.findByStarId(bookmark.getStar().getStarId());
         double degreeDEC = calc.calculateNewDec(star.getDeclination(), Double.parseDouble(star.getPMDEC()));
         double hourRA = calc.calculateNewRA(star.getRA(), Double.parseDouble(star.getPMRA()));
+        double normalizedMagV = calc.calculateNormalizedMagV(star);
 
         BookmarkDto dto = new BookmarkDto();
 
@@ -106,8 +106,10 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
         dto.setCraeteTime(bookmark.getCreateTime());
         dto.setDegreeDEC(degreeDEC);
         dto.setHourRA(hourRA);
+        dto.setNomalizedMagV(normalizedMagV);
         return dto;
     }
+
 
     private UserEntity validateUser(String userId) {
         UserEntity user = userRepository.findByUserId(userId);

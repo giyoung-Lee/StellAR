@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400069443108",
+    "project_id": "stellar-e2012",
+    "storage_bucket": "stellar-e2012.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400069443108:android:3f94da422ea2aebd8862b1",
+        "android_client_info": {
+          "package_name": "com.ssafy.stellar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "${googleApiKey}"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

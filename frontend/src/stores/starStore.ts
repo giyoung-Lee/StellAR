@@ -24,7 +24,6 @@ interface StarStoreType {
 
   linkedStars: string[][]; // 2차원 배열로 클릭된 별의 ID 그룹을 저장
   addStarToClicked: (ids: string[]) => void; // 별 그룹을 클릭된 목록에 추가
-  removeStarFromClicked: (id: string[]) => void; // 별 그룹을 클릭된 목록에서 제거
 
   // 별마크 상태 관리
   markedStars: StarMarkType[];
@@ -74,14 +73,7 @@ const useStarStore = create<StarStoreType>(
           linkedStars: [...state.linkedStars, ids], // ids 배열 전체를 linkedStars에 추가
         })),
 
-      removeStarFromClicked: (ids: string[]) =>
-        set((state) => ({
-          linkedStars: state.linkedStars.filter(
-            (group) => !group.every((id) => ids.includes(id)),
-          ),
-        })),
-
-      resetLinkedStars: () => set({ linkedStars: [] }),
+      resetLinkedStars: () => set({ linkedStars: [], starId: '' }),
 
       markedStars: [],
       setMarkedStars: (markedStars: StarMarkType[]) =>
@@ -96,6 +88,7 @@ const useStarStore = create<StarStoreType>(
       setZoomY: (zoomY: number) => set({ zoomY: zoomY }),
       zoomZ: 0,
       setZoomZ: (zoomZ: number) => set({ zoomZ: zoomZ }),
+
       zoomFromOther: false,
       setZoomFromOther: (zoomFromOther: boolean) =>
         set({ zoomFromOther: zoomFromOther }),

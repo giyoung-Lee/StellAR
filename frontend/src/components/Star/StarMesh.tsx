@@ -77,7 +77,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     const starPosition = event.object.position;
 
-    if (starStore.linkedStars.length < 1) {
+    if (!starStore.starId) {
       starStore.setZoomX(starPosition.x);
       starStore.setZoomY(starPosition.y);
       starStore.setZoomZ(starPosition.z);

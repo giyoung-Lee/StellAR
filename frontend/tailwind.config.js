@@ -43,6 +43,15 @@ module.exports = {
         orange: '#EBB67B',
         lightorange: '#F2CEA2',
         light: '#F1F4F4',
+
+        // 글래스모피즘 적용
+        boxShadow: {
+          'custom': '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+        },
+        backdropFilter: {
+          'none': 'none',
+          'sm': 'blur(4px)'
+        }
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -51,5 +60,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-filters'),
+  ],
 }

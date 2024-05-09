@@ -254,6 +254,7 @@ const MainCanvas = (props: Props) => {
 
       {/* 조명 설정 */}
       <Lights />
+      
       {Object.values(starPositions).map((star: any) => (
         <StarMesh
           propstarId={star.starId}

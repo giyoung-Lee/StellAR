@@ -62,12 +62,12 @@ const HomePage = () => {
         ) : null}
 
         {starStore.linkedStars.length > 0 ? (
-          <div className="absolute flex flex-col justify-between h-[200px] z-[1000]">
-            <button className="p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+          <div className="absolute flex flex-col z-[1000] top-[55%]">
+            <button className="z-[1000] p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
               나만의 별자리 생성
             </button>
 
-            <button className="p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+            <button className="z-[1000] p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
               다시 선택하기
             </button>
           </div>

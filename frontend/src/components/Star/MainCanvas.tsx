@@ -34,10 +34,9 @@ const MainCanvas = (props: Props) => {
   const starStore = useStarStore();
   const userStore = useUserStore();
 
-  const isFromOther = zoomFromOther;
+  const isFromOther = starStore.zoomFromOther;
 
   const videoTexture = useCameraStream();
-  const userStore = useUserStore();
 
   // 광주시청을 기본값으로
   const [position, setPosition] = useState<Position>({

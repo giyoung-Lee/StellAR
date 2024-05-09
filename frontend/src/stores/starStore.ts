@@ -1,9 +1,17 @@
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
+import * as THREE from 'three';
 
 interface StarStoreType {
   starId: string;
   setStarId: (nowId: string) => void;
+
+  zoomStarId: string;
+  setZoomStarId: (nowId: string) => void;
+
+  starPosition: THREE.Vector3 | null;
+  setStarPosition: (nowPosition: THREE.Vector3 | null) => void;
+
   // 별 클릭 상태 관리
   starClicked: boolean;
   setStarClicked: (clicked: boolean) => void;
@@ -43,6 +51,12 @@ const useStarStore = create<StarStoreType>(
     (set, get) => ({
       starId: '',
       setStarId: (nowId: string) => set({ starId: nowId }),
+      zoomStarId: '',
+      setZoomStarId: (nowId: string) => set({ zoomStarId: nowId }),
+
+      starPosition: null,
+      setStarPosition: (nowPosition: THREE.Vector3 | null) =>
+        set({ starPosition: nowPosition }),
 
       starClicked: false as boolean,
       setStarClicked: (clicked) => set({ starClicked: clicked }),
@@ -83,6 +97,9 @@ const useStarStore = create<StarStoreType>(
       name: 'StarStore',
       partialize: (state) => ({
         starId: state.starId,
+        zoomStarId: state.zoomStarId,
+        starPosition: state.starPosition,
+
         linkedStars: state.linkedStars,
         markedStars: state.markedStars,
         zoomFromOther: state.zoomFromOther,

@@ -4,6 +4,8 @@ import * as n from '../style/StarNameStyle';
 import MarkBtn from '../StarMark/MarkBtn';
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as THREE from 'three';
+import { useThree } from '@react-three/fiber';
 
 const StarName = () => {
   const starStore = useStarStore();
@@ -18,6 +20,10 @@ const StarName = () => {
     starStore.setStarClicked(false);
     starStore.setPlanetClicked(false);
     starStore.setZoomFromOther(false);
+    // starStore.removeStarFromClicked(starStore.starId);
+    starStore.setZoomStarId('');
+    starStore.setStarId('');
+    starStore.setStarPosition(null);
   };
 
   return (
@@ -28,8 +34,17 @@ const StarName = () => {
             <FontAwesomeIcon icon="xmark" />
           </div>
         </div>
-        <span className="">{starStore.starId}</span>
-        {checkStarIdExists(starStore.starId) ? (
+        <span className="">
+          {starStore.zoomFromOther ? starStore.zoomStarId : starStore.starId}
+        </span>
+        {starStore.zoomFromOther ? (
+          <p>
+            <FontAwesomeIcon icon={['fas', 'star']} />
+            <n.BookMarkName>
+              {checkStarIdExists(starStore.zoomStarId)}
+            </n.BookMarkName>
+          </p>
+        ) : checkStarIdExists(starStore.starId) ? (
           <p>
             <FontAwesomeIcon icon={['fas', 'star']} />
             <n.BookMarkName>

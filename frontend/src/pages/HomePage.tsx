@@ -2,7 +2,8 @@ import * as h from './style/HomePageStyle';
 import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import MarkBtn from '../components/StarMark/MarkBtn';
 import { useQuery } from '@tanstack/react-query';
 import { GetStarMark } from '../apis/StarMarkApis';
 import useUserStore from '../stores/userStore';
@@ -14,11 +15,18 @@ const HomePage = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
   const constellationStore = useConstellationStore();
+  const [renderKey, setRenderKey] = useState(0); // 강제 렌더링을 위한 key
 
   useEffect(() => {
     starStore.setStarClicked(false);
+    starStore.setStarId('');
+    starStore.setStarPosition(null);
     constellationStore.setConstellationClicked(false);
   }, []);
+
+  useEffect(() => {
+    setRenderKey((prevKey) => prevKey + 1);
+  }, [starStore.starClicked]);
 
   const {
     isLoading: isStarMarkLoading,
@@ -68,8 +76,7 @@ const HomePage = () => {
         {constellationStore.constellationClicked ? (
           <StarInfoCarousel active={0} />
         ) : null}
-
-        <MainCanvas />
+        <MainCanvas key={renderKey} />
       </h.Wrapper>
     </>
   );

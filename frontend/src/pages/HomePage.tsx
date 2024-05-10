@@ -90,6 +90,23 @@ const HomePage = () => {
     mutate(userConstellationData);
   };
 
+  const hwangdo13info = [
+    'Aquarius',
+    'Aries',
+    'Bukdu',
+    'Cancer',
+    'Capricornus',
+    'Gemini',
+    'Leo',
+    'Libra',
+    'Ophiuchus',
+    'Pisces',
+    'Sagittarius',
+    'Scorpius',
+    'Taurus',
+    'Virgo',
+  ];
+
   return (
     <>
       <h.Wrapper>
@@ -189,7 +206,8 @@ const HomePage = () => {
           </div>
         ) : null}
 
-        {constellationStore.constellationClicked ? (
+        {constellationStore.constellationClicked &&
+        hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
         ) : null}
         <MainCanvas />

@@ -100,10 +100,11 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     starStore.setZoomFromOther(false);
 
     const starPosition = event.object.position;
-
+    if (!starStore.starId) {
     starStore.setZoomX(starPosition.x);
     starStore.setZoomY(starPosition.y);
     starStore.setZoomZ(starPosition.z);
+    }
   };
 
   return (

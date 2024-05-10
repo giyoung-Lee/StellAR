@@ -1,28 +1,10 @@
-// vite.config.ts
-import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-export default defineConfig(({ mode }) => {
-  
-  // 환경 변수 로딩
-  // EC2
-  const env = loadEnv(mode, path.resolve('/'));
-
-  return {
-    plugins: [react()],
-    define: {
-      'process.env': {...env}
-    }
-  };
-
-  // 로컬
-  // const env = loadEnv(mode, process.cwd(), '');
-
-  // return {
-  //   plugins: [react()],
-  //   define: {
-  //     'process.env': env
-  //   }
-  // };
-});
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: '0.0.0.0' // 여기를 추가합니다
+  }
+})

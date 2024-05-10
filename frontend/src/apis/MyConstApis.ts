@@ -1,7 +1,7 @@
 import { publicRequest } from '../hooks/requestMethods';
 import Swal from 'sweetalert2';
 
-export const MakeMyConstellation = async (userConstellationData: MyConstellationApiType) => {
+export const MakeMyConstellationApi = async (userConstellationData: MyConstellationApiType) => {
     const formData = new FormData();
     formData.append('userId', userConstellationData.userId);
     formData.append('name', userConstellationData.name);
@@ -32,7 +32,7 @@ export const MakeMyConstellation = async (userConstellationData: MyConstellation
       });
   };
 
-  export const GetUserConstellation = async (userId: string) => {
+  export const GetUserConstellationApi = async (userId: string) => {
     return await publicRequest.get('user-constellation/all', {
       params: {
         userId: userId,
@@ -40,7 +40,7 @@ export const MakeMyConstellation = async (userConstellationData: MyConstellation
     })
   };
 
-export const DeleteUserConstellation = async (deleteData: deleteMyConstellationApiype) => {
+export const DeleteUserConstellationApi = async (deleteData: deleteMyConstellationApiype) => {
     return await publicRequest
       .delete('user-constellation/delete', {
         params: deleteData,

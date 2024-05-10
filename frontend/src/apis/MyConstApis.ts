@@ -1,7 +1,9 @@
 import { publicRequest } from '../hooks/requestMethods';
 import Swal from 'sweetalert2';
 
-export const MakeMyConstellationApi = async (userConstellationData: UserConstellationData) => {
+export const MakeMyConstellationApi = async (
+  userConstellationData: UserConstellationData,
+) => {
   return await publicRequest
     .post(`user-constellation/create`, userConstellationData)
     .then((res) => {
@@ -35,4 +37,12 @@ export const DeleteUserConstellationApi = async (
       params: deleteData,
     })
     .then((res) => res.data);
+};
+
+export const GetUserConstellation = async (userId: string) => {
+  return await publicRequest.get('/user-constellation/all', {
+    params: {
+      userId: userId,
+    },
+  });
 };

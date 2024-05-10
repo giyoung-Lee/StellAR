@@ -15,10 +15,11 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
   const {
     setStarClicked,
     setPlanetClicked,
-    setStarId,
+    setPlanetId,
     setZoomX,
     setZoomY,
     setZoomZ,
+    setStarId,
   } = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -63,8 +64,11 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
   }, [scene, targetSize]);
 
   const click = (event: ThreeEvent<MouseEvent>) => {
-    event.stopPropagation();
-    setStarId(planetId);
+    // event.stopPropagation();
+
+    setPlanetId(planetId);
+    setStarId('');
+
     setStarClicked(false);
     setPlanetClicked(true);
 

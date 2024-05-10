@@ -3,19 +3,21 @@ import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
 import React, { useEffect, useState } from 'react';
-import MarkBtn from '../components/StarMark/MarkBtn';
-import { useQuery } from '@tanstack/react-query';
-import { GetStarMark } from '../apis/StarMarkApis';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import useUserStore from '../stores/userStore';
-import Loading from '../components/common/Loading/Loading';
 import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
+import { MakeMyConstellationApi } from '../apis/MyConstApis';
+import Swal from 'sweetalert2';
+import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
+import Typography from '@mui/joy/Typography';
+import Sheet from '@mui/joy/Sheet';
 
 const HomePage = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
   const constellationStore = useConstellationStore();
-  // const [renderKey, setRenderKey] = useState(0); // 강제 렌더링을 위한 key
 
   useEffect(() => {
     starStore.setStarClicked(false);
@@ -24,33 +26,33 @@ const HomePage = () => {
     constellationStore.setConstellationClicked(false);
   }, []);
 
-  // useEffect(() => {
-  //   setRenderKey((prevKey) => prevKey + 1);
-  // }, [starStore.starClicked]);
+  const windeowReload = () => {
+    window.location.reload();
+  };
 
-  const {
-    isLoading: isStarMarkLoading,
-    data: starMarkData,
-    isError: isStarMarkError,
-    refetch: getStarMarkRefetch,
-  } = useQuery({
-    queryKey: ['get-starMarks'],
-    queryFn: () => GetStarMark(userStore.userId),
+  // 별자리 생성 POST
+  const [userConstellationData, setUserConstellationData] = useState({
+    userId: '',
+    name: '',
+    description: '',
+    links: [],
   });
 
-  useEffect(() => {
-    if (starMarkData) {
-      starStore.setMarkedStars(starMarkData.data);
-    }
-  }, [starMarkData]);
+  const { mutate } = useMutation({
+    mutationFn: MakeMyConstellationApi,
+    onSuccess(result: string) {
+      console.log(result);
+    },
+    onError(error) {
+      Swal.fire({
+        icon: 'error',
+        title: '오류',
+        text: '별자리 생성 중 오류가 발생했습니다.',
+      });
+    },
+  });
 
-  useEffect(() => {
-    getStarMarkRefetch();
-  }, [starStore.markSaveToggle]);
-
-  if (isStarMarkLoading) {
-    return <Loading />;
-  }
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -62,14 +64,61 @@ const HomePage = () => {
         ) : null}
 
         {starStore.linkedStars.length > 0 ? (
-          <div className="absolute flex flex-col z-[1000] top-[55%]">
-            <button className="z-[1000] p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+          <div className="absolute flex flex-col z-[1000] top-[55%] justify-center items-center">
+            <button
+              className="p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
+              onClick={() => setOpen(true)}
+            >
               나만의 별자리 생성
             </button>
 
-            <button className="z-[1000] p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
-              다시 선택하기
-            </button>
+            {/* 모달 내용 */}
+            <Modal
+              aria-labelledby="modal-title"
+              aria-describedby="modal-desc"
+              open={open}
+              onClose={() => setOpen(false)}
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Sheet
+                variant="outlined"
+                sx={{
+                  maxWidth: 500,
+                  borderRadius: 'md',
+                  p: 3,
+                  boxShadow: 'lg',
+                }}
+              >
+                <ModalClose variant="plain" sx={{ m: 1 }} />
+                <Typography
+                  component="h2"
+                  id="modal-title"
+                  level="h4"
+                  textColor="inherit"
+                  fontWeight="lg"
+                  mb={1}
+                >
+                  This is the modal title
+                </Typography>
+                <Typography id="modal-desc" textColor="text.tertiary">
+                  Make sure to use <code>aria-labelledby</code> on the modal
+                  dialog with an optional <code>aria-describedby</code>{' '}
+                  attribute.
+                </Typography>
+              </Sheet>
+            </Modal>
+
+            {/* 새로고침 버튼 */}
+            <img
+              className="w-10 h-10 m-2 top-5 left-5"
+              src="/img/reload.png"
+              alt="reload"
+              onClick={windeowReload}
+            />
           </div>
         ) : null}
 

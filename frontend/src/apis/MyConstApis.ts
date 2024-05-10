@@ -19,8 +19,8 @@ export const MakeMyConstellationApi = async (userConstellationData: UserConstell
     });
 };
 
-export const GetUserConstellationApi = async (userId: string) => {
-  return await publicRequest.get('user-constellation/all', {
+export const GetUserConstellationLinkApi = async (userId: string) => {
+  return await publicRequest.get('user-constellation/link', {
     params: {
       userId: userId,
     },

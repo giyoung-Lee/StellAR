@@ -47,15 +47,14 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     setMaterialColor('black'); // 클릭 시 색상 변경
 
-    console.log('click')
+    console.log('click');
 
     // if (starStore.linkedStars.some((link) => link[1] === propstarId)) return;
-
-    if (starStore.starClicked) {
+    if (currentStarId !== '' && starStore.starClicked) {
       starStore.addStarToClicked([currentStarId, propstarId]);
     }
 
-    if (currentStarPosition) {
+    if (currentStarId && currentStarPosition) {
       const path = new THREE.CatmullRomCurve3([currentStarPosition, position]);
 
       const geometry = new THREE.TubeGeometry(path, 20, 110, 6, false);
@@ -76,15 +75,13 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     starStore.setStarId(propstarId);
     starStore.setStarClicked(true);
     starStore.setPlanetClicked(false);
-    starStore.setZoomFromOther(false);    
+    starStore.setZoomFromOther(false);
 
     const starPosition = event.object.position;
 
-    if (!starStore.starId) {
-      starStore.setZoomX(starPosition.x);
-      starStore.setZoomY(starPosition.y);
-      starStore.setZoomZ(starPosition.z);
-    }
+    starStore.setZoomX(starPosition.x);
+    starStore.setZoomY(starPosition.y);
+    starStore.setZoomZ(starPosition.z);
   };
 
   return (

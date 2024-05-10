@@ -51,8 +51,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     console.log('click');
 
     // if (starStore.linkedStars.some((link) => link[1] === propstarId)) return;
-
-    if (starStore.starClicked) {
+    if (currentStarId !== '' && starStore.starClicked) {
       starStore.addStarToClicked([currentStarId, propstarId]);
     }
 
@@ -102,11 +101,9 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     const starPosition = event.object.position;
 
-    if (!starStore.starId) {
-      starStore.setZoomX(starPosition.x);
-      starStore.setZoomY(starPosition.y);
-      starStore.setZoomZ(starPosition.z);
-    }
+    starStore.setZoomX(starPosition.x);
+    starStore.setZoomY(starPosition.y);
+    starStore.setZoomZ(starPosition.z);
   };
 
   return (

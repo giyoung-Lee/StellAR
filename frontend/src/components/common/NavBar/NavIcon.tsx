@@ -55,7 +55,8 @@ const CheckboxWrapper = styled.div`
     transform: translate(-50%, -50%);
     width: 60%;
     height: 60%;
-    background-color: #000000;
+    background-color: #EBEBEB;
+    opacity: 0.45;
     border-radius: 50%;
     box-shadow:
       inset 0 2px 4px rgba(255, 190, 184, 0.7),
@@ -85,7 +86,7 @@ const CheckboxWrapper = styled.div`
 
   ul {
     position: relative;
-    bottom: -30px;
+    bottom: -60px;
     width: 340px;
     height: 340px;
     margin: 0 auto;
@@ -107,6 +108,12 @@ const CheckboxWrapper = styled.div`
 
   li span {
     color: #000000;
+    font-size: 13px;
+  }
+
+  li img {
+    width: 50px;
+    height: 50px;
   }
 
   li:nth-child(1) {
@@ -210,7 +217,7 @@ const NavBar = () => {
 
   return (
     <FixedContainer ref={containerRef}>
-      {!isChecked && <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-black opacity-50"></div>}
+      {!isChecked && <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-black opacity-70"></div>}
       <CheckboxWrapper>
         {!isChecked && (
           <ul

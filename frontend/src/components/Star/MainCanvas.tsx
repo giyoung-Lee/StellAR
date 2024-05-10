@@ -25,6 +25,7 @@ import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
+import { whereAmI } from '../../apis/UserApis';
 
 type Props = {};
 
@@ -70,6 +71,13 @@ const MainCanvas = (props: Props) => {
 
     getCurrentLocation();
   }, []);
+
+  const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery({
+    queryKey: ['get-stars'],
+    queryFn: () => {
+      return whereAmI(userStore.userLat, userStore.userLng);
+    },
+  });
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
@@ -187,7 +195,8 @@ const MainCanvas = (props: Props) => {
     isConstLoading ||
     isPlanetLoading ||
     isMyConstLoading ||
-    isStarMarkLoading
+    isStarMarkLoading ||
+    LocationFetchingLoading
   ) {
     return <Loading />;
   }

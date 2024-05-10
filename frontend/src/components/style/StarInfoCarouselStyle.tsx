@@ -129,62 +129,14 @@ export const ScienceInfo = styled.div`
   }
 `;
 
-export const QuizBox = styled.div`
-  /* background-color: var(--color-dark); */
-  border: 1.5px dashed grey;
-  padding: 5%;
-  width: 100%;
-  min-height: max-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  .q {
-    text-align: center;
-    padding-bottom: 7%;
-  }
-  .answer_box {
-    display: flex;
-    justify-content: space-around;
-
-    button {
-      width: 50px;
-      height: 50px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 20px;
-      cursor: pointer;
-      transition-duration: 0.3s;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.13);
-      border: none;
-      &.o {
-        background-color: #6fae6f;
-      }
-      &.x {
-        background-color: #c13f3f;
-      }
-    }
-
-    svg {
-      height: 25px !important;
-    }
-
-    button:active {
-      transform: scale(0.8);
-    }
-  }
-`;
-
 export const Mythology = styled.div`
   width: 100%;
   margin: 10px 0;
   padding: 0 5px;
-  max-height: 65%;
+  height: 95%;
   font-size: 18px;
   font-weight: 100;
   color: white;
   overflow-y: auto;
   line-height: 1.7;
 `;
-

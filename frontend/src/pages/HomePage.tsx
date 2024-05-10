@@ -9,10 +9,16 @@ import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
 import { MakeMyConstellationApi } from '../apis/MyConstApis';
 import Swal from 'sweetalert2';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
 import Modal from '@mui/joy/Modal';
-import ModalClose from '@mui/joy/ModalClose';
-import Typography from '@mui/joy/Typography';
+import DialogTitle from '@mui/joy/DialogTitle';
+import DialogContent from '@mui/joy/DialogContent';
+import Stack from '@mui/joy/Stack';
+import Button from '@mui/joy/Button';
 import Sheet from '@mui/joy/Sheet';
+import Textarea from '@mui/joy/Textarea';
 
 const HomePage = () => {
   const starStore = useStarStore();
@@ -32,16 +38,30 @@ const HomePage = () => {
 
   // 별자리 생성 POST
   const [userConstellationData, setUserConstellationData] = useState({
-    userId: '',
+    userId: userStore.userId,
     name: '',
     description: '',
-    links: [],
+    links: starStore.linkedStars,
   });
+  // linkedStars가 변할 때마다 업데이트
+  useEffect(() => {
+    setUserConstellationData((prevData) => ({
+      ...prevData,
+      links: starStore.linkedStars,
+    }));
+  }, [starStore.linkedStars]);
 
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
     onSuccess(result: string) {
       console.log(result);
+      Swal.fire({
+        title: '성공!',
+        text: '별자리가 성공적으로 생성되었습니다.',
+        icon: 'success',
+        confirmButtonText: '확인',
+      });
+      setOpen(false);
     },
     onError(error) {
       Swal.fire({
@@ -49,10 +69,26 @@ const HomePage = () => {
         title: '오류',
         text: '별자리 생성 중 오류가 발생했습니다.',
       });
+      setOpen(false);
     },
   });
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const handleInputChange = (
+    field: keyof UserConstellationData,
+    value: string,
+  ) => {
+    setUserConstellationData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    mutate(userConstellationData);
+  };
 
   return (
     <>
@@ -66,7 +102,7 @@ const HomePage = () => {
         {starStore.linkedStars.length > 0 ? (
           <div className="absolute flex flex-col z-[1000] top-[55%] justify-center items-center">
             <button
-              className="p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
+              className="p-3 m-1 bg-white bg-opacity-25 cursor-pointer rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
               onClick={() => setOpen(true)}
             >
               나만의 별자리 생성
@@ -74,8 +110,6 @@ const HomePage = () => {
 
             {/* 모달 내용 */}
             <Modal
-              aria-labelledby="modal-title"
-              aria-describedby="modal-desc"
               open={open}
               onClose={() => setOpen(false)}
               sx={{
@@ -85,30 +119,63 @@ const HomePage = () => {
               }}
             >
               <Sheet
-                variant="outlined"
                 sx={{
-                  maxWidth: 500,
-                  borderRadius: 'md',
+                  background: 'rgba(255, 255, 255, 0.25)',
+                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)',
+                  border: '1px solid rgba(255, 255, 255, 0.18)',
+                  borderRadius: '10px',
+                  width: '90%',
+                  minWidth: '270px',
+                  color: '#cba3ff',
                   p: 3,
-                  boxShadow: 'lg',
+                  m: 2,
                 }}
               >
-                <ModalClose variant="plain" sx={{ m: 1 }} />
-                <Typography
-                  component="h2"
-                  id="modal-title"
-                  level="h4"
-                  textColor="inherit"
-                  fontWeight="lg"
-                  mb={1}
-                >
-                  This is the modal title
-                </Typography>
-                <Typography id="modal-desc" textColor="text.tertiary">
-                  Make sure to use <code>aria-labelledby</code> on the modal
-                  dialog with an optional <code>aria-describedby</code>{' '}
-                  attribute.
-                </Typography>
+                <DialogTitle>나만의 별자리</DialogTitle>
+                <DialogContent sx={{ color: '#ffffff' }}>
+                  별자리 이름을 짓고, 별자리에 대한 설명이나 일기를 적어보세요!
+                </DialogContent>
+                <form onSubmit={handleSubmit}>
+                  <Stack spacing={2}>
+                    <FormControl>
+                      <FormLabel sx={{ color: '#ffffff', marginTop: '10px' }}>
+                        별자리 이름
+                      </FormLabel>
+                      <Input
+                        autoFocus
+                        required
+                        value={userConstellationData.name}
+                        onChange={(e) =>
+                          handleInputChange('name', e.target.value)
+                        }
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel sx={{ color: '#ffffff' }}>설명</FormLabel>
+                      <Textarea
+                        minRows={2}
+                        value={userConstellationData.description}
+                        onChange={(e) =>
+                          handleInputChange('description', e.target.value)
+                        }
+                      />
+                    </FormControl>
+                    <Button
+                      type="submit"
+                      sx={{
+                        backgroundColor: '#aa6bfc',
+                        color: 'white',
+                        '&:hover': {
+                          backgroundColor: '#7649af',
+                        },
+                      }}
+                    >
+                      등록하기
+                    </Button>
+                  </Stack>
+                </form>
               </Sheet>
             </Modal>
 

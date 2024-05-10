@@ -51,7 +51,20 @@ module.exports = {
         backdropFilter: {
           'none': 'none',
           'sm': 'blur(4px)'
-        }
+        },
+
+          // 폼 요소의 기본 스타일 재정의
+          formControl: {
+            padding: '0', // padding을 0으로 설정
+            margin: '0', // margin을 0으로 설정
+            outline: 'none', // outline을 none으로 설정
+          },
+          ringWidth: {
+            'focus': '0', // 포커스 상태의 테두리 너비를 0으로 설정
+          },
+          ringColor: {
+            'focus': 'transparent', // 포커스 상태의 테두리 색상을 투명하게 설정
+          },
       },
       borderRadius: {
         lg: 'var(--radius)',

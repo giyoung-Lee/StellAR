@@ -6,6 +6,9 @@ interface StarStoreType {
   starId: string;
   setStarId: (nowId: string) => void;
 
+  planetId: string;
+  setPlanetId: (nowId: string) => void;
+
   zoomStarId: string;
   setZoomStarId: (nowId: string) => void;
 
@@ -51,6 +54,10 @@ const useStarStore = create<StarStoreType>(
     (set, get) => ({
       starId: '',
       setStarId: (nowId: string) => set({ starId: nowId }),
+
+      planetId: '',
+      setPlanetId: (nowId: string) => set({ planetId: nowId }),
+
       zoomStarId: '',
       setZoomStarId: (nowId: string) => set({ zoomStarId: nowId }),
 
@@ -73,7 +80,7 @@ const useStarStore = create<StarStoreType>(
           linkedStars: [...state.linkedStars, ids], // ids 배열 전체를 linkedStars에 추가
         })),
 
-      resetLinkedStars: () => set({ linkedStars: [], starId: '' }),
+      resetLinkedStars: () => set({ linkedStars: [] }),
 
       markedStars: [],
       setMarkedStars: (markedStars: StarMarkType[]) =>
@@ -98,6 +105,8 @@ const useStarStore = create<StarStoreType>(
       partialize: (state) => ({
         starId: state.starId,
         zoomStarId: state.zoomStarId,
+        planetId: state.planetId,
+
         starPosition: state.starPosition,
 
         linkedStars: state.linkedStars,

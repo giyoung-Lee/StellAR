@@ -73,7 +73,7 @@ const MainCanvas = (props: Props) => {
   }, []);
 
   const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery({
-    queryKey: ['get-stars'],
+    queryKey: ['get-my-location'],
     queryFn: () => {
       return whereAmI(userStore.userLat, userStore.userLng);
     },
@@ -400,7 +400,7 @@ const MainCanvas = (props: Props) => {
         )}
 
       {/* 나만의 별자리 호출 및 선긋기 */}
-      {myConstData?.data &&
+      {myConstData?.data && Object.keys(myConstData.data).length > 0 &&
         Object.entries(myConstData.data as ConstellationData).map(
           ([constellation, connections]) =>
             (connections as string[][]).map((starArr, index) => (

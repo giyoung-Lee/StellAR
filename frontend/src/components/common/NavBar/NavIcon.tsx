@@ -56,7 +56,7 @@ const CheckboxWrapper = styled.div`
     width: 60%;
     height: 60%;
     background-color: #EBEBEB;
-    opacity: 0.6;
+    opacity: 0.45;
     border-radius: 50%;
     box-shadow:
       inset 0 2px 4px rgba(255, 190, 184, 0.7),

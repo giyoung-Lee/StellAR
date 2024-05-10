@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
+import * as Astronomy from 'astronomy-engine';
+import { getRandomInt } from '../../utils/random';
 import StarMesh from './StarMesh';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import {
@@ -18,7 +19,6 @@ import useCameraStream from '../../hooks/useCameraStream';
 import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
-import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellation } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';

@@ -3,13 +3,16 @@ import * as l from '../style/common/ListCardStyle';
 import MarkItem from './MyStarItem';
 import MyStarItem from './MyStarItem';
 
-const MyStarList = () => {
-  const myStarList = new Array(2).fill(0);
+type Props = {
+  userConstellationData: MyConstellation[];
+};
+
+const MyStarList = ({ userConstellationData }: Props) => {
   return (
     <l.Wrapper>
-      {myStarList.map((item, index) => (
-        <l.Card>
-          <MyStarItem />
+      {userConstellationData.map((constellation, index) => (
+        <l.Card key={index}>
+          <MyStarItem constellation={constellation} />
         </l.Card>
       ))}
     </l.Wrapper>

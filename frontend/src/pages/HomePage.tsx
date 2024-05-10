@@ -210,6 +210,7 @@ const HomePage = () => {
         hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
         ) : null}
+
         <MainCanvas />
       </h.Wrapper>
     </>

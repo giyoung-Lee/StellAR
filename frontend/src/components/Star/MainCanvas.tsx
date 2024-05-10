@@ -182,7 +182,13 @@ const MainCanvas = (props: Props) => {
     }
   }, [planetData, starData]);
 
-  if (isStarsLoading || isConstLoading || isPlanetLoading || isMyConstLoading || isStarMarkLoading) {
+  if (
+    isStarsLoading ||
+    isConstLoading ||
+    isPlanetLoading ||
+    isMyConstLoading ||
+    isStarMarkLoading
+  ) {
     return <Loading />;
   }
 

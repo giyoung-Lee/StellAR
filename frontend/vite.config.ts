@@ -1,11 +1,28 @@
-import { defineConfig } from 'vite';
+// vite.config.ts
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    host: true,
-    port: 5173  // 원하는 포트 번호를 설정할 수 있습니다.
-  }
-})
+export default defineConfig(({ mode }) => {
+  
+  // 환경 변수 로딩
+  // EC2
+  const env = loadEnv(mode, path.resolve('/'));
+
+  return {
+    plugins: [react()],
+    define: {
+      'process.env': {...env}
+    }
+  };
+
+  // 로컬
+  // const env = loadEnv(mode, process.cwd(), '');
+
+  // return {
+  //   plugins: [react()],
+  //   define: {
+  //     'process.env': env
+  //   }
+  // };
+});

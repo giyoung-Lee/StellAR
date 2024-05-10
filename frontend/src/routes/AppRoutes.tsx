@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  redirect,
+  Navigate,
+} from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 import HomePage from '../pages/HomePage';
@@ -35,7 +41,9 @@ const AppRoutes = () => {
       <Routes location={displayLocation}>
         <Route
           path="/"
-          element={userStore.isLogin ? <HomePage /> : <EntryPage />}
+          element={
+            userStore.isLogin ? <HomePage /> : <Navigate replace to="/entry" />
+          }
         />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/entry" element={<EntryPage />} />
@@ -82,4 +90,3 @@ export const PageContainer = styled.div`
 `;
 
 export default AppRoutes;
-

@@ -4,6 +4,8 @@ import * as n from '../style/StarNameStyle';
 import MarkBtn from '../StarMark/MarkBtn';
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as THREE from 'three';
+import { useThree } from '@react-three/fiber';
 
 const StarName = () => {
   const starStore = useStarStore();
@@ -17,19 +19,32 @@ const StarName = () => {
   const handleReset = () => {
     starStore.setStarClicked(false);
     starStore.setPlanetClicked(false);
-    starStore.removeStarFromClicked(starStore.starId);
+    starStore.setZoomFromOther(false);
+    // starStore.removeStarFromClicked(starStore.starId);
+    starStore.setZoomStarId('');
+    starStore.setStarId('');
+    starStore.setStarPosition(null);
   };
 
   return (
-    <>
-      <n.Wrapper ref={starNameRef}>
+    <div ref={starNameRef} className="text-center absolute z-[1000] top-[55%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+      {/* <n.Wrapper ref={starNameRef}> */}
         <div className="flex justify-end">
           <div onClick={handleReset}>
             <FontAwesomeIcon icon="xmark" />
           </div>
         </div>
-        <span className="">{starStore.starId}</span>
-        {checkStarIdExists(starStore.starId) ? (
+        <span className="">
+          {starStore.zoomFromOther ? starStore.zoomStarId : starStore.starId}
+        </span>
+        {starStore.zoomFromOther ? (
+          <p>
+            <FontAwesomeIcon icon={['fas', 'star']} />
+            <n.BookMarkName>
+              {checkStarIdExists(starStore.zoomStarId)}
+            </n.BookMarkName>
+          </p>
+        ) : checkStarIdExists(starStore.starId) ? (
           <p>
             <FontAwesomeIcon icon={['fas', 'star']} />
             <n.BookMarkName>
@@ -39,8 +54,8 @@ const StarName = () => {
         ) : (
           <MarkBtn starName={starStore.starId} />
         )}
-      </n.Wrapper>
-    </>
+      {/* </n.Wrapper> */}
+    </div>
   );
 };
 

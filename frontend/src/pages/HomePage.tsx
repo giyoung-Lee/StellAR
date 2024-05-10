@@ -2,7 +2,7 @@ import * as h from './style/HomePageStyle';
 import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import MarkBtn from '../components/StarMark/MarkBtn';
 import { useQuery } from '@tanstack/react-query';
 import { GetStarMark } from '../apis/StarMarkApis';
@@ -15,11 +15,18 @@ const HomePage = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
   const constellationStore = useConstellationStore();
+  // const [renderKey, setRenderKey] = useState(0); // 강제 렌더링을 위한 key
 
   useEffect(() => {
     starStore.setStarClicked(false);
+    starStore.setStarId('');
+    starStore.setStarPosition(null);
     constellationStore.setConstellationClicked(false);
   }, []);
+
+  // useEffect(() => {
+  //   setRenderKey((prevKey) => prevKey + 1);
+  // }, [starStore.starClicked]);
 
   const {
     isLoading: isStarMarkLoading,
@@ -48,7 +55,24 @@ const HomePage = () => {
   return (
     <>
       <h.Wrapper>
-        {starStore.starClicked || starStore.planetClicked ? <StarName /> : null}
+        {(starStore.starClicked && starStore.linkedStars.length < 1) ||
+        (starStore.planetClicked && starStore.linkedStars.length < 1) ||
+        (starStore.zoomFromOther && starStore.linkedStars.length < 1) ? (
+          <StarName />
+        ) : null}
+
+        {starStore.linkedStars.length > 0 ? (
+          <div className="absolute flex flex-col z-[1000] top-[55%]">
+            <button className="z-[1000] p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+              나만의 별자리 생성
+            </button>
+
+            <button className="z-[1000] p-3 m-1 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+              다시 선택하기
+            </button>
+          </div>
+        ) : null}
+
         {constellationStore.constellationClicked ? (
           <StarInfoCarousel active={0} />
         ) : null}

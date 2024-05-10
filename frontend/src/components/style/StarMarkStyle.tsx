@@ -87,12 +87,12 @@ export const ToggleBtn = styled.button`
 `;
 
 export const MarkNameInput = styled.input`
-  background-color: var(--color-lightorange);
+  /* background-color: var(--color-lightorange); */
   color: var(--color-navy);
   font-size: 0.9rem;
   padding: 3px 5px;
   border-radius: 3px;
-  box-shadow: inset 0 0 5px #a0774e68;
+  box-shadow: inset 0 0 5px #4e4e4e68;
   text-align: center;
   &:focus-visible {
     outline: none;

@@ -13,6 +13,7 @@ import {
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
 import { GetConstellation, GetPlanets, GetStars } from '../../apis/StarApis';
+import { GetStarMark } from '../../apis/StarMarkApis';
 import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
@@ -22,7 +23,7 @@ import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
-import { GetUserConstellation } from '../../apis/MyConstApis';
+import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
 
 type Props = {};
@@ -82,6 +83,26 @@ const MainCanvas = (props: Props) => {
     queryFn: GetPlanets,
   });
 
+  const {
+    isLoading: isStarMarkLoading,
+    data: starMarkData,
+    refetch: getStarMarkRefetch,
+  } = useQuery({
+    queryKey: ['get-starMarks'],
+    queryFn: () => GetStarMark(userStore.userId),
+    enabled: !!userStore.userId, // userId가 유효한 경우에만 실행
+  });
+
+  useEffect(() => {
+    if (starMarkData) {
+      starStore.setMarkedStars(starMarkData.data);
+    }
+  }, [starMarkData]);
+
+  useEffect(() => {
+    getStarMarkRefetch();
+  }, [starStore.markSaveToggle]);
+
   const { isLoading: isConstLoading, data: constData } = useQuery({
     queryKey: ['get-consts'],
     queryFn: () => {
@@ -92,7 +113,7 @@ const MainCanvas = (props: Props) => {
   const { isLoading: isMyConstLoading, data: myConstData } = useQuery({
     queryKey: ['get-my-consts'],
     queryFn: () => {
-      return GetUserConstellation(userStore.userId);
+      return GetUserConstellationLinkApi(userStore.userId);
     },
   });
 
@@ -161,7 +182,7 @@ const MainCanvas = (props: Props) => {
     }
   }, [planetData, starData]);
 
-  if (isStarsLoading || isConstLoading || isPlanetLoading || isMyConstLoading) {
+  if (isStarsLoading || isConstLoading || isPlanetLoading || isMyConstLoading || isStarMarkLoading) {
     return <Loading />;
   }
 
@@ -333,7 +354,6 @@ const MainCanvas = (props: Props) => {
 
       {/* 별자리 호출 및 선긋기 */}
       {constData?.data &&
-        starPositions &&
         Object.entries(constData.data as ConstellationData).map(
           ([constellation, connections]) =>
             (connections as string[][]).map((starArr, index) => (
@@ -365,6 +385,36 @@ const MainCanvas = (props: Props) => {
         )}
 
       {/* 나만의 별자리 호출 및 선긋기 */}
+      {myConstData?.data &&
+        Object.entries(myConstData.data as ConstellationData).map(
+          ([constellation, connections]) =>
+            (connections as string[][]).map((starArr, index) => (
+              <MakeConstellation
+                key={index}
+                constellation={constellation}
+                pointA={
+                  new THREE.Vector3(
+                    -starPositions[starArr[0]]?.calX *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                    starPositions[starArr[0]]?.calZ *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                    starPositions[starArr[0]]?.calY *
+                      starPositions[starArr[0]]?.nomalizedMagV,
+                  )
+                }
+                pointB={
+                  new THREE.Vector3(
+                    -starPositions[starArr[1]]?.calX *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                    starPositions[starArr[1]]?.calZ *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                    starPositions[starArr[1]]?.calY *
+                      starPositions[starArr[1]]?.nomalizedMagV,
+                  )
+                }
+              />
+            )),
+        )}
 
       {!starStore.isARMode && <FloorMesh />}
     </Canvas>

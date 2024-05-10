@@ -51,7 +51,29 @@ module.exports = {
         backdropFilter: {
           'none': 'none',
           'sm': 'blur(4px)'
-        }
+        },
+
+          // 폼 요소의 기본 스타일 재정의
+          formControl: {
+            padding: '0', // padding을 0으로 설정
+            margin: '0', // margin을 0으로 설정
+            outline: 'none', // outline을 none으로 설정
+          },
+          boxShadow: {
+            focus: 'none', // 포커스 시 그림자 없앰
+          },
+          ringWidth: {
+            focus: '0', // 포커스 시 테두리 너비를 0으로 설정
+          },
+          ringColor: {
+            focus: 'transparent', // 포커스 시 테두리 색상을 투명하게 설정
+          },
+          outline: {
+            focus: 'none', // 포커스 시 외곽선 없앰
+          },
+          borderColor: {
+            focus: 'transparent', // 포커스 시 테두리 색상을 투명하게 설정
+          }
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -61,7 +83,9 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')({
+      strategy: 'class', // 폼 요소 스타일링 전략을 클래스 기반으로 설정
+    }),
     require('tailwindcss-filters'),
   ],
 }

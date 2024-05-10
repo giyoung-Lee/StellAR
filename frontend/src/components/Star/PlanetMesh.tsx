@@ -12,15 +12,7 @@ type Props = {
 };
 
 const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
-  const {
-    setStarClicked,
-    setPlanetClicked,
-    setPlanetId,
-    setZoomX,
-    setZoomY,
-    setZoomZ,
-    setStarId,
-  } = useStarStore();
+  const starStore = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
 
@@ -64,20 +56,18 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
   }, [scene, targetSize]);
 
   const click = (event: ThreeEvent<MouseEvent>) => {
-    // event.stopPropagation();
-
-    setPlanetId(planetId);
-    setStarId('');
-
-    setStarClicked(false);
-    setPlanetClicked(true);
+    event.stopPropagation();
+    starStore.resetLinkedStars();
+    starStore.setStarId(planetId);
+    starStore.setPlanetClicked(true)
+    starStore.setZoomFromOther(false);
 
     const starPosition = position;
     console.log('행성 클릭 지점' + starPosition);
 
-    setZoomX(starPosition.x);
-    setZoomY(starPosition.y);
-    setZoomZ(starPosition.z);
+    starStore.setZoomX(starPosition.x);
+    starStore.setZoomY(starPosition.y);
+    starStore.setZoomZ(starPosition.z);
   };
 
   return (

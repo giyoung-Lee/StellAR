@@ -25,6 +25,7 @@
     "@tanstack/react-query": "^5.29.2",
     "astronomy-engine": "^2.1.19",
     "axios": "^1.6.8",
+    "firebase": "^10.11.1",
     "lamina": "^1.1.23",
     "react": "^18.2.0",
     "react-daum-postcode": "^3.1.3",
@@ -38,6 +39,7 @@
     "zustand": "^3.7.0"
   },
   "devDependencies": {
+    "@types/node": "^20.12.11",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

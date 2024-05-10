@@ -48,6 +48,8 @@ export const Content = styled.div`
 
   input {
     color: black;
+    /* padding-top: 0 !important; */
+    line-height: 1 !important;
   }
   .address_info {
     input,
@@ -62,7 +64,7 @@ export const Content = styled.div`
         width: 50%;
       }
       &:focus {
-        outline: none;
+        outline: none !important;
       }
     }
     button {
@@ -96,12 +98,12 @@ export const OrderInfoSec = styled.div`
 `;
 
 export const ShippingInfoSec = styled.div`
-  margin-top: 10%;
+  margin-top: 5%;
   min-height: 20%;
 `;
 
 export const PayInfoSec = styled.div`
-  margin-top: 10%;
+  margin-top: 5%;
   min-height: 15%;
 `;
 

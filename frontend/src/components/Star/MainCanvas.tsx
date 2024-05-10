@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 import StarMesh from './StarMesh';
@@ -7,6 +7,8 @@ import {
   OrbitControls,
   PerspectiveCamera,
   DeviceOrientationControls,
+  Sparkles,
+  Stars,
 } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -163,10 +165,42 @@ const MainCanvas = (props: Props) => {
     return <Loading />;
   }
 
+  const BackgroundStars = () => {
+    const { camera } = useThree();
+    const ref = useRef<any>();
+
+    useFrame(() => {
+      if (ref.current) {
+        ref.current.position.copy(camera.position);
+        ref.current.position.z -= 1000;
+      }
+    });
+
+    return (
+      <>
+        <Sparkles ref={ref} count={100} scale={15} size={4} />
+        <Stars
+          ref={ref}
+          radius={500}
+          depth={500}
+          count={2000}
+          factor={20}
+          speed={1}
+        />
+      </>
+    );
+  };
+
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
+      {/* 배경 별 및 스파클 */}
+      <BackgroundStars />
+
       {/* 배경 설정 */}
-      <BackgroundSetter videoTexture={videoTexture} isARMode={starStore.isARMode} />
+      <BackgroundSetter
+        videoTexture={videoTexture}
+        isARMode={starStore.isARMode}
+      />
 
       {!starStore.isARMode && <Background />}
 
@@ -188,7 +222,11 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={1}
           far={100000}
-          position={[starStore.zoomX * 0.5, starStore.zoomY * 0.5, starStore.zoomZ * 0.5]}
+          position={[
+            starStore.zoomX * 0.5,
+            starStore.zoomY * 0.5,
+            starStore.zoomZ * 0.5,
+          ]}
         />
       ) : starStore.planetClicked ? (
         <PerspectiveCamera
@@ -196,7 +234,11 @@ const MainCanvas = (props: Props) => {
           fov={80}
           near={1}
           far={100000}
-          position={[starStore.zoomX * 0.85, starStore.zoomY * 0.85, starStore.zoomZ * 0.85]}
+          position={[
+            starStore.zoomX * 0.85,
+            starStore.zoomY * 0.85,
+            starStore.zoomZ * 0.85,
+          ]}
         />
       ) : (
         <PerspectiveCamera
@@ -254,7 +296,9 @@ const MainCanvas = (props: Props) => {
 
       {/* 조명 설정 */}
       <Lights />
-      
+
+      {/* <Sparkles count={100} scale={18} size={10} speed={1} /> */}
+
       {Object.values(starPositions).map((star: any) => (
         <StarMesh
           propstarId={star.starId}
@@ -283,7 +327,7 @@ const MainCanvas = (props: Props) => {
               planet.calY * planet.nomalizedMagV,
             )
           }
-          targetSize={800}
+          targetSize={1000}
         />
       ))}
 

@@ -127,7 +127,7 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
           <s.CarouselItem key={idx} style={{ ...getStyles(idx) }}>
             {card === 'image' ? (
               <StarInfoImage
-                constellationImg={constellationData?.data?.constellationImg}
+                constellationImg={`img/constellation/${constellationStore.constellationName}.png`}
               />
             ) : card === 'science' ? (
               <StarInfoScience constellationData={constellationData?.data} />

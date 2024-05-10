@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
+import * as THREE from 'three';
 import StarMesh from './StarMesh';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import {
@@ -169,8 +170,6 @@ const MainCanvas = (props: Props) => {
         videoTexture={videoTexture}
         isARMode={starStore.isARMode}
       />
-
-      {!starStore.isARMode && <Background />}
 
       {!starStore.isARMode && <Background />}
 

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ThreeEvent, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
+import Swal from 'sweetalert2';
 
 type Props = {
   position: THREE.Vector3;
@@ -47,12 +48,33 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     setMaterialColor('black'); // 클릭 시 색상 변경
 
-    console.log('click')
+    console.log('click');
 
     // if (starStore.linkedStars.some((link) => link[1] === propstarId)) return;
 
     if (starStore.starClicked) {
       starStore.addStarToClicked([currentStarId, propstarId]);
+    }
+
+    if (
+      starStore.starId === 'Jupiter' ||
+      starStore.starId === 'Mars' ||
+      starStore.starId === 'Mercury' ||
+      starStore.starId === 'Moon' ||
+      starStore.starId === 'Neptune' ||
+      starStore.starId === 'Saturn' ||
+      starStore.starId === 'Sun' ||
+      starStore.starId === 'Uranus' ||
+      starStore.starId === 'Venus'
+    ) {
+      Swal.fire({
+        title: '클릭 실패',
+        text: '행성은 별자리로 쓸 수 없어요!',
+        icon: 'error',
+        confirmButtonText: '확인',
+      }).then(() => {
+        window.location.reload();
+      });
     }
 
     if (currentStarPosition) {
@@ -76,7 +98,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
     starStore.setStarId(propstarId);
     starStore.setStarClicked(true);
     starStore.setPlanetClicked(false);
-    starStore.setZoomFromOther(false);    
+    starStore.setZoomFromOther(false);
 
     const starPosition = event.object.position;
 

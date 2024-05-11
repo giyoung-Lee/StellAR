@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import useStarStore from '../../stores/starStore';
 import * as n from '../style/StarNameStyle';
 import MarkBtn from '../StarMark/MarkBtn';
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as THREE from 'three';
-import { useThree } from '@react-three/fiber';
 
 const StarName = () => {
   const starStore = useStarStore();

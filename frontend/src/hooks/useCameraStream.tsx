@@ -38,7 +38,7 @@ const useCameraStream = () => {
           texture.format = THREE.RGBFormat;
 
           setVideoTexture(texture);
-          console.log('Camera stream adjusted for orientation.');
+          // console.log('Camera stream adjusted for orientation.');
         })
         .catch((error) => {
           console.error('Cannot access camera:', error);

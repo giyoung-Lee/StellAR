@@ -48,8 +48,6 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     setMaterialColor('black'); // 클릭 시 색상 변경
 
-    console.log('click');
-
     // if (starStore.linkedStars.some((link) => link[1] === propstarId)) return;
     if (currentStarId !== '' && starStore.starClicked) {
       starStore.addStarToClicked([currentStarId, propstarId]);

@@ -22,7 +22,7 @@ const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
   const { scene } = useThree();
 
   const handleClick = () => {
-    console.log('Line clicked:', constellation);
+    // console.log('Line clicked:', constellation);
     ConstellationStore.setConstellationClicked(true);
     ConstellationStore.setConstellationName(constellation);
   };

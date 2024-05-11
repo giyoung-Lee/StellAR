@@ -63,7 +63,7 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
     starStore.setZoomFromOther(false);
 
     const starPosition = position;
-    console.log('행성 클릭 지점' + starPosition);
+    // console.log('행성 클릭 지점' + starPosition);
 
     starStore.setZoomX(starPosition.x*0.9);
     starStore.setZoomY(starPosition.y*0.9);

@@ -134,7 +134,7 @@
 }
 
 .AppSize {
-  max-width: 576px;
+  /* max-width: 576px; */
   min-height: 100vh;
   margin: auto;
 }
@@ -146,22 +146,17 @@
 
 /* 화면 너비가 576px 이상인 경우 */
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .AppSize {
     display: none;
   }
 
   #WebDesign {
     display: block;
-    /* text-align: center; */
-    /* padding: 20px; */
-    /* font-size: 3vh; */
-    /* font-weight: bold; */
     color: #f2cea2;
-    /* background-color: #414141; */
     height: 100vh;
   }
-}
+} */
 
 /* 화면 너비가 360px 미만인 경우 */
 @media (max-width: 359px) {

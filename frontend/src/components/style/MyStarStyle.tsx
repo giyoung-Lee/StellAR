@@ -1,29 +1,22 @@
 import styled from 'styled-components';
 
-export const StarInfo = styled.div`
+export const ConstellationInfo = styled.div`
   position: relative;
-  /* width: 100%; */
-  top: 20%;
-  left: 5%;
-  height: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
-export const NameBox = styled.div``;
-
-export const StarName = styled.span`
-  font-size: 13px;
-  margin-left: 10px;
-`;
-
-export const BookMarkName = styled.span`
+export const ConstellationName = styled.p`
   color: var(--color-orange);
-  font-size: 17px;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
 `;
+
+export const ConstellationDes = styled.p``;
 
 export const Date = styled.p`
   color: var(--color-light);
   font-size: 13px;
+  text-align: end;
 `;
+

@@ -24,7 +24,6 @@ const MarkBtn = ({ starName }: Props) => {
 
   const handleSaveBtnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    console.log('저장');
     setIsInput(!isInput);
     mutate(markData);
   };

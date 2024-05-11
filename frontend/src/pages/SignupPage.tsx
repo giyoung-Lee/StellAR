@@ -116,7 +116,7 @@ const SignupPage = () => {
     e.preventDefault();
 
     if (validateInputs()) {
-        console.log(signupData)
+        // console.log(signupData)
         mutate(signupData);
     }
   };

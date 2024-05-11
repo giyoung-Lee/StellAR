@@ -15,7 +15,7 @@ const MyStarPage = () => {
   const {
     isLoading: isUserConstellationLoading,
     data: userConstellationData,
-    isError,
+    isError: userConstellationError,
     refetch: getUserConstellationRefetch,
   } = useQuery({
     queryKey: ['get-userConstellation'],

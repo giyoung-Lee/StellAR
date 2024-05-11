@@ -54,7 +54,7 @@ const EmbPage = () => {
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       Swal.fire({
         title: '성공!',
         text: '별자리가 성공적으로 생성되었습니다.',

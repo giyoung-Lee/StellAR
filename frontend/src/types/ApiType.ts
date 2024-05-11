@@ -26,7 +26,8 @@ interface UserConstellationData {
   links: string[][];
 }
 
-interface deleteMyConstellationApiype {
+interface deleteMyConstellationApitype {
   userId: string;
-  constellationId: Number;
+  constellationId: number;
 }
+

@@ -29,8 +29,8 @@ export const GetUserConstellationLinkApi = async (userId: string) => {
   });
 };
 
-export const DeleteUserConstellationApi = async (
-  deleteData: deleteMyConstellationApiype,
+export const DeleteUserConstellation = async (
+  deleteData: deleteMyConstellationApitype,
 ) => {
   return await publicRequest
     .delete('user-constellation/delete', {
@@ -46,3 +46,4 @@ export const GetUserConstellation = async (userId: string) => {
     },
   });
 };
+

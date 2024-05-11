@@ -9,6 +9,8 @@ import {
   faXmark,
   faMagnifyingGlass,
   faO,
+  faVolumeXmark,
+  faVolumeHigh,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faCopy, faStar } from '@fortawesome/free-regular-svg-icons';
@@ -24,5 +26,7 @@ library.add(
   faStar,
   faMagnifyingGlass,
   faO,
+  faVolumeXmark,
+  faVolumeHigh
 );
 

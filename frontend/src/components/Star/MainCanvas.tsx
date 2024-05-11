@@ -288,7 +288,7 @@ const MainCanvas = (props: Props) => {
           // maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
-          enableZoom={true}
+          enableZoom={false}
         />
       )}
 

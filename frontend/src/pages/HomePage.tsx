@@ -20,6 +20,8 @@ import Button from '@mui/joy/Button';
 import Sheet from '@mui/joy/Sheet';
 import Textarea from '@mui/joy/Textarea';
 import { whereAmI } from '../apis/UserApis';
+import '../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const HomePage = () => {
   const starStore = useStarStore();
@@ -124,6 +126,10 @@ const HomePage = () => {
     mutate(userConstellationData);
   };
 
+  const toggleGyro = () => {
+    userStore.setIsGyro(!userStore.isGyro);
+  }
+
   const hwangdo13info = [
     'Aquarius',
     'Aries',
@@ -151,6 +157,10 @@ const HomePage = () => {
           <span>{MyLocationData.address.county}</span>
         </div>
       )}
+
+      <div className="fixed top-3 right-4 z-[1000]" onClick={toggleGyro}>
+        <FontAwesomeIcon icon="location-crosshairs" size="xl" />
+      </div>
 
       {/* 별 이름 보여주기 */}
       <h.Wrapper>

@@ -206,7 +206,7 @@ const MainCanvas = (props: Props) => {
       <CameraAnimator />
 
       {/* 카메라 설정 */}
-      {starStore.isARMode ? (
+      {starStore.isARMode || userStore.isGyro ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
@@ -253,7 +253,7 @@ const MainCanvas = (props: Props) => {
       )}
 
       {/* 카메라 시점 관련 설정 */}
-      {starStore.isARMode ? (
+      {starStore.isARMode || userStore.isGyro ? (
         <DeviceOrientationControls />
       ) : starStore.starClicked || isFromOther ? (
         <OrbitControls

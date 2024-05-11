@@ -38,7 +38,7 @@ export const whereAmI = async (lat: number, lng: number) => {
     const response = await axios.get(
       `https://us1.locationiq.com/v1/reverse?key=pk.79b88e9424b3de5037b3608c0cea8016&lat=${lat}&lon=${lng}&format=json&`,
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.error('Location fetching error:', error);

@@ -11,6 +11,7 @@ import {
   faO,
   faVolumeXmark,
   faVolumeHigh,
+  faLocationCrosshairs,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faCopy, faStar } from '@fortawesome/free-regular-svg-icons';
@@ -27,6 +28,7 @@ library.add(
   faMagnifyingGlass,
   faO,
   faVolumeXmark,
-  faVolumeHigh
+  faVolumeHigh,
+  faLocationCrosshairs
 );
 

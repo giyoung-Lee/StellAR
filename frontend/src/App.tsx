@@ -74,9 +74,12 @@ const App = () => {
         <Router>
           <GlobalStyle />
           <AppRoutes />
-          <button className='fixed top-3 left-4' onClick={toggleMusic}>
-          
-            {isPlaying ? (<FontAwesomeIcon icon="volume-high" size='xl' />) : (<FontAwesomeIcon icon="volume-xmark" size='xl' />)}
+          <button className="fixed top-3 left-4" onClick={toggleMusic}>
+            {isPlaying ? (
+              <FontAwesomeIcon icon="volume-high" size="xl" />
+            ) : (
+              <FontAwesomeIcon icon="volume-xmark" size="xl" />
+            )}
           </button>
           <ConditionalNav />
         </Router>

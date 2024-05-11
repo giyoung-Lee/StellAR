@@ -70,7 +70,7 @@ const LoginPage = () => {
   const { mutate } = useMutation({
     mutationFn: loginApi,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       navigate('/');
       userStore.setUser({ userId: loginData.userId });
       userStore.setIsLogin(true);

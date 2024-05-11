@@ -21,7 +21,7 @@ const Lights = () => {
         position={[-90, -10, 10]}
         castShadow={false}
       />
-      <axesHelper args={[20000]} />
+      {/* <axesHelper args={[20000]} /> */}
     </>
   );
 };

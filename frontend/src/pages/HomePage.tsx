@@ -19,6 +19,7 @@ import Stack from '@mui/joy/Stack';
 import Button from '@mui/joy/Button';
 import Sheet from '@mui/joy/Sheet';
 import Textarea from '@mui/joy/Textarea';
+import { whereAmI } from '../apis/UserApis';
 
 const HomePage = () => {
   const starStore = useStarStore();
@@ -54,7 +55,7 @@ const HomePage = () => {
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       Swal.fire({
         title: '성공!',
         text: '별자리가 성공적으로 생성되었습니다.',
@@ -73,6 +74,39 @@ const HomePage = () => {
     },
   });
 
+  // 현재 위치 불러오기
+  useEffect(() => {
+    const getCurrentLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            userStore.setUserLat(latitude);
+            userStore.setUserLng(longitude);
+          },
+          (error) => {
+            console.error('Geolocation 에러: ', error);
+          },
+        );
+      } else {
+        console.error('위치 허용을 지원하지 않는 브라우저일 수 있습니다.');
+      }
+    };
+
+    getCurrentLocation();
+  }, []);
+
+  // 현재 주소 보여주기
+  const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery(
+    {
+      queryKey: ['get-my-location'],
+      queryFn: () => {
+        return whereAmI(userStore.userLat, userStore.userLng);
+      },
+    },
+  );
+
+  // 나만의 별자리 만들기 모달 관련
   const [open, setOpen] = useState<boolean>(false);
 
   const handleInputChange = (
@@ -109,6 +143,16 @@ const HomePage = () => {
 
   return (
     <>
+      {/* 현재 위치 보여주기 */}
+      {MyLocationData && (
+        <div className="fixed bottom-1 left-2 z-[1000]">
+          <span>{MyLocationData.address.country} </span>
+          <span>{MyLocationData.address.city} </span>
+          <span>{MyLocationData.address.county}</span>
+        </div>
+      )}
+
+      {/* 별 이름 보여주기 */}
       <h.Wrapper>
         {(starStore.starClicked && starStore.linkedStars.length < 1) ||
         (starStore.planetClicked && starStore.linkedStars.length < 1) ||

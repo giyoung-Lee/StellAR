@@ -25,7 +25,6 @@ import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
-import { whereAmI } from '../../apis/UserApis';
 
 type Props = {};
 
@@ -42,42 +41,6 @@ const MainCanvas = (props: Props) => {
   const isFromOther = starStore.zoomFromOther;
 
   const videoTexture = useCameraStream();
-
-  // 광주시청을 기본값으로
-  const [position, setPosition] = useState<Position>({
-    lat: 35.1595,
-    lng: 126.8526,
-  });
-
-  // 현재 위치 불러오기
-  useEffect(() => {
-    const getCurrentLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setPosition({ lat: latitude, lng: longitude });
-            userStore.setUserLat(latitude);
-            userStore.setUserLng(longitude);
-          },
-          (error) => {
-            console.error('Geolocation 에러: ', error);
-          },
-        );
-      } else {
-        console.error('위치 허용을 지원하지 않는 브라우저일 수 있습니다.');
-      }
-    };
-
-    getCurrentLocation();
-  }, []);
-
-  const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery({
-    queryKey: ['get-my-location'],
-    queryFn: () => {
-      return whereAmI(userStore.userLat, userStore.userLng);
-    },
-  });
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
@@ -134,7 +97,7 @@ const MainCanvas = (props: Props) => {
   // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
   const calculateStarPositions = (data: StarDataMap) => {
     const time = new Date();
-    const observer = new Astronomy.Observer(position.lat, position.lng, 0);
+    const observer = new Astronomy.Observer(userStore.userLat, userStore.userLng, 0);
     const result: StarDataMap = {};
 
     Object.keys(data).forEach((key) => {
@@ -195,8 +158,7 @@ const MainCanvas = (props: Props) => {
     isConstLoading ||
     isPlanetLoading ||
     isMyConstLoading ||
-    isStarMarkLoading ||
-    LocationFetchingLoading
+    isStarMarkLoading
   ) {
     return <Loading />;
   }

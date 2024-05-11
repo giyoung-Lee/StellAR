@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as o from '../style/OrderStyle';
 import useOrderStore from '../../stores/orderStore';
 import '../../pages/style/Fontawsome';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ShippingInfo = () => {
   const orderStore = useOrderStore();

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export const StarInfo = styled.div`
   position: relative;
   /* width: 100%; */
-  top: 20%;
+  /* top: 20%;
   left: 5%;
-  height: 60%;
+  height: 60%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,6 +26,7 @@ export const BookMarkName = styled.span`
 export const Date = styled.p`
   color: var(--color-light);
   font-size: 13px;
+  margin-top: 3%;
 `;
 
 export const HelpContent = styled.p`
@@ -36,7 +37,7 @@ export const HelpContent = styled.p`
 export const Star = styled.span`
   position: absolute;
   z-index: 1000;
-  right: 10%;
+  right: 0;
   .container input {
     position: absolute;
     opacity: 0;
@@ -115,3 +116,4 @@ export const SaveBtn = styled.button`
   font-size: 0.9rem;
   color: var(--color-dark);
 `;
+

@@ -19,6 +19,7 @@ public class KakaopayController {
      */
     @PostMapping("/ready")
     public ResponseEntity<?> readyToKakaoPay() {
+        // user id, count(몇개샀는지), product id
         try {
             KakaoReadyResponseDto dto = kakaoPayService.kakaoPayReady();
             return new ResponseEntity<>(dto, HttpStatus.OK);
@@ -32,6 +33,17 @@ public class KakaopayController {
     public ResponseEntity<?> afterPayRequest(@RequestParam("pg_token") String pgToken) {
         kakaoPayService.ApproveResponse(pgToken);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<?> returnProducts() {
+        // 상품 리스트를 전부 보내주기.
+        try {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**

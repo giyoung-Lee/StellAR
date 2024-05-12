@@ -2,6 +2,7 @@ package com.ssafy.stellar.constellation.controller;
 
 import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.dto.response.ConstellationEventDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationXODto;
 import com.ssafy.stellar.constellation.service.ConstellationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +70,17 @@ public class ConstellationController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/xo")
+    public ResponseEntity<?> returnContellationXO(@RequestParam String constellationId) {
+        try {
+            List<ConstellationXODto> dto = constellationService.returnConstellationXO(constellationId);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

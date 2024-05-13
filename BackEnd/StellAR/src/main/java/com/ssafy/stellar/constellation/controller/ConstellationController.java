@@ -2,7 +2,14 @@ package com.ssafy.stellar.constellation.controller;
 
 import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.dto.response.ConstellationEventDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationXODto;
 import com.ssafy.stellar.constellation.service.ConstellationService;
+import com.ssafy.stellar.userConstellation.dto.response.UserConstellationDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +76,21 @@ public class ConstellationController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @Operation(summary = "ox 퀴즈 조회", description = "별자리에 맞는 ox퀴즈를 반환해줍니다. ox가 아니라 xo로 조금 힙하게 해봤어요." +
+            " \n 그냥 빈값넣으면 전체 퀴즈가 조회됩니다. ")
+    @ApiResponse(responseCode = "200", description = "퀴즈 조회..... 성공!")
+    @GetMapping("/xo")
+    public ResponseEntity<?> returnContellationXO(@RequestParam String constellationId) {
+        try {
+            List<ConstellationXODto> dto = constellationService.returnConstellationXO(constellationId);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -4,24 +4,14 @@ import { getMessaging, getToken, onMessage, Messaging } from 'firebase/messaging
 import { useState } from 'react';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyDO-oXXwpueTV4p2LF_lK6UJFeWXXQf6_E",
+  authDomain: "stellar-e2012.firebaseapp.com",
+  projectId: "stellar-e2012",
+  storageBucket: "stellar-e2012.appspot.com",
+  messagingSenderId: "400069443108",
+  appId: "1:400069443108:web:11fe7fac82f9b9e78862b1",
+  measurementId: "G-MWYW1NJBNG"
 };
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDO-oXXwpueTV4p2LF_lK6UJFeWXXQf6_E",
-//   authDomain: "stellar-e2012.firebaseapp.com",
-//   projectId: "stellar-e2012",
-//   storageBucket: "stellar-e2012.appspot.com",
-//   messagingSenderId: "400069443108",
-//   appId: "1:400069443108:web:11fe7fac82f9b9e78862b1",
-//   measurementId: "G-MWYW1NJBNG"
-// };
 
 // Firebase 앱 초기화
 const app = initializeApp(firebaseConfig);
@@ -47,7 +37,7 @@ export const requestPermission = async () => {
 
   if (permission === 'granted') {
     try {
-      const token = await getToken(messaging, { vapidKey: import.meta.env.VITE_REACT_APP_FIREBASE_VAPID_KEY });
+      const token = await getToken(messaging, { vapidKey: "BPxdfbo29YzD9IS9wcXcKL0-b2zjOQCyqZIWLJiFWrkXPxkD2qM_2ROFkHc_tQOnxWKwOQXaYzzU_heXZ6cyuPk" });
       if (token) {
         console.log(`푸시 토큰 발급 완료: ${token}`);
         // 서버로 토큰 전송 로직 추가

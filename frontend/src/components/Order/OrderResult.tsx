@@ -11,18 +11,17 @@ const OrderResult = () => {
     <>
       <o.ResultWrapper>
         <div className="card">
-          {/* <h2>Error</h2>
+          <h2>Error</h2>
           <o.LottieGif>
             <Lottie animationData={errorLottie} />
           </o.LottieGif>
+          <button onClick={() => navigate(-1)}>‹ 뒤로가기</button>
 
-          <button onClick={() => navigate(-1)}>‹ 뒤로가기</button> */}
-          <h2>주문 완료</h2>
+          {/* <h2>주문 완료</h2>
           <o.LottieGif>
             <Lottie animationData={successLottie} />
           </o.LottieGif>
-
-          <button onClick={() => navigate(-1)}>‹ 뒤로가기</button>
+          <button onClick={() => navigate(-1)}>‹ 뒤로가기</button> */}
         </div>
       </o.ResultWrapper>
     </>

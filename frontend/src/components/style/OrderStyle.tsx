@@ -88,6 +88,9 @@ export const Content = styled.div`
         display: flex;
         flex-direction: column;
         width: 80%;
+        .search-address {
+          cursor: pointer;
+        }
       }
     }
   }
@@ -105,11 +108,16 @@ export const ShippingInfoSec = styled.div`
 export const PayInfoSec = styled.div`
   margin-top: 5%;
   min-height: 15%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const PayBtn = styled.div`
-  height: 50px;
-  margin-top: 5%;
+  height: 45px;
+  width: 250px;
+  margin-top: 7%;
+  align-self: center;
+  text-align: center;
 
   .container {
     background-color: #ffffff;
@@ -402,14 +410,21 @@ export const ResultWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
+  @media (min-width: 574px) {
+    .card {
+      width: 400px;
+      height: 500px;
+    }
+  }
+
   button {
     z-index: 1;
     margin-top: 5%;
   }
 
   .card {
-    width: 80%;
-    height: 50%;
+    width: 300px;
+    height: 400px;
     background: #ffffff;
     position: relative;
     display: flex;

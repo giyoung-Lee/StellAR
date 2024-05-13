@@ -5,12 +5,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.dto.response.ConstellationEventDto;
+import com.ssafy.stellar.constellation.dto.response.ConstellationXODto;
 import com.ssafy.stellar.constellation.entity.ConstellationEntity;
 import com.ssafy.stellar.constellation.entity.ConstellationEventEntity;
 import com.ssafy.stellar.constellation.entity.ConstellationLinkEntity;
+import com.ssafy.stellar.constellation.entity.ConstellationXOEntity;
 import com.ssafy.stellar.constellation.repository.ConstellationEventRepository;
 import com.ssafy.stellar.constellation.repository.ConstellationLinkRepository;
 import com.ssafy.stellar.constellation.repository.ConstellationRepository;
+import com.ssafy.stellar.constellation.repository.ConstellationXORepository;
 import com.ssafy.stellar.star.entity.StarEntity;
 import com.ssafy.stellar.star.repository.StarRepository;
 import org.springframework.stereotype.Service;
@@ -29,19 +32,19 @@ import java.util.stream.Collectors;
 public class ConstellationServiceImpl implements ConstellationService{
 
     private final ConstellationRepository constellationRepository;
-    private final StarRepository starRepository;
     private final ConstellationLinkRepository constellationLinkRepository;
     private final ConstellationEventRepository constellationEventRepository;
+    private final ConstellationXORepository constellationXORepository;
 
 
     public ConstellationServiceImpl(ConstellationRepository constellationRepository,
-                                    StarRepository starRepository,
                                     ConstellationLinkRepository constellationLinkRepository,
-                                    ConstellationEventRepository constellationEventRepository) {
+                                    ConstellationEventRepository constellationEventRepository,
+                                    ConstellationXORepository constellationXORepository) {
         this.constellationRepository = constellationRepository;
-        this.starRepository = starRepository;
         this.constellationLinkRepository = constellationLinkRepository;
         this.constellationEventRepository = constellationEventRepository;
+        this.constellationXORepository = constellationXORepository;
     }
 
 
@@ -104,9 +107,32 @@ public class ConstellationServiceImpl implements ConstellationService{
                 .collect(Collectors.toList());
     }
 
-    private StarEntity findByStarId (String starId) {
-        return starRepository.findByStarId(starId);
+    @Override
+    public List<ConstellationXODto> returnConstellationXO(String ConstellationId) {
+
+        List<ConstellationXOEntity> entity_list = new ArrayList<>();
+
+        if (!ConstellationId.equals("")) {
+            entity_list = constellationXORepository.findAllByConstellationId(ConstellationId);
+        } else {
+            entity_list = constellationXORepository.findAll();
+        }
+
+        List<ConstellationXODto> dto_list = new ArrayList<>();
+
+        for (ConstellationXOEntity entity : entity_list) {
+            ConstellationXODto dto = new ConstellationXODto();
+
+            dto.setConstellationId(entity.getConstellationId().getConstellationId());
+            dto.setConstellationQuestionContents(entity.getConstellationQuestionContents());
+            dto.setConstellationQuestionAnswer(entity.getConstellationQuestionAnswer());
+
+            dto_list.add(dto);
+        }
+
+        return dto_list;
     }
+    // ################################구분선####################################
 
     private static ConstellationDto getConstellationAllDto(ConstellationEntity entity) {
         ConstellationDto temp = new ConstellationDto();

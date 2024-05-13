@@ -7,26 +7,45 @@ const isLocalhost = Boolean(
   )
 );
 
+const isDistributed = Boolean(
+  window.location.hostname === 'k10c105.p.ssafy.io' ||
+  window.location.hostname === '[::1]' ||
+  window.location.hostname.match(
+    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}$/
+  )
+);
+
 // EC2
 const PUBLIC_URL = "https://k10c105.p.ssafy.io"
+console.log(PUBLIC_URL)
 // // 로컬
-// const PUBLIC_URL = "http://localhost:5173"
+const LOCAL_URL = "http://localhost:5173"
 
 export const register = () => {
 // export function register() {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     const publicUrl = new URL(PUBLIC_URL, window.location.href);
-    if (publicUrl.origin !== window.location.origin) {
+    const localUrl = new URL(PUBLIC_URL, window.location.href);
+    console.log(publicUrl)
+    console.log(window.location)
+    if (publicUrl.origin !== window.location.origin && localUrl.origin !== window.location.origin) {
       return;
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${PUBLIC_URL}/firebase-messaging-sw.js`;
+      const swUrl1 = `${PUBLIC_URL}/firebase-messaging-sw.js`;
 
       if (isLocalhost) {
-        checkValidServiceWorker(swUrl);
+        checkValidServiceWorker(swUrl1);
       } else {
-        registerValidSW(swUrl);
+        registerValidSW(swUrl1);
+      }
+      const swUrl2 = `${PUBLIC_URL}/firebase-messaging-sw.js`;
+
+      if (isDistributed) {
+        checkValidServiceWorker(swUrl2);
+      } else {
+        registerValidSW(swUrl2);
       }
     });
   }

@@ -18,11 +18,11 @@ const OrderInfo = () => {
         <p className="ordered_item">Galaxy 스마트 별자리 빔프로젝터</p>
         <div className="ordered_qt">
           <span>수량</span>
-          <p className="set_qt">
+          <span className="set_qt">
             <button onClick={down}>-</button>
             <p>{qt}</p>
             <button onClick={up}>+</button>
-          </p>
+          </span>
         </div>
         <span className="total_price">
           {(2000000 * qt).toLocaleString('ko-KR')}

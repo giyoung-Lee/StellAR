@@ -6,17 +6,23 @@ import ShippingInfo from '../components/Order/ShippingInfo';
 import PayInfo from '../components/Order/PayInfo';
 import ShippingModal from '../components/Order/ShippingModal';
 import useOrderStore from '../stores/orderStore';
+import OrderForm from '../components/Order/OrderForm';
+import { Route, Routes } from 'react-router-dom';
+import OrderResult from '../components/Order/OrderResult';
 
 const OrderPage = () => {
   const orderStore = useOrderStore();
   return (
     <o.Wrapper>
-      <o.Container className={orderStore.isModalOpen ? 'blur' : ''}>
-        <Header />
-        <OrderInfo />
-        <ShippingInfo />
-        <PayInfo />
-      </o.Container>
+      <Routes>
+        <Route path="/" element={<OrderForm />} />
+      </Routes>
+      <Routes>
+        <Route path="error" element={<OrderResult />} />
+      </Routes>
+      <Routes>
+        <Route path="success" element={<OrderResult />} />
+      </Routes>
       {orderStore.isModalOpen && <ShippingModal />}
     </o.Wrapper>
   );

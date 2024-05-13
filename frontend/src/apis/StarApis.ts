@@ -27,3 +27,11 @@ export const GetConstellationDetail = async (constellationId: string) => {
 export const GetPlanets = async () => {
   return await publicRequest.get('star/planet');
 };
+
+export const GetXoQuiz = async (constellationId: string) => {
+  return await publicRequest.get('/constellation/xo', {
+    params: {
+      constellationId: constellationId,
+    },
+  });
+};

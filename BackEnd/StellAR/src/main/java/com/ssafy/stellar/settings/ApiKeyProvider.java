@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class ApiKeyProvider {
-//    @Value("${GOOGLE_API_KEY}")
-    private String googleApiKey;
+    @Value("${FIREBASE_API_KEY}")
+    private String firebaseApiKey;
 }

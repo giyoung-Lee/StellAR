@@ -5,6 +5,7 @@ import com.ssafy.stellar.user.dto.response.UserDto;
 import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -63,9 +64,9 @@ public class UserController {
     @Operation(summary = "로그인", description = "사용자가 로그인을 합니다.")
     @ApiResponse(responseCode = "200", description = "로그인 성공", content = @Content(schema = @Schema(implementation = UserDto.class)))
     @ApiResponse(responseCode = "400", description = "로그인 실패", content = @Content)
-    public HttpEntity<?> login(@RequestParam String userId, @RequestParam String password) {
+    public HttpEntity<?> login(@RequestParam String userId, @RequestParam String password, @RequestParam(required = false) String deviceToken) {
         try {
-            UserDto user = userService.logIn(userId, password);
+            UserDto user = userService.logIn(userId, password, deviceToken);
             return new ResponseEntity<UserDto>(user, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

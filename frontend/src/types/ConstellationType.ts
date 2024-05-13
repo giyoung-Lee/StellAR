@@ -9,3 +9,9 @@ interface ConstellationDetail {
   constellationType: string;
   constellationEndObservation: string;
 }
+
+interface QuizType {
+  constellationQuestionContents: string;
+  constellationQuestionAnswer: string;
+  constellationId: string;
+}

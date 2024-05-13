@@ -38,16 +38,6 @@ const EmbCanvas = (props: Props) => {
 
   const isFromOther = starStore.zoomFromOther;
 
-  const videoTexture = useCameraStream();
-
-  // 광주시청을 기본값으로
-  const [position, setPosition] = useState<Position>({
-    lat: 35.1595,
-    lng: 126.8526,
-  });
-
-  // 현재 위치 불러오기
-
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
     queryFn: () => {
@@ -103,7 +93,7 @@ const EmbCanvas = (props: Props) => {
   // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
   const calculateStarPositions = (data: StarDataMap) => {
     const time = new Date();
-    const observer = new Astronomy.Observer(position.lat, position.lng, 0);
+    const observer = new Astronomy.Observer(userStore.userLat, userStore.userLng, 0);
     const result: StarDataMap = {};
 
     Object.keys(data).forEach((key) => {

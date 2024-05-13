@@ -95,7 +95,7 @@ class UserServiceTest {
         when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(true);
 
         // when
-        UserDto userDto = userService.logIn("wncks", "wncks1234");
+        UserDto userDto = userService.logIn("wncks", "wncks1234", "aa");
 
         // then
         assertThat(userDto).isNotNull()

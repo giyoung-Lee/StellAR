@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  redirect,
+  Navigate,
+} from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 import HomePage from '../pages/HomePage';
@@ -7,15 +13,16 @@ import NotFoundPage from '../pages/NotFoundPage';
 import EntryPage from '../pages/EntryPage';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
-import AuthPage from '../pages/AuthPage';
 import MyStarPage from '../pages/MyStarPage';
 import StarMarkPage from '../pages/StarMarkPage';
 import EventPage from '../pages/EventPage';
 import ShopPage from '../pages/ShopPage';
 import OrderPage from '../pages/OrderPage';
+import useUserStore from '../stores/userStore';
 
 const AppRoutes = () => {
   const location = useLocation();
+  const userStore = useUserStore();
   const [displayLocation, setDisplayLocation] = useState(location);
   const [transitionStage, setTransitionStage] = useState('fadeIn');
 
@@ -32,17 +39,21 @@ const AppRoutes = () => {
       }}
     >
       <Routes location={displayLocation}>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            userStore.isLogin ? <HomePage /> : <Navigate replace to="/entry" />
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/entry" element={<EntryPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/auth" element={<AuthPage />} />
         <Route path="/myStar/:id" element={<MyStarPage />} />
         <Route path="/starMark/:id" element={<StarMarkPage />} />
         <Route path="/event" element={<EventPage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/order/:id" element={<OrderPage />} />
+        <Route path="/order/:id/*" element={<OrderPage />} />
       </Routes>
     </PageContainer>
   );

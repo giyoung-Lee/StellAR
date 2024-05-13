@@ -32,7 +32,6 @@ if ('serviceWorker' in navigator) {
 }
 
 export const requestPermission = async () => {
-// export async function requestPermission() {
   const permission = await Notification.requestPermission();
 
   if (permission === 'granted') {

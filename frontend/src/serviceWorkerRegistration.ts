@@ -7,16 +7,21 @@ const isLocalhost = Boolean(
   )
 );
 
+// EC2
+const PUBLIC_URL = "https://k10c105.p.ssafy.io"
+// // 로컬
+// const PUBLIC_URL = "http://localhost:5173"
+
 export const register = () => {
 // export function register() {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
-    const publicUrl = new URL(import.meta.env.PUBLIC_URL, window.location.href);
+    const publicUrl = new URL(PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       return;
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/firebase-messaging-sw.js`;
+      const swUrl = `${PUBLIC_URL}/firebase-messaging-sw.js`;
 
       if (isLocalhost) {
         checkValidServiceWorker(swUrl);

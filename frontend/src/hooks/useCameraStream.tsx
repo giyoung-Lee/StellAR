@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
+import useStarStore from '../stores/starStore';
 
 const useCameraStream = () => {
+  const starStore = useStarStore();
   const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(
     null,
   );
 
   useEffect(() => {
+    if (!starStore.isARMode) {
+      return;
+    }
+
     const constraints = {
       video: {
         facingMode: 'environment',
@@ -29,7 +35,6 @@ const useCameraStream = () => {
         texture.format = THREE.RGBFormat;
 
         setVideoTexture(texture);
-        console.log('카메라 스트림 성공');
       })
       .catch((error) => {
         console.error('카메라 접근 불가:', error);

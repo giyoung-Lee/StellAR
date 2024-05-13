@@ -9,6 +9,8 @@ import {
   DeviceOrientationControls,
   Sparkles,
   Stars,
+  Stats,
+  StatsGl,
 } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -25,6 +27,7 @@ import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
+import DrawCallCounter from './DrawCallCounter';
 
 type Props = {};
 
@@ -195,6 +198,12 @@ const MainCanvas = (props: Props) => {
 
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
+      {/* Stas */}
+      <Stats />
+
+      {/* DrawCall */}
+      <DrawCallCounter />
+
       {/* 배경 별 및 스파클 */}
       {!starStore.isARMode && <BackgroundStars />}
 
@@ -299,8 +308,7 @@ const MainCanvas = (props: Props) => {
       {/* 조명 설정 */}
       <Lights />
 
-      {/* <Sparkles count={100} scale={18} size={10} speed={1} /> */}
-
+      {/* 별 */}
       {Object.values(starPositions).map((star: any) => (
         <StarMesh
           propstarId={star.starId}
@@ -421,3 +429,4 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
+

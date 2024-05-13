@@ -1,62 +1,79 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import * as THREE from 'three';
 import useStarStore from '../stores/starStore';
-import { debounce } from 'lodash';
 
 const useCameraStream = () => {
-  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
-  const starStore = useStarStore();
+    const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
+    const [isLandscape, setIsLandscape] = useState(false);
+    const starStore = useStarStore();
+    const prevIsLandscape = useRef(isLandscape);
 
-  useEffect(() => {
-    if (!starStore.isARMode) {
-      return;
-    }
+    const adjustVideoSettings = (width: number, height: number) => {
+        console.log('해상도 조정:', width, height);
 
-    let video = document.createElement('video');
-    const constraints = {
-      video: {
-        facingMode: 'environment'
-      }
+        const constraints = {
+            video: {
+                facingMode: 'environment',
+                width: { ideal: width },
+                height: { ideal: height }
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                const video = document.createElement('video');
+                video.srcObject = stream;
+                video.autoplay = true;
+                video.play();
+
+                const texture = new THREE.VideoTexture(video);
+                texture.minFilter = THREE.LinearFilter;
+                texture.magFilter = THREE.LinearFilter;
+                texture.format = THREE.RGBFormat;
+
+                setVideoTexture(texture);
+            })
+            .catch((error) => {
+                console.error('Cannot access camera:', error);
+            });
     };
 
-    navigator.mediaDevices.getUserMedia(constraints)
-      .then((stream) => {
-        video.srcObject = stream;
-        video.autoplay = true;
-        video.play();
+    useEffect(() => {
+        if (!starStore.isARMode) {
+            return;
+        }
 
-        const texture = new THREE.VideoTexture(video);
-        texture.minFilter = THREE.LinearFilter;
-        texture.magFilter = THREE.LinearFilter;
-        texture.format = THREE.RGBFormat;
+        const handleOrientationChange = (event: DeviceOrientationEvent) => {
+            const gamma = event.gamma || 0; // gamma가 null일 경우 0으로 처리
+            const currentIsLandscape = Math.abs(gamma) > 45;
+            setIsLandscape(currentIsLandscape);
+        };
 
-        setVideoTexture(texture);
-      })
-      .catch((error) => {
-        console.error('Cannot access camera:', error);
-      });
+        window.addEventListener('deviceorientation', handleOrientationChange);
 
-    const handleOrientationChange = debounce((event) => {
-      const { gamma } = event;
-      const isLandscape = Math.abs(gamma) > 45;
-      video.style.width = isLandscape ? '100vh' : '100vw';
-      video.style.height = isLandscape ? '100vw' : '100vh';
-    }, 250); // 250ms 딜레이로 debounce 처리
+        return () => {
+            window.removeEventListener('deviceorientation', handleOrientationChange);
+            if (videoTexture?.image instanceof HTMLVideoElement) {
+                const video = videoTexture.image;
+                const stream = video.srcObject as MediaStream;
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+                video.srcObject = null;
+            }
+        };
+    }, [starStore.isARMode]);
 
-    window.addEventListener('deviceorientation', handleOrientationChange);
+    useEffect(() => {
+        if (prevIsLandscape.current !== isLandscape) {
+            prevIsLandscape.current = isLandscape;
+            const width = isLandscape ? window.innerWidth : window.innerHeight;
+            const height = isLandscape ? window.innerHeight : window.innerWidth;
+            adjustVideoSettings(width, height);
+        }
+    }, [isLandscape]);
 
-    return () => {
-      window.removeEventListener('deviceorientation', handleOrientationChange);
-      if (videoTexture?.image instanceof HTMLVideoElement) {
-        const stream = video.srcObject as MediaStream;
-        stream?.getTracks().forEach(track => track.stop());
-        video.srcObject = null;
-      }
-      video.srcObject = null; // 비디오 요소 참조 제거
-    };
-  }, [starStore.isARMode]);
-
-  return videoTexture;
+    return videoTexture;
 };
 
 export default useCameraStream;

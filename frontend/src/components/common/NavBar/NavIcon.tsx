@@ -205,6 +205,51 @@ const NavBar = () => {
     setIsDragging(false);
   };
 
+    // 마우스 이벤트 추가해보겠슴당
+    const handleMouseDown = (e: React.MouseEvent) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+      setTouchX(mouseX);
+      setTouchY(mouseY);
+      setIsDragging(true);
+  
+      const centerX = window.innerWidth / 2;
+      if (ulRef.current) {
+        const rect = ulRef.current.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        setCenterY(centerY);
+      }
+      setCenterX(centerX);
+  
+      const radian = Math.atan2(mouseX - centerX, centerY - mouseY);
+      setCurrAngle(radian * (180 / Math.PI));
+    };
+  
+    const handleMouseMove = (e: React.MouseEvent) => {
+      if (isDragging) {
+        const newMouseX = e.clientX;
+        const newMouseY = e.clientY;
+  
+        const radian = Math.atan2(newMouseX - centerX, centerY - newMouseY);
+        const newAngle = radian * (180 / Math.PI);
+  
+        let angleDelta = newAngle - currAngle;
+        if (angleDelta > 180) {
+          angleDelta -= 360;
+        } else if (angleDelta < -180) {
+          angleDelta += 360;
+        }
+  
+        setFinalAngle((prevFinalAngle) => prevFinalAngle + angleDelta);
+        setPrevAngle(currAngle);
+        setCurrAngle(newAngle);
+      }
+    };
+  
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (ulRef.current && !ulRef.current.contains(e.target as Node)) {
@@ -218,7 +263,7 @@ const NavBar = () => {
   return (
     <FixedContainer ref={containerRef}>
       {!isChecked && <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-black opacity-70"></div>}
-      <CheckboxWrapper>
+      <CheckboxWrapper className='cursor-pointer '>
         {!isChecked && (
           <ul
             ref={ulRef} // ul 요소에 ref 연결
@@ -226,6 +271,9 @@ const NavBar = () => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
             onClick={handleCheckbox}
           >
             <li>

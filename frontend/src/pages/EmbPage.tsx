@@ -1,9 +1,8 @@
 import * as h from './style/HomePageStyle';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
-import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import useUserStore from '../stores/userStore';
+import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
 import { MakeMyConstellationApi } from '../apis/MyConstApis';
@@ -22,7 +21,6 @@ import EmbCanvas from '../components/Star/EmbCanvas';
 
 const EmbPage = () => {
   const starStore = useStarStore();
-  const userStore = useUserStore();
   const constellationStore = useConstellationStore();
 
   useEffect(() => {

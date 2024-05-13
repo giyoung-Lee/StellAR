@@ -1,6 +1,4 @@
-import React from 'react';
 import * as s from '../style/StarInfoCarouselStyle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   constellationData: ConstellationDetail;
@@ -23,13 +21,10 @@ const StarInfoScience = ({ constellationData }: Props) => {
           {constellationData?.constellationEndObservation}
         </p>
         {constellationData?.constellationId == 'Bukdu' ? null : (
-          <p>
-            <FontAwesomeIcon
-              icon={['far', 'star']}
-              style={{ paddingRight: '5px' }}
-            />
-            알파별 : {constellationData?.constellationDesc}
-          </p>
+          <p>알파(α)별: {constellationData?.constellationDesc}</p>
+        )}
+        {constellationData?.constellationId == 'Bukdu' ? null : (
+          <p className='absolute text-sm bottom-5 left-6 w-[80%]'>* 알파별: 별자리에서 가장 밝게 빛나는 별 </p>
         )}
       </s.ScienceInfo>
     </s.CardWrapper>

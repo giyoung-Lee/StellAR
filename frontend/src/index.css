@@ -133,31 +133,27 @@
   src: url('./fonts/HSBombaram3.0_Regular.woff2') format('woff2');
 }
 
-/* .AppSize {
-  max-width: 576px;
+.AppSize {
+  max-width: 1024px;
   min-height: 100vh;
   margin: auto;
-} */
+}
 
 .TooSmall,
 .WebSize {
   display: none;
 }
 
-/* 화면 너비가 576px 이상인 경우 */
-/* @media (min-width: 576px) {
+/* 화면 너비가 1024px 이상인 경우 */
+
+@media (min-width: 1024px) {
   .AppSize {
     display: none;
   }
 
   #WebDesign {
     display: block;
-    text-align: center;
-    padding: 20px;
-    font-size: 3vh;
-    font-weight: bold;
     color: #f2cea2;
-    background-color: #414141;
     height: 100vh;
   }
 }
@@ -179,3 +175,4 @@
     height: 100vh;
   }
 }
+

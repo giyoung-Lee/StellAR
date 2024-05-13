@@ -6,15 +6,17 @@ import './style/PageGlobal.css';
 import './style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
+import useUserStore from '../stores/userStore';
 
 const LoginPage = () => {
+  const userStore = useUserStore();
   const navigate = useNavigate();
   const goToSignup = () => {
     navigate('/signup');
   };
   const goBack = () => {
     navigate(-1);
-  }
+  };
 
   const [loginData, setLoginData] = useState({
     userId: '',
@@ -40,55 +42,60 @@ const LoginPage = () => {
       userId: '',
       password: '',
     };
-  
+
     if (!/^[a-zA-Z0-9]+$/.test(loginData.userId)) {
       errors.userId = '아이디는 영문자와 숫자만 사용할 수 있습니다.';
       isValid = false;
     }
-  
+
     if (!isValid) {
       Swal.fire({
         icon: 'error',
         title: '오류',
         html: errors.userId.replace(/\n/g, '<br>'),
         customClass: {
-          icon: 'center-icon'
+          icon: 'center-icon',
         },
-        color: "#dcdcdc",
+        color: '#dcdcdc',
         background: 'rgba(0, 0, 0, 0.8)',
       });
       setErrors(errors);
       return false;
     }
-    
+
     setErrors(errors);
     return true;
   };
-  
 
-    const { mutate } = useMutation({
-      mutationFn: loginApi,
-      onSuccess(result: string) {
-        console.log(result);
-      },
-      onError(error) {
-        console.log(error);
-      },
-    });
-  
-    const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-  
-      if (validateInputs()) {
-        console.log(loginData)
-        mutate(loginData);
-      }
-    };
+  const { mutate } = useMutation({
+    mutationFn: loginApi,
+    onSuccess(result: string) {
+      // console.log(result);
+      navigate('/');
+      userStore.setUser({ userId: loginData.userId });
+      userStore.setIsLogin(true);
+    },
+    onError(error) {
+      Swal.fire({
+        icon: 'error',
+        title: '오류',
+        text: '로그인 중 오류가 발생했습니다.',
+      });
+    },
+  });
 
+  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (validateInputs()) {
+      // console.log(loginData);
+      mutate(loginData);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-[100vh]">
-      <div className='fixed top-4 left-5' onClick={goBack}>
+      <div className="fixed top-4 left-5" onClick={goBack}>
         <FontAwesomeIcon icon="arrow-left" size="1x" color="white" />
       </div>
 

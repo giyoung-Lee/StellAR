@@ -8,6 +8,16 @@
   <link rel="alternate icon" href="icons/favicon.ico" type="ico" sizes="16x16" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="manifest" href="/manifest.json" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FM3QENT747"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-FM3QENT747');
+  </script>
+
   <title>StellAR</title>
 </head>
 
@@ -19,7 +29,7 @@
       navigator.serviceWorker
         .register("/sw.js")
         .then((registration) => {
-          console.log("Service worker registration succeeded:", registration);
+          // console.log("Service worker registration succeeded:", registration);
         })
         .catch((err) => {
           console.log("Service worker registration failed:", error);

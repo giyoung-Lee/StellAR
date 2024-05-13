@@ -61,8 +61,8 @@ public class StarServiceImpl implements StarService{
             double newRA = calculateNewRA(star.getRA(), pmRA, yearsBetween);
             double newDec = calculateNewDec(star.getDeclination(), pmDec, yearsBetween);
             double[] xyz = calculateXYZCoordinates(newRA, newDec);
-            double normalizedMagV = 20000
-                    + Math.exp((Double.parseDouble(star.getMagV()) - minMagV) * 2 / (maxMagV - minMagV));
+            double normalizedMagV = 8000
+                    * (1 + Math.exp((Double.parseDouble(star.getMagV()) - minMagV) * 1 / (maxMagV - minMagV)));
 
             StarDto dto = getStarDto(star, xyz, normalizedMagV);
             dto.setHourRA(newRA / 15);
@@ -99,8 +99,8 @@ public class StarServiceImpl implements StarService{
             dto.setPlanetMagV(entity.getPlanetMagV());
 
             double rate = (Double.parseDouble(entity.getPlanetMagV()) - minMagV) / (maxMagV - minMagV);
-            double normalizedMagV = 20000
-                    + Math.exp(rate * 2 / (starMaxMagv - starMinMagv));
+            double normalizedMagV = 18000
+                    * Math.exp(rate * 3 / (starMaxMagv - starMinMagv));
 
             dto.setNomalizedMagV(normalizedMagV);
 

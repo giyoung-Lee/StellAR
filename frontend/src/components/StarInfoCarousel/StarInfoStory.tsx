@@ -1,23 +1,64 @@
 import React from 'react';
 import * as s from '../style/StarInfoCarouselStyle';
 
-const StarInfoStory = () => {
+import '../../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import Swal from 'sweetalert2';
+
+type Props = {
+  constellationData: ConstellationDetail;
+  setModalOpen: (isOpen: boolean) => void;
+};
+
+const StarInfoStory = ({ constellationData, setModalOpen }: Props) => {
+  const handleError = () => {
+    setModalOpen(true); // 모달 열기
+    Swal.fire({
+      title: '오답!',
+      text: '어쩌고저쩌고 입니당~',
+      icon: 'error',
+      confirmButtonText: '확인',
+    }).then(() => {
+      setModalOpen(false); // 모달 닫기
+    });
+  };
+
+  const handleSuccess = () => {
+    setModalOpen(true); // 모달 열기
+    Swal.fire({
+      title: '정답!',
+      text: '어쩌고저쩌고 입니당~',
+      icon: 'success',
+      confirmButtonText: '확인',
+    }).then(() => {
+      setModalOpen(false); // 모달 닫기
+    });
+  };
   return (
     <s.CardWrapper>
-      <s.CardHeader>황소자리 이야기</s.CardHeader>
-      <s.Mythology>
-        황소자리의 황소는 바람기 많은 제우스가 페니키아의 공주 유로파를 유혹하기
-        위해 변한 모습이다. 제우스는 바닷가에서 놀고 있는 유로파의 아름답고
-        우아한 모습에 반해버려 곧 사랑에 빠졌고, 유로파를 유혹하기 위해 눈부신
-        하얀 소로 변신하여 왕의 소떼 속으로 들어갔다. 제우스의 의도대로 유로파
-        공주는 많은 소들 중에서 멋진 흰 소를 발견하였고, 눈부신 소의 아름다움에
-        사로잡혀 흰 소 곁으로 다가갔다. 유로파가 다가가 장난치듯 황소 등에
-        올라타자 흰 소는 기다렸다는 듯이 바다로 뛰어들어 크레테섬까지 헤엄쳐
-        갔다. 크레테에 도착한 제우스는 본래의 모습을 드러내고 유로파를 설득시켜
-        아내로 맞이하였다.
-      </s.Mythology>
+      <s.CardHeader>
+        {constellationData?.constellationSubName} 이야기
+      </s.CardHeader>
+      <s.QuizBox>
+        <p className="q">
+          Q. 어쩌고저쩌고 자리는 어쩌고저쩌고인 그런 그런것이다. 질문이 별로
+          안길수도있지만 길수도있다.
+        </p>
+        <div className="answer_box">
+          <button className="o" onClick={handleError}>
+            <FontAwesomeIcon icon="o" color="white" className="icon" />
+          </button>
+
+          <button className="x" onClick={handleSuccess}>
+            <FontAwesomeIcon icon="xmark" color="white" className="icon" />
+          </button>
+        </div>
+      </s.QuizBox>
+      <s.Mythology>{constellationData?.constellationStory}</s.Mythology>
     </s.CardWrapper>
   );
 };
 
 export default StarInfoStory;
+

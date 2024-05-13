@@ -1,9 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { getRandomInt } from '../../utils/random';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
-// import { fragment, vertex } from '../../utils/shader';
 
 const FloorMesh = () => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -12,7 +10,7 @@ const FloorMesh = () => {
   const uniforms = useRef({
     uTexture: { value: texture },
     uTime: { value: 0 },
-    uAmplitude: { value: 10.0 },
+    uAmplitude: { value: 20.0 },
     uWaveLength: { value: 0.5 },
     opacity: { value: 0.7 },
   });
@@ -28,7 +26,7 @@ const FloorMesh = () => {
         vec3 newPosition = position;
         float wave = sin(position.x * uWaveLength + uTime) * uAmplitude;
         newPosition.z += wave;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 2.0);
     }
   `;
 
@@ -50,24 +48,26 @@ const FloorMesh = () => {
 
   return (
     <>
-      <mesh ref={meshRef} position={[0, -30, 0]} rotation-x={-Math.PI / 2}>
-        {/* <circleGeometry args={[30000, 200]} /> */}
-        <planeGeometry args={[5000, 5000, 50, 50]} />
+      <mesh
+        ref={meshRef}
+        position={[0, -50, 0]}
+        rotation-x={-Math.PI / 2}
+        renderOrder={3}
+      >
+        <planeGeometry args={[100000, 100000, 1000, 1000]} />
         <shaderMaterial
           uniforms={uniforms.current}
           // wireframe={true}
           vertexShader={vertex}
           fragmentShader={fragment}
           transparent
+          polygonOffset={true}
+          polygonOffsetFactor={1}
+          polygonOffsetUnits={0.1}
         />
       </mesh>
-      {/* <mesh position={[0, 100, 0]} castShadow={false} receiveShadow={false}>
-        <sphereGeometry args={[50]} />
-        <meshStandardMaterial />
-      </mesh> */}
     </>
   );
 };
 
 export default FloorMesh;
-

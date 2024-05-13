@@ -1,15 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as m from '../style/StarMarkStyle';
+import { useMutation } from '@tanstack/react-query';
+import { DeleteStarMark } from '../../apis/StarMarkApis';
+import useUserStore from '../../stores/userStore';
+import useStarStore from '../../stores/starStore';
+import { useNavigate } from 'react-router-dom';
+import getXYZ from '../../hooks/getXYZ';
 
-const MarkItem = () => {
+type Props = {
+  starId: string;
+  bookmarkName: string;
+  createTime: string;
+  RA: number;
+  DEC: number;
+  nomalizedMagV: number;
+};
+
+const MarkItem = ({
+  starId,
+  bookmarkName,
+  createTime,
+  RA,
+  DEC,
+  nomalizedMagV,
+}: Props) => {
+  const [isSaved, setIsSaved] = useState(true);
+  const { userId } = useUserStore();
+  const starStore = useStarStore();
+  const userStore = useUserStore();
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  };
+
+  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    mutate({ userId, starId });
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: DeleteStarMark,
+    onSuccess(result: string) {
+      console.log(result);
+      starStore.setMarkSaveToggle(!starStore.markSaveToggle);
+    },
+  });
+
+  const navigate = useNavigate();
+  const findMyStar = () => {
+    starStore.setZoomFromOther(true);
+    const { x, y, z } = getXYZ(RA, DEC, userStore.userLat, userStore.userLng);
+    starStore.setZoomX(-1 * x * nomalizedMagV);
+    starStore.setZoomY(z * nomalizedMagV);
+    starStore.setZoomZ(y * nomalizedMagV);
+    starStore.setZoomStarId(starId);
+    starStore.setStarClicked(true);
+    navigate('/');
+  };
+
   return (
     <>
-      <m.StarInfo>
-        <m.StarName>고구마별</m.StarName>
-        <m.Date>2024. 01. 01.</m.Date>
+      <m.StarInfo className="star-info">
+        <m.NameBox>
+          <m.BookMarkName className="bookmark-name" onClick={findMyStar}>
+            {bookmarkName}
+          </m.BookMarkName>
+          <m.StarName className="star-name">{starId}</m.StarName>
+        </m.NameBox>
+        <m.Date className="date">{formatDate(createTime)}</m.Date>
         <m.Star>
           <label className="container">
-            <input type="checkbox" defaultChecked={true} />
+            <input
+              type="checkbox"
+              checked={isSaved}
+              onChange={handleCheckBox}
+            />
             <svg
               id="Layer_1"
               version="1.2"

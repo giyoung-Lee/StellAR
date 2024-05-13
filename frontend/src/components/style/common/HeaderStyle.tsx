@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 export const Header = styled.div`
   width: 100vw;
-  padding-top: 1vh;
+  margin-top: 5vh;
   position: sticky;
   top: 0;
+  &.eventTitle {
+    padding-top: 1vh;
+    margin-top: 0;
+    /* background-color: red; */
+  }
 `;
 
 export const Title = styled.div`

@@ -19,5 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 // // 푸시 알림 권한 요청
 // requestPermission();
 
-// 서비스 워커 등록
-serviceWorkerRegistration.register();
+// // 서비스 워커 등록
+// serviceWorkerRegistration.register();

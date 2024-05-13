@@ -128,7 +128,7 @@ const HomePage = () => {
 
   const toggleGyro = () => {
     userStore.setIsGyro(!userStore.isGyro);
-  }
+  };
 
   const hwangdo13info = [
     'Aquarius',
@@ -151,7 +151,7 @@ const HomePage = () => {
     <>
       {/* 현재 위치 보여주기 */}
       {MyLocationData && (
-        <div className="fixed bottom-1 left-2 z-[1000]">
+        <div className="fixed bottom-3 left-4 z-[1000]">
           <span>{MyLocationData.address.country} </span>
           <span>{MyLocationData.address.city} </span>
           <span>{MyLocationData.address.county}</span>

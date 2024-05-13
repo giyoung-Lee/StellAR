@@ -11,7 +11,7 @@ type Props = {};
 const OrderForm = (props: Props) => {
   return (
     <>
-      <o.Container>
+      <o.Container className="form-container">
         <Header />
         <OrderInfo />
         <ShippingInfo />

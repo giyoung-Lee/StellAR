@@ -59,12 +59,17 @@ const MyStarItem = ({ constellation }: Props) => {
   return (
     <>
       <m.ConstellationInfo>
-        <m.ConstellationName onClick={findMyConstellation}>
+        <m.ConstellationName
+          className="constellation-name"
+          onClick={findMyConstellation}
+        >
           {constellation.name}
         </m.ConstellationName>
-        <m.ConstellationDes>{constellation.description}</m.ConstellationDes>
-        <m.Date>{formatDate(constellation.createTime)}</m.Date>
-        <m.Delete onClick={handleDelete}>
+        <m.ConstellationDes className="constellation-des">
+          {constellation.description}
+        </m.ConstellationDes>
+        <m.Date className="date">{formatDate(constellation.createTime)}</m.Date>
+        <m.Delete className="delete" onClick={handleDelete}>
           <button className="bin-button">
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -17,23 +17,20 @@ const isDistributed = Boolean(
 
 // EC2
 const PUBLIC_URL = "https://k10c105.p.ssafy.io"
-console.log(PUBLIC_URL)
+
 // // 로컬
 const LOCAL_URL = "http://localhost:5173"
 
 export const register = () => {
-// export function register() {
   if ('serviceWorker' in navigator) {
     const publicUrl = new URL(PUBLIC_URL, window.location.href);
     const localUrl = new URL(PUBLIC_URL, window.location.href);
-    console.log(publicUrl)
-    console.log(window.location)
     if (publicUrl.origin !== window.location.origin && localUrl.origin !== window.location.origin) {
       return;
     }
 
     window.addEventListener('load', () => {
-      const swUrl1 = `${PUBLIC_URL}/firebase-messaging-sw.js`;
+      const swUrl1 = `${LOCAL_URL}/firebase-messaging-sw.js`;
 
       if (isLocalhost) {
         checkValidServiceWorker(swUrl1);
@@ -52,11 +49,10 @@ export const register = () => {
 }
 
 export const registerValidSW = (swUrl: string) => {
-// export function registerValidSW(swUrl: string) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
-      console.log('서비스 워커 등록 완료:', registration.scope);
+      // console.log('서비스 워커 등록 완료:', registration.scope);
     })
     .catch((error) => {
       console.error('서비스 워커 등록 실패:', error);
@@ -64,7 +60,6 @@ export const registerValidSW = (swUrl: string) => {
 }
 
 export const checkValidServiceWorker = (swUrl: string) => {
-// export function checkValidServiceWorker(swUrl: string) {
   fetch(swUrl, { headers: { 'Service-Worker': 'script' } })
     .then((response) => {
       if (response.status === 404) {
@@ -83,7 +78,6 @@ export const checkValidServiceWorker = (swUrl: string) => {
 }
 
 export const unregister = () => {
-// export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready
       .then((registration) => {

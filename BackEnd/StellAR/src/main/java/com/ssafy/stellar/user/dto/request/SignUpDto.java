@@ -21,4 +21,7 @@ public class SignUpDto {
     @Schema(description = "성별", required = false)
     private String gender;
 
+    @Schema(description = "기기 토큰", required = false)
+    private String deviceToken;
+
 }

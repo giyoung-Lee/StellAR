@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>,
 );
 
-// 푸시 알림 권한 요청
+// // 푸시 알림 권한 요청
 // requestPermission();
 
 // // 서비스 워커 등록

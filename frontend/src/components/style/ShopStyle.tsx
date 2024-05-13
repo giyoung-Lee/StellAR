@@ -2,8 +2,20 @@ import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
   /* background-color: lightskyblue; */
-  width: 80vw;
-  height: 50vh;
+  width: 300px;
+  height: 400px;
+  @media (min-width: 574px) {
+    width: 400px;
+    height: 500px;
+    .info {
+      li {
+        font-size: 20px;
+      }
+    }
+    .btn {
+      font-size: 20px;
+    }
+  }
 
   .card {
     width: 100%;
@@ -131,4 +143,3 @@ export const CardWrapper = styled.div`
     transform: scale(1.02);
   }
 `;
-

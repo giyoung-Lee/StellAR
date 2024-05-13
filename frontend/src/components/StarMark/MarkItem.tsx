@@ -38,7 +38,6 @@ const MarkItem = ({
   };
 
   const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsSaved(!isSaved);
     mutate({ userId, starId });
   };
 
@@ -64,12 +63,14 @@ const MarkItem = ({
 
   return (
     <>
-      <m.StarInfo>
+      <m.StarInfo className="star-info">
         <m.NameBox>
-          <m.BookMarkName onClick={findMyStar}>{bookmarkName}</m.BookMarkName>
-          <m.StarName>{starId}</m.StarName>
+          <m.BookMarkName className="bookmark-name" onClick={findMyStar}>
+            {bookmarkName}
+          </m.BookMarkName>
+          <m.StarName className="star-name">{starId}</m.StarName>
         </m.NameBox>
-        <m.Date>{formatDate(createTime)}</m.Date>
+        <m.Date className="date">{formatDate(createTime)}</m.Date>
         <m.Star>
           <label className="container">
             <input

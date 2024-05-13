@@ -4,20 +4,35 @@ export const ConstellationInfo = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  @media (min-width: 574px) {
+    .constellation-name {
+      font-size: 22px;
+    }
+    .constellation-des {
+      font-size: 20px;
+    }
+    .date {
+      font-size: 18px;
+    }
+    .delete {
+      width: 40px;
+    }
+  }
 `;
 
 export const ConstellationName = styled.p`
   color: var(--color-orange);
   font-size: 1.1rem;
   margin-top: 5px;
-  margin-bottom: 13px;
 `;
 
-export const ConstellationDes = styled.p``;
+export const ConstellationDes = styled.p`
+  margin: 13px 0;
+`;
 
 export const Date = styled.p`
   color: var(--color-light);
-  font-size: 13px;
+  font-size: 15px;
   text-align: end;
 `;
 
@@ -26,7 +41,7 @@ export const Delete = styled.span`
   z-index: 1000;
   right: -3px;
   top: -3px;
-  width: 10vw;
+  width: 35px;
   aspect-ratio: 1;
 
   .bin-button {
@@ -37,7 +52,7 @@ export const Delete = styled.span`
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.112);
+    background-color: rgba(255, 255, 255, 0.142);
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -64,4 +79,3 @@ export const Delete = styled.span`
     transition: all 0.3s;
   }
 `;
-

@@ -2,13 +2,20 @@ import styled from 'styled-components';
 
 export const StarInfo = styled.div`
   position: relative;
-  /* width: 100%; */
-  /* top: 20%;
-  left: 5%;
-  height: 60%; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (min-width: 574px) {
+    .bookmark-name {
+      font-size: 22px;
+    }
+    .star-name {
+      font-size: 17px;
+    }
+    .date {
+      font-size: 15px;
+    }
+  }
 `;
 
 export const NameBox = styled.div``;
@@ -116,4 +123,3 @@ export const SaveBtn = styled.button`
   font-size: 0.9rem;
   color: var(--color-dark);
 `;
-

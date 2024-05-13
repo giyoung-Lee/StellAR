@@ -30,7 +30,7 @@ const StarName = () => {
     >
       {/* <n.Wrapper ref={starNameRef}> */}
       <div className="flex justify-end">
-        <div onClick={handleReset}>
+        <div onClick={handleReset} style={{ cursor: 'pointer' }}>
           <FontAwesomeIcon icon="xmark" />
         </div>
       </div>

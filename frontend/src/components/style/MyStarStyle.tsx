@@ -24,6 +24,10 @@ export const ConstellationName = styled.p`
   color: var(--color-orange);
   font-size: 1.1rem;
   margin-top: 5px;
+  cursor: pointer;
+  &:hover {
+    color: #ebc798;
+  }
 `;
 
 export const ConstellationDes = styled.p`

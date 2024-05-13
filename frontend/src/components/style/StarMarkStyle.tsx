@@ -28,6 +28,10 @@ export const StarName = styled.span`
 export const BookMarkName = styled.span`
   color: var(--color-orange);
   font-size: 17px;
+  cursor: pointer;
+  &:hover {
+    color: #ebc798;
+  }
 `;
 
 export const Date = styled.p`

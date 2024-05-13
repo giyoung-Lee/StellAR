@@ -93,6 +93,11 @@ export const CardWrapper = styled.div`
     bottom: 0;
     color: var(--color-navy);
     background-color: #eee;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    &:hover {
+      font-size: 21.5px;
+    }
   }
 
   .textBox > .text {

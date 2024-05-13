@@ -97,7 +97,11 @@ const MainCanvas = (props: Props) => {
   // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
   const calculateStarPositions = (data: StarDataMap) => {
     const time = new Date();
-    const observer = new Astronomy.Observer(userStore.userLat, userStore.userLng, 0);
+    const observer = new Astronomy.Observer(
+      userStore.userLat,
+      userStore.userLng,
+      0,
+    );
     const result: StarDataMap = {};
 
     Object.keys(data).forEach((key) => {
@@ -192,7 +196,7 @@ const MainCanvas = (props: Props) => {
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 배경 별 및 스파클 */}
-      <BackgroundStars />
+      {!starStore.isARMode && <BackgroundStars />}
 
       {/* 배경 설정 */}
       <BackgroundSetter
@@ -362,7 +366,8 @@ const MainCanvas = (props: Props) => {
         )}
 
       {/* 나만의 별자리 호출 및 선긋기 */}
-      {myConstData?.data && Object.keys(myConstData.data).length > 0 &&
+      {myConstData?.data &&
+        Object.keys(myConstData.data).length > 0 &&
         Object.entries(myConstData.data as ConstellationData).map(
           ([constellation, connections]) =>
             (connections as string[][]).map((starArr, index) => (

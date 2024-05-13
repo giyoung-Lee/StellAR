@@ -7,7 +7,7 @@ public interface UserService {
 
     void signUp(SignUpDto signUpDto);
 
-    UserDto logIn(String userId, String password);
+    UserDto logIn(String userId, String password, String deviceToken);
 
     void deleteUser(String userId, String password);
 

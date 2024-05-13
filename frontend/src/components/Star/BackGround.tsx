@@ -1,6 +1,4 @@
-import { Environment, Sphere } from '@react-three/drei';
-import { Gradient, LayerMaterial } from 'lamina';
-import { useRef } from 'react';
+import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 
 const vertexShader = `
@@ -26,13 +24,6 @@ const fragmentShader = `
 `;
 
 export default function Background() {
-  //   const colorA = '#1b1b9e';
-  const colorA = '#2c185f';
-  const colorB = '#8a2fcf';
-  // const colorB = '#00229e';
-  const start = 0.5;
-  const end = -0.5;
-
   return (
     <>
       <Sphere args={[27000, 100, 100]}>
@@ -47,21 +38,6 @@ export default function Background() {
           polygonOffsetFactor={1}
           polygonOffsetUnits={-0.1}
         />
-        {/* <LayerMaterial
-          color={'#ffffff'}
-          side={THREE.BackSide}
-          polygonOffset={true}
-          polygonOffsetFactor={-1}
-          polygonOffsetUnits={-1}
-        >
-          <Gradient
-            colorA={colorA}
-            colorB={colorB}
-            axes={'y'}
-            start={start}
-            end={end}
-          />
-        </LayerMaterial> */}
       </Sphere>
     </>
   );

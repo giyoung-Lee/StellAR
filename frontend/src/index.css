@@ -134,7 +134,7 @@
 }
 
 .AppSize {
-  /* max-width: 576px; */
+  max-width: 1024px;
   min-height: 100vh;
   margin: auto;
 }
@@ -144,9 +144,9 @@
   display: none;
 }
 
-/* 화면 너비가 576px 이상인 경우 */
+/* 화면 너비가 1024px 이상인 경우 */
 
-/* @media (min-width: 576px) {
+@media (min-width: 1024px) {
   .AppSize {
     display: none;
   }
@@ -156,7 +156,7 @@
     color: #f2cea2;
     height: 100vh;
   }
-} */
+}
 
 /* 화면 너비가 360px 미만인 경우 */
 @media (max-width: 359px) {

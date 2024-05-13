@@ -72,11 +72,11 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
 
         // TODO 로컬 서버
         // 성공 시 redirect url
-        parameters.add("approval_url", "https://localhost:5174/order/"+kakaoApproveRequestDto.getUserId()+"/success");
+        parameters.add("approval_url", "http://localhost:5174/order/"+kakaoApproveRequestDto.getUserId()+"/success");
         // 취소 시 redirect url
-        parameters.add("cancel_url", "https://localhost:5174/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+        parameters.add("cancel_url", "http://localhost:5174/order/"+kakaoApproveRequestDto.getUserId()+"/error");
         // 실패 시 redirect url
-        parameters.add("fail_url", "https://localhost:5174/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+        parameters.add("fail_url", "http://localhost:5174/order/"+kakaoApproveRequestDto.getUserId()+"/error");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());

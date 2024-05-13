@@ -46,8 +46,8 @@ const useCameraStream = () => {
     // 디바이스 방향에 따라 해상도를 설정하는 함수
     const adjustVideoSettings = (_alpha: number, _beta: number, gamma: number) => {
       setIsLandscape(Math.abs(gamma) > 45); // gamma 각도가 45도를 넘으면 가로 모드로 간주
-      setWidth(isLandscape ? window.innerHeight : window.innerWidth);
-      setHeight(isLandscape ? window.innerWidth : window.innerHeight);
+      setWidth(!isLandscape ? window.innerHeight : window.innerWidth);
+      setHeight(!isLandscape ? window.innerWidth : window.innerHeight);
     };
 
     // 각도 변경 시 자이로 값 호출

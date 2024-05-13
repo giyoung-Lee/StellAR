@@ -18,10 +18,10 @@ const OrderPage = () => {
         <Route path="/" element={<OrderForm />} />
       </Routes>
       <Routes>
-        <Route path="error" element={<OrderResult />} />
+        <Route path="error/*" element={<OrderResult />} />
       </Routes>
       <Routes>
-        <Route path="success" element={<OrderResult />} />
+        <Route path="success/*" element={<OrderResult />} />
       </Routes>
       {orderStore.isModalOpen && <ShippingModal />}
     </o.Wrapper>

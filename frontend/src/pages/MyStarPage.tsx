@@ -12,6 +12,10 @@ const MyStarPage = () => {
   const userStore = useUserStore();
   const starStore = useStarStore();
 
+  useEffect(() => {
+    getUserConstellationRefetch();
+  }, [starStore.markSaveToggle]);
+
   const {
     isLoading: isUserConstellationLoading,
     data: userConstellationData,
@@ -26,10 +30,6 @@ const MyStarPage = () => {
     return <Loading />;
   }
 
-  useEffect(() => {
-    getUserConstellationRefetch();
-  }, [starStore.markSaveToggle]);
-
   return (
     <p.Wrapper>
       <h.Header>
@@ -41,4 +41,3 @@ const MyStarPage = () => {
 };
 
 export default MyStarPage;
-

@@ -13,14 +13,6 @@ const ShippingInfo = () => {
     setName(e.target.value);
   };
 
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = '1px';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  };
-
   const handleDetialAddress = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetailAddress(e.target.value);
     // adjustTextareaHeight();
@@ -40,7 +32,7 @@ const ShippingInfo = () => {
             <input
               className="name"
               type="text"
-              value={name}
+              defaultValue={name}
               onChange={handleName}
             />
           </div>
@@ -50,9 +42,9 @@ const ShippingInfo = () => {
               <input
                 onClick={() => orderStore.setIsModalOpen(true)}
                 type="text"
-                value={orderStore.address.postcode}
+                defaultValue={orderStore.address.postcode}
               />
-              <input type="text" value={orderStore.address.address} />
+              <input type="text" defaultValue={orderStore.address.address} />
               <textarea
                 ref={textareaRef}
                 value={detailAddress}

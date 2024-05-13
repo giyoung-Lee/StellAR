@@ -1,5 +1,7 @@
 import React from 'react';
 import * as o from '../style/OrderStyle';
+import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../stores/userStore';
 
 const PayInfo = () => {
   return (

@@ -1,5 +1,7 @@
 package com.ssafy.stellar.user.service;
 
+import com.ssafy.stellar.fcm.entity.DeviceTokenEntity;
+import com.ssafy.stellar.fcm.repository.DeviceTokenRepository;
 import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.dto.response.UserDto;
 import com.ssafy.stellar.user.entity.UserEntity;
@@ -8,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 
 @Slf4j
 @Service
@@ -15,11 +19,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final DeviceTokenRepository deviceTokenRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
+                           DeviceTokenRepository deviceTokenRepository,
                            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.deviceTokenRepository = deviceTokenRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -39,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto logIn(String userId, String password) {
+    public UserDto logIn(String userId, String password, String deviceToken) {
         UserEntity user = validateUser(userId);
 
         if (checkPassword(userId, password)) {
@@ -47,6 +55,7 @@ public class UserServiceImpl implements UserService {
             userDto.setUserId(user.getUserId());
             userDto.setName(user.getName());
             userDto.setGender(user.getGender());
+            saveDeviceToken(deviceToken, user);
 
             return userDto;
         } else {
@@ -61,6 +70,20 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("아이디 비밀번호를 잘못 입력하였습니다.");
         }
         userRepository.deleteById(userId);
+    }
+
+    public void saveDeviceToken(String deviceToken, UserEntity user) {
+        if (deviceToken == null) {
+            return;
+        }
+        DeviceTokenEntity deviceTokenEntity = deviceTokenRepository.findByDeviceTokenAndUser(deviceToken, user);
+        if (deviceTokenEntity == null) {
+            deviceTokenEntity = new DeviceTokenEntity();
+            deviceTokenEntity.setUser(user);
+            deviceTokenEntity.setDeviceToken(deviceToken);
+        }
+        deviceTokenEntity.setLastLogin(LocalDateTime.now());  // 마지막 로그인 시간 설정
+        deviceTokenRepository.save(deviceTokenEntity);
     }
 
     @Override

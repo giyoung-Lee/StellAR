@@ -53,7 +53,7 @@ const AppRoutes = () => {
         <Route path="/starMark/:id" element={<StarMarkPage />} />
         <Route path="/event" element={<EventPage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/order/:id" element={<OrderPage />} />
+        <Route path="/order/:id/*" element={<OrderPage />} />
       </Routes>
     </PageContainer>
   );

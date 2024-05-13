@@ -1,14 +1,43 @@
-import React from 'react';
+import { useMutation } from '@tanstack/react-query';
 import * as o from '../style/OrderStyle';
-import { useNavigate } from 'react-router-dom';
+import kakaopay from '/img/kakaopay.png';
+import { PostPaymentReady } from '../../apis/PaymentApis';
 import useUserStore from '../../stores/userStore';
+import { useState } from 'react';
+import usePaymentStore from '../../stores/paymentStore';
 
 const PayInfo = () => {
+  const userStore = useUserStore();
+  const paymentStore = usePaymentStore();
+
+  const readyPayment = () => {
+    console.log('결제해야징');
+    mutate({
+      userId: userStore.userId,
+      amount: 1,
+      productId: 1001,
+    });
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: PostPaymentReady,
+    onSuccess(result: any) {
+      console.log(result);
+      window.open(result.next_redirect_pc_url);
+      paymentStore.setTid(result.tid);
+    },
+  });
   return (
     <o.PayInfoSec>
       <o.TItle>결제수단</o.TItle>
-      <o.Content>카카오페이/토스페이만 됩니당 ㅋ</o.Content>
-      <o.PayBtn>
+      <o.Content>
+        <div className="payment">
+          카카오페이
+          <img src={kakaopay} alt="kakaopay" />
+        </div>
+      </o.Content>
+      <a href=""></a>
+      <o.PayBtn onClick={readyPayment}>
         <div className="container">
           <div className="left-side">
             <div className="card">

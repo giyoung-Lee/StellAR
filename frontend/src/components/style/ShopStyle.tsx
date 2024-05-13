@@ -2,8 +2,20 @@ import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
   /* background-color: lightskyblue; */
-  width: 80vw;
-  height: 50vh;
+  width: 300px;
+  height: 400px;
+  @media (min-width: 574px) {
+    width: 400px;
+    height: 500px;
+    .info {
+      li {
+        font-size: 20px;
+      }
+    }
+    .btn {
+      font-size: 20px;
+    }
+  }
 
   .card {
     width: 100%;
@@ -81,6 +93,11 @@ export const CardWrapper = styled.div`
     bottom: 0;
     color: var(--color-navy);
     background-color: #eee;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    &:hover {
+      font-size: 21.5px;
+    }
   }
 
   .textBox > .text {
@@ -131,4 +148,3 @@ export const CardWrapper = styled.div`
     transform: scale(1.02);
   }
 `;
-

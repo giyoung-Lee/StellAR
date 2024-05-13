@@ -40,6 +40,7 @@ const ShippingInfo = () => {
             <label htmlFor="">주소</label>
             <div className="input_container">
               <input
+                className="search-address"
                 onClick={() => orderStore.setIsModalOpen(true)}
                 type="text"
                 defaultValue={orderStore.address.postcode}

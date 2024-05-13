@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ThreeEvent } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import { Sparkles, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
@@ -72,7 +72,6 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 
   return (
     <>
-      {/* <Sparkles count={10} scale={18} size={10} speed={1} /> */}
       <primitive
         ref={meshRef}
         position={position}

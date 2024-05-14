@@ -199,10 +199,10 @@ const MainCanvas = (props: Props) => {
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* Stas */}
-      <Stats />
+      {/* <Stats /> */}
 
       {/* DrawCall */}
-      <DrawCallCounter />
+      {/* <DrawCallCounter /> */}
 
       {/* 배경 별 및 스파클 */}
       {!starStore.isARMode && <BackgroundStars />}

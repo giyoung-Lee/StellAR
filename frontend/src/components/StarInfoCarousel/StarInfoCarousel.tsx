@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as s from '../style/StarInfoCarouselStyle';
 import StarInfoImage from './StarInfoImage';
 import StarInfoScience from './StarInfoScience';
+import StarInfoQuiz from './StarInfoQuiz';
 import StarInfoStory from './StarInfoStory';
 import useConstellationStore from '../../stores/constellationStore';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../common/Loading/Loading';
-import { GetConstellationDetail } from '../../apis/StarApis';
-
+import { GetConstellationDetail, GetXoQuiz } from '../../apis/StarApis';
 import prevArrow from '/img/prev.png';
 
 const StarInfoCarousel = ({ active }: { active: number }) => {
@@ -16,7 +16,7 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
   const [dragged, setDragged] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const Ref = useRef<HTMLDivElement>(null);
-  const carousel = ['image', 'science', 'story'];
+  const carousel = ['image', 'science', 'quiz', 'story'];
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -43,7 +43,7 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
   };
 
   const next = () => {
-    activeSlide < 2 && setActiveSlide(activeSlide + 1);
+    activeSlide < 3 && setActiveSlide(activeSlide + 1);
   };
 
   const prev = () => {
@@ -78,6 +78,16 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         opacity: 0,
         transform: 'translateX(200%) translateZ(-330px) scale(0.95)',
       };
+      else if (activeSlide - 3 === index)
+      return {
+        opacity: 0,
+        transform: 'translateX(-290%) translateZ(-530px) scale(0.95)',
+      };
+    else if (activeSlide + 3 === index)
+      return {
+        opacity: 0,
+        transform: 'translateX(290%) translateZ(-530px) scale(0.95)',
+      };
   };
 
   useEffect(() => {
@@ -99,7 +109,16 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         GetConstellationDetail(constellationStore.constellationName),
     });
 
-  if (isConstellationLoading) {
+    const { isLoading: isXoQuizLoading, data: quiznData } =
+    useQuery({
+      queryKey: ['get-xo-quiz'],
+      queryFn: () =>
+      GetXoQuiz(constellationStore.constellationName),
+    });
+
+    
+
+  if (isConstellationLoading || isXoQuizLoading) {
     return <Loading />;
   }
 
@@ -131,6 +150,12 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
               />
             ) : card === 'science' ? (
               <StarInfoScience constellationData={constellationData?.data} />
+            ) : card === 'quiz' ? (
+              <StarInfoQuiz
+                constellationData={constellationData?.data}
+                setModalOpen={setModalOpen}
+                quizData={quiznData?.data}
+              />
             ) : (
               <StarInfoStory
                 constellationData={constellationData?.data}
@@ -145,4 +170,3 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
 };
 
 export default StarInfoCarousel;
-

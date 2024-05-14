@@ -109,7 +109,7 @@ class UserBookmarkControllerTest {
     @Test
     @DisplayName("북마크 개별 조회 성공 테스트")
     void getBookmarkByStarSuccess() throws Exception {
-        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now());
+        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now(), 0, 0, 0);
         when(userBookMarkService.getUserBookmarkByStar("user1", "star1")).thenReturn(bookmarkDto);
 
         mockMvc.perform(get("/bookmark")
@@ -148,7 +148,7 @@ class UserBookmarkControllerTest {
     @DisplayName("북마크 조회 성공 테스트")
     void getBookmarkSuccess() throws Exception{
         List<BookmarkDto> BookmarkListDto = new ArrayList<BookmarkDto>();
-        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now());
+        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now(), 0, 0, 0);
         BookmarkListDto.add(bookmarkDto);
         when(userBookMarkService.getUserBookmark("user1")).thenReturn(BookmarkListDto);
 

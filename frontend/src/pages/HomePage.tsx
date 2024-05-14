@@ -57,21 +57,9 @@ const HomePage = () => {
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
     onSuccess(result: string) {
-      // console.log(result);
-      Swal.fire({
-        title: '성공!',
-        text: '별자리가 성공적으로 생성되었습니다.',
-        icon: 'success',
-        confirmButtonText: '확인',
-      });
       setOpen(false);
     },
     onError(error) {
-      Swal.fire({
-        icon: 'error',
-        title: '오류',
-        text: '별자리 생성 중 오류가 발생했습니다.',
-      });
       setOpen(false);
     },
   });
@@ -264,8 +252,10 @@ const HomePage = () => {
         hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
         ) : constellationStore.constellationClicked &&
-        !hwangdo13info.includes(constellationStore.constellationName) ? (
-          <StarInfoCarousel active={1} />
+          !hwangdo13info.includes(constellationStore.constellationName) ? (
+          <div className="text-center absolute z-[1000] top-[60%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
+            fff
+          </div>
         ) : null}
 
         <MainCanvas />

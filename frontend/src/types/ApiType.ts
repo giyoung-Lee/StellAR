@@ -43,3 +43,9 @@ interface paymentApitype {
   partnerOrderId: string;
   partnerUserId: string;
 }
+
+interface eventApitype {
+  astroEvent: string;
+  astroTime: string;
+  localDate: string;
+}

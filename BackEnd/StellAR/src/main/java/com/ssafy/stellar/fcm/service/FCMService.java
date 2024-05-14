@@ -8,4 +8,5 @@ public interface FCMService {
     void sendNotification(String token, String title, String body);
 
     void saveDeviceToken(String deviceToken, UserEntity user);
+
 }

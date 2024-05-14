@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import * as o from '../style/OrderStyle';
+import usePaymentStore from '../../stores/paymentStore';
 
 const OrderInfo = () => {
-  const [qt, setQt] = useState(0);
-  const up = () => setQt(qt + 1);
-  const down = () => setQt(qt - 1);
+  const { qty, setQty } = usePaymentStore();
+  const up = () => setQty(qty + 1);
+  const down = () => setQty(qty - 1);
   useEffect(() => {
-    if (qt < 0) {
-      setQt(0);
-      //   alert('수량이 0보다 작을 수 없습니다.');
+    if (qty < 0) {
+      setQty(0);
     }
-  }, [qt]);
+  }, [qty]);
   return (
     <o.OrderInfoSec>
       <o.TItle>주문 상품</o.TItle>
@@ -20,12 +20,12 @@ const OrderInfo = () => {
           <span>수량</span>
           <span className="set_qt">
             <button onClick={down}>-</button>
-            <p>{qt}</p>
+            <p>{qty}</p>
             <button onClick={up}>+</button>
           </span>
         </div>
         <span className="total_price">
-          {(2000000 * qt).toLocaleString('ko-KR')}
+          {(2000000 * qty).toLocaleString('ko-KR')}
         </span>
       </o.Content>
     </o.OrderInfoSec>

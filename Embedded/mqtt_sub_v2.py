@@ -22,23 +22,19 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
     data = json.loads(message.payload.decode("utf-8"))
     action = data["action"]   
+    x=(((data['sensor_num']-1)*12.5)+3.125)*screen_width/100
+    y=screen_hegint-((data['height']-30.0)*screen_hegint/75)
 
     # mouse_down일 때 
     if action == "down":
-        x=((data['sensor_num']*6.25))*screen_width/100
-        y=screen_hegint-((data['height']-30.0)*screen_hegint/75)
         pyautogui.mouseDown(x,y)
 
     # mouse_up 일 때 
     elif action == "up":
-        x=((data['sensor_num']*6.25))*screen_width/100
-        y=screen_hegint-((data['height']-30.0)*screen_hegint/75)
         pyautogui.mouseUp(x,y)
 
     # move일 때 
     elif action == "move":
-        x=((data['sensor_num']*6.25))*screen_width/100
-        y=screen_hegint-((data['height']-30.0)*screen_hegint/75)
         pyautogui.moveTo(x,y)
         
     # scroll_up 일 때 

@@ -22,6 +22,8 @@ import Textarea from '@mui/joy/Textarea';
 import { whereAmI } from '../apis/UserApis';
 import '../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GetLoadingMessageApi } from '../apis/LoadingApis';
+import useLoadingStore from '../stores/loadingStore';
 
 const HomePage = () => {
   const starStore = useStarStore();
@@ -264,7 +266,7 @@ const HomePage = () => {
         hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
         ) : constellationStore.constellationClicked &&
-        !hwangdo13info.includes(constellationStore.constellationName) ? (
+          !hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={1} />
         ) : null}
 

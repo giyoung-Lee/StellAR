@@ -49,3 +49,8 @@ interface eventApitype {
   astroTime: string;
   localDate: string;
 }
+
+interface loadingApitype {
+  pieceKnowledge: number;
+  contents: string;
+}

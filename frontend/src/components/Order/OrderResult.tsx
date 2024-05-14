@@ -17,7 +17,6 @@ const OrderResult = () => {
   const location = useLocation();
   const pgToken = location.search.split('=')[1];
 
-  console.log(typeof pgToken);
   useEffect(() => {
     if (pgToken) {
       paymentStore.setPgToken(pgToken);
@@ -25,7 +24,6 @@ const OrderResult = () => {
   }, [pgToken]);
 
   const handleSuccess = () => {
-    console.log('ss');
     mutate({
       tid: paymentStore.tid,
       pgToken: pgToken,

@@ -32,8 +32,8 @@ public class NotificationController {
     @Operation(summary = "푸시알림 테스트", description = "내 토큰과 타이틀, 바디를 넘겨주고 테스트를 합니다.")
     @ApiResponse(responseCode = "200", description = "푸시알림 테스트 성공!", content = @Content)
     @GetMapping("/send-notification-test")
-    public HttpEntity<?> sendNotification(@RequestParam String token, @RequestParam String title, @RequestParam String body) {
-        fcmService.sendNotification(token, title, body);
+    public HttpEntity<?> sendNotification(@RequestParam String title, @RequestParam String body) {
+        fcmService.sendNotification(title, body);
         return new ResponseEntity<String>("Notification sent successfully", HttpStatus.OK);
     }
 }

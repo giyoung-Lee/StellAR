@@ -12,6 +12,7 @@ import {
   faVolumeXmark,
   faVolumeHigh,
   faLocationCrosshairs,
+  faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faCopy, faStar } from '@fortawesome/free-regular-svg-icons';
@@ -30,5 +31,6 @@ library.add(
   faVolumeXmark,
   faVolumeHigh,
   faLocationCrosshairs
+  ,faRightFromBracket
 );
 

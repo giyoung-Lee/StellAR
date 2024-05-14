@@ -86,7 +86,6 @@ const LoginPage = () => {
 
   const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (validateInputs()) {
       // console.log(loginData);
       mutate(loginData);

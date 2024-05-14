@@ -32,7 +32,7 @@ const PayInfo = () => {
     }
     mutate({
       userId: userStore.userId,
-      amount: 1,
+      amount: paymentStore.qty,
       productId: 1001,
     });
   };

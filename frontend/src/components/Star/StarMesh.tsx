@@ -99,14 +99,14 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     const starPosition = event.object.position;
     if (!starStore.starId) {
-    starStore.setZoomX(starPosition.x);
-    starStore.setZoomY(starPosition.y);
-    starStore.setZoomZ(starPosition.z);
+      starStore.setZoomX(starPosition.x);
+      starStore.setZoomY(starPosition.y);
+      starStore.setZoomZ(starPosition.z);
     }
   };
 
   return (
-    <>
+    <group>
       <mesh
         ref={meshRef}
         position={position}
@@ -135,7 +135,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
           shininess={100}
         />
       </mesh>
-    </>
+    </group>
   );
 };
 

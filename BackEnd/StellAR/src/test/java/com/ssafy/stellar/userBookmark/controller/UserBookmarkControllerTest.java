@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.stellar.settings.TestSecurityConfig;
 import com.ssafy.stellar.userBookmark.dto.request.BookmarkRequestDto;
 import com.ssafy.stellar.userBookmark.dto.response.BookmarkDto;
-import com.ssafy.stellar.userBookmark.service.UserBookMarkService;
 import com.ssafy.stellar.userBookmark.service.UserBookmarkServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

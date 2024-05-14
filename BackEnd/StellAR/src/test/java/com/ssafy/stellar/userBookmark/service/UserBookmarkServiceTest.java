@@ -8,6 +8,7 @@ import com.ssafy.stellar.userBookmark.dto.request.BookmarkRequestDto;
 import com.ssafy.stellar.userBookmark.dto.response.BookmarkDto;
 import com.ssafy.stellar.userBookmark.entity.UserBookmarkEntity;
 import com.ssafy.stellar.userBookmark.repository.UserBookmarkRepository;
+import com.ssafy.stellar.utils.stars.CalcStarLocation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,9 @@ public class UserBookmarkServiceTest {
     @Mock
     private UserBookmarkRepository userBookmarkRepository;
 
+    @Mock
+    private CalcStarLocation calc;
+
     UserEntity user;
     StarEntity star1;
 
@@ -49,7 +53,13 @@ public class UserBookmarkServiceTest {
 
         star1 = new StarEntity();
         star1.setStarId("star1");
+        star1.setRA("0 0 0");
+        star1.setDeclination("+0 0 0");
+        star1.setPMRA("0.0");
+        star1.setPMDEC("0.0");
         lenient().when(starRepository.findByStarId("star1")).thenReturn(star1);
+        lenient().when(calc.calculateNewRA(anyString(), anyDouble())).thenReturn(0.0);
+        lenient().when(calc.calculateNewDec(anyString(), anyDouble())).thenReturn(0.0);
     }
 
     @Test

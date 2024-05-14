@@ -147,6 +147,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
         for (List<String> link : links) {
             StarEntity startStar = validateStar(link.get(0));
             StarEntity endStar = validateStar(link.get(1));
+            if (startStar.equals(endStar)) { continue;}
             UserConstellationLinkEntity userLink = new UserConstellationLinkEntity();
             userLink.setUserConstellation(userConstellation);
             userLink.setStartStar(starRepository.findByStarId(startStar.getStarId()));

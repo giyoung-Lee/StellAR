@@ -9,8 +9,6 @@ RUN npm install
 # 현재 디렉토리의 모든 파일을 도커 컨테이너의 워킹 디렉토리에 복사한다.
 COPY . .
 
-ENV GENERATE_SOURCEMAP false
-
 # 5173번 포트 노출
 EXPOSE 5173
 

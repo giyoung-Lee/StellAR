@@ -263,7 +263,7 @@ const NavBar = () => {
   return (
     <FixedContainer ref={containerRef}>
       {!isChecked && <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-black opacity-70"></div>}
-      <CheckboxWrapper className='cursor-pointer '>
+      <CheckboxWrapper>
         {!isChecked && (
           <ul
             ref={ulRef} // ul 요소에 ref 연결

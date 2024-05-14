@@ -5,13 +5,31 @@ import { PostPaymentReady } from '../../apis/PaymentApis';
 import useUserStore from '../../stores/userStore';
 import { useState } from 'react';
 import usePaymentStore from '../../stores/paymentStore';
+import useOrderStore from '../../stores/orderStore';
+import Swal from 'sweetalert2';
 
 const PayInfo = () => {
   const userStore = useUserStore();
   const paymentStore = usePaymentStore();
+  const orderStore = useOrderStore();
 
   const readyPayment = () => {
     console.log('결제해야징');
+    if (
+      !paymentStore.qty ||
+      !paymentStore.recipient ||
+      !paymentStore.addressPost ||
+      !paymentStore.addressDetail ||
+      !orderStore.address.postcode
+    ) {
+      Swal.fire({
+        text: '주문 내역을 확인하세요!',
+        icon: 'error',
+        confirmButtonText: '확인',
+        width: 300,
+      });
+      return;
+    }
     mutate({
       userId: userStore.userId,
       amount: 1,
@@ -22,7 +40,7 @@ const PayInfo = () => {
   const { mutate } = useMutation({
     mutationFn: PostPaymentReady,
     onSuccess(result: any) {
-      console.log(result);
+      console.log(result.tid);
       window.open(result.next_redirect_pc_url);
       paymentStore.setTid(result.tid);
     },

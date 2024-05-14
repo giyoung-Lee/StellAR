@@ -36,3 +36,10 @@ interface orderApitype {
   amount: number;
   productId: number;
 }
+
+interface paymentApitype {
+  tid: string;
+  pgToken: string;
+  partnerOrderId: string;
+  partnerUserId: string;
+}

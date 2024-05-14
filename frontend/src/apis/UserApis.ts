@@ -1,3 +1,4 @@
+import { requestPermission } from '../firebase';
 import { publicRequest } from '../hooks/requestMethods';
 import axios from 'axios';
 
@@ -7,7 +8,10 @@ export const loginApi = async (loginData: loginApiType) => {
   const formData = new FormData();
   formData.append('userId', loginData.userId);
   formData.append('password', loginData.password);
-
+  const token = await requestPermission();
+  if (token) {
+    formData.append('deviceToken', token)
+  }
   return publicRequest
     .post(`user/login`, formData)
     .then((res) => res.data)

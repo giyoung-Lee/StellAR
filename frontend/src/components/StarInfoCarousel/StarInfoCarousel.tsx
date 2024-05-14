@@ -78,7 +78,7 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         opacity: 0,
         transform: 'translateX(200%) translateZ(-330px) scale(0.95)',
       };
-      else if (activeSlide - 3 === index)
+    else if (activeSlide - 3 === index)
       return {
         opacity: 0,
         transform: 'translateX(-290%) translateZ(-530px) scale(0.95)',
@@ -109,14 +109,10 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         GetConstellationDetail(constellationStore.constellationName),
     });
 
-    const { isLoading: isXoQuizLoading, data: quiznData } =
-    useQuery({
-      queryKey: ['get-xo-quiz'],
-      queryFn: () =>
-      GetXoQuiz(constellationStore.constellationName),
-    });
-
-    
+  const { isLoading: isXoQuizLoading, data: quiznData } = useQuery({
+    queryKey: ['get-xo-quiz'],
+    queryFn: () => GetXoQuiz(constellationStore.constellationName),
+  });
 
   if (isConstellationLoading || isXoQuizLoading) {
     return <Loading />;
@@ -143,7 +139,11 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
         onTouchEnd={handleTouchEnd}
       >
         {carousel.map((card, idx) => (
-          <s.CarouselItem key={idx} style={{ ...getStyles(idx) }}>
+          <s.CarouselItem
+            key={idx}
+            style={{ ...getStyles(idx) }}
+            className="backdrop-blur-sm"
+          >
             {card === 'image' ? (
               <StarInfoImage
                 constellationImg={`img/constellation/${constellationStore.constellationName}.png`}

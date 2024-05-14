@@ -7,8 +7,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import useUserStore from '../stores/userStore';
 import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
+import MyConstInfoBox from '../components/StarInfoCarousel/MyConstInfoBox';
 import { MakeMyConstellationApi } from '../apis/MyConstApis';
-import Swal from 'sweetalert2';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -22,8 +22,6 @@ import Textarea from '@mui/joy/Textarea';
 import { whereAmI } from '../apis/UserApis';
 import '../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GetLoadingMessageApi } from '../apis/LoadingApis';
-import useLoadingStore from '../stores/loadingStore';
 
 const HomePage = () => {
   const starStore = useStarStore();
@@ -59,21 +57,9 @@ const HomePage = () => {
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
     onSuccess(result: string) {
-      // console.log(result);
-      Swal.fire({
-        title: '성공!',
-        text: '별자리가 성공적으로 생성되었습니다.',
-        icon: 'success',
-        confirmButtonText: '확인',
-      });
       setOpen(false);
     },
     onError(error) {
-      Swal.fire({
-        icon: 'error',
-        title: '오류',
-        text: '별자리 생성 중 오류가 발생했습니다.',
-      });
       setOpen(false);
     },
   });
@@ -101,14 +87,12 @@ const HomePage = () => {
   }, []);
 
   // 현재 주소 보여주기
-  const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery(
-    {
-      queryKey: ['get-my-location'],
-      queryFn: () => {
-        return whereAmI(userStore.userLat, userStore.userLng);
-      },
+  const { data: MyLocationData } = useQuery({
+    queryKey: ['get-my-location'],
+    queryFn: () => {
+      return whereAmI(userStore.userLat, userStore.userLng);
     },
-  );
+  });
 
   // 나만의 별자리 만들기 모달 관련
   const [open, setOpen] = useState<boolean>(false);
@@ -267,7 +251,7 @@ const HomePage = () => {
           <StarInfoCarousel active={0} />
         ) : constellationStore.constellationClicked &&
           !hwangdo13info.includes(constellationStore.constellationName) ? (
-          <StarInfoCarousel active={1} />
+          <MyConstInfoBox />
         ) : null}
 
         <MainCanvas />

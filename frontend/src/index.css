@@ -133,6 +133,10 @@
   src: url('./fonts/HSBombaram3.0_Regular.woff2') format('woff2');
 }
 
+.my-swal {
+  z-index: 2000;
+}
+
 .AppSize {
   max-width: 1024px;
   min-height: 100vh;

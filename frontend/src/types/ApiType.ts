@@ -31,3 +31,8 @@ interface deleteMyConstellationApitype {
   constellationId: number;
 }
 
+interface orderApitype {
+  userId: string;
+  amount: number;
+  productId: number;
+}

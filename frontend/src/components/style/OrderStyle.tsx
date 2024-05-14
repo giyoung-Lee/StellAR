@@ -17,6 +17,14 @@ export const Content = styled.div`
   padding: 10px;
   position: relative;
   font-size: 0.9rem;
+  .payment {
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: 10px;
+      height: 23px;
+    }
+  }
   .ordered_item {
     font-size: 0.9rem;
   }

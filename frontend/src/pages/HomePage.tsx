@@ -7,8 +7,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import useUserStore from '../stores/userStore';
 import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
+import MyConstInfoBox from '../components/StarInfoCarousel/MyConstInfoBox';
 import { MakeMyConstellationApi } from '../apis/MyConstApis';
-import Swal from 'sweetalert2';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -87,14 +87,12 @@ const HomePage = () => {
   }, []);
 
   // 현재 주소 보여주기
-  const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery(
-    {
-      queryKey: ['get-my-location'],
-      queryFn: () => {
-        return whereAmI(userStore.userLat, userStore.userLng);
-      },
+  const { data: MyLocationData } = useQuery({
+    queryKey: ['get-my-location'],
+    queryFn: () => {
+      return whereAmI(userStore.userLat, userStore.userLng);
     },
-  );
+  });
 
   // 나만의 별자리 만들기 모달 관련
   const [open, setOpen] = useState<boolean>(false);
@@ -253,9 +251,7 @@ const HomePage = () => {
           <StarInfoCarousel active={0} />
         ) : constellationStore.constellationClicked &&
           !hwangdo13info.includes(constellationStore.constellationName) ? (
-          <div className="text-center absolute z-[1000] top-[60%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm">
-            fff
-          </div>
+          <MyConstInfoBox />
         ) : null}
 
         <MainCanvas />

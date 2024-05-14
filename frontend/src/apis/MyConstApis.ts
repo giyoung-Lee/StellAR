@@ -53,3 +53,12 @@ export const GetUserConstellation = async (userId: string) => {
     },
   });
 };
+
+export const GetMyconstDetail = async (userId: string, constellationId: string) => {
+  return await publicRequest.get('/user-constellation', {
+    params: {
+      userId:userId,
+      constellationId: constellationId,
+    },
+  });
+};

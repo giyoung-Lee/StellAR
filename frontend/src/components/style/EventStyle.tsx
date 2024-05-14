@@ -10,7 +10,7 @@ export const Coner = styled.p`
   border-radius: 50%;
 `;
 
-export const EventInfo = styled.p`
+export const EventInfo = styled.div`
   position: absolute;
   width: 100%;
   top: 20%;

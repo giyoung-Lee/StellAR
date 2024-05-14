@@ -1,7 +1,6 @@
 package com.ssafy.stellar.star.controller;
 
 
-import com.google.gson.Gson;
 import com.ssafy.stellar.settings.TestSecurityConfig;
 import com.ssafy.stellar.star.service.StarServiceImpl;
 import org.junit.jupiter.api.DisplayName;

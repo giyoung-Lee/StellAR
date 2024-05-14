@@ -20,32 +20,24 @@ interface PaymentStoreType {
   setaddressDetail: (addressDetail: string) => void;
 }
 
-const usePaymentStore = create<PaymentStoreType>(
-  persist(
-    (set, get) => ({
-      tid: '',
-      setTid: (tid: string) => set({ tid: tid }),
-      pgToken: '',
-      setPgToken: (token: string) => set({ pgToken: token }),
+const usePaymentStore = create<PaymentStoreType>((set, get) => ({
+  tid: '',
+  setTid: (tid: string) => set({ tid: tid }),
+  pgToken: '',
+  setPgToken: (token: string) => set({ pgToken: token }),
 
-      qty: 0,
-      setQty: (qty: number) => set({ qty: qty }),
+  qty: 0,
+  setQty: (qty: number) => set({ qty: qty }),
 
-      recipient: '',
-      setRecipient: (recipient: string) => set({ recipient: recipient }),
+  recipient: '',
+  setRecipient: (recipient: string) => set({ recipient: recipient }),
 
-      addressPost: '',
-      setAddressPost: (addressPost: string) =>
-        set({ addressPost: addressPost }),
+  addressPost: '',
+  setAddressPost: (addressPost: string) => set({ addressPost: addressPost }),
 
-      addressDetail: '',
-      setaddressDetail: (addressDetail: string) =>
-        set({ addressDetail: addressDetail }),
-    }),
-    {
-      name: 'paymentStore',
-    },
-  ),
-);
+  addressDetail: '',
+  setaddressDetail: (addressDetail: string) =>
+    set({ addressDetail: addressDetail }),
+}));
 
 export default usePaymentStore;

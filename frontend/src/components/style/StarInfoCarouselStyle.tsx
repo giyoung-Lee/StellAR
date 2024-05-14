@@ -53,9 +53,9 @@ export const Carousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background-color: #373737e7;
+  background-color: #2929297a;
   border-radius: 11px;
-  border: 1px solid #ffffff74;
+  /* border: 1px solid #ffffff74; */
   width: 80%;
   height: 100%;
   position: absolute;
@@ -184,4 +184,3 @@ export const Mythology = styled.div`
   overflow-y: auto;
   line-height: 1.7;
 `;
-

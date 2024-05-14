@@ -40,7 +40,7 @@ public class KakaopayController{
         }
     }
 
-    @GetMapping("/success")
+    @PostMapping("/success")
     public ResponseEntity<?> afterPayRequest(@RequestBody KakaoSuccessRequestDto kakaoSuccessRequestDto) {
         try{
             KakaoApproveResponseDto dto = kakaoPayService.ApproveResponse(kakaoSuccessRequestDto);

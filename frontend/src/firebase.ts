@@ -40,6 +40,7 @@ export const requestPermission = async () => {
       const token = await getToken(messaging, { vapidKey: "BPxdfbo29YzD9IS9wcXcKL0-b2zjOQCyqZIWLJiFWrkXPxkD2qM_2ROFkHc_tQOnxWKwOQXaYzzU_heXZ6cyuPk" });
       if (token) {
         console.log(`푸시 토큰 발급 완료: ${token}`);
+        return token;
         // 서버로 토큰 전송 로직 추가
       } else {
         console.log('푸시 토큰이 생성되지 않았습니다.');
@@ -50,6 +51,7 @@ export const requestPermission = async () => {
   } else {
     console.log('푸시 권한 거부됨');
   }
+  return null;
 }
 
 // 메시지 수신 처리

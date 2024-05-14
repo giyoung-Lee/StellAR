@@ -22,6 +22,7 @@ export const ConstellationInfo = styled.div`
 
 export const ConstellationName = styled.p`
   color: var(--color-orange);
+  width: 85%;
   font-size: 1.1rem;
   margin-top: 5px;
   cursor: pointer;

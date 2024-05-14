@@ -5,9 +5,11 @@ import useOrderStore from '../../stores/orderStore';
 
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import usePaymentStore from '../../stores/paymentStore';
 
 const ShippingModal = () => {
   const orderStore = useOrderStore();
+  const { setAddressPost } = usePaymentStore();
 
   const handleComplete = (data: any) => {
     console.log(data);
@@ -17,6 +19,7 @@ const ShippingModal = () => {
       address: data.address,
       extraAddress: data.buildingName,
     });
+    setAddressPost(data.zonecode);
   };
   return (
     <o.ModalWrapper>

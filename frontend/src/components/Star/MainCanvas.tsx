@@ -11,6 +11,8 @@ import {
   Stars,
   Stats,
   StatsGl,
+  Merged,
+  Instances,
 } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -309,6 +311,7 @@ const MainCanvas = (props: Props) => {
       <Lights />
 
       {/* 별 */}
+
       {Object.values(starPositions).map((star: any) => (
         <StarMesh
           propstarId={star.starId}
@@ -429,4 +432,3 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
-

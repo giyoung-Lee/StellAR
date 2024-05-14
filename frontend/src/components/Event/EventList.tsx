@@ -6,7 +6,6 @@ import { GetEventApi } from '../../apis/EventApis';
 import Loading from '../common/Loading/Loading';
 
 const EventList = () => {
-  const myStarList = new Array(5).fill(0);
   const {
     isLoading: isEventLoading,
     data: eventsData,

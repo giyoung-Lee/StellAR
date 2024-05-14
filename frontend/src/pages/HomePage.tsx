@@ -263,6 +263,9 @@ const HomePage = () => {
         {constellationStore.constellationClicked &&
         hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
+        ) : constellationStore.constellationClicked &&
+        !hwangdo13info.includes(constellationStore.constellationName) ? (
+          <StarInfoCarousel active={1} />
         ) : null}
 
         <MainCanvas />

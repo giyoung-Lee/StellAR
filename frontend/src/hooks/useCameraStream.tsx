@@ -39,7 +39,7 @@ const useCameraStream = () => {
       .catch((error) => {
         console.error('카메라 접근 불가:', error);
       });
-  }, []);
+  }, [starStore.isARMode]);
 
   return videoTexture;
 };

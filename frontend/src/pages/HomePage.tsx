@@ -112,6 +112,10 @@ const HomePage = () => {
     mutate(userConstellationData);
   };
 
+  const toggleForward = () => {
+    userStore.setIsForward(!userStore.isForward);
+  };
+
   const toggleGyro = () => {
     userStore.setIsGyro(!userStore.isGyro);
   };
@@ -141,10 +145,10 @@ const HomePage = () => {
       // gamma의 절대값이 45를 초과하면 landscape 모드로 인식ㄱㄱ
       if (Math.abs(safeGamma) > 45 && !userStore.isLandscape) {
         userStore.setIsLandscape(true);
-        console.log("true로 변경")
+        console.log('true로 변경');
       } else if (Math.abs(safeGamma) <= 45 && userStore.isLandscape) {
         userStore.setIsLandscape(false);
-        console.log("false로 변경")
+        console.log('false로 변경');
       }
     };
 
@@ -170,8 +174,17 @@ const HomePage = () => {
         </div>
       )}
 
-      <div className="fixed top-3 right-4 z-[1000]" onClick={toggleGyro}>
-        <FontAwesomeIcon icon="location-crosshairs" size="xl" />
+      <div className="fixed flex top-3 right-4 z-[16777272]">
+        <div onClick={toggleForward} className="cursor-pointer">
+          {userStore.isForward ? (
+            <FontAwesomeIcon icon="stop" size="xl" className="mx-2" />
+          ) : (
+            <FontAwesomeIcon icon="forward" size="xl" className="mx-2" />
+          )}
+        </div>
+        <div onClick={toggleGyro} className="cursor-pointer">
+          <FontAwesomeIcon icon="location-crosshairs" size="xl" />
+        </div>
       </div>
 
       {/* 별 이름 보여주기 */}
@@ -183,7 +196,7 @@ const HomePage = () => {
         ) : null}
 
         {starStore.linkedStars.length > 0 ? (
-          <div className="absolute flex flex-col z-[1000] top-[55%] justify-center items-center">
+          <div className="absolute flex flex-col z-[16777272] top-[55%] justify-center items-center">
             <button
               className="p-3 m-1 bg-white bg-opacity-25 cursor-pointer rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
               onClick={() => setOpen(true)}

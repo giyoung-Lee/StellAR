@@ -31,6 +31,12 @@ import useUserStore from '../../stores/userStore';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
 import DrawCallCounter from './DrawCallCounter';
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import '../../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {};
 
@@ -103,11 +109,12 @@ const MainCanvas = (props: Props) => {
   // 계산을 위한 시간 불러오기
   const [time, setTime] = useState<Date>(new Date());
 
-  const formatTime = (date: Date): string => {
-    return date.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setTime(date);
+    } else {
+      setTime(new Date());
+    }
   };
 
   useEffect(() => {
@@ -118,6 +125,49 @@ const MainCanvas = (props: Props) => {
 
     return () => clearInterval(timer);
   }, []);
+
+  // 화면 자동 재생을 위한 코드(5분 단위)
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | null = null;
+    if (userStore.isForward) {
+      timer = setInterval(() => {
+        setTime((prevTime) => new Date(prevTime.getTime() + 300000));
+      }, 1000);
+    } else {
+      setTime(new Date());
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [userStore.isForward]);
+
+  // 시간 초기화 버튼 만들기 위한 현재 시간 구하기
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
+  const currentHour = currentDate.getHours();
+  const currentMinute = currentDate.getMinutes();
+
+  // 시간 초기화 버튼 만들기 위한 등록 시간 구하기
+  const selectedYear = time.getFullYear();
+  const selectedMonth = time.getMonth();
+  const selectedDay = time.getDate();
+  const selectedHour = time.getHours();
+  const selectedMinute = time.getMinutes();
+
+  // 등록 시간이랑 현재 시간 비교
+  const isCurrentTimeSelected =
+    currentYear === selectedYear &&
+    currentMonth === selectedMonth &&
+    currentDay === selectedDay &&
+    currentHour === selectedHour &&
+    currentMinute === selectedMinute;
+
+  const timeReload = () => {
+    setTime(currentDate);
+  };
 
   // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(별)
   const calculateStarPositions = (data: StarDataMap) => {
@@ -183,7 +233,7 @@ const MainCanvas = (props: Props) => {
       const newStarPositions = calculateStarPositions(starData.data);
       setStarPositions(newStarPositions);
     }
-  }, [planetData, starData]);
+  }, [planetData, starData, time]);
 
   if (
     isStarsLoading ||
@@ -224,28 +274,28 @@ const MainCanvas = (props: Props) => {
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* Stas */}
-      <Stats />
+      {/* <Stats /> */}
 
       {/* DrawCall */}
       <DrawCallCounter />
 
       {/* 시간 조작 부분 */}
-      <Html>
-        <div
-          style={{
-            position: 'absolute',
-            top: 10,
-            left: 10,
-            color: 'white',
-            fontSize: '20px',
-          }}
-        >
-          {formatTime(time)}
+      <Html fullscreen>
+        <div className="fixed w-[80vw] m-2">
+          <DateTimePicker
+            onChange={handleDateChange}
+            value={time}
+            clearIcon={null}
+            format="y년 MM월 dd일 HH시 mm분"
+          />
+          {!isCurrentTimeSelected && (
+            <FontAwesomeIcon icon="rotate-right" size="xl" className="mx-2 cursor-pointer" onClick={timeReload} />
+          )}
         </div>
       </Html>
 
       {/* 배경 별 및 스파클 */}
-      {!starStore.isARMode && <BackgroundStars />}
+      {!userStore.isForward && !starStore.isARMode && <BackgroundStars />}
 
       {/* 배경 설정 */}
       <BackgroundSetter
@@ -471,4 +521,3 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
-

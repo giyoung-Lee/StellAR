@@ -24,6 +24,7 @@ def on_message(client, userdata, message):
     action = data["action"]   
     x=(((data['sensor_num']-1)*12.5)+3.125)*screen_width/100
     y=screen_hegint-((data['height']-30.0)*screen_hegint/75)
+    # print("msg: ",data)
 
     # mouse_down일 때 
     if action == "down":

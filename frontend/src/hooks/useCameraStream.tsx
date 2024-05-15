@@ -9,18 +9,13 @@ const useCameraStream = () => {
   const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(
     null,
   );
-  const [width, setWidth] = useState<number>(window.innerWidth);
-  const [height, setHeight] = useState<number>(window.innerHeight);
 
   useEffect(() => {
     if (!starStore.isARMode) {
       return;
     }
-
-    if (userStore.isLandscape) {
-      setWidth(window.innerHeight);
-      setHeight(window.innerWidth);
-    }
+    const width = userStore.isLandscape ? window.innerHeight : window.innerWidth;
+    const height = userStore.isLandscape ? window.innerWidth : window.innerHeight;
 
     const constraints = {
       video: {
@@ -48,7 +43,7 @@ const useCameraStream = () => {
       .catch((error) => {
         console.error('카메라 접근 불가:', error);
       });
-  }, [starStore.isARMode, userStore.isLandscape]);
+  }, [starStore.isARMode, userStore.isLandscape, window.innerWidth, window.innerHeight]);
 
   return videoTexture;
 };

@@ -139,10 +139,12 @@ const HomePage = () => {
       const { gamma } = event;
       const safeGamma = gamma || 0;
       // gamma의 절대값이 45를 초과하면 landscape 모드로 인식ㄱㄱ
-      if (Math.abs(safeGamma) > 45) {
+      if (Math.abs(safeGamma) > 45 && !userStore.isLandscape) {
         userStore.setIsLandscape(true);
-      } else {
+        console.log("true로 변경")
+      } else if (Math.abs(safeGamma) <= 45 && userStore.isLandscape) {
         userStore.setIsLandscape(false);
+        console.log("false로 변경")
       }
     };
 
@@ -155,7 +157,7 @@ const HomePage = () => {
     return () => {
       window.removeEventListener('deviceorientation', handleOrientation);
     };
-  }, [starStore.isARMode]);
+  }, [starStore.isARMode, userStore.isLandscape]);
 
   return (
     <>

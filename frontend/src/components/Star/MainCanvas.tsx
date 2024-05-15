@@ -117,15 +117,6 @@ const MainCanvas = (props: Props) => {
     }
   };
 
-  useEffect(() => {
-    // 매 분마다 time 상태를 업데이트
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 30000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   // 화면 자동 재생을 위한 코드(5분 단위)
   useEffect(() => {
     let timer: ReturnType<typeof setInterval> | null = null;

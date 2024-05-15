@@ -133,6 +133,30 @@ const HomePage = () => {
     'Virgo',
   ];
 
+  // 자이로 센서 관련 코드입니당
+  useEffect(() => {
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const { gamma } = event;
+      const safeGamma = gamma || 0;
+      // gamma의 절대값이 45를 초과하면 landscape 모드로 인식ㄱㄱ
+      if (Math.abs(safeGamma) > 45) {
+        userStore.setIsLandscape(true);
+      } else {
+        userStore.setIsLandscape(false);
+      }
+    };
+
+    if (starStore.isARMode) {
+      // 자이로 센서 이벤트 리스너 등록
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+
+    // 컴포넌트가 언마운트되거나 isARMode가 변경될 때 리스너 제거
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+    };
+  }, [starStore.isARMode]);
+
   return (
     <>
       {/* 현재 위치 보여주기 */}

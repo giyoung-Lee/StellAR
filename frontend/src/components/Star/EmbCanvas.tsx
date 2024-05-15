@@ -22,7 +22,6 @@ import { CameraAnimator } from '../../hooks/CameraAnimator';
 import { useEffect, useRef, useState } from 'react';
 import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
-import useCameraStream from '../../hooks/useCameraStream';
 import { GetStarMark } from '../../apis/StarMarkApis';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 

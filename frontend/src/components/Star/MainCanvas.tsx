@@ -201,10 +201,10 @@ const MainCanvas = (props: Props) => {
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* Stas */}
-      {/* <Stats /> */}
+      <Stats />
 
       {/* DrawCall */}
-      {/* <DrawCallCounter /> */}
+      <DrawCallCounter />
 
       {/* 배경 별 및 스파클 */}
       {!starStore.isARMode && <BackgroundStars />}
@@ -311,22 +311,23 @@ const MainCanvas = (props: Props) => {
       <Lights />
 
       {/* 별 */}
-
-      {Object.values(starPositions).map((star: any) => (
-        <StarMesh
-          propstarId={star.starId}
-          spType={star.spType}
-          key={star.starId}
-          position={
-            new THREE.Vector3(
-              -star.calX * star.nomalizedMagV,
-              star.calZ * star.nomalizedMagV,
-              star.calY * star.nomalizedMagV,
-            )
-          }
-          size={getRandomInt(100, 110)}
-        />
-      ))}
+      <Instances limit={2000} range={2000}>
+        {Object.values(starPositions).map((star: any) => (
+          <StarMesh
+            propstarId={star.starId}
+            spType={star.spType}
+            key={star.starId}
+            position={
+              new THREE.Vector3(
+                -star.calX * star.nomalizedMagV,
+                star.calZ * star.nomalizedMagV,
+                star.calY * star.nomalizedMagV,
+              )
+            }
+            size={getRandomInt(100, 110)}
+          />
+        ))}
+      </Instances>
 
       {planetPositions.map((planet: any) => (
         <PlanetMesh
@@ -432,3 +433,4 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
+

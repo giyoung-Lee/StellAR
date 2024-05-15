@@ -116,7 +116,7 @@ public class StarServiceImplTest {
         double result = starService.calculateNewRA(invalidRA, pmRA, years);
 
         // Then
-        assertEquals(0, result, "calculateNewRA should return 0 for invalid RA format");
+        assertEquals(0, result, "calculateNewRA - 잘못된 RA format");
     }
 
     @Test
@@ -131,7 +131,7 @@ public class StarServiceImplTest {
         double result = starService.calculateNewDec(invalidDec, pmDec, years);
 
         // Then
-        assertEquals(0, result, "calculateNewDec should return 0 for invalid Dec format");
+        assertEquals(0, result, "calculateNewDec - 잘못된 Dec format");
     }
 
     @Test
@@ -146,7 +146,7 @@ public class StarServiceImplTest {
         double result = starService.calculateNewRA(nonNumericRA, pmRA, years);
 
         // Then
-        assertEquals(0, result, "calculateNewRA should return 0 when RA contains non-numeric values");
+        assertEquals(0, result, "calculateNewRA - NumberFormatException 에러");
     }
 
     @Test
@@ -161,6 +161,6 @@ public class StarServiceImplTest {
         double result = starService.calculateNewDec(nonNumericDec, pmDec, years);
 
         // Then
-        assertEquals(0, result, "calculateNewDec should return 0 when Dec contains non-numeric values");
+        assertEquals(0, result, "calculateNewDec - NumberFormatException 에러");
     }
 }

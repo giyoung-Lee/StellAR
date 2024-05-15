@@ -40,24 +40,17 @@ const MyConstInfoBox = () => {
     return null;
   }
 
-
   return (
     <div
       ref={Ref}
-      className="absolute z-[1000] top-[60%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
+      className="absolute z-[1000] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
     >
-      <div className="flex flex-col items-start justify-center max-w-[50vw] h-full">
-        <div className="flex justify-between w-full">
-          <p className="my-1 text-lg text-orange">My 별자리</p>
-          <div className="cursor-pointer" onClick={cancelFunc}>
-            <FontAwesomeIcon icon="xmark" />
-          </div>
-        </div>
-        <p className="max-w-full break-words">
-          이름: {MyConstDetailData?.data.name}
+      <div className="flex flex-col items-center justify-center max-w-[70vw] h-full">
+        <p className="max-w-full text-lightorange text-xl font-bold text-center py-2">
+          {MyConstDetailData?.data.name}
         </p>
-        <p className="max-w-full mt-1 max-h-[200px] overflow-auto break-words flex-grow text-left">
-          설명: {MyConstDetailData?.data.description}
+        <p className="max-w-full mt-1 max-h-[300px] overflow-auto break-words flex-grow text-left">
+          {MyConstDetailData?.data.description}
         </p>
       </div>
     </div>

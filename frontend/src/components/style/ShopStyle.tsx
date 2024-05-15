@@ -96,7 +96,7 @@ export const CardWrapper = styled.div`
     cursor: pointer;
     transition: all 300ms ease-in-out;
     &:hover {
-      font-size: 21.5px;
+      font-size: 18px;
     }
   }
 

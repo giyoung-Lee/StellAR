@@ -13,6 +13,7 @@ import {
   StatsGl,
   Merged,
   Instances,
+  Html,
 } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -99,9 +100,27 @@ const MainCanvas = (props: Props) => {
   // Define the state for holding star data as a StarDataMap
   const [starPositions, setStarPositions] = useState<StarDataMap>({});
 
-  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
+  // 계산을 위한 시간 불러오기
+  const [time, setTime] = useState<Date>(new Date());
+
+  const formatTime = (date: Date): string => {
+    return date.toLocaleTimeString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  useEffect(() => {
+    // 매 분마다 time 상태를 업데이트
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 30000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(별)
   const calculateStarPositions = (data: StarDataMap) => {
-    const time = new Date();
     const observer = new Astronomy.Observer(
       userStore.userLat,
       userStore.userLng,
@@ -130,9 +149,13 @@ const MainCanvas = (props: Props) => {
     return result;
   };
 
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(행성)
   const calculatePlanetPositions = (data: PlanetData[]) => {
-    const time = new Date();
-    const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
+    const observer = new Astronomy.Observer(
+      userStore.userLat,
+      userStore.userLng,
+      0,
+    );
     return data.map((planet) => {
       const horizontal = Astronomy.Horizon(
         time,
@@ -205,6 +228,21 @@ const MainCanvas = (props: Props) => {
 
       {/* DrawCall */}
       <DrawCallCounter />
+
+      {/* 시간 조작 부분 */}
+      <Html>
+        <div
+          style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            color: 'white',
+            fontSize: '20px',
+          }}
+        >
+          {formatTime(time)}
+        </div>
+      </Html>
 
       {/* 배경 별 및 스파클 */}
       {!starStore.isARMode && <BackgroundStars />}

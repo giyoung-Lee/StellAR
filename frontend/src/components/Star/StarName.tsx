@@ -26,7 +26,7 @@ const StarName = () => {
   return (
     <div
       ref={starNameRef}
-      className="text-center absolute z-[1000] top-[60%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
+      className="text-center absolute z-[16777272] top-[60%] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
     >
       {/* <n.Wrapper ref={starNameRef}> */}
       <div className="flex justify-end">

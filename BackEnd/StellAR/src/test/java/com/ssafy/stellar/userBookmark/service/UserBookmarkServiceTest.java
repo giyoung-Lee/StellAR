@@ -65,7 +65,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 생성 성공 테스트")
     void manageUserBookmarkCreateSuccess() {
-        // given
+        // Given
         String bookmarkName = "Bookmark Test";
         BookmarkRequestDto request = new BookmarkRequestDto(user.getUserId(), star1.getStarId(), bookmarkName);
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
@@ -74,11 +74,11 @@ public class UserBookmarkServiceTest {
         bookmark.setBookmarkName(bookmarkName);
         when(userBookmarkRepository.save(any(UserBookmarkEntity.class))).thenReturn(bookmark);
 
-        // when
+        // When
         userBookmarkService.manageUserBookmark(request, false);
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(bookmark);
 
-        // then
+        // Then
         UserBookmarkEntity savedBookmark = userBookmarkRepository.findByUserAndStar(user, star1);
         assertThat(savedBookmark).isNotNull()
                 .extracting(UserBookmarkEntity::getBookmarkName).isEqualTo(bookmarkName);
@@ -143,7 +143,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 조회 성공 테스트")
     void getUserBookmarkSuccess() {
-        String bookmarkName = "Bookmark Update Test";
+        String bookmarkName = "Bookmark Test";
         UserBookmarkEntity existingBookmark = new UserBookmarkEntity();
         List<UserBookmarkEntity> bookmarkEntityList = new ArrayList<UserBookmarkEntity>();
         existingBookmark.setUser(user);

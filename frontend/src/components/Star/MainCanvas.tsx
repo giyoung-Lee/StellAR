@@ -152,7 +152,7 @@ const MainCanvas = () => {
     currentMinute === selectedMinute;
 
   const timeReload = () => {
-    userStore.setIsForward(false)
+    userStore.setIsForward(false);
     setTime(currentDate);
   };
 
@@ -267,26 +267,29 @@ const MainCanvas = () => {
       {/* <DrawCallCounter /> */}
 
       {/* 시간 조작 부분 */}
-      {(!starStore.starClicked && !starStore.planetClicked && !starStore.isARMode && !userStore.isGyro) &&
-        <Html fullscreen>
-          <div className="fixed w-[80vw] m-2">
-            <DateTimePicker
-              onChange={handleDateChange}
-              value={time}
-              clearIcon={null}
-              format="y년 MM월 dd일 HH시 mm분"
-            />
-            {!isCurrentTimeSelected && (
-              <FontAwesomeIcon
-                icon="rotate-right"
-                size="xl"
-                className="mx-2 cursor-pointer"
-                onClick={timeReload}
+      {!starStore.starClicked &&
+        !starStore.planetClicked &&
+        !starStore.isARMode &&
+        !userStore.isGyro && (
+          <Html fullscreen>
+            <div className="fixed w-[80vw] m-2">
+              <DateTimePicker
+                onChange={handleDateChange}
+                value={time}
+                clearIcon={null}
+                format="y년 MM월 dd일 HH시 mm분"
               />
-            )}
-          </div>
-        </Html>
-      }
+              {!isCurrentTimeSelected && (
+                <FontAwesomeIcon
+                  icon="rotate-right"
+                  size="xl"
+                  className="mx-2 cursor-pointer"
+                  onClick={timeReload}
+                />
+              )}
+            </div>
+          </Html>
+        )}
 
       {/* 배경 별 및 스파클 */}
       {!userStore.isForward && !starStore.isARMode && <BackgroundStars />}

@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { loginApi } from '../apis/UserApis';
 import './style/PageGlobal.css';
 import './style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import useUserStore from '../stores/userStore';
-import { GetLoadingMessageApi } from '../apis/LoadingApis';
-import useLoadingStore from '../stores/loadingStore';
 
 const LoginPage = () => {
   const userStore = useUserStore();
-  const { setLoadingMessage } = useLoadingStore();
-
   const navigate = useNavigate();
   const goToSignup = () => {
     navigate('/signup');
@@ -99,16 +95,6 @@ const LoginPage = () => {
       mutate(loginData);
     }
   };
-
-  useEffect(() => {
-    console.log(LoadingMessageData);
-    LoadingMessageData && setLoadingMessage(LoadingMessageData?.data);
-  }, [loginData]);
-
-  const { isLoading: MessageLoading, data: LoadingMessageData } = useQuery({
-    queryKey: ['get-loading-message'],
-    queryFn: () => GetLoadingMessageApi(),
-  });
 
   return (
     <div className="flex items-center justify-center min-h-[100vh]">

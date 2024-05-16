@@ -159,7 +159,6 @@ const StarInfoCarousel = ({ active }: { active: number }) => {
             ) : (
               <StarInfoStory
                 constellationData={constellationData?.data}
-                setModalOpen={setModalOpen}
               />
             )}
           </s.CarouselItem>

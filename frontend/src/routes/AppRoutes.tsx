@@ -19,7 +19,6 @@ import EventPage from '../pages/EventPage';
 import ShopPage from '../pages/ShopPage';
 import OrderPage from '../pages/OrderPage';
 import useUserStore from '../stores/userStore';
-import Loading from '../components/common/Loading/Loading';
 
 const AppRoutes = () => {
   const location = useLocation();

@@ -58,6 +58,9 @@ const EmbPage = () => {
         text: '별자리가 성공적으로 생성되었습니다.',
         icon: 'success',
         confirmButtonText: '확인',
+        customClass: {
+          container: 'my-swal'
+        }
       });
       setOpen(false);
     },
@@ -66,6 +69,9 @@ const EmbPage = () => {
         icon: 'error',
         title: '오류',
         text: '별자리 생성 중 오류가 발생했습니다.',
+        customClass: {
+          container: 'my-swal'
+        }
       });
       setOpen(false);
     },

@@ -263,6 +263,9 @@ const NavBar = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "네",
       cancelButtonText: "아니요",
+      customClass: {
+        container: 'my-swal'
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.clear();

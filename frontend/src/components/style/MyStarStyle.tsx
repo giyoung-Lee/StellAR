@@ -43,7 +43,7 @@ export const Date = styled.p`
 
 export const Delete = styled.span`
   position: absolute;
-  z-index: 1000;
+  z-index: 16777272;
   right: -3px;
   top: -3px;
   width: 35px;

@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   height: 60vh;
   width: 100vw;
   position: absolute;
-  z-index: 1000;
+  z-index: 16777275;
   /* position: relative; */
   display: flex;
   align-self: center;
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   .arrow {
     height: 100px;
     position: absolute;
-    z-index: 1001;
+    z-index: 16777275;
 
     cursor: pointer;
 

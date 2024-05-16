@@ -1,4 +1,3 @@
-import React from 'react';
 import * as e from '../style/EventStyle';
 
 type Props = {

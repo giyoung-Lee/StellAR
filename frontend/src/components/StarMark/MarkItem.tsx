@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as m from '../style/StarMarkStyle';
 import { useMutation } from '@tanstack/react-query';
 import { DeleteStarMark } from '../../apis/StarMarkApis';
@@ -24,7 +24,7 @@ const MarkItem = ({
   DEC,
   nomalizedMagV,
 }: Props) => {
-  const [isSaved, setIsSaved] = useState(true);
+  const [isSaved] = useState(true);
   const { userId } = useUserStore();
   const starStore = useStarStore();
   const userStore = useUserStore();
@@ -37,14 +37,14 @@ const MarkItem = ({
     });
   };
 
-  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckBox = () => {
     mutate({ userId, starId });
   };
 
   const { mutate } = useMutation({
     mutationFn: DeleteStarMark,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
   });

@@ -16,7 +16,7 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 
   const meshRef = useRef<THREE.Mesh>(null!);
 
-  const { scene, animations } = useGLTF(`/img/${planetId}.glb`);
+  const { scene } = useGLTF(`/img/${planetId}.glb`);
 
   type SizeRatio = {
     Sun: number;

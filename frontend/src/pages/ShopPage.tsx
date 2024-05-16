@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as s from './style/ShopPageStyle';
 import GiftCard from '../components/Shop/GiftCard';
 import usePaymentStore from '../stores/paymentStore';

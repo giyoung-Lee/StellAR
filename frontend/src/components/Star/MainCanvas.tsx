@@ -9,9 +9,6 @@ import {
   DeviceOrientationControls,
   Sparkles,
   Stars,
-  Stats,
-  StatsGl,
-  Merged,
   Instances,
   Html,
 } from '@react-three/drei';
@@ -38,14 +35,12 @@ import 'react-clock/dist/Clock.css';
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type Props = {};
-
 interface BackgroundSetterProps {
   videoTexture: THREE.VideoTexture | null;
   isARMode: boolean;
 }
 
-const MainCanvas = (props: Props) => {
+const MainCanvas = () => {
   // 스토어에서 필요한 요소 가져오기
   const starStore = useStarStore();
   const userStore = useUserStore();
@@ -157,6 +152,7 @@ const MainCanvas = (props: Props) => {
     currentMinute === selectedMinute;
 
   const timeReload = () => {
+    userStore.setIsForward(false)
     setTime(currentDate);
   };
 
@@ -271,24 +267,26 @@ const MainCanvas = (props: Props) => {
       {/* <DrawCallCounter /> */}
 
       {/* 시간 조작 부분 */}
-      <Html fullscreen>
-        <div className="fixed w-[80vw] m-2">
-          <DateTimePicker
-            onChange={handleDateChange}
-            value={time}
-            clearIcon={null}
-            format="y년 MM월 dd일 HH시 mm분"
-          />
-          {!isCurrentTimeSelected && (
-            <FontAwesomeIcon
-              icon="rotate-right"
-              size="xl"
-              className="mx-2 cursor-pointer"
-              onClick={timeReload}
+      {(!starStore.starClicked && !starStore.planetClicked && !starStore.isARMode && !userStore.isGyro) &&
+        <Html fullscreen>
+          <div className="fixed w-[80vw] m-2">
+            <DateTimePicker
+              onChange={handleDateChange}
+              value={time}
+              clearIcon={null}
+              format="y년 MM월 dd일 HH시 mm분"
             />
-          )}
-        </div>
-      </Html>
+            {!isCurrentTimeSelected && (
+              <FontAwesomeIcon
+                icon="rotate-right"
+                size="xl"
+                className="mx-2 cursor-pointer"
+                onClick={timeReload}
+              />
+            )}
+          </div>
+        </Html>
+      }
 
       {/* 배경 별 및 스파클 */}
       {!userStore.isForward && !starStore.isARMode && <BackgroundStars />}

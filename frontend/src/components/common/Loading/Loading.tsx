@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
 import './Loading.css';
-import useLoadingStore from '../../../stores/loadingStore';
 import { getRandomInt } from '../../../utils/random';
+import pieceKnowledge from '../../../assets/piece_knowledge.json'
 
 const Loading = () => {
-  const { loadingMessage } = useLoadingStore();
+  const loadingMessage = pieceKnowledge.piece_knowledge
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[100vh]">
@@ -18,7 +17,7 @@ const Loading = () => {
         </div>
       </div>
 
-      <div className="absolute mt-5 text-center flex flex-col justify-center items-center">
+      <div className="absolute flex flex-col items-center justify-center mt-5 text-center">
         <p className="message">
           {loadingMessage ? loadingMessage[getRandomInt(0, 6)]?.contents : null}
         </p>

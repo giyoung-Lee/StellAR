@@ -1,4 +1,3 @@
-import React from 'react';
 import MainCanvas from '../Star/MainCanvas';
 import * as r from '../style/WebPageStyle';
 

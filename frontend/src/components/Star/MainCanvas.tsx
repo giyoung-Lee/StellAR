@@ -9,9 +9,6 @@ import {
   DeviceOrientationControls,
   Sparkles,
   Stars,
-  Stats,
-  StatsGl,
-  Merged,
   Instances,
   Html,
 } from '@react-three/drei';
@@ -38,14 +35,12 @@ import 'react-clock/dist/Clock.css';
 import '../../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type Props = {};
-
 interface BackgroundSetterProps {
   videoTexture: THREE.VideoTexture | null;
   isARMode: boolean;
 }
 
-const MainCanvas = (props: Props) => {
+const MainCanvas = () => {
   // 스토어에서 필요한 요소 가져오기
   const starStore = useStarStore();
   const userStore = useUserStore();

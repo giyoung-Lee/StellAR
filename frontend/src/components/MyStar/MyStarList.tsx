@@ -1,6 +1,4 @@
-import React from 'react';
 import * as l from '../style/common/ListCardStyle';
-import MarkItem from './MyStarItem';
 import MyStarItem from './MyStarItem';
 import Lottie from 'lottie-react';
 import emptyLottie from '../../assets/lottie/empty.json';

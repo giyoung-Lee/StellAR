@@ -3,7 +3,6 @@ import {
   Route,
   Routes,
   useLocation,
-  redirect,
   Navigate,
 } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';

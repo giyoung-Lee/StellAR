@@ -2,7 +2,7 @@ import * as h from './style/HomePageStyle';
 import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import useUserStore from '../stores/userStore';
 import useConstellationStore from '../stores/constellationStore';
@@ -56,10 +56,10 @@ const HomePage = () => {
 
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
-    onSuccess(result: string) {
+    onSuccess() {
       setOpen(false);
     },
-    onError(error) {
+    onError() {
       setOpen(false);
     },
   });
@@ -145,10 +145,8 @@ const HomePage = () => {
       // gamma의 절대값이 45를 초과하면 landscape 모드로 인식ㄱㄱ
       if (Math.abs(safeGamma) > 45 && !userStore.isLandscape) {
         userStore.setIsLandscape(true);
-        console.log('true로 변경');
       } else if (Math.abs(safeGamma) <= 45 && userStore.isLandscape) {
         userStore.setIsLandscape(false);
-        console.log('false로 변경');
       }
     };
 

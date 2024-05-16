@@ -18,7 +18,4 @@ public interface UserConstellationRepository extends JpaRepository<UserConstella
     @Query("SELECT uce.userConstellationId FROM user_constellation uce WHERE uce.user.userId = :userId")
     List<Long> findUserConstellationIdsByUserId(String userId);
 
-    @Transactional
-    void deleteByUserAndUserConstellationId(UserEntity user, Long userConstellationId);
-
 }

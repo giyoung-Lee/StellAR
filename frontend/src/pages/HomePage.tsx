@@ -163,6 +163,16 @@ const HomePage = () => {
     };
   }, [starStore.isARMode, userStore.isLandscape]);
 
+  useEffect(() => {
+    // 마운트시 자이로 AR 모드 해제
+    if (starStore.isARMode) {
+      starStore.setARMode(false);
+    }
+    if (userStore.isGyro) {
+      userStore.setIsGyro(false);
+    }
+  }, [])
+
   return (
     <>
       {/* 현재 위치 보여주기 */}

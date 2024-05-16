@@ -2,11 +2,11 @@ import * as h from './style/HomePageStyle';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
 import { useEffect, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
 import { MakeMyConstellationApi } from '../apis/MyConstApis';
-import Swal from 'sweetalert2';
+import useUserStore from '../stores/userStore';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -19,9 +19,13 @@ import Sheet from '@mui/joy/Sheet';
 import Textarea from '@mui/joy/Textarea';
 import EmbCanvas from '../components/Star/EmbCanvas';
 import MyConstInfoBox from '../components/StarInfoCarousel/MyConstInfoBox';
+import { whereAmI } from '../apis/UserApis';
+import '../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EmbPage = () => {
   const starStore = useStarStore();
+  const userStore = useUserStore();
   const constellationStore = useConstellationStore();
 
   useEffect(() => {
@@ -53,31 +57,44 @@ const EmbPage = () => {
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
     onSuccess() {
-      // console.log(result);
-      Swal.fire({
-        title: '성공!',
-        text: '별자리가 성공적으로 생성되었습니다.',
-        icon: 'success',
-        confirmButtonText: '확인',
-        customClass: {
-          container: 'my-swal'
-        }
-      });
       setOpen(false);
     },
     onError() {
-      Swal.fire({
-        icon: 'error',
-        title: '오류',
-        text: '별자리 생성 중 오류가 발생했습니다.',
-        customClass: {
-          container: 'my-swal'
-        }
-      });
       setOpen(false);
     },
   });
 
+// 현재 위치 불러오기
+useEffect(() => {
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          userStore.setUserLat(latitude);
+          userStore.setUserLng(longitude);
+        },
+        (error) => {
+          console.error('Geolocation 에러: ', error);
+        },
+      );
+    } else {
+      console.error('위치 허용을 지원하지 않는 브라우저일 수 있습니다.');
+    }
+  };
+
+  getCurrentLocation();
+}, []);
+
+// 현재 주소 보여주기
+const { data: MyLocationData } = useQuery({
+  queryKey: ['get-my-location'],
+  queryFn: () => {
+    return whereAmI(userStore.userLat, userStore.userLng);
+  },
+});
+
+// 나만의 별자리 만들기 모달 관련
   const [open, setOpen] = useState<boolean>(false);
 
   const handleInputChange = (
@@ -94,6 +111,10 @@ const EmbPage = () => {
     event.preventDefault();
     setOpen(false);
     mutate(userConstellationData);
+  };
+
+  const toggleForward = () => {
+    userStore.setIsForward(!userStore.isForward);
   };
 
   const hwangdo13info = [
@@ -115,6 +136,26 @@ const EmbPage = () => {
 
   return (
     <>
+          {/* 현재 위치 보여주기 */}
+          {MyLocationData && (
+        <div className="fixed bottom-3 left-10 z-[1000]">
+          <span>{MyLocationData.address.country} </span>
+          <span>{MyLocationData.address.city} </span>
+          <span>{MyLocationData.address.county}</span>
+        </div>
+      )}
+
+      <div className="fixed flex top-3 right-4 z-[16777272]">
+        <div onClick={toggleForward} className="cursor-pointer">
+          {userStore.isForward ? (
+            <FontAwesomeIcon icon="stop" size="xl" className="mx-2" />
+          ) : (
+            <FontAwesomeIcon icon="forward" size="xl" className="mx-2" />
+          )}
+        </div>
+      </div>
+
+      {/* 별 이름 보여주기 */}
       <h.Wrapper>
         {(starStore.starClicked && starStore.linkedStars.length < 1) ||
         (starStore.planetClicked && starStore.linkedStars.length < 1) ||

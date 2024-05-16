@@ -8,6 +8,7 @@ import {
   OrbitControls,
   PerspectiveCamera,
   Sparkles,
+  Html,
   Stars,
 } from '@react-three/drei';
 import Lights from './Lights';
@@ -25,6 +26,12 @@ import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetStarMark } from '../../apis/StarMarkApis';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import '../../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ConstellationData {
   [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
@@ -248,26 +255,29 @@ const EmbCanvas = () => {
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 시간 조작 부분 */}
-      {(!starStore.starClicked && !starStore.planetClicked && !starStore.isARMode && !userStore.isGyro) &&
-        <Html fullscreen>
-          <div className="fixed w-[80vw] m-2">
-            <DateTimePicker
-              onChange={handleDateChange}
-              value={time}
-              clearIcon={null}
-              format="y년 MM월 dd일 HH시 mm분"
-            />
-            {!isCurrentTimeSelected && (
-              <FontAwesomeIcon
-                icon="rotate-right"
-                size="xl"
-                className="mx-2 cursor-pointer"
-                onClick={timeReload}
+      {!starStore.starClicked &&
+        !starStore.planetClicked &&
+        !starStore.isARMode &&
+        !userStore.isGyro && (
+          <Html fullscreen>
+            <div className="fixed w-[80vw] m-2">
+              <DateTimePicker
+                onChange={handleDateChange}
+                value={time}
+                clearIcon={null}
+                format="y년 MM월 dd일 HH시 mm분"
               />
-            )}
-          </div>
-        </Html>
-      }
+              {!isCurrentTimeSelected && (
+                <FontAwesomeIcon
+                  icon="rotate-right"
+                  size="xl"
+                  className="mx-2 cursor-pointer"
+                  onClick={timeReload}
+                />
+              )}
+            </div>
+          </Html>
+        )}
 
       {/* 배경 별 및 스파클 */}
       {!userStore.isForward && !starStore.isARMode && <BackgroundStars />}
@@ -367,8 +377,7 @@ const EmbCanvas = () => {
       {/* 조명 설정 */}
       <Lights />
 
-      {/* <Sparkles count={100} scale={18} size={10} speed={1} /> */}
-
+      {/* 별 */}
       <Instances limit={2000} range={2000}>
         {Object.values(starPositions).map((star: any) => (
           <StarMesh

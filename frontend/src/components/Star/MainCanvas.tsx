@@ -264,7 +264,7 @@ const MainCanvas = () => {
       {/* <Stats /> */}
 
       {/* DrawCall */}
-      <DrawCallCounter />
+      {/* <DrawCallCounter /> */}
 
       {/* 시간 조작 부분 */}
       {(!starStore.starClicked && !starStore.planetClicked && !starStore.isARMode && !userStore.isGyro) &&

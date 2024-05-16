@@ -18,6 +18,7 @@ import Button from '@mui/joy/Button';
 import Sheet from '@mui/joy/Sheet';
 import Textarea from '@mui/joy/Textarea';
 import EmbCanvas from '../components/Star/EmbCanvas';
+import MyConstInfoBox from '../components/StarInfoCarousel/MyConstInfoBox';
 
 const EmbPage = () => {
   const starStore = useStarStore();
@@ -91,6 +92,7 @@ const EmbPage = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    setOpen(false);
     mutate(userConstellationData);
   };
 
@@ -213,7 +215,10 @@ const EmbPage = () => {
         {constellationStore.constellationClicked &&
         hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
-        ) : null}
+        ) : constellationStore.constellationClicked &&
+        !hwangdo13info.includes(constellationStore.constellationName) ? (
+        <MyConstInfoBox />
+      ) : null}
 
         <EmbCanvas />
       </h.Wrapper>

@@ -1,4 +1,3 @@
-import React from 'react';
 import * as l from '../style/common/ListCardStyle';
 import MarkItem from './MarkItem';
 import Lottie from 'lottie-react';

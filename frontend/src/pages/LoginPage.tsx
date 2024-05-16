@@ -76,7 +76,7 @@ const LoginPage = () => {
       userStore.setUser({ userId: loginData.userId });
       userStore.setIsLogin(true);
     },
-    onError(error) {
+    onError() {
       Swal.fire({
         icon: 'error',
         title: '오류',

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as o from '../style/OrderStyle';
 import useOrderStore from '../../stores/orderStore';
 import '../../pages/style/Fontawsome';
@@ -9,7 +9,6 @@ const ShippingInfo = () => {
   const {
     recipient,
     setRecipient,
-    setAddressPost,
     addressDetail,
     setaddressDetail,
   } = usePaymentStore();

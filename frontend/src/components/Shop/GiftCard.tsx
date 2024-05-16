@@ -1,4 +1,3 @@
-import React from 'react';
 import * as s from '../style/ShopStyle';
 import image from '/icons/stella_logo.gif';
 import { useNavigate } from 'react-router-dom';

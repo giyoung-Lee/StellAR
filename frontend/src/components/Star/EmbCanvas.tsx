@@ -25,13 +25,11 @@ import useUserStore from '../../stores/userStore';
 import { GetStarMark } from '../../apis/StarMarkApis';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 
-type Props = {};
-
 interface ConstellationData {
   [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
 }
 
-const EmbCanvas = (props: Props) => {
+const EmbCanvas = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
 

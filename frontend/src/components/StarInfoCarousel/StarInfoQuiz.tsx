@@ -21,7 +21,7 @@ const StarInfoQuiz = ({ constellationData, setModalOpen, quizData }: Props) => {
     setCurrentQuiz(randomQuiz);
   }, [quizData]);
 
-  const handleAnswer = (xo: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAnswer = (xo: string) => () => {
     setModalOpen(true); // 모달 열기
     if (currentQuiz && currentQuiz.constellationQuestionAnswer === xo) {
       Swal.fire({

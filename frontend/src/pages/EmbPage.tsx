@@ -52,7 +52,7 @@ const EmbPage = () => {
 
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
-    onSuccess(result: string) {
+    onSuccess() {
       // console.log(result);
       Swal.fire({
         title: '성공!',
@@ -65,7 +65,7 @@ const EmbPage = () => {
       });
       setOpen(false);
     },
-    onError(error) {
+    onError() {
       Swal.fire({
         icon: 'error',
         title: '오류',

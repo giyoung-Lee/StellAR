@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import * as THREE from 'three';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 
 const FloorMesh = () => {

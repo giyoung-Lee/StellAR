@@ -27,7 +27,6 @@ import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
-import DrawCallCounter from './DrawCallCounter';
 import DateTimePicker from 'react-datetime-picker';
 import 'react-datetime-picker/dist/DateTimePicker.css';
 import 'react-calendar/dist/Calendar.css';
@@ -260,11 +259,6 @@ const MainCanvas = () => {
 
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
-      {/* Stas */}
-      {/* <Stats /> */}
-
-      {/* DrawCall */}
-      {/* <DrawCallCounter /> */}
 
       {/* 시간 조작 부분 */}
       {!starStore.starClicked &&

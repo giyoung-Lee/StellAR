@@ -4,6 +4,7 @@ import StarMesh from './StarMesh';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
   DeviceOrientationControls,
+  Instances,
   OrbitControls,
   PerspectiveCamera,
   Sparkles,
@@ -368,21 +369,23 @@ const EmbCanvas = () => {
 
       {/* <Sparkles count={100} scale={18} size={10} speed={1} /> */}
 
-      {Object.values(starPositions).map((star: any) => (
-        <StarMesh
-          propstarId={star.starId}
-          spType={star.spType}
-          key={star.starId}
-          position={
-            new THREE.Vector3(
-              -star.calX * star.nomalizedMagV,
-              star.calZ * star.nomalizedMagV,
-              star.calY * star.nomalizedMagV,
-            )
-          }
-          size={getRandomInt(100, 110)}
-        />
-      ))}
+      <Instances limit={2000} range={2000}>
+        {Object.values(starPositions).map((star: any) => (
+          <StarMesh
+            propstarId={star.starId}
+            spType={star.spType}
+            key={star.starId}
+            position={
+              new THREE.Vector3(
+                -star.calX * star.nomalizedMagV,
+                star.calZ * star.nomalizedMagV,
+                star.calY * star.nomalizedMagV,
+              )
+            }
+            size={getRandomInt(100, 110)}
+          />
+        ))}
+      </Instances>
 
       {planetPositions.map((planet: any) => (
         <PlanetMesh

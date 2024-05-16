@@ -3,7 +3,6 @@ import { GetMyconstDetail } from '../../apis/MyConstApis';
 import useUserStore from '../../stores/userStore';
 import useConstellationStore from '../../stores/constellationStore';
 import '../../pages/style/Fontawsome';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef } from 'react';
 
 const MyConstInfoBox = () => {
@@ -32,10 +31,6 @@ const MyConstInfoBox = () => {
     return () => window.removeEventListener('mousedown', handleClick);
   }, [Ref]);
 
-  const cancelFunc = () => {
-    constellationStore.setConstellationClicked(false);
-  };
-
   if (MyConstDetailLoading) {
     return null;
   }
@@ -46,7 +41,7 @@ const MyConstInfoBox = () => {
       className="absolute z-[16777272] p-3 bg-white bg-opacity-25 rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
     >
       <div className="flex flex-col items-center justify-center max-w-[70vw] h-full">
-        <p className="max-w-full text-lightorange text-xl font-bold text-center py-2">
+        <p className="max-w-full py-2 text-xl font-bold text-center text-lightorange">
           {MyConstDetailData?.data.name}
         </p>
         <p className="max-w-full mt-1 max-h-[300px] overflow-auto break-words flex-grow text-left">

@@ -28,7 +28,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 
 @WebMvcTest(controllers = UserBookmarkController.class)
-@Import(TestSecurityConfig.class) // TestSecurityConfig를 import 해줘야 합니다.
+@Import(TestSecurityConfig.class)
 @ExtendWith(MockitoExtension.class)
 @DisplayName("User Star Bookmark Controller Unit-Test")
 class UserBookmarkControllerTest {
@@ -47,7 +47,7 @@ class UserBookmarkControllerTest {
         BookmarkRequestDto bookmarkRequestDto = new BookmarkRequestDto("user1", "star1", "My Bookmark");
         String bookmarkRequestDtoJson = objectMapper.writeValueAsString(bookmarkRequestDto);
         mockMvc.perform(post("/bookmark/create")
-                        .with(httpBasic("user", "password")) // HTTP Basic 인증 추가
+                        .with(httpBasic("user", "password"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookmarkRequestDtoJson).with(csrf()))
                 .andExpect(status().isCreated());

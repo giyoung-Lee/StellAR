@@ -87,7 +87,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 생성 실패 테스트")
     void manageUserBookmarkCreateFailure() {
-        // given
+        // Given
         String bookmarkName = "Bookmark Test";
         BookmarkRequestDto request = new BookmarkRequestDto("wncks", "star1", bookmarkName);
 
@@ -97,7 +97,7 @@ public class UserBookmarkServiceTest {
         userBookmark.setBookmarkName("Exsiting Bookmark");
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(userBookmark);
 
-        // when & then
+        // When & Then
         assertThatThrownBy(() -> {
             userBookmarkService.manageUserBookmark(request, false);
         }).isInstanceOf(IllegalStateException.class)
@@ -177,6 +177,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 조회 성공 테스트")
     void getUserBookmarkByStarSuccess() {
+        // Given
         String bookmarkName = "Bookmark Test";
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
         bookmark.setUser(user);
@@ -184,10 +185,10 @@ public class UserBookmarkServiceTest {
         bookmark.setBookmarkName(bookmarkName);
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(bookmark);
 
-        // when
+        // When
         BookmarkDto bookmarkDto = userBookmarkService.getUserBookmarkByStar(user.getUserId(), star1.getStarId());
 
-        // then
+        // Then
         assertThat(bookmarkDto).isNotNull()
                 .extracting(BookmarkDto::getBookmarkName)
                 .isEqualTo(bookmarkName);
@@ -210,10 +211,10 @@ public class UserBookmarkServiceTest {
     @DisplayName("북마크 조회 실패 테스트 - 별마크 없음")
     void getUserBookmarkByStarFailureOfBookmark() {
 
-        // given
+        // Given
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(null);
 
-        // when & then
+        // When & Then
         assertThatThrownBy(() -> {
             userBookmarkService.getUserBookmarkByStar(user.getUserId(), star1.getStarId());
         }).isInstanceOf(IllegalArgumentException.class)
@@ -224,7 +225,7 @@ public class UserBookmarkServiceTest {
     @DisplayName("북마크 삭제 성공 테스트")
     void deleteUserBookmarkSuccess() {
 
-        // given
+        // Given
         String bookmarkName = "Bookmark Test";
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
         bookmark.setUser(user);
@@ -232,10 +233,10 @@ public class UserBookmarkServiceTest {
         bookmark.setBookmarkName(bookmarkName);
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(bookmark);
 
-        // when
+        // When
         userBookmarkService.deleteUserBookmark("wncks", "star1");
 
-        // then
+        // Then
         verify(userBookmarkRepository).delete(bookmark);
     }
 

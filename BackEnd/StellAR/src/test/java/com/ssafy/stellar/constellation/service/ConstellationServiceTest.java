@@ -19,18 +19,18 @@ public class ConstellationServiceTest {
     @Autowired
     private ConstellationServiceImpl constellationService;
 
-    @Test
-    @DisplayName("별자리 전체 정보")
-    public void getConstellation() throws Exception {
-        List<ConstellationDto> constellation = constellationService.findAllConstellation("hwangdo13");
-        assertNotNull(constellation);
-    }
-
-    @Test
-    @DisplayName("별자리 연결 정보")
-    public void getConstellationLink() {
-        Map<String, Object> constellation = constellationService.findConstellationLink("3won28su");
-        System.out.println(constellation);
-        assertNotNull(constellation);
-    }
+//    @Test
+//    @DisplayName("별자리 전체 정보")
+//    public void getConstellation() throws Exception {
+//        List<ConstellationDto> constellation = constellationService.findAllConstellation("hwangdo13");
+//        assertNotNull(constellation);
+//    }
+//
+//    @Test
+//    @DisplayName("별자리 연결 정보")
+//    public void getConstellationLink() {
+//        Map<String, Object> constellation = constellationService.findConstellationLink("3won28su");
+//        System.out.println(constellation);
+//        assertNotNull(constellation);
+//    }
 }

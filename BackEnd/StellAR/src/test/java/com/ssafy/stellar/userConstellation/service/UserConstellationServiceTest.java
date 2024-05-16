@@ -23,6 +23,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,7 +61,6 @@ public class UserConstellationServiceTest {
     void setUp() {
         user = new UserEntity();
         user.setUserId("wncks");
-
         star1 = createStarEntity("star1");
         star2 = createStarEntity("star2");
         star3 = createStarEntity("star3");
@@ -90,6 +90,7 @@ public class UserConstellationServiceTest {
     void createUserConstellationSuccessTest() {
         // Given
         links.add(createLink(star1.getStarId(), star2.getStarId()));
+        links.add(createLink(star2.getStarId(), star2.getStarId()));
         links.add(createLink(star2.getStarId(), star3.getStarId()));
 
         String userConstellationName = "Constellation Test";
@@ -150,6 +151,7 @@ public class UserConstellationServiceTest {
     @Test
     @DisplayName("유저 별자리 생성 실패 테스트 - 링크 데이터가 제대로 오지 않았음")
     void createUserConstellationFailTest3() {
+        // Given
         links.add(createLink(star1.getStarId(), star2.getStarId()));
         links.add(createLink(star2.getStarId(), star3.getStarId()));
         List<List<String>> wrongLinks = new ArrayList<>();
@@ -161,7 +163,7 @@ public class UserConstellationServiceTest {
 
         UserConstellationRequestDto request = new UserConstellationRequestDto(user.getUserId(), null, userConstellationName, userConstellationDescription, wrongLinks);
 
-        // when & then
+        // When & Then
         assertThatThrownBy(() -> {
             userConstellationService.manageUserConstellation(request, false);
         }).isInstanceOf(IllegalArgumentException.class)
@@ -171,6 +173,7 @@ public class UserConstellationServiceTest {
     @Test
     @DisplayName("유저 별자리 생성 실패 테스트 - 링크된 별이 없는 별임")
     void createUserConstellationFailTest4() {
+        // Given
         links.add(createLink(star1.getStarId(), star2.getStarId()));
         links.add(createLink(star2.getStarId(), star3.getStarId()));
         List<List<String>> wrongLinks = new ArrayList<>();
@@ -183,7 +186,7 @@ public class UserConstellationServiceTest {
 
         UserConstellationRequestDto request = new UserConstellationRequestDto(user.getUserId(), null, userConstellationName, userConstellationDescription, wrongLinks);
 
-        // when & then
+        // When & Then
         lenient().when(starRepository.findByStarId("star4")).thenReturn(null);
         assertThatThrownBy(() -> {
             userConstellationService.manageUserConstellation(request, false);
@@ -312,28 +315,53 @@ public class UserConstellationServiceTest {
         String userConstellationDescription = "Constellation Description";
 
         UserConstellationEntity userConstellation = createUserConstellation(user, userConstellationName, userConstellationDescription);
-//        UserConstellationEntity.setUserConstellationId(1L);
-
-        List<UserConstellationEntity> savedUserConstellation = new ArrayList<>();
-        savedUserConstellation.add(createUserConstellation(user, userConstellationName, userConstellationDescription));
+        userConstellation.setUserConstellationId(1L);
 
         List<UserConstellationLinkEntity> savedLinks = createLinks(userConstellation, links);
 
         when(userConstellationLinkRepository.findByUserConstellation(any(UserConstellationEntity.class))).thenReturn(savedLinks);
-        when(userConstellationRepository.findByUser(user)).thenReturn(savedUserConstellation);
+        when(userConstellationRepository.findByUserAndUserConstellationId(user, 1L)).thenReturn(userConstellation);
 
         // When
-//        List<UserConstellationDto> result = userConstellationService.getUserConstellationById(user.getUserId(), 1L);
+        UserConstellationDto result = userConstellationService.getUserConstellationById(user.getUserId(), 1L);
 
         // Then
-//        assertThat(result).isNotNull().hasSize(1)
-//                .extracting(UserConstellationDto::getName)
-//                .containsExactlyInAnyOrder(userConstellationName);
+        assertThat(result).isNotNull()
+                .extracting(UserConstellationDto::getName)
+                .isEqualTo(userConstellationName);
+    }
+
+    @Test
+    @DisplayName("유저 별자리 링크 조회 성공 테스트")
+    void getUserConstellationLinkSuccessTest() {
+        // Given
+        links.add(createLink(star1.getStarId(), star2.getStarId()));
+        links.add(createLink(star2.getStarId(), star3.getStarId()));
+
+        String userConstellationName = "Constellation Test";
+        String userConstellationDescription = "Constellation Description";
+
+
+        UserConstellationEntity userConstellation = createUserConstellation(user, userConstellationName, userConstellationDescription);
+        userConstellation.setUserConstellationId(1L);
+        List<Long> constellationIds = new ArrayList<>();
+        constellationIds.add(1L);
+
+        List<UserConstellationLinkEntity> savedLinks = createLinks(userConstellation, links);
+        when(userConstellationRepository.findUserConstellationIdsByUserId(user.getUserId())).thenReturn(constellationIds);
+        when(userConstellationLinkRepository.findByUserConstellationId(1L)).thenReturn(savedLinks);
+
+        // When
+        Map<String, Object> result = userConstellationService.getUserConstellationLink(user.getUserId());
+
+        // Then
+        assertThat(result.get("1")).isNotNull();
     }
 
     @Test
     @DisplayName("유저 별자리 삭제 성공 테스트")
     void deleteUserConstellationSuccessTest() {
+        // Given
         links.add(createLink(star1.getStarId(), star2.getStarId()));
         links.add(createLink(star2.getStarId(), star3.getStarId()));
 
@@ -383,8 +411,6 @@ public class UserConstellationServiceTest {
         String originalName = "Constellation Test";
         String originalDescription = "Constellation Description";
 
-        String newName = "New Constellation Name";
-        String newConstellationDescription = "New Description";
         UserConstellationEntity originalUserConstellation = createUserConstellation(user, originalName, originalDescription);
         originalUserConstellation.setUserConstellationId(1L);
 
@@ -419,6 +445,7 @@ public class UserConstellationServiceTest {
     private List<UserConstellationLinkEntity> createLinks(UserConstellationEntity userConstellation, List<List<String>> links) {
         List<UserConstellationLinkEntity> savedLinks = new ArrayList<>();
         for (List<String> link : links) {
+            if (link.get(0).equals(link.get(1))) { continue; }
             UserConstellationLinkEntity userLink = new UserConstellationLinkEntity();
             userLink.setUserConstellation(userConstellation);
             userLink.setStartStar(starRepository.findByStarId(link.get(0)));

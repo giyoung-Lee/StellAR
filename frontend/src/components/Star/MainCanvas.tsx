@@ -1,7 +1,9 @@
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
-import StarMesh from './StarMesh';
+// import StarMesh from './StarMesh';
+// import MakeConstellation from './MakeConstellation';
+
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import {
   OrbitControls,
@@ -20,7 +22,6 @@ import Loading from '../common/Loading/Loading';
 import { useQuery } from '@tanstack/react-query';
 import useStarStore from '../../stores/starStore';
 import useCameraStream from '../../hooks/useCameraStream';
-import MakeConstellation from './MakeConstellation';
 import PlanetMesh from './PlanetMesh';
 import Background from './BackGround';
 import * as Astronomy from 'astronomy-engine';
@@ -266,7 +267,7 @@ const MainCanvas = () => {
       <Suspense
         fallback={
           <Html>
-              <Loading />
+            <Loading />
           </Html>
         }
       >
@@ -408,23 +409,23 @@ const MainCanvas = () => {
         <Lights />
 
         {/* 별 */}
-        <Instances limit={2000} range={2000}>
-          {Object.values(starPositions).map((star: any) => (
-            <StarMesh
-              propstarId={star.starId}
-              spType={star.spType}
-              key={star.starId}
-              position={
-                new THREE.Vector3(
-                  -star.calX * star.nomalizedMagV,
-                  star.calZ * star.nomalizedMagV,
-                  star.calY * star.nomalizedMagV,
-                )
-              }
-              size={getRandomInt(100, 110)}
-            />
-          ))}
-        </Instances>
+        {/* <Instances limit={2000} range={2000}> */}
+        {Object.values(starPositions).map((star: any) => (
+          <StarMesh
+            propstarId={star.starId}
+            spType={star.spType}
+            key={star.starId}
+            position={
+              new THREE.Vector3(
+                -star.calX * star.nomalizedMagV,
+                star.calZ * star.nomalizedMagV,
+                star.calY * star.nomalizedMagV,
+              )
+            }
+            size={getRandomInt(100, 110)}
+          />
+        ))}
+        {/* </Instances> */}
 
         {planetPositions.map((planet: any) => (
           <PlanetMesh

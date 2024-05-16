@@ -71,8 +71,8 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
         icon: 'error',
         confirmButtonText: '확인',
         customClass: {
-          container: 'my-swal'
-        }
+          container: 'my-swal',
+        },
       }).then(() => {
         window.location.reload();
       });
@@ -111,28 +111,29 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
   return (
     <>
-      {/* <mesh
+      <mesh
         ref={meshRef}
         position={position}
         castShadow={false}
         receiveShadow={false}
         onClick={click}
-      > */}
-      <tetrahedronGeometry args={[size, 2]} />
-      <meshPhongMaterial
-        specular={'white'}
-        shininess={100}
-        flatShading={true}
-      />
-      <Instance
+      >
+        <tetrahedronGeometry args={[size, 2]} />
+        <meshPhongMaterial
+          color={spType ? starColor[spType as string] : 'red'}
+          specular={'white'}
+          shininess={100}
+          flatShading={true}
+        />
+        {/* <Instance
         color={spType ? starColor[spType as string] : 'red'}
         ref={meshRef}
         position={position}
         castShadow={false}
         receiveShadow={false}
         onClick={click}
-      />
-      {/* </mesh> */}
+      /> */}
+      </mesh>
       {/* 터치 영역 확장을 위한 투명 mesh입니다만 */}
       <mesh ref={touchAreaRef} position={position} onClick={click}>
         <sphereGeometry args={[size * 3, 20, 20]} />

@@ -378,23 +378,23 @@ const EmbCanvas = () => {
       <Lights />
 
       {/* 별 */}
-      <Instances limit={2000} range={2000}>
-        {Object.values(starPositions).map((star: any) => (
-          <StarMesh
-            propstarId={star.starId}
-            spType={star.spType}
-            key={star.starId}
-            position={
-              new THREE.Vector3(
-                -star.calX * star.nomalizedMagV,
-                star.calZ * star.nomalizedMagV,
-                star.calY * star.nomalizedMagV,
-              )
-            }
-            size={getRandomInt(100, 110)}
-          />
-        ))}
-      </Instances>
+      {/* <Instances limit={2000} range={2000}> */}
+      {Object.values(starPositions).map((star: any) => (
+        <StarMesh
+          propstarId={star.starId}
+          spType={star.spType}
+          key={star.starId}
+          position={
+            new THREE.Vector3(
+              -star.calX * star.nomalizedMagV,
+              star.calZ * star.nomalizedMagV,
+              star.calY * star.nomalizedMagV,
+            )
+          }
+          size={getRandomInt(100, 110)}
+        />
+      ))}
+      {/* </Instances> */}
 
       {planetPositions.map((planet: any) => (
         <PlanetMesh
@@ -482,3 +482,4 @@ const EmbCanvas = () => {
 };
 
 export default EmbCanvas;
+

@@ -6,6 +6,7 @@ import useUserStore from '../../stores/userStore';
 import useStarStore from '../../stores/starStore';
 import { useNavigate } from 'react-router-dom';
 import getXYZ from '../../hooks/getXYZ';
+import Swal from 'sweetalert2';
 
 type Props = {
   starId: string;
@@ -38,7 +39,22 @@ const MarkItem = ({
   };
 
   const handleCheckBox = () => {
-    mutate({ userId, starId });
+    Swal.fire({
+      text: '별마크를 삭제할까요?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소',
+      width: 300,
+      customClass: {
+        container: 'my-swal',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({ text: '삭제되었습니다!', icon: 'success', width: 300 });
+        mutate({ userId, starId });
+      }
+    });
   };
 
   const { mutate } = useMutation({
@@ -98,3 +114,4 @@ const MarkItem = ({
 };
 
 export default MarkItem;
+

@@ -39,6 +39,7 @@ export const Empty = styled.div`
     margin: 5px 0;
   }
   .message {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,3 +49,4 @@ export const Empty = styled.div`
     width: 300px;
   }
 `;
+

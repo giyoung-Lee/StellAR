@@ -6,6 +6,7 @@ import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
 import { CatmullRomCurve3 } from 'three';
 import useConstellationStore from '../../stores/constellationStore';
+import useStarStore from '../../stores/starStore';
 
 extend({ Line2, LineGeometry, LineMaterial });
 
@@ -17,11 +18,14 @@ type Props = {
 
 const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
   const ConstellationStore = useConstellationStore();
+  const starStore = useStarStore();
 
   const handleClick = () => {
     // console.log('Line clicked:', constellation);
     ConstellationStore.setConstellationClicked(true);
     ConstellationStore.setConstellationName(constellation);
+    starStore.setPlanetClicked(false)
+    starStore.setStarClicked(false)
   };
 
   const path = new CatmullRomCurve3([pointA, pointB]);

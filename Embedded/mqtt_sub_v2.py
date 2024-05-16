@@ -4,6 +4,7 @@ import pyautogui
 import sys
 
 screen_width, screen_hegint=pyautogui.size()
+pyautogui.FAILSAFE = False
 
 #on_connect 콜백 함수, 처음 연결될 때 실행 됨
 def on_connect(client, userdata, flags, rc):
@@ -22,9 +23,15 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, message):
     data = json.loads(message.payload.decode("utf-8"))
     action = data["action"]   
-    x=(((data['sensor_num']-1)*12.5)+3.125)*screen_width/100
-    y=screen_hegint-((data['height']-30.0)*screen_hegint/75)
-    # print("msg: ",data)
+    sensor_num=data['sensor_num']
+    if sensor_num<0.3:
+        x_value=sensor_num*1.25
+    else:
+        x_value=sensor_num*12.5
+        
+    x=(x_value-3.125)*screen_width/100
+    y=screen_hegint-((data['height']-30.0)*screen_hegint/61.5)
+    print("msg: ",data)
 
     # mouse_down일 때 
     if action == "down":
@@ -33,6 +40,9 @@ def on_message(client, userdata, message):
     # mouse_up 일 때 
     elif action == "up":
         pyautogui.mouseUp(x,y)
+        
+    elif action =="click":
+        pyautogui.click(x,y)
 
     # move일 때 
     elif action == "move":

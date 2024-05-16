@@ -27,6 +27,9 @@ const PayInfo = () => {
         icon: 'error',
         confirmButtonText: '확인',
         width: 300,
+        customClass: {
+          container: 'my-swal'
+        }
       });
       return;
     }

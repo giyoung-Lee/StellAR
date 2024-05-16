@@ -157,6 +157,7 @@ const MainCanvas = (props: Props) => {
     currentMinute === selectedMinute;
 
   const timeReload = () => {
+    userStore.setIsForward(false)
     setTime(currentDate);
   };
 

@@ -14,9 +14,9 @@ const useCameraStream = () => {
     if (!starStore.isARMode) {
       return;
     }
-    const width = userStore.isLandscape ? window.innerHeight : window.innerWidth;
-    const height = userStore.isLandscape ? window.innerWidth : window.innerHeight;
-
+    const width = userStore.isLandscape ? window.innerWidth : window.innerHeight;
+    const height = userStore.isLandscape ? window.innerHeight : window.innerWidth;
+   
     const constraints = {
       video: {
         facingMode: 'environment',

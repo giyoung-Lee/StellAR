@@ -10,6 +10,7 @@ import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.repository.UserRepository;
 import com.ssafy.stellar.utils.stars.CalcStarLocation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class UserBookmarkServiceImpl implements UserBookMarkService {
 
 
 
+    @Transactional
     @Override
     public void manageUserBookmark(BookmarkRequestDto bookmarkRequestDto, boolean isUpdate) {
 

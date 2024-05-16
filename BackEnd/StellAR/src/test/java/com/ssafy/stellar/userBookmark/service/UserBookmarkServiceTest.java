@@ -8,6 +8,7 @@ import com.ssafy.stellar.userBookmark.dto.request.BookmarkRequestDto;
 import com.ssafy.stellar.userBookmark.dto.response.BookmarkDto;
 import com.ssafy.stellar.userBookmark.entity.UserBookmarkEntity;
 import com.ssafy.stellar.userBookmark.repository.UserBookmarkRepository;
+import com.ssafy.stellar.utils.stars.CalcStarLocation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,6 +39,9 @@ public class UserBookmarkServiceTest {
     @Mock
     private UserBookmarkRepository userBookmarkRepository;
 
+    @Mock
+    private CalcStarLocation calc;
+
     UserEntity user;
     StarEntity star1;
 
@@ -49,13 +53,19 @@ public class UserBookmarkServiceTest {
 
         star1 = new StarEntity();
         star1.setStarId("star1");
+        star1.setRA("0 0 0");
+        star1.setDeclination("+0 0 0");
+        star1.setPMRA("0.0");
+        star1.setPMDEC("0.0");
         lenient().when(starRepository.findByStarId("star1")).thenReturn(star1);
+        lenient().when(calc.calculateNewRA(anyString(), anyDouble())).thenReturn(0.0);
+        lenient().when(calc.calculateNewDec(anyString(), anyDouble())).thenReturn(0.0);
     }
 
     @Test
     @DisplayName("북마크 생성 성공 테스트")
     void manageUserBookmarkCreateSuccess() {
-        // given
+        // Given
         String bookmarkName = "Bookmark Test";
         BookmarkRequestDto request = new BookmarkRequestDto(user.getUserId(), star1.getStarId(), bookmarkName);
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
@@ -64,11 +74,11 @@ public class UserBookmarkServiceTest {
         bookmark.setBookmarkName(bookmarkName);
         when(userBookmarkRepository.save(any(UserBookmarkEntity.class))).thenReturn(bookmark);
 
-        // when
+        // When
         userBookmarkService.manageUserBookmark(request, false);
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(bookmark);
 
-        // then
+        // Then
         UserBookmarkEntity savedBookmark = userBookmarkRepository.findByUserAndStar(user, star1);
         assertThat(savedBookmark).isNotNull()
                 .extracting(UserBookmarkEntity::getBookmarkName).isEqualTo(bookmarkName);
@@ -77,7 +87,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 생성 실패 테스트")
     void manageUserBookmarkCreateFailure() {
-        // given
+        // Given
         String bookmarkName = "Bookmark Test";
         BookmarkRequestDto request = new BookmarkRequestDto("wncks", "star1", bookmarkName);
 
@@ -87,7 +97,7 @@ public class UserBookmarkServiceTest {
         userBookmark.setBookmarkName("Exsiting Bookmark");
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(userBookmark);
 
-        // when & then
+        // When & Then
         assertThatThrownBy(() -> {
             userBookmarkService.manageUserBookmark(request, false);
         }).isInstanceOf(IllegalStateException.class)
@@ -133,7 +143,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 조회 성공 테스트")
     void getUserBookmarkSuccess() {
-        String bookmarkName = "Bookmark Update Test";
+        String bookmarkName = "Bookmark Test";
         UserBookmarkEntity existingBookmark = new UserBookmarkEntity();
         List<UserBookmarkEntity> bookmarkEntityList = new ArrayList<UserBookmarkEntity>();
         existingBookmark.setUser(user);
@@ -167,6 +177,7 @@ public class UserBookmarkServiceTest {
     @Test
     @DisplayName("북마크 조회 성공 테스트")
     void getUserBookmarkByStarSuccess() {
+        // Given
         String bookmarkName = "Bookmark Test";
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
         bookmark.setUser(user);
@@ -174,10 +185,10 @@ public class UserBookmarkServiceTest {
         bookmark.setBookmarkName(bookmarkName);
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(bookmark);
 
-        // when
+        // When
         BookmarkDto bookmarkDto = userBookmarkService.getUserBookmarkByStar(user.getUserId(), star1.getStarId());
 
-        // then
+        // Then
         assertThat(bookmarkDto).isNotNull()
                 .extracting(BookmarkDto::getBookmarkName)
                 .isEqualTo(bookmarkName);
@@ -200,10 +211,10 @@ public class UserBookmarkServiceTest {
     @DisplayName("북마크 조회 실패 테스트 - 별마크 없음")
     void getUserBookmarkByStarFailureOfBookmark() {
 
-        // given
+        // Given
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(null);
 
-        // when & then
+        // When & Then
         assertThatThrownBy(() -> {
             userBookmarkService.getUserBookmarkByStar(user.getUserId(), star1.getStarId());
         }).isInstanceOf(IllegalArgumentException.class)
@@ -214,7 +225,7 @@ public class UserBookmarkServiceTest {
     @DisplayName("북마크 삭제 성공 테스트")
     void deleteUserBookmarkSuccess() {
 
-        // given
+        // Given
         String bookmarkName = "Bookmark Test";
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
         bookmark.setUser(user);
@@ -222,10 +233,10 @@ public class UserBookmarkServiceTest {
         bookmark.setBookmarkName(bookmarkName);
         when(userBookmarkRepository.findByUserAndStar(user, star1)).thenReturn(bookmark);
 
-        // when
+        // When
         userBookmarkService.deleteUserBookmark("wncks", "star1");
 
-        // then
+        // Then
         verify(userBookmarkRepository).delete(bookmark);
     }
 

@@ -29,7 +29,7 @@ sonarqube {
         property "sonar.host.url", "https://sonarqube.ssafy.com"
         property "sonar.login", "3c60c4e927e922b6e0a818a417f9c724c73c50ed"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
-        property "sonar.exclusions", "**/Application, **/Config, **/dto/**, **/Provider, **/Advice, **/utils/** "
+        property "sonar.exclusions", "**/*Application*, **/settings/**, **/dto/**, **/utils/** "
     }
 }
 
@@ -74,10 +74,8 @@ jacocoTestReport {
                 files(classDirectories.files.collect {
                     fileTree(dir: it, excludes: [
                             "**/*Application*",
-                            "**/*Config*",
+                            "**/settings/**",
                             "**/dto/**",
-                            "**/*Provider*",
-                            "**/*Advice*",
                             "**/utils/**"
                     ])
                 })

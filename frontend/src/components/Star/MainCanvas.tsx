@@ -268,7 +268,7 @@ const MainCanvas = (props: Props) => {
       {/* <Stats /> */}
 
       {/* DrawCall */}
-      <DrawCallCounter />
+      {/* <DrawCallCounter /> */}
 
       {/* 시간 조작 부분 */}
       <Html fullscreen>
@@ -280,7 +280,12 @@ const MainCanvas = (props: Props) => {
             format="y년 MM월 dd일 HH시 mm분"
           />
           {!isCurrentTimeSelected && (
-            <FontAwesomeIcon icon="rotate-right" size="xl" className="mx-2 cursor-pointer" onClick={timeReload} />
+            <FontAwesomeIcon
+              icon="rotate-right"
+              size="xl"
+              className="mx-2 cursor-pointer"
+              onClick={timeReload}
+            />
           )}
         </div>
       </Html>

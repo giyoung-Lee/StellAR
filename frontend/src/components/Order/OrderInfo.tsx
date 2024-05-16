@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as o from '../style/OrderStyle';
 import usePaymentStore from '../../stores/paymentStore';
 

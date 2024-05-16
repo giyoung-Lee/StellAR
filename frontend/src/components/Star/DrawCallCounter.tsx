@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as d from '../style/DrawCallCounter';
 import { useFrame, useThree } from '@react-three/fiber';
 

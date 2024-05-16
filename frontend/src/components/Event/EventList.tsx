@@ -1,4 +1,3 @@
-import React from 'react';
 import * as l from '../style/common/ListCardStyle';
 import EventItem from './EventItem';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +8,6 @@ const EventList = () => {
   const {
     isLoading: isEventLoading,
     data: eventsData,
-    isError: eventError,
   } = useQuery({
     queryKey: ['get-events'],
     queryFn: () => GetEventApi(),

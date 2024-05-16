@@ -1,7 +1,6 @@
 // src/firebase.ts
 import { initializeApp } from 'firebase/app';
 import { getMessaging, getToken, onMessage, Messaging } from 'firebase/messaging';
-import { useState } from 'react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDO-oXXwpueTV4p2LF_lK6UJFeWXXQf6_E",
@@ -33,13 +32,13 @@ if ('serviceWorker' in navigator) {
 
 export const requestPermission = async () => {
   const permission = await Notification.requestPermission();
-  console.log("permission:", permission)
+  // console.log("permission:", permission)
 
   if (permission === 'granted') {
     try {
       const token = await getToken(messaging, { vapidKey: "BPxdfbo29YzD9IS9wcXcKL0-b2zjOQCyqZIWLJiFWrkXPxkD2qM_2ROFkHc_tQOnxWKwOQXaYzzU_heXZ6cyuPk" });
       if (token) {
-        console.log(`푸시 토큰 발급 완료: ${token}`);
+        // console.log(`푸시 토큰 발급 완료: ${token}`);
         return token;
         // 서버로 토큰 전송 로직 추가
       } else {

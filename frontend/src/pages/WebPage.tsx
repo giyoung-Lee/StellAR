@@ -1,4 +1,3 @@
-import React from 'react';
 import * as w from './style/WebPageStyle';
 import LeftSide from '../components/WebPage/LeftSide';
 import RightSide from '../components/WebPage/RightSide';

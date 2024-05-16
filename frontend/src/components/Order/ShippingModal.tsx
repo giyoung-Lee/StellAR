@@ -1,4 +1,3 @@
-import React from 'react';
 import * as o from '../style/OrderStyle';
 import DaumPostcode from 'react-daum-postcode';
 import useOrderStore from '../../stores/orderStore';
@@ -12,7 +11,7 @@ const ShippingModal = () => {
   const { setAddressPost } = usePaymentStore();
 
   const handleComplete = (data: any) => {
-    console.log(data);
+    // console.log(data);
     orderStore.setIsModalOpen(false);
     orderStore.setAddress({
       postcode: data.zonecode,

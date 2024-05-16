@@ -3,10 +3,9 @@ import '../../pages/style/Fontawsome';
 
 type Props = {
   constellationData: ConstellationDetail;
-  setModalOpen: (isOpen: boolean) => void;
 };
 
-const StarInfoStory = ({ constellationData, setModalOpen }: Props) => {
+const StarInfoStory = ({ constellationData }: Props) => {
   return (
     <s.CardWrapper>
       <s.CardHeader>

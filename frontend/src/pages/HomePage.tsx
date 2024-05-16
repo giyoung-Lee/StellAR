@@ -206,7 +206,7 @@ const HomePage = () => {
         ) : null}
 
         {starStore.linkedStars.length > 0 ? (
-          <div className="absolute flex flex-col z-[16777272] top-[55%] justify-center items-center">
+          <div className="absolute flex flex-col z-[1000] top-[55%] justify-center items-center">
             <button
               className="p-3 m-1 bg-white bg-opacity-25 cursor-pointer rounded-xl shadow-custom border-opacity-18 backdrop-blur-sm"
               onClick={() => setOpen(true)}

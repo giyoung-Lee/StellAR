@@ -349,23 +349,12 @@ const MainCanvas = () => {
       {/* 카메라 시점 관련 설정 */}
       {starStore.isARMode || userStore.isGyro ? (
         <DeviceOrientationControls />
-      ) : starStore.starClicked || isFromOther ? (
+      ) : starStore.starClicked || starStore.planetClicked || isFromOther ? (
         <OrbitControls
           target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
           rotateSpeed={-0.25}
           zoomSpeed={5}
           minDistance={5000}
-          maxDistance={30000}
-          enableDamping
-          dampingFactor={0.1}
-          enableZoom={true}
-        />
-      ) : starStore.planetClicked ? (
-        <OrbitControls
-          target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
-          rotateSpeed={-0.25}
-          zoomSpeed={5}
-          minDistance={1000}
           maxDistance={30000}
           enableDamping
           dampingFactor={0.1}

@@ -1,4 +1,3 @@
-import React from 'react';
 import * as m from '../style/MyStarStyle';
 import useStarStore from '../../stores/starStore';
 import getXYZ from '../../hooks/getXYZ';
@@ -41,7 +40,7 @@ const MyStarItem = ({ constellation }: Props) => {
     navigate('/');
   };
 
-  const handleDelete = (event: React.MouseEvent<HTMLSpanElement>) => {
+  const handleDelete = () => {
     mutate({
       userId: userStore.userId,
       constellationId: constellation.userConstellationId,
@@ -51,7 +50,7 @@ const MyStarItem = ({ constellation }: Props) => {
   const { mutate } = useMutation({
     mutationFn: DeleteUserConstellation,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
   });

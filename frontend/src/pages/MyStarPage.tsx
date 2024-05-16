@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as p from './style/CommonPageStyle';
 import * as h from '../components/style/common/HeaderStyle';
 import MyStarList from '../components/MyStar/MyStarList';
@@ -19,7 +19,6 @@ const MyStarPage = () => {
   const {
     isLoading: isUserConstellationLoading,
     data: userConstellationData,
-    isError: userConstellationError,
     refetch: getUserConstellationRefetch,
   } = useQuery({
     queryKey: ['get-userConstellation'],

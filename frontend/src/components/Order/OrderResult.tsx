@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as o from '../style/OrderStyle';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
@@ -7,7 +7,7 @@ import successLottie from '../../assets/lottie/success.json';
 import usePaymentStore from '../../stores/paymentStore';
 import { PostPaymentSuccess } from '../../apis/PaymentApis';
 import useUserStore from '../../stores/userStore';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const OrderResult = () => {
   const paymentStore = usePaymentStore();
@@ -38,7 +38,7 @@ const OrderResult = () => {
   const { mutate } = useMutation({
     mutationFn: PostPaymentSuccess,
     onSuccess(result: any) {
-      console.log(result);
+      // console.log(result);
     },
   });
 

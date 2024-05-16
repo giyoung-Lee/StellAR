@@ -70,6 +70,9 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
         text: '행성은 별자리로 쓸 수 없어요!',
         icon: 'error',
         confirmButtonText: '확인',
+        customClass: {
+          container: 'my-swal'
+        }
       }).then(() => {
         window.location.reload();
       });

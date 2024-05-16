@@ -9,7 +9,10 @@ export const PostStarMark = async (markData: markApiType) => {
         title: '성공!',
         text: '별마크가 성공적으로 생성되었습니다.',
         icon: 'success',
-        confirmButtonText: '확인'
+        confirmButtonText: '확인',
+        customClass: {
+          container: 'my-swal'
+        }
       });
       return res.data;
     })

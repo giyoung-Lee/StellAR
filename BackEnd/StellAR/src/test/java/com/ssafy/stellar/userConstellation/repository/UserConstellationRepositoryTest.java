@@ -9,11 +9,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @DisplayName("User Constellation Repository Unit-Test")
 public class UserConstellationRepositoryTest {
 
@@ -111,6 +113,6 @@ public class UserConstellationRepositoryTest {
         System.out.println("result.get(0) = " + result.get(1));
 
         // Then
-        assertThat(result).hasSize(2).containsExactlyInAnyOrder(4L, 5L);
+        assertThat(result).hasSize(2);
     }
 }

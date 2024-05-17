@@ -87,7 +87,7 @@ public class UserConstellationServiceImpl implements UserConstellationService {
     @Override
     public List<UserConstellationDto> getUserConstellation(String userId) {
         UserEntity user = validateUser(userId);
-        List<UserConstellationEntity> allConstellationByUser = userConstellationRepository.findByUser(user);
+        List<UserConstellationEntity> allConstellationByUser = userConstellationRepository.findByUserOrderByCreateDateTimeDesc(user);
         List<UserConstellationDto> userConstellationDto = new ArrayList<>();
 
         for (UserConstellationEntity userConstellation : allConstellationByUser) {

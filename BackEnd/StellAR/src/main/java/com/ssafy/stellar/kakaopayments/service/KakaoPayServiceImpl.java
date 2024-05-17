@@ -63,20 +63,20 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
         parameters.add("tax_free_amount", entity.getTaxFreeAmount().toString());
 
         // TODO 실서버
-//        // 성공 시 redirect url
-//        parameters.add("approval_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/success");
-//        // 취소 시 redirect url
-//        parameters.add("cancel_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
-//        // 실패 시 redirect url
-//        parameters.add("fail_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+        // 성공 시 redirect url
+        parameters.add("approval_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/success");
+        // 취소 시 redirect url
+        parameters.add("cancel_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+        // 실패 시 redirect url
+        parameters.add("fail_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
 
         // TODO 로컬 서버
-        // 성공 시 redirect url
-        parameters.add("approval_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/success");
-        // 취소 시 redirect url
-        parameters.add("cancel_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
-        // 실패 시 redirect url
-        parameters.add("fail_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+//        // 성공 시 redirect url
+//        parameters.add("approval_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/success");
+//        // 취소 시 redirect url
+//        parameters.add("cancel_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+//        // 실패 시 redirect url
+//        parameters.add("fail_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());

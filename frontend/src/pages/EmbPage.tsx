@@ -36,7 +36,11 @@ const EmbPage = () => {
   }, []);
 
   const windeowReload = () => {
-    window.location.reload();
+    constellationStore.setConstellationClicked(false);
+    constellationStore.setConstellationName('');
+    starStore.setPlanetClicked(false);
+    starStore.setStarClicked(false);
+    starStore.setMarkedStars([]);
   };
 
   // 별자리 생성 POST

@@ -16,17 +16,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Messaging 인스턴스 가져오기
-const messaging: Messaging = getMessaging(app);
+const messaging = getMessaging(app);
 
 // 서비스 워커 등록
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('/firebase-messaging-sw.js')
     .then((registration) => {
-      // console.log('Service Worker 등록 성공:', registration);
+      console.log('Service Worker 등록 성공(firebase.ts):', registration);
     })
     .catch((err) => {
-      console.error('Service Worker 등록 실패:', err);
+      console.error('Service Worker 등록 실패(firebase.ts):', err);
     });
 }
 

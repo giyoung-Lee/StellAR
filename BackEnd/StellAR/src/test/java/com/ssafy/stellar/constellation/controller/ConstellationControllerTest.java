@@ -1,86 +1,149 @@
 package com.ssafy.stellar.constellation.controller;
 
-import com.dummy.DummyConstellation;
-import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.service.ConstellationService;
-import org.junit.jupiter.api.BeforeEach;
+import com.ssafy.stellar.constellation.service.ConstellationServiceImpl;
+import com.ssafy.stellar.settings.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@WebMvcTest(controllers = ConstellationController.class,
-        excludeAutoConfiguration = SecurityAutoConfiguration.class)
-@DisplayName("컨트롤러 테스트")
+@WebMvcTest(controllers = ConstellationController.class)
+@Import(TestSecurityConfig.class)
+@ExtendWith(MockitoExtension.class)
+@DisplayName("Star Controller Unit-Test")
 public class ConstellationControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    ConstellationController constellationController;
-
     @MockBean
-    ConstellationService constellationService;
-    List<ConstellationDto> expectedConstellations;
+    ConstellationServiceImpl constellationService;
 
-    @BeforeEach
-    void setUp() {
-//        ReflectionTestUtils.setField();
-        expectedConstellations = Arrays.asList(
-                DummyConstellation.getConstellationAllDto1(),
-                DummyConstellation.getConstellationAllDto2()
-        );
+    @Test
+    @DisplayName("별자리 전체 조회(황도 13궁/hwangdo13)")
+    void returnZodiacConstellation() throws Exception {
+        String constellationType = "hwangdo13";
+        mockMvc.perform(get("/constellation/all")
+                .param("constellationType", constellationType))
+                .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("전체 별자리 정보 불러오기 (/constellation/all)")
-    void getConstellation() throws Exception {
-
-        given(constellationService.findAllConstellation("hwangdo13")).willReturn(expectedConstellations);
-
-        mockMvc.perform(get("/constellation/all?constellationType=hwangdo13"))
-                .andDo(print());
-//                .andExpect(status().isOk());
-
-        // story는 너무 길어서... 뺴고...
-//        mockMvc.perform(
-//                    get("/api/constellation/all?constellationType=hwangdo13"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(2)))
-//                .andExpect(jsonPath("$[0].constellationId", is("Aquarius")))
-//                .andExpect(jsonPath("$[0].constellationSeason", is("가을")))
-//                .andExpect(jsonPath("$[0].constellationDesc", is("물병자리설명")))
-//                .andExpect(jsonPath("$[0].constellationSubName", is("물병자리")))
-//                .andExpect(jsonPath("$[0].constellationStartObservation", is("2.16")))
-//                .andExpect(jsonPath("$[0].constellationImg", is("http://localhost:8080/api/resources/dump/constellationImg/Aquarius.png")))
-////                .andExpect(jsonPath("$[0].constellationStory").exists())
-//                .andExpect(jsonPath("$[0].constellationType", is("hwangdo13")))
-//                .andExpect(jsonPath("$[0].constellationEndObservation", is("3.11")))
-//
-//                .andExpect(jsonPath("$[1].constellationId", is("Aries")))
-//                .andExpect(jsonPath("$[1].constellationSeason", is("가을")))
-//                .andExpect(jsonPath("$[1].constellationDesc", is("양자리설명")))
-//                .andExpect(jsonPath("$[1].constellationSubName", is("양자리")))
-//                .andExpect(jsonPath("$[1].constellationStartObservation", is("4.19")))
-//                .andExpect(jsonPath("$[1].constellationImg", is("http://localhost:8080/api/resources/dump/constellationImg/Aries.png")))
-////                .andExpect(jsonPath("$[1].constellationStory").exists())
-//                .andExpect(jsonPath("$[1].constellationType", is("hwangdo13")))
-//                .andExpect(jsonPath("$[1].constellationEndObservation", is("5.13")));
-
-//        verify(constellationService).findAllConstellation("hwangdo13");
+    @DisplayName("별자리 전체 조회(3원 28수/3won28su)")
+    void return3won28suConstellation() throws Exception {
+        String constellationType = "3won28su";
+        mockMvc.perform(get("/constellation/all")
+                        .param("constellationType", constellationType))
+                .andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("별자리 전체 조회 실패")
+    void returnConstellationFail() throws Exception {
+        String constellationType = "hwangdo13";
+
+        when(constellationService.findAllConstellation("hwangdo13"))
+                .thenThrow(new RuntimeException("Internal server error"));
+
+        mockMvc.perform(get("/constellation/all")
+                        .param("constellationType", constellationType))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("별자리 연결선 조회 성공")
+    void returnConstellationLink() throws Exception {
+        String constellationType = "hwangdo13";
+        mockMvc.perform(get("/constellation/link")
+                .param("constellationType", constellationType))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("별자리 연결선 조회 실패")
+    void returnConstellationLinkFail() throws Exception {
+        String constellationType = "hwangdo13";
+
+        when(constellationService.findConstellationLink(constellationType))
+                .thenThrow(new RuntimeException("Internal server error"));
+
+        mockMvc.perform(get("/constellation/link")
+                .param("constellationType", constellationType))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("아이디로 별자리 조회 성공")
+    void returnConstellationById() throws Exception{
+        String constellationId = "Aries";
+
+        mockMvc.perform(get("/constellation/find")
+                .param("constellationId", constellationId))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("아이디로 별자리 조회 실패")
+    void returnConstellationByIdFail() throws Exception {
+        String constellationId = "Aries";
+
+        when(constellationService.findConstellationById(constellationId))
+                .thenThrow(new RuntimeException("Internal server error"));
+
+        mockMvc.perform(get("/constellation/find")
+                .param("constellationId", constellationId))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("천문 이벤트 조회")
+    void returnConstellationEvent() throws Exception {
+        mockMvc.perform(get("/constellation/event"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("천문 이벤트 조회 실패")
+    void returnConstellationEventFail() throws Exception {
+        when(constellationService.returnConstellationEvent())
+                .thenThrow(new RuntimeException("Internal server error"));
+
+        mockMvc.perform(get("/constellation/event"))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    @DisplayName("별자리 ox 퀴즈 조회")
+    void returnConstellationXo() throws Exception {
+        String constellationId = "Aries";
+
+        mockMvc.perform(get("/constellation/xo")
+                .param("constellationId", constellationId))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("별자리 ox 퀴즈 조회 실패")
+    void returnConstellationXoFail() throws Exception {
+        String constellationId = "Aries";
+
+        when(constellationService.returnConstellationXO(constellationId))
+                .thenThrow(new RuntimeException("Internal server error"));
+
+        mockMvc.perform(get("/constellation/xo")
+                .param("constellationId", constellationId))
+                .andExpect(status().isInternalServerError());
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.ssafy.stellar.user.service;
 
+import com.ssafy.stellar.fcm.entity.DeviceTokenEntity;
+import com.ssafy.stellar.fcm.repository.DeviceTokenRepository;
 import com.ssafy.stellar.user.dto.request.SignUpDto;
 import com.ssafy.stellar.user.dto.response.UserDto;
 import com.ssafy.stellar.user.entity.UserEntity;
@@ -25,7 +27,10 @@ class UserServiceTest {
     private UserServiceImpl userService;
 
     @Mock
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Mock
+    private DeviceTokenRepository deviceTokenRepository;
 
     @Mock
     private UserRepository userRepository;
@@ -91,8 +96,12 @@ class UserServiceTest {
     void logInSuccess() {
 
         // given
+        DeviceTokenEntity deviceToken = new DeviceTokenEntity();
+        deviceToken.setUser(user);
+        deviceToken.setDeviceToken("aa");
         when(userRepository.findByUserId("wncks")).thenReturn(user);
         when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(true);
+        when(deviceTokenRepository.findByDeviceTokenAndUser(anyString(), any(UserEntity.class))).thenReturn(deviceToken);
 
         // when
         UserDto userDto = userService.logIn("wncks", "wncks1234", "aa");

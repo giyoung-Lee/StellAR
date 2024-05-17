@@ -52,10 +52,10 @@ export const registerValidSW = (swUrl: string) => {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
-      // console.log('서비스 워커 등록 완료:', registration.scope);
+      console.log('서비스 워커 등록 완료(SWR.ts):', registration.scope);
     })
     .catch((error) => {
-      console.error('서비스 워커 등록 실패:', error);
+      console.error('서비스 워커 등록 실패(SWR.ts):', error);
     });
 }
 

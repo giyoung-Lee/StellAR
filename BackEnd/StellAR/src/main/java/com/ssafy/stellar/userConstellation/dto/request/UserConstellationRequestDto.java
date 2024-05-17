@@ -19,7 +19,7 @@ public class UserConstellationRequestDto {
     @Schema(description = "유저 ID", required = true)
     private String userId;
 
-    @Schema(description = "유저 ID")
+    @Schema(description = "유저 별자리 ID")
     private Long constellationId;
 
     @Schema(description = "유저 별자리 이름", required = true)

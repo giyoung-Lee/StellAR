@@ -73,13 +73,9 @@ public class UserConstellationController {
         try {
             UserConstellationDto userConstellations = userConstellationService.getUserConstellationById(userId, constellationId);
             return new ResponseEntity<UserConstellationDto>(userConstellations, HttpStatus.OK);
-        } catch (UsernameNotFoundException e) {
-
-            log.error("User not found", e);
-            return new ResponseEntity<String>("User not found", HttpStatus.BAD_REQUEST);
-
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            log.error("Internal server error", e);
             return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -91,19 +87,15 @@ public class UserConstellationController {
                     array = @ArraySchema(schema = @Schema(implementation = UserConstellationDto.class))
             )
     )
-    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
+    @ApiResponse(responseCode = "400", description = "잘못된 데이터 요청")
     @GetMapping("/all")
     public ResponseEntity<?> getUserConstellation(@RequestParam String userId) {
         try {
             List<UserConstellationDto> userConstellations = userConstellationService.getUserConstellation(userId);
             return new ResponseEntity<List<UserConstellationDto>>(userConstellations, HttpStatus.OK);
-        } catch (UsernameNotFoundException e) {
-
-            log.error("User not found", e);
-            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
-
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            log.error("Internal server error", e);
             return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -115,19 +107,15 @@ public class UserConstellationController {
                     array = @ArraySchema(schema = @Schema(implementation = UserConstellationDto.class))
             )
     )
-    @ApiResponse(responseCode = "404", description = "유저 정보 없음")
+    @ApiResponse(responseCode = "400", description = "유저 정보 없음")
     @GetMapping("/link")
     public ResponseEntity<?> getUserConstellationLink(@RequestParam String userId) {
         try {
             Map<String, Object> userConstellationsLink = userConstellationService.getUserConstellationLink(userId);
             return new ResponseEntity<>(userConstellationsLink, HttpStatus.OK);
-        } catch (UsernameNotFoundException e) {
-
-            log.error("User not found", e);
-            return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
-
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            log.error("Internal server error", e);
             return new ResponseEntity<String>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

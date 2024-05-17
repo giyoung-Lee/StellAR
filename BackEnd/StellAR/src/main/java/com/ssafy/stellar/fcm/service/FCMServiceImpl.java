@@ -62,7 +62,6 @@ public class FCMServiceImpl {
             BatchResponse response = firebaseMessaging.sendEachForMulticast(message);
             System.out.println("Successfully sent message: " + response.getSuccessCount() + " messages were sent successfully");
 
-            // Optionally, handle the responses for each message
             for (SendResponse resp : response.getResponses()) {
                 if (!resp.isSuccessful()) {
                     System.err.println("Failed to send message: " + resp.getException().getMessage());
@@ -83,7 +82,6 @@ public class FCMServiceImpl {
 
         List<ConstellationEventEntity> events = constellationEventRepository.findEventsByDateAndTime(today, tomorrow, cutoffTime);
         for (ConstellationEventEntity event : events) {
-            String token = "your_device_token"; // 토큰 가져오는 로직 필요
             String title = event.getAstroEvent();
 
             String body = event.getAstroEvent() + chooseParticle(event.getAstroEvent()) + "한 시간 뒤에 발생합니다." +

@@ -22,12 +22,6 @@ public class ConstellationLinkEntity {
     @JoinColumn(name = "star_B")
     private StarEntity starB;
 
-//    @Column(name = "star_A")
-//    private String starA;
-//
-//    @Column(name = "star_B")
-//    private String starB;
-
     @Column(name = "constellation_id")
     private String constellationId;
 

@@ -135,7 +135,7 @@ public class StarServiceImpl implements StarService{
         return result;
     }
 
-    private static double calculateNewRA(String initialRA, double pmRA, long years) {
+    static double calculateNewRA(String initialRA, double pmRA, long years) {
         try {
             String[] raParts = initialRA.split(" ");
             if (raParts.length != 3) {
@@ -154,7 +154,7 @@ public class StarServiceImpl implements StarService{
         }
     }
 
-    private static double calculateNewDec(String initialDec, double pmDec, long years) {
+    static double calculateNewDec(String initialDec, double pmDec, long years) {
         try {
             boolean isNegative = initialDec.startsWith("-");
             String[] decParts = initialDec.substring(isNegative ? 1 : 0).split(" ");

@@ -10,13 +10,8 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json', // 추가된 부분
-    tsconfigRootDir: __dirname, // 프로젝트 루트 경로
-    sourceType: 'module',
-  },
   plugins: ['react-refresh', 'react', '@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': ['error'],
@@ -47,4 +42,5 @@ module.exports = {
     'no-continue': 'off',
     'no-useless-escape': 'off',
   },
-};
+}
+

@@ -293,7 +293,7 @@ public class UserConstellationServiceTest {
         List<UserConstellationLinkEntity> savedLinks = createLinks(userConstellation, links);
 
         when(userConstellationLinkRepository.findByUserConstellation(any(UserConstellationEntity.class))).thenReturn(savedLinks);
-        when(userConstellationRepository.findByUser(user)).thenReturn(savedUserConstellation);
+        when(userConstellationRepository.findByUserOrderByCreateDateTimeDesc(user)).thenReturn(savedUserConstellation);
 
         // When
         List<UserConstellationDto> result = userConstellationService.getUserConstellation(user.getUserId());
@@ -458,9 +458,9 @@ public class UserConstellationServiceTest {
     private void verifyUserConstellationSaved(UserEntity user, String name) {
         List<UserConstellationEntity> savedUserConstellation = new ArrayList<>();
         savedUserConstellation.add(createUserConstellation(user, name, "Constellation Description"));
-        when(userConstellationRepository.findByUser(user)).thenReturn(savedUserConstellation);
+        when(userConstellationRepository.findByUserOrderByCreateDateTimeDesc(user)).thenReturn(savedUserConstellation);
 
-        List<UserConstellationEntity> result = userConstellationRepository.findByUser(user);
+        List<UserConstellationEntity> result = userConstellationRepository.findByUserOrderByCreateDateTimeDesc(user);
         assertThat(result).hasSize(1)
                 .extracting(UserConstellationEntity::getName)
                 .containsExactlyInAnyOrder(name);

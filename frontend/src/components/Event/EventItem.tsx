@@ -1,13 +1,16 @@
-import React from 'react';
 import * as e from '../style/EventStyle';
 
-const EventItem = () => {
+type Props = {
+  event: eventApitype;
+};
+
+const EventItem = ({ event }: Props) => {
   return (
     <>
       <e.Coner />
       <e.EventInfo>
-        <e.EventDate>2024. 05. 05. (10:00)</e.EventDate>
-        <e.EventTitle>화성과 토성의 근접</e.EventTitle>
+        <e.EventDate>{`${event.localDate} (${event.astroTime})`}</e.EventDate>
+        <e.EventTitle>{event.astroEvent}</e.EventTitle>
       </e.EventInfo>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as m from '../style/StarMarkStyle';
 import { useMutation } from '@tanstack/react-query';
 import { DeleteStarMark } from '../../apis/StarMarkApis';
@@ -6,6 +6,7 @@ import useUserStore from '../../stores/userStore';
 import useStarStore from '../../stores/starStore';
 import { useNavigate } from 'react-router-dom';
 import getXYZ from '../../hooks/getXYZ';
+import Swal from 'sweetalert2';
 
 type Props = {
   starId: string;
@@ -24,7 +25,7 @@ const MarkItem = ({
   DEC,
   nomalizedMagV,
 }: Props) => {
-  const [isSaved, setIsSaved] = useState(true);
+  const [isSaved] = useState(true);
   const { userId } = useUserStore();
   const starStore = useStarStore();
   const userStore = useUserStore();
@@ -37,14 +38,30 @@ const MarkItem = ({
     });
   };
 
-  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    mutate({ userId, starId });
+  const handleCheckBox = () => {
+    Swal.fire({
+      text: '별마크를 삭제할까요?',
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      confirmButtonColor: 'tomato',
+      cancelButtonText: '취소',
+      width: 300,
+      customClass: {
+        container: 'my-swal',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({ text: '삭제되었습니다!', icon: 'success', width: 300 });
+        mutate({ userId, starId });
+      }
+    });
   };
 
   const { mutate } = useMutation({
     mutationFn: DeleteStarMark,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
   });

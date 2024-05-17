@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { ThreeEvent, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
 import Swal from 'sweetalert2';
+import { Instance } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
@@ -69,6 +70,9 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
         text: '행성은 별자리로 쓸 수 없어요!',
         icon: 'error',
         confirmButtonText: '확인',
+        customClass: {
+          container: 'my-swal'
+        }
       }).then(() => {
         window.location.reload();
       });
@@ -99,36 +103,42 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 
     const starPosition = event.object.position;
     if (!starStore.starId) {
-    starStore.setZoomX(starPosition.x);
-    starStore.setZoomY(starPosition.y);
-    starStore.setZoomZ(starPosition.z);
+      starStore.setZoomX(starPosition.x);
+      starStore.setZoomY(starPosition.y);
+      starStore.setZoomZ(starPosition.z);
     }
   };
 
   return (
     <>
-      <mesh
+      {/* <mesh
         ref={meshRef}
         position={position}
         castShadow={false}
         receiveShadow={false}
         onClick={click}
-      >
-        <tetrahedronGeometry args={[size, 2]} />
-        <meshPhongMaterial
-          color={spType ? starColor[spType as string] : 'red'}
-          specular={'white'}
-          shininess={100}
-          flatShading={true}
-        />
-      </mesh>
-
+      > */}
+      <tetrahedronGeometry args={[size, 2]} />
+      <meshPhongMaterial
+        specular={'white'}
+        shininess={100}
+        flatShading={true}
+      />
+      <Instance
+        color={spType ? starColor[spType as string] : 'red'}
+        ref={meshRef}
+        position={position}
+        castShadow={false}
+        receiveShadow={false}
+        onClick={click}
+      />
+      {/* </mesh> */}
       {/* 터치 영역 확장을 위한 투명 mesh입니다만 */}
       <mesh ref={touchAreaRef} position={position} onClick={click}>
         <sphereGeometry args={[size * 3, 20, 20]} />
         <meshPhongMaterial
+          color={spType ? starColor[spType as string] : 'red'}
           transparent
-          color={materialColor}
           opacity={0.15}
           emissiveIntensity={1}
           specular={'#ffffff'}
@@ -140,3 +150,4 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
 };
 
 export default StarMesh;
+

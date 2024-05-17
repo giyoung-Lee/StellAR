@@ -22,6 +22,7 @@ export const ConstellationInfo = styled.div`
 
 export const ConstellationName = styled.p`
   color: var(--color-orange);
+  width: 85%;
   font-size: 1.1rem;
   margin-top: 5px;
   cursor: pointer;
@@ -42,7 +43,7 @@ export const Date = styled.p`
 
 export const Delete = styled.span`
   position: absolute;
-  z-index: 1000;
+  z-index: 16777272;
   right: -3px;
   top: -3px;
   width: 35px;

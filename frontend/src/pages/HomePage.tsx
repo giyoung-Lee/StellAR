@@ -2,13 +2,13 @@ import * as h from './style/HomePageStyle';
 import MainCanvas from '../components/Star/MainCanvas';
 import useStarStore from '../stores/starStore';
 import StarName from '../components/Star/StarName';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import useUserStore from '../stores/userStore';
 import useConstellationStore from '../stores/constellationStore';
 import StarInfoCarousel from '../components/StarInfoCarousel/StarInfoCarousel';
+import MyConstInfoBox from '../components/StarInfoCarousel/MyConstInfoBox';
 import { MakeMyConstellationApi } from '../apis/MyConstApis';
-import Swal from 'sweetalert2';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -56,22 +56,10 @@ const HomePage = () => {
 
   const { mutate } = useMutation({
     mutationFn: MakeMyConstellationApi,
-    onSuccess(result: string) {
-      // console.log(result);
-      Swal.fire({
-        title: '성공!',
-        text: '별자리가 성공적으로 생성되었습니다.',
-        icon: 'success',
-        confirmButtonText: '확인',
-      });
+    onSuccess() {
       setOpen(false);
     },
-    onError(error) {
-      Swal.fire({
-        icon: 'error',
-        title: '오류',
-        text: '별자리 생성 중 오류가 발생했습니다.',
-      });
+    onError() {
       setOpen(false);
     },
   });
@@ -99,14 +87,12 @@ const HomePage = () => {
   }, []);
 
   // 현재 주소 보여주기
-  const { isLoading: LocationFetchingLoading, data: MyLocationData } = useQuery(
-    {
-      queryKey: ['get-my-location'],
-      queryFn: () => {
-        return whereAmI(userStore.userLat, userStore.userLng);
-      },
+  const { data: MyLocationData } = useQuery({
+    queryKey: ['get-my-location'],
+    queryFn: () => {
+      return whereAmI(userStore.userLat, userStore.userLng);
     },
-  );
+  });
 
   // 나만의 별자리 만들기 모달 관련
   const [open, setOpen] = useState<boolean>(false);
@@ -124,6 +110,10 @@ const HomePage = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     mutate(userConstellationData);
+  };
+
+  const toggleForward = () => {
+    userStore.setIsForward(!userStore.isForward);
   };
 
   const toggleGyro = () => {
@@ -147,6 +137,40 @@ const HomePage = () => {
     'Virgo',
   ];
 
+  // 자이로 센서 관련 코드입니당
+  useEffect(() => {
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const { gamma } = event;
+      const safeGamma = gamma || 0;
+      // gamma의 절대값이 45를 초과하면 landscape 모드로 인식ㄱㄱ
+      if (Math.abs(safeGamma) > 45 && !userStore.isLandscape) {
+        userStore.setIsLandscape(true);
+      } else if (Math.abs(safeGamma) <= 45 && userStore.isLandscape) {
+        userStore.setIsLandscape(false);
+      }
+    };
+
+    if (starStore.isARMode) {
+      // 자이로 센서 이벤트 리스너 등록
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+
+    // 컴포넌트가 언마운트되거나 isARMode가 변경될 때 리스너 제거
+    return () => {
+      window.removeEventListener('deviceorientation', handleOrientation);
+    };
+  }, [starStore.isARMode, userStore.isLandscape]);
+
+  useEffect(() => {
+    // 마운트시 자이로 AR 모드 해제
+    if (starStore.isARMode) {
+      starStore.setARMode(false);
+    }
+    if (userStore.isGyro) {
+      userStore.setIsGyro(false);
+    }
+  }, [])
+
   return (
     <>
       {/* 현재 위치 보여주기 */}
@@ -158,8 +182,17 @@ const HomePage = () => {
         </div>
       )}
 
-      <div className="fixed top-3 right-4 z-[1000]" onClick={toggleGyro}>
-        <FontAwesomeIcon icon="location-crosshairs" size="xl" />
+      <div className="fixed flex top-3 right-4 z-[16777272]">
+        <div onClick={toggleForward} className="cursor-pointer">
+          {userStore.isForward ? (
+            <FontAwesomeIcon icon="stop" size="xl" className="mx-2" />
+          ) : (
+            <FontAwesomeIcon icon="forward" size="xl" className="mx-2" />
+          )}
+        </div>
+        <div onClick={toggleGyro} className="cursor-pointer">
+          <FontAwesomeIcon icon="location-crosshairs" size="xl" />
+        </div>
       </div>
 
       {/* 별 이름 보여주기 */}
@@ -263,6 +296,9 @@ const HomePage = () => {
         {constellationStore.constellationClicked &&
         hwangdo13info.includes(constellationStore.constellationName) ? (
           <StarInfoCarousel active={0} />
+        ) : constellationStore.constellationClicked &&
+          !hwangdo13info.includes(constellationStore.constellationName) ? (
+          <MyConstInfoBox />
         ) : null}
 
         <MainCanvas />

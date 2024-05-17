@@ -1,12 +1,12 @@
-import React, { useRef } from 'react';
-import { useThree, extend } from '@react-three/fiber';
+import { extend } from '@react-three/fiber';
 import * as THREE from 'three';
 import { TubeGeometry } from 'three';
 import { Line2 } from 'three/examples/jsm/lines/Line2.js';
 import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry.js';
 import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial.js';
-import { Vector3, CatmullRomCurve3 } from 'three';
+import { CatmullRomCurve3 } from 'three';
 import useConstellationStore from '../../stores/constellationStore';
+import useStarStore from '../../stores/starStore';
 
 extend({ Line2, LineGeometry, LineMaterial });
 
@@ -18,13 +18,14 @@ type Props = {
 
 const MakeConstellation = ({ constellation, pointA, pointB }: Props) => {
   const ConstellationStore = useConstellationStore();
-  const lineRef = useRef<THREE.BufferGeometry | null>(null);
-  const { scene } = useThree();
+  const starStore = useStarStore();
 
   const handleClick = () => {
     // console.log('Line clicked:', constellation);
     ConstellationStore.setConstellationClicked(true);
     ConstellationStore.setConstellationName(constellation);
+    starStore.setPlanetClicked(false)
+    starStore.setStarClicked(false)
   };
 
   const path = new CatmullRomCurve3([pointA, pointB]);

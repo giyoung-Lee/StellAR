@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 import useStarStore from '../stores/starStore';
+import useUserStore from '../stores/userStore';
 
 const useCameraStream = () => {
   const starStore = useStarStore();
+  const userStore = useUserStore();
   const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(
     null,
   );
@@ -12,12 +14,14 @@ const useCameraStream = () => {
     if (!starStore.isARMode) {
       return;
     }
-
+    const width = userStore.isLandscape ? window.innerWidth : window.innerHeight;
+    const height = userStore.isLandscape ? window.innerHeight : window.innerWidth;
+   
     const constraints = {
       video: {
         facingMode: 'environment',
-        width: { ideal: 1024 },
-        height: { ideal: 1024 },
+        width: { ideal: width },
+        height: { ideal: height },
       },
     };
 
@@ -39,7 +43,7 @@ const useCameraStream = () => {
       .catch((error) => {
         console.error('카메라 접근 불가:', error);
       });
-  }, []);
+  }, [starStore.isARMode, userStore.isLandscape, window.innerWidth, window.innerHeight]);
 
   return videoTexture;
 };

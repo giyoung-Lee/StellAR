@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   height: 60vh;
   width: 100vw;
   position: absolute;
-  z-index: 1000;
+  z-index: 16777280;
   /* position: relative; */
   display: flex;
   align-self: center;
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   .arrow {
     height: 100px;
     position: absolute;
-    z-index: 1001;
+    z-index: 16777275;
 
     cursor: pointer;
 
@@ -53,9 +53,9 @@ export const Carousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background-color: #373737e7;
+  background-color: #2929297a;
   border-radius: 11px;
-  border: 1px solid #ffffff74;
+  /* border: 1px solid #ffffff74; */
   width: 80%;
   height: 100%;
   position: absolute;
@@ -184,4 +184,3 @@ export const Mythology = styled.div`
   overflow-y: auto;
   line-height: 1.7;
 `;
-

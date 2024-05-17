@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import * as p from './style/CommonPageStyle';
 import * as h from '../components/style/common/HeaderStyle';
 import MarkList from '../components/StarMark/MarkList';
@@ -15,7 +15,6 @@ const StarMarkPage = () => {
   const {
     isLoading: isStarMarkLoading,
     data: starMarkData,
-    isError: isStarMarkError,
     refetch: getStarMarkRefetch,
   } = useQuery({
     queryKey: ['get-starMarks'],

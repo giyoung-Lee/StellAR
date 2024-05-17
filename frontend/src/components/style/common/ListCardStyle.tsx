@@ -33,3 +33,20 @@ export const EventCard = styled.div`
   border-radius: 10px;
   overflow: hidden;
 `;
+
+export const Empty = styled.div`
+  p {
+    margin: 5px 0;
+  }
+  .message {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+  }
+  .lottie {
+    width: 300px;
+  }
+`;
+

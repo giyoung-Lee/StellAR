@@ -1,4 +1,3 @@
-import React from 'react';
 import * as l from '../style/WebPageStyle';
 import logo from '/icons/webLogo.png';
 import qrcode from '/icons/qrcode.png';

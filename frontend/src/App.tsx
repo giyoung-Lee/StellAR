@@ -67,6 +67,13 @@ const App = () => {
         <Router>
           <GlobalStyle />
           <WebRoutes />
+          <button className="fixed bottom-3 right-3 z-[16777273]" onClick={toggleMusic}>
+            {isPlaying ? (
+              <FontAwesomeIcon icon="volume-high" size="xl" />
+            ) : (
+              <FontAwesomeIcon icon="volume-xmark" size="xl" />
+            )}
+          </button>
         </Router>
       </div>
 
@@ -74,7 +81,7 @@ const App = () => {
         <Router>
           <GlobalStyle />
           <AppRoutes />
-          <button className="fixed top-3 left-4" onClick={toggleMusic}>
+          <button className="fixed bottom-3 right-3 z-[16777273]" onClick={toggleMusic}>
             {isPlaying ? (
               <FontAwesomeIcon icon="volume-high" size="xl" />
             ) : (

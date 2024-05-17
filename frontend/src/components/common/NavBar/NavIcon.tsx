@@ -13,7 +13,7 @@ const FixedContainer = styled.div`
   justify-content: center;
   min-width: 100%;
   bottom: 0;
-  z-index: 1000;
+  z-index: 16777272;
 `;
 
 const CheckboxWrapper = styled.div`
@@ -263,6 +263,9 @@ const NavBar = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "네",
       cancelButtonText: "아니요",
+      customClass: {
+        container: 'my-swal'
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.clear();

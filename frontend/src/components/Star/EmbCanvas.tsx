@@ -4,9 +4,11 @@ import StarMesh from './StarMesh';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
   DeviceOrientationControls,
+  Instances,
   OrbitControls,
   PerspectiveCamera,
   Sparkles,
+  Html,
   Stars,
 } from '@react-three/drei';
 import Lights from './Lights';
@@ -22,17 +24,20 @@ import { CameraAnimator } from '../../hooks/CameraAnimator';
 import { useEffect, useRef, useState } from 'react';
 import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
-import useCameraStream from '../../hooks/useCameraStream';
 import { GetStarMark } from '../../apis/StarMarkApis';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
-
-type Props = {};
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import '../../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ConstellationData {
   [key: string]: string[][]; // 각 키는 문자열 배열의 배열을 값으로 가짐
 }
 
-const EmbCanvas = (props: Props) => {
+const EmbCanvas = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
 
@@ -90,10 +95,68 @@ const EmbCanvas = (props: Props) => {
   // Define the state for holding star data as a StarDataMap
   const [starPositions, setStarPositions] = useState<StarDataMap>({});
 
-  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
+  // 계산을 위한 시간 불러오기
+  const [time, setTime] = useState<Date>(new Date());
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setTime(date);
+    } else {
+      setTime(new Date());
+    }
+  };
+
+  // 화면 자동 재생을 위한 코드(5분 단위)
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | null = null;
+    if (userStore.isForward) {
+      timer = setInterval(() => {
+        setTime((prevTime) => new Date(prevTime.getTime() + 300000));
+      }, 1000);
+    } else {
+      setTime(new Date());
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [userStore.isForward]);
+
+  // 시간 초기화 버튼 만들기 위한 현재 시간 구하기
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
+  const currentHour = currentDate.getHours();
+  const currentMinute = currentDate.getMinutes();
+
+  // 시간 초기화 버튼 만들기 위한 등록 시간 구하기
+  const selectedYear = time.getFullYear();
+  const selectedMonth = time.getMonth();
+  const selectedDay = time.getDate();
+  const selectedHour = time.getHours();
+  const selectedMinute = time.getMinutes();
+
+  // 등록 시간이랑 현재 시간 비교
+  const isCurrentTimeSelected =
+    currentYear === selectedYear &&
+    currentMonth === selectedMonth &&
+    currentDay === selectedDay &&
+    currentHour === selectedHour &&
+    currentMinute === selectedMinute;
+
+  const timeReload = () => {
+    userStore.setIsForward(false);
+    setTime(currentDate);
+  };
+
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(별)
   const calculateStarPositions = (data: StarDataMap) => {
-    const time = new Date();
-    const observer = new Astronomy.Observer(userStore.userLat, userStore.userLng, 0);
+    const observer = new Astronomy.Observer(
+      userStore.userLat,
+      userStore.userLng,
+      0,
+    );
     const result: StarDataMap = {};
 
     Object.keys(data).forEach((key) => {
@@ -117,9 +180,13 @@ const EmbCanvas = (props: Props) => {
     return result;
   };
 
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(행성)
   const calculatePlanetPositions = (data: PlanetData[]) => {
-    const time = new Date();
-    const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
+    const observer = new Astronomy.Observer(
+      userStore.userLat,
+      userStore.userLng,
+      0,
+    );
     return data.map((planet) => {
       const horizontal = Astronomy.Horizon(
         time,
@@ -147,7 +214,7 @@ const EmbCanvas = (props: Props) => {
       const newStarPositions = calculateStarPositions(starData.data);
       setStarPositions(newStarPositions);
     }
-  }, [planetData, starData]);
+  }, [planetData, starData, time]);
 
   if (
     isStarsLoading ||
@@ -187,8 +254,33 @@ const EmbCanvas = (props: Props) => {
 
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
+      {/* 시간 조작 부분 */}
+      {!starStore.starClicked &&
+        !starStore.planetClicked &&
+        !starStore.isARMode &&
+        !userStore.isGyro && (
+          <Html fullscreen>
+            <div className="fixed w-[80vw] m-2">
+              <DateTimePicker
+                onChange={handleDateChange}
+                value={time}
+                clearIcon={null}
+                format="y년 MM월 dd일 HH시 mm분"
+              />
+              {!isCurrentTimeSelected && (
+                <FontAwesomeIcon
+                  icon="rotate-right"
+                  size="xl"
+                  className="mx-2 cursor-pointer"
+                  onClick={timeReload}
+                />
+              )}
+            </div>
+          </Html>
+        )}
+
       {/* 배경 별 및 스파클 */}
-      <BackgroundStars />
+      {!userStore.isForward && !starStore.isARMode && <BackgroundStars />}
 
       {!starStore.isARMode && <Background />}
 
@@ -285,23 +377,24 @@ const EmbCanvas = (props: Props) => {
       {/* 조명 설정 */}
       <Lights />
 
-      {/* <Sparkles count={100} scale={18} size={10} speed={1} /> */}
-
-      {Object.values(starPositions).map((star: any) => (
-        <StarMesh
-          propstarId={star.starId}
-          spType={star.spType}
-          key={star.starId}
-          position={
-            new THREE.Vector3(
-              -star.calX * star.nomalizedMagV,
-              star.calZ * star.nomalizedMagV,
-              star.calY * star.nomalizedMagV,
-            )
-          }
-          size={getRandomInt(100, 110)}
-        />
-      ))}
+      {/* 별 */}
+      <Instances limit={2000} range={2000}>
+        {Object.values(starPositions).map((star: any) => (
+          <StarMesh
+            propstarId={star.starId}
+            spType={star.spType}
+            key={star.starId}
+            position={
+              new THREE.Vector3(
+                -star.calX * star.nomalizedMagV,
+                star.calZ * star.nomalizedMagV,
+                star.calY * star.nomalizedMagV,
+              )
+            }
+            size={getRandomInt(100, 110)}
+          />
+        ))}
+      </Instances>
 
       {planetPositions.map((planet: any) => (
         <PlanetMesh

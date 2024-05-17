@@ -55,6 +55,7 @@ const LoginPage = () => {
         html: errors.userId.replace(/\n/g, '<br>'),
         customClass: {
           icon: 'center-icon',
+          container: 'my-swal'
         },
         color: '#dcdcdc',
         background: 'rgba(0, 0, 0, 0.8)',
@@ -75,11 +76,14 @@ const LoginPage = () => {
       userStore.setUser({ userId: loginData.userId });
       userStore.setIsLogin(true);
     },
-    onError(error) {
+    onError() {
       Swal.fire({
         icon: 'error',
         title: '오류',
         text: '로그인 중 오류가 발생했습니다.',
+        customClass: {
+          container: 'my-swal'
+        }
       });
     },
   });

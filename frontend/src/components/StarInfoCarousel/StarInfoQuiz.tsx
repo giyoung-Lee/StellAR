@@ -21,7 +21,7 @@ const StarInfoQuiz = ({ constellationData, setModalOpen, quizData }: Props) => {
     setCurrentQuiz(randomQuiz);
   }, [quizData]);
 
-  const handleAnswer = (xo: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAnswer = (xo: string) => () => {
     setModalOpen(true); // 모달 열기
     if (currentQuiz && currentQuiz.constellationQuestionAnswer === xo) {
       Swal.fire({
@@ -29,6 +29,9 @@ const StarInfoQuiz = ({ constellationData, setModalOpen, quizData }: Props) => {
         text: '정답입니다! 카드를 넘겨 자세히 알아보세요.',
         icon: 'success',
         confirmButtonText: '확인',
+        customClass: {
+          container: 'my-swal'
+        }
       }).then(() => {
         setModalOpen(false); // 모달 닫기
       });
@@ -38,6 +41,9 @@ const StarInfoQuiz = ({ constellationData, setModalOpen, quizData }: Props) => {
         text: '오답입니다. 카드를 넘겨 정답을 알아보세요!',
         icon: 'error',
         confirmButtonText: '확인',
+        customClass: {
+          container: 'my-swal'
+        }
       }).then(() => {
         setModalOpen(false); // 모달 닫기
       });

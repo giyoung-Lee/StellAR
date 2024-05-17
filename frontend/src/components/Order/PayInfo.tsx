@@ -3,7 +3,6 @@ import * as o from '../style/OrderStyle';
 import kakaopay from '/img/kakaopay.png';
 import { PostPaymentReady } from '../../apis/PaymentApis';
 import useUserStore from '../../stores/userStore';
-import { useState } from 'react';
 import usePaymentStore from '../../stores/paymentStore';
 import useOrderStore from '../../stores/orderStore';
 import Swal from 'sweetalert2';
@@ -14,7 +13,7 @@ const PayInfo = () => {
   const orderStore = useOrderStore();
 
   const readyPayment = () => {
-    console.log('결제해야징');
+    // console.log('결제해야징');
     if (
       !paymentStore.qty ||
       !paymentStore.recipient ||
@@ -27,12 +26,15 @@ const PayInfo = () => {
         icon: 'error',
         confirmButtonText: '확인',
         width: 300,
+        customClass: {
+          container: 'my-swal'
+        }
       });
       return;
     }
     mutate({
       userId: userStore.userId,
-      amount: 1,
+      amount: paymentStore.qty,
       productId: 1001,
     });
   };

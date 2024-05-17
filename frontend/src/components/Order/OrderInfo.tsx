@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import * as o from '../style/OrderStyle';
 import usePaymentStore from '../../stores/paymentStore';
 
@@ -15,7 +15,7 @@ const OrderInfo = () => {
     <o.OrderInfoSec>
       <o.TItle>주문 상품</o.TItle>
       <o.Content>
-        <p className="ordered_item">Galaxy 스마트 별자리 빔프로젝터</p>
+        <p className="ordered_item">Galaxy [교육용] 에어터치 스크린</p>
         <div className="ordered_qt">
           <span>수량</span>
           <span className="set_qt">
@@ -25,7 +25,7 @@ const OrderInfo = () => {
           </span>
         </div>
         <span className="total_price">
-          {(2000000 * qty).toLocaleString('ko-KR')}
+          {(198000 * qty).toLocaleString('ko-KR')}
         </span>
       </o.Content>
     </o.OrderInfoSec>

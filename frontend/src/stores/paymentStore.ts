@@ -42,9 +42,7 @@ const usePaymentStore = create<PaymentStoreType>(
       setaddressDetail: (addressDetail: string) =>
         set({ addressDetail: addressDetail }),
     }),
-    {
-      name: 'paymentStore',
-    },
+    { name: 'payment' },
   ),
 );
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import * as m from '../style/MyStarStyle';
 import useStarStore from '../../stores/starStore';
 import getXYZ from '../../hooks/getXYZ';
@@ -6,6 +5,7 @@ import useUserStore from '../../stores/userStore';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { DeleteUserConstellation } from '../../apis/MyConstApis';
+import Swal from 'sweetalert2';
 
 type Props = {
   constellation: MyConstellation;
@@ -41,17 +41,33 @@ const MyStarItem = ({ constellation }: Props) => {
     navigate('/');
   };
 
-  const handleDelete = (event: React.MouseEvent<HTMLSpanElement>) => {
-    mutate({
-      userId: userStore.userId,
-      constellationId: constellation.userConstellationId,
+  const handleDelete = () => {
+    Swal.fire({
+      text: '별자리를 삭제할까요?',
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      confirmButtonColor: 'tomato',
+      cancelButtonText: '취소',
+      width: 300,
+      customClass: {
+        container: 'my-swal',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({ text: '삭제되었습니다!', icon: 'success', width: 300 });
+        mutate({
+          userId: userStore.userId,
+          constellationId: constellation.userConstellationId,
+        });
+      }
     });
   };
 
   const { mutate } = useMutation({
     mutationFn: DeleteUserConstellation,
     onSuccess(result: string) {
-      console.log(result);
+      // console.log(result);
       starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
   });

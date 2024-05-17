@@ -259,11 +259,11 @@ const MainCanvas = () => {
 
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
-
       {/* 시간 조작 부분 */}
       {!starStore.starClicked &&
         !starStore.planetClicked &&
         !starStore.isARMode &&
+        !starStore.zoomFromOther &&
         !userStore.isGyro && (
           <Html fullscreen>
             <div className="fixed w-[80vw] m-2">

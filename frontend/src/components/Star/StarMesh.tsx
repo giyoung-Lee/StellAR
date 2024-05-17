@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ThreeEvent, useThree } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
+import useConstellationStore from '../../stores/constellationStore';
 import Swal from 'sweetalert2';
 import { Instance } from '@react-three/drei';
 
@@ -14,6 +15,9 @@ type Props = {
 
 const StarMesh = ({ position, size, propstarId, spType }: Props) => {
   const starStore = useStarStore();
+  const constellationStore = useConstellationStore();
+
+  const resetLinkedStars = useStarStore((state) => state.resetLinkedStars);
 
   const meshRef = useRef<THREE.Mesh>(null!);
   const touchAreaRef = useRef<THREE.Mesh>(null!); // 터치 영역 확장을 위한 투명 mesh입니다만
@@ -74,7 +78,13 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
           container: 'my-swal'
         }
       }).then(() => {
-        window.location.reload();
+        constellationStore.setConstellationClicked(false);
+        constellationStore.setConstellationName('');
+        starStore.setPlanetClicked(false);
+        starStore.setStarClicked(false);
+        starStore.setZoomFromOther(false);
+        starStore.setMarkedStars([]);
+        resetLinkedStars();
       });
     }
 

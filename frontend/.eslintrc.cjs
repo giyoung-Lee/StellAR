@@ -12,6 +12,11 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json', // 추가된 부분
+    tsconfigRootDir: __dirname, // 프로젝트 루트 경로
+    sourceType: 'module',
+  },
   plugins: ['react-refresh', 'react', '@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': ['error'],

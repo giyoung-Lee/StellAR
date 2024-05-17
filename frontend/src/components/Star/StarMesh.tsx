@@ -17,8 +17,6 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
   const starStore = useStarStore();
   const constellationStore = useConstellationStore();
 
-  const resetLinkedStars = useStarStore((state) => state.resetLinkedStars);
-
   const meshRef = useRef<THREE.Mesh>(null!);
   const touchAreaRef = useRef<THREE.Mesh>(null!); // 터치 영역 확장을 위한 투명 mesh입니다만
 
@@ -84,7 +82,7 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
         starStore.setStarClicked(false);
         starStore.setZoomFromOther(false);
         starStore.setMarkedStars([]);
-        resetLinkedStars();
+        starStore.resetLinkedStars();
       });
     }
 

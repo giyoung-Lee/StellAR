@@ -22,11 +22,13 @@ import Textarea from '@mui/joy/Textarea';
 import { whereAmI } from '../apis/UserApis';
 import '../pages/style/Fontawsome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const starStore = useStarStore();
   const userStore = useUserStore();
   const constellationStore = useConstellationStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     starStore.setStarClicked(false);
@@ -46,6 +48,7 @@ const HomePage = () => {
     description: '',
     links: starStore.linkedStars,
   });
+
   // linkedStars가 변할 때마다 업데이트
   useEffect(() => {
     setUserConstellationData((prevData) => ({
@@ -58,6 +61,7 @@ const HomePage = () => {
     mutationFn: MakeMyConstellationApi,
     onSuccess() {
       setOpen(false);
+      navigate(`/myStar/${userStore.userId}`);
     },
     onError() {
       setOpen(false);
@@ -169,7 +173,7 @@ const HomePage = () => {
     if (userStore.isGyro) {
       userStore.setIsGyro(false);
     }
-  }, [])
+  }, []);
 
   return (
     <>

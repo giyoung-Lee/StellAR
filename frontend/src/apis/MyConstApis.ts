@@ -1,9 +1,13 @@
 import { publicRequest } from '../hooks/requestMethods';
 import Swal from 'sweetalert2';
+import useConstellationStore from '../stores/constellationStore';
+import useStarStore from '../stores/starStore';
 
 export const MakeMyConstellationApi = async (
   userConstellationData: UserConstellationData,
 ) => {
+  const constellationStore = useConstellationStore();
+  const starStore = useStarStore();
   try {
     const res = await publicRequest.post(
       `user-constellation/create`,
@@ -20,7 +24,12 @@ export const MakeMyConstellationApi = async (
       }
     });
 
-    window.location.reload();
+    constellationStore.setConstellationClicked(false);
+    constellationStore.setConstellationName('');
+    starStore.setPlanetClicked(false);
+    starStore.setStarClicked(false);
+    starStore.setZoomFromOther(false);
+
     return res.data;
   } catch (error) {
     console.log(error);

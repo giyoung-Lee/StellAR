@@ -27,3 +27,11 @@ messaging.onBackgroundMessage((payload) => {
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+// 어디로 라우팅 할지 설정
+self.addEventListener("notificationclick", function (event) {
+  console.log("notification click");
+  const url = "/event";
+  event.notification.close();
+  event.waitUntil(clients.openWindow(url));
+});

@@ -293,6 +293,9 @@ const HomePage = () => {
               src="/img/reload.png"
               alt="reload"
               onClick={windeowReload}
+              style={{
+                cursor: 'pointer',
+              }}
             />
           </div>
         ) : null}

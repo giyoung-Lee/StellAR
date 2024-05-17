@@ -8,6 +8,7 @@ import com.ssafy.stellar.user.entity.UserEntity;
 import com.ssafy.stellar.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,14 +22,14 @@ public class UserServiceImpl implements UserService {
 
     private final DeviceTokenRepository deviceTokenRepository;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
                            DeviceTokenRepository deviceTokenRepository,
-                           BCryptPasswordEncoder bCryptPasswordEncoder) {
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.deviceTokenRepository = deviceTokenRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bCryptPasswordEncoder = passwordEncoder;
     }
 
     @Override

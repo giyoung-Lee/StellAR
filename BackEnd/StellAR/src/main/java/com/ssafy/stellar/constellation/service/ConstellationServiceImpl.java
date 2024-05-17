@@ -134,7 +134,15 @@ public class ConstellationServiceImpl implements ConstellationService{
     }
     // ################################구분선####################################
 
-    private static ConstellationDto getConstellationAllDto(ConstellationEntity entity) {
+    protected String buildFileDownloadUri(String fileName) {
+        String DIRECTORY = "/resources/dump/constellationImg/";
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(DIRECTORY)
+                .path(fileName)
+                .toUriString();
+    }
+
+    private ConstellationDto getConstellationAllDto(ConstellationEntity entity) {
         ConstellationDto temp = new ConstellationDto();
 
         temp.setConstellationId(entity.getConstellationId());
@@ -144,13 +152,7 @@ public class ConstellationServiceImpl implements ConstellationService{
         temp.setConstellationStartObservation(entity.getConstellationStartObservation());
 
         if (!Objects.equals(entity.getConstellationImg(), "null")) {
-            String DIRECTORY = "/resources/dump/constellationImg/";
-            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path(DIRECTORY)
-                    .path(entity.getConstellationImg())
-                    .toUriString();
-
-            temp.setConstellationImg(fileDownloadUri);
+            temp.setConstellationImg(buildFileDownloadUri(entity.getConstellationImg()));
         } else {
             temp.setConstellationImg("이미지가 없습니다만..");
         }

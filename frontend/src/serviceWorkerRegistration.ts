@@ -18,31 +18,23 @@ const isDistributed = Boolean(
 // EC2
 const PUBLIC_URL = "https://k10c105.p.ssafy.io"
 
-// // 로컬
+// 로컬
 const LOCAL_URL = "http://localhost:5173"
 
 export const register = () => {
+
   if ('serviceWorker' in navigator) {
     const publicUrl = new URL(PUBLIC_URL, window.location.href);
-    const localUrl = new URL(PUBLIC_URL, window.location.href);
+    const localUrl = new URL(LOCAL_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin && localUrl.origin !== window.location.origin) {
       return;
     }
-
+    
     window.addEventListener('load', () => {
-      const swUrl1 = `${LOCAL_URL}/firebase-messaging-sw.js`;
+      const swUrl = isLocalhost ? `${LOCAL_URL}/firebase-messaging-sw.js` : `${PUBLIC_URL}/firebase-messaging-sw.js`;
 
-      if (isLocalhost) {
-        checkValidServiceWorker(swUrl1);
-      } else {
-        registerValidSW(swUrl1);
-      }
-      const swUrl2 = `${PUBLIC_URL}/firebase-messaging-sw.js`;
-
-      if (isDistributed) {
-        checkValidServiceWorker(swUrl2);
-      } else {
-        registerValidSW(swUrl2);
+      if (isLocalhost || isDistributed) {
+        checkValidServiceWorker(swUrl);
       }
     });
   }

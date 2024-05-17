@@ -44,9 +44,10 @@ const MyStarItem = ({ constellation }: Props) => {
   const handleDelete = () => {
     Swal.fire({
       text: '별자리를 삭제할까요?',
-      icon: 'warning',
+      icon: 'error',
       showCancelButton: true,
       confirmButtonText: '삭제',
+      confirmButtonColor: 'tomato',
       cancelButtonText: '취소',
       width: 300,
       customClass: {
@@ -138,4 +139,3 @@ const MyStarItem = ({ constellation }: Props) => {
 };
 
 export default MyStarItem;
-

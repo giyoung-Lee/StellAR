@@ -41,9 +41,10 @@ const MarkItem = ({
   const handleCheckBox = () => {
     Swal.fire({
       text: '별마크를 삭제할까요?',
-      icon: 'warning',
+      icon: 'error',
       showCancelButton: true,
       confirmButtonText: '삭제',
+      confirmButtonColor: 'tomato',
       cancelButtonText: '취소',
       width: 300,
       customClass: {
@@ -114,4 +115,3 @@ const MarkItem = ({
 };
 
 export default MarkItem;
-

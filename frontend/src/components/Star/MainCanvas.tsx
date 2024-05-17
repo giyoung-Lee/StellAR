@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { getRandomInt } from '../../utils/random';
 import * as THREE from 'three';
 // import StarMesh from './StarMesh';
-// import MakeConstellation from './MakeConstellation';
+import MakeConstellation from './MakeConstellation';
 
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import {
@@ -224,7 +224,7 @@ const MainCanvas = () => {
   }, [planetData, starData, time]);
 
   const StarMesh = lazy(() => import('./StarMesh'));
-  const MakeConstellation = lazy(() => import('./MakeConstellation'));
+  // const MakeConstellation = lazy(() => import('./MakeConstellation'));
 
   // if (
   //   isStarsLoading ||
@@ -266,8 +266,22 @@ const MainCanvas = () => {
     <Canvas gl={{ antialias: true, alpha: true }}>
       <Suspense
         fallback={
-          <Html>
-            <Loading />
+          <Html center fullscreen>
+            <div
+              style={{
+                backgroundColor: 'black',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh', // 전체 뷰포트 높이
+                width: '100vw', // 전체 뷰포트 너비
+                position: 'absolute',
+                top: 0,
+                left: 0,
+              }}
+            >
+              <Loading />
+            </div>
           </Html>
         }
       >
@@ -530,4 +544,3 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
-

@@ -3,84 +3,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
-const MeteorKeyframe = (
-  direction: 'left' | 'right',
-  angle: number,
-) => keyframes`
-    0% {
-        top: -10vh;
-        transform: translateX(100vw);
-        opacity: 1;
-    }
-    100% {
-        top: 110vh;
-        transform: translateX(${direction === 'right' ? '-' : '+'}${120 / Math.tan((angle * Math.PI) / 180)}vh);
-        opacity: 1;
-    }
-`;
-
-interface MeteorLayoutProps {
-  $direction: 'left' | 'right';
-  $angle: number;
-}
-
-const MeteorEffectLayout = styled.div<MeteorLayoutProps>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* background-color: black; */
-  .star {
-    position: relative;
-    top: 50%;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: white;
-    animation: ${(props) => MeteorKeyframe(props.$direction, props.$angle)} 4s
-      ease-in infinite;
-    opacity: 0;
-  }
-  .star::after {
-    position: absolute;
-    top: calc(50% - 1px);
-    left: -950%;
-    width: 2000%;
-    height: 2px;
-    background: linear-gradient(to left, #fff0, #ffffff);
-    content: '';
-    transform: ${(props) =>
-      `${
-        props.$direction === 'right'
-          ? `rotateZ(-${props.$angle}deg)`
-          : `rotateZ(${180 - props.$angle}deg)`
-      } translateX(50%)`};
-  }
-  .star:nth-child(2) {
-    transform: translateX(300px);
-    animation-delay: 5.1s;
-  }
-  .star:nth-child(3) {
-    transform: translateX(450px);
-    animation-delay: 1s;
-  }
-`;
-
-interface MeteorEffectProps {
-  count?: number;
-  white?: boolean;
-  maxDelay?: number;
-  minSpeed?: number;
-  maxSpeed?: number;
-  angle?: number;
-  direction?: 'left' | 'right';
-}
-
-const MAX_STAR_COUNT = 25;
-
-const colors = ['#c77eff', '#f6ff7e', '#ff8d7e', '#ffffff'];
 const EntryPage: React.FC<MeteorEffectProps> = ({
   count = 12,
   maxDelay = 15,
@@ -161,3 +83,83 @@ const EntryPage: React.FC<MeteorEffectProps> = ({
 };
 
 export default EntryPage;
+
+// 메테오 효과 관련 함수
+const MeteorKeyframe = (
+  direction: 'left' | 'right',
+  angle: number,
+) => keyframes`
+    0% {
+        top: -10vh;
+        transform: translateX(100vw);
+        opacity: 1;
+    }
+    100% {
+        top: 110vh;
+        transform: translateX(${direction === 'right' ? '-' : '+'}${120 / Math.tan((angle * Math.PI) / 180)}vh);
+        opacity: 1;
+    }
+`;
+
+interface MeteorLayoutProps {
+  $direction: 'left' | 'right';
+  $angle: number;
+}
+
+const MeteorEffectLayout = styled.div<MeteorLayoutProps>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* background-color: black; */
+  .star {
+    position: relative;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: white;
+    animation: ${(props) => MeteorKeyframe(props.$direction, props.$angle)} 4s
+      ease-in infinite;
+    opacity: 0;
+  }
+  .star::after {
+    position: absolute;
+    top: calc(50% - 1px);
+    left: -950%;
+    width: 2000%;
+    height: 2px;
+    background: linear-gradient(to left, #fff0, #ffffff);
+    content: '';
+    transform: ${(props) =>
+      `${
+        props.$direction === 'right'
+          ? `rotateZ(-${props.$angle}deg)`
+          : `rotateZ(${180 - props.$angle}deg)`
+      } translateX(50%)`};
+  }
+  .star:nth-child(2) {
+    transform: translateX(300px);
+    animation-delay: 5.1s;
+  }
+  .star:nth-child(3) {
+    transform: translateX(450px);
+    animation-delay: 1s;
+  }
+`;
+
+interface MeteorEffectProps {
+  count?: number;
+  white?: boolean;
+  maxDelay?: number;
+  minSpeed?: number;
+  maxSpeed?: number;
+  angle?: number;
+  direction?: 'left' | 'right';
+}
+
+const MAX_STAR_COUNT = 25;
+
+const colors = ['#c77eff', '#f6ff7e', '#ff8d7e', '#ffffff'];

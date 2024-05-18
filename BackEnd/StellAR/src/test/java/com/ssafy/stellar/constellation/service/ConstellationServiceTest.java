@@ -1,8 +1,6 @@
 package com.ssafy.stellar.constellation.service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.ssafy.stellar.constellation.dto.response.ConstellationDto;
 import com.ssafy.stellar.constellation.dto.response.ConstellationEventDto;
 import com.ssafy.stellar.constellation.dto.response.ConstellationXODto;
@@ -26,7 +24,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +31,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class ConstellationServiceImplTest {
+@DisplayName("Constellation Service Unit-Test")
+public class ConstellationServiceTest {
 
     @Mock
     private ConstellationRepository constellationRepository;

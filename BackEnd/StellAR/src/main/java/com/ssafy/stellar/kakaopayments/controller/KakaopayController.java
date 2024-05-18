@@ -6,12 +6,9 @@ import com.ssafy.stellar.kakaopayments.dto.request.PurchaseRequestDto;
 import com.ssafy.stellar.kakaopayments.dto.response.KakaoApproveResponseDto;
 import com.ssafy.stellar.kakaopayments.dto.response.KakaoReadyResponseDto;
 import com.ssafy.stellar.kakaopayments.dto.response.ProductDto;
-import com.ssafy.stellar.kakaopayments.service.KakaoPayService;
 import com.ssafy.stellar.kakaopayments.service.KakaoPayServiceImpl;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

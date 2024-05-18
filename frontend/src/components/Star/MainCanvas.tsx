@@ -245,31 +245,7 @@ const MainCanvas = () => {
     return <Loading />;
   }
 
-  const BackgroundStars = () => {
-    const { camera } = useThree();
-    const ref = useRef<any>();
 
-    useFrame(() => {
-      if (ref.current) {
-        ref.current.position.copy(camera.position);
-        ref.current.position.z -= 1000;
-      }
-    });
-
-    return (
-      <>
-        <Sparkles ref={ref} count={100} scale={15} size={4} />
-        <Stars
-          ref={ref}
-          radius={500}
-          depth={500}
-          count={2000}
-          factor={20}
-          speed={1}
-        />
-      </>
-    );
-  };
 
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
@@ -513,6 +489,22 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
   }, [videoTexture, isARMode, scene, camera]);
 
   return null;
+};
+
+// 배경 랜덤 별과 스파클
+const BackgroundStars = () => {
+  return (
+    <>
+      <Sparkles count={100} scale={15} size={4} />
+      <Stars
+        radius={500}
+        depth={500}
+        count={2000}
+        factor={20}
+        speed={1}
+      />
+    </>
+  );
 };
 
 export default MainCanvas;

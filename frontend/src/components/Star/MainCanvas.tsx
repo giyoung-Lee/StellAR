@@ -411,6 +411,7 @@ const MainCanvas = () => {
         ))}
       </Instances>
 
+      {/* 행성 */}
       {planetPositions.map((planet: any) => (
         <PlanetMesh
           planetId={planet.planetId}
@@ -515,4 +516,3 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
-

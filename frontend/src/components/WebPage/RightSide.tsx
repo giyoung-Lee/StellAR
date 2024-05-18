@@ -1,3 +1,4 @@
+import HomePage from '../../pages/HomePage';
 import MainCanvas from '../Star/MainCanvas';
 import * as r from '../style/WebPageStyle';
 
@@ -10,6 +11,7 @@ const RightSide = () => {
             <div className="back">
               <div className="back-content">
                 <MainCanvas />
+                {/* <HomePage /> */}
               </div>
             </div>
           </div>

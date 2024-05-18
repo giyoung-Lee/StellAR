@@ -15,7 +15,7 @@ class UserBookmarkEntityTest {
 
     @Test
     @DisplayName("생성시간 테스트")
-    void prePersist_setsCreateTime() {
+    void SetCreateTimeTest() {
         // Given
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
 

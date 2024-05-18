@@ -5,6 +5,7 @@ import useStarStore from '../../stores/starStore';
 import useConstellationStore from '../../stores/constellationStore';
 import Swal from 'sweetalert2';
 import { Instance } from '@react-three/drei';
+import useUserStore from '../../stores/userStore';
 
 type Props = {
   position: THREE.Vector3;
@@ -16,6 +17,7 @@ type Props = {
 const StarMesh = ({ position, size, propstarId, spType }: Props) => {
   const starStore = useStarStore();
   const constellationStore = useConstellationStore();
+  const userStore = useUserStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
   const touchAreaRef = useRef<THREE.Mesh>(null!); // 터치 영역 확장을 위한 투명 mesh입니다만
@@ -45,6 +47,9 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
   const { scene } = useThree();
 
   const click = (event: ThreeEvent<MouseEvent>) => {
+    if (!userStore.isLogin) {
+      return;
+    }
     event.stopPropagation();
     const currentStarId = starStore.starId;
     const currentStarPosition = starStore.starPosition;
@@ -73,8 +78,8 @@ const StarMesh = ({ position, size, propstarId, spType }: Props) => {
         icon: 'error',
         confirmButtonText: '확인',
         customClass: {
-          container: 'my-swal'
-        }
+          container: 'my-swal',
+        },
       }).then(() => {
         constellationStore.setConstellationClicked(false);
         constellationStore.setConstellationName('');

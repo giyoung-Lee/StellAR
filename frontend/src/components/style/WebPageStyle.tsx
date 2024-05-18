@@ -126,52 +126,6 @@ export const LogoImg = styled.img`
   /* margin-bottom: 10%; */
 `;
 
-export const ServiceInfo = styled.div`
-  /* background-color: pink; */
-  min-width: 40%;
-  p {
-    color: var(--color-blue);
-  }
-
-  .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .cards .card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    height: 10%;
-    width: 100%;
-    /* border-radius: 10px; */
-    color: white;
-    cursor: pointer;
-    transition: 400ms;
-  }
-
-  .cards .card p.tip {
-    font-size: 1em;
-    /* font-weight: 700; */
-  }
-
-  .cards .card p.second-text {
-    font-size: 0.7em;
-  }
-
-  .cards .card:hover {
-    transform: scale(1.1, 1.1);
-  }
-
-  .cards:hover > .card:not(:hover) {
-    filter: blur(10px);
-    transform: scale(0.9, 0.9);
-  }
-`;
-
 export const GoApp = styled.span`
   margin-top: 5%;
   width: 20%;
@@ -267,6 +221,103 @@ export const GoApp = styled.span`
       #ebb77b3c 75%,
       #ebb77b1a 100%
     );
+  }
+`;
+
+export const Preview = styled.p`
+  color: var(--color-navy);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  button.learn-more {
+    width: 12rem;
+    height: auto;
+  }
+
+  button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    background: #f2cea2cf;
+    border-radius: 1.625rem;
+  }
+
+  button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+  }
+
+  button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.25rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+  }
+
+  button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: '';
+    top: -0.29rem;
+    right: 0.025rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid #fff;
+    border-right: 0.125rem solid #fff;
+    transform: rotate(45deg);
+  }
+
+  button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    display: flex;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: var(--color-navy);
+    line-height: 1.6;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+  }
+
+  button:hover .circle {
+    width: 110%;
+    background: var(--color-lightorange);
+  }
+
+  button:hover .circle .icon.arrow {
+    transform: translate(1rem, 0);
+  }
+
+  button:hover .button-text {
+    color: #fff;
+    font-weight: 700;
   }
 `;
 

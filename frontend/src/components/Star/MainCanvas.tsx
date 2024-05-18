@@ -221,13 +221,27 @@ const MainCanvas = () => {
     }
   }, [planetData, starData, time]);
 
-  if (
-    isStarsLoading ||
-    isConstLoading ||
-    isPlanetLoading ||
-    isMyConstLoading ||
-    isStarMarkLoading
-  ) {
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (
+      !isStarsLoading &&
+      !isPlanetLoading &&
+      !isStarMarkLoading &&
+      !isConstLoading &&
+      !isMyConstLoading
+    ) {
+      setInitialLoad(false);
+    }
+  }, [
+    isStarsLoading,
+    isPlanetLoading,
+    isStarMarkLoading,
+    isConstLoading,
+    isMyConstLoading,
+  ]);
+
+  if (initialLoad) {
     return <Loading />;
   }
 
@@ -501,3 +515,4 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
 };
 
 export default MainCanvas;
+

@@ -16,6 +16,7 @@ import com.ssafy.stellar.constellation.repository.ConstellationRepository;
 import com.ssafy.stellar.constellation.repository.ConstellationXORepository;
 import com.ssafy.stellar.star.entity.StarEntity;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -49,7 +50,6 @@ class ConstellationServiceImplTest {
 
     @InjectMocks
     private ConstellationServiceImpl constellationService;
-
     private StarEntity starA;
     private StarEntity starB;
 

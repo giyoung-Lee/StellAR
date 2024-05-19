@@ -39,9 +39,7 @@ public class FCMServiceImpl {
     }
 
     public void sendNotification(String title, String body) {
-        List<String> tokens = deviceTokenRepository.findAll().stream()
-                .map(DeviceTokenEntity::getDeviceToken)
-                .collect(Collectors.toList());
+        List<String> tokens = deviceTokenRepository.findAllDeviceTokens();
 
         if (tokens.isEmpty()) {
             System.out.println("No tokens found.");
@@ -84,13 +82,12 @@ public class FCMServiceImpl {
         for (ConstellationEventEntity event : events) {
             String title = event.getAstroEvent();
 
-            String body = event.getAstroEvent() + chooseParticle(event.getAstroEvent()) + "한 시간 뒤에 발생합니다." +
-                    "\n" + "관측이 힘든 사람들은 stellAR에서 함께 확인해요!";
-
+            String body = event.getAstroEvent() + chooseParticle(event.getAstroEvent()) + " 한 시간 뒤에 발생합니다." +
+                    "\n" + "관측이 어려운 사람들은 stellAR에서 함께 확인해요!";
             // 스케줄링 시간 계산 (예: 이벤트 시간 1시간 전)
             ZonedDateTime eventTime = ZonedDateTime.of(event.getLocdate(), LocalTime.parse(event.getAstroTime()), ZoneId.systemDefault());
             Instant scheduledTime = eventTime.minusHours(1).toInstant();
-
+            
             scheduler.schedule(() -> sendNotification(title, body), scheduledTime);
         }
     }

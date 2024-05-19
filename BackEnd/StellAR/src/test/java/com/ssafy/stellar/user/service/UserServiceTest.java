@@ -42,7 +42,6 @@ class UserServiceTest {
         user = new UserEntity(); // 객체 생성
         String userId = "wncks";
         String password = "wncks1234";
-
         when(bCryptPasswordEncoder.encode(password)).thenReturn("encodedPassword");
 
         String encodedPassword = bCryptPasswordEncoder.encode(password);
@@ -82,7 +81,6 @@ class UserServiceTest {
         when(userRepository.findByUserId("wncks")).thenReturn(user);
         when(bCryptPasswordEncoder.encode("wncks1234")).thenReturn("encodedPassword");
 
-
         // when & then
         assertThatThrownBy(() -> {
             userService.signUp(request);
@@ -113,10 +111,93 @@ class UserServiceTest {
     }
 
     @Test
-    void deleteUser() {
+    @DisplayName("로그인 실패 테스트")
+    void logInFailTest() {
+
+        // given
+        DeviceTokenEntity deviceToken = new DeviceTokenEntity();
+        deviceToken.setUser(user);
+        deviceToken.setDeviceToken("aa");
+        when(userRepository.findByUserId("wncks")).thenReturn(user);
+        when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(false);
+
+        // When & Then
+        assertThatThrownBy(() -> {
+            userService.logIn("wncks", "wncks1234", null);
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Invalid password");
     }
 
     @Test
-    void checkPassword() {
+    @DisplayName("디바이스 토큰 저장 테스트")
+    void saveDeviceTokenTest() {
+        // Given
+        when(userRepository.findByUserId("wncks")).thenReturn(user);
+        when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(true);
+        when(deviceTokenRepository.findByDeviceTokenAndUser(anyString(), any(UserEntity.class))).thenReturn(null);
+
+        // When
+        userService.logIn("wncks", "wncks1234", "aa");
+
+        // Then
+        verify(deviceTokenRepository).save(any(DeviceTokenEntity.class));
+    }
+
+    @Test
+    @DisplayName("디바이스 토큰 없이 로그인 테스트")
+    void loginWithoutDeviceTokenTest() {
+        // Given
+        when(userRepository.findByUserId("wncks")).thenReturn(user);
+        when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(true);
+
+        // When
+        UserDto userDto = userService.logIn("wncks", "wncks1234", null);
+
+        // Then
+        assertThat(userDto).isNotNull()
+                .extracting(UserDto::getUserId)
+                .isEqualTo("wncks");
+    }
+
+    @Test
+    @DisplayName("회원 탈퇴 성공 테스트")
+    void deleteUserSuccessTest() {
+        // Given
+        when(userRepository.findByUserId("wncks")).thenReturn(user);
+        when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(true);
+
+        // When
+        userService.deleteUser("wncks", "wncks1234");
+
+        // Then
+        verify(userRepository).deleteById("wncks");
+    }
+
+    @Test
+    @DisplayName("회원 탈퇴 실패 테스트")
+    void deleteUserFailTest() {
+        // Given
+        when(userRepository.findByUserId("wncks")).thenReturn(user);
+        when(bCryptPasswordEncoder.matches("wncks1234", "encodedPassword")).thenReturn(false);
+
+        // When & Then
+        assertThatThrownBy(() -> {
+            userService.deleteUser("wncks", "wncks1234");
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("아이디 비밀번호를 잘못 입력하였습니다.");
+    }
+
+    @Test
+    @DisplayName("유저 없음 테스트")
+    void NotFoundUserTest() {
+        // Given
+        when(userRepository.findByUserId("wncks")).thenReturn(null);
+
+        // When & Then
+        assertThatThrownBy(() -> {
+            userService.deleteUser("wncks", "wncks1234");
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("User not found with id: " + "wncks");
+
     }
 }

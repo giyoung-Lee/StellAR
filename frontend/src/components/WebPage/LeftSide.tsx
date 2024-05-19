@@ -2,7 +2,6 @@ import * as l from '../style/WebPageStyle';
 import logo from '/icons/webLogo.png';
 import qrcode from '/icons/qrcode.png';
 import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../../hooks/requestMethods';
 
 const LeftSide = () => {
   const navigate = useNavigate();

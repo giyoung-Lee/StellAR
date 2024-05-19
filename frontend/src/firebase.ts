@@ -1,6 +1,5 @@
-// src/firebase.ts
 import { initializeApp } from 'firebase/app';
-import { getMessaging, getToken, onMessage, Messaging } from 'firebase/messaging';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDO-oXXwpueTV4p2LF_lK6UJFeWXXQf6_E",
@@ -18,29 +17,18 @@ const app = initializeApp(firebaseConfig);
 // Messaging 인스턴스 가져오기
 const messaging = getMessaging(app);
 
-// 서비스 워커 등록
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('/firebase-messaging-sw.js')
-    .then((registration) => {
-      // console.log('Service Worker 등록 성공(firebase.ts):', registration);
-    })
-    .catch((err) => {
-      console.error('Service Worker 등록 실패(firebase.ts):', err);
-    });
-}
-
 export const requestPermission = async () => {
   const permission = await Notification.requestPermission();
-  // console.log("permission:", permission)
-
   if (permission === 'granted') {
     try {
-      const token = await getToken(messaging, { vapidKey: "BPxdfbo29YzD9IS9wcXcKL0-b2zjOQCyqZIWLJiFWrkXPxkD2qM_2ROFkHc_tQOnxWKwOQXaYzzU_heXZ6cyuPk" });
+      const registration = await navigator.serviceWorker.ready;
+      const token = await getToken(messaging, {
+        vapidKey: "BPxdfbo29YzD9IS9wcXcKL0-b2zjOQCyqZIWLJiFWrkXPxkD2qM_2ROFkHc_tQOnxWKwOQXaYzzU_heXZ6cyuPk",
+        serviceWorkerRegistration: registration
+      });
       if (token) {
         // console.log(`푸시 토큰 발급 완료: ${token}`);
         return token;
-        // 서버로 토큰 전송 로직 추가
       } else {
         console.log('푸시 토큰이 생성되지 않았습니다.');
       }
@@ -56,4 +44,13 @@ export const requestPermission = async () => {
 // 메시지 수신 처리
 onMessage(messaging, (payload) => {
   console.log('메시지 수신:', payload);
+  const notificationTitle = payload.notification?.title || 'Foreground Message Title';
+  const notificationOptions = {
+    body: payload.notification?.body || 'Foreground Message Body',
+    icon: '/firebase-logo.png'
+  };
+
+  if (Notification.permission === 'granted') {
+    new Notification(notificationTitle, notificationOptions);
+  }
 });

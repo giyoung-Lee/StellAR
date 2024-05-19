@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/api/';
+const BASE_URL = 'http://k10c105.p.ssafy.io/api/';
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,

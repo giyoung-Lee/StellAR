@@ -9,9 +9,10 @@ type Props = {
   targetSize: number;
   planetId: string;
   spType: string | null;
+  mode: string;
 };
 
-const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
+const PlanetMesh = ({ position, targetSize, planetId, mode }: Props) => {
   const starStore = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -51,7 +52,11 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
       box.getSize(size);
       const maxDimension = Math.max(size.x, size.y, size.z);
       const scaleFactor = targetSize / maxDimension; // 타겟 크기에 맞게 스케일 팩터 계산
-      setScale(scaleFactor * sizeRatio[planetId as keyof SizeRatio]);
+      if (planetId == 'Jupiter' && mode == 'emb') {
+        setScale(scaleFactor * 1.2);
+      } else {
+        setScale(scaleFactor * sizeRatio[planetId as keyof SizeRatio]);
+      }
     }
   }, [scene, targetSize]);
 
@@ -59,7 +64,7 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
     event.stopPropagation();
     starStore.resetLinkedStars();
     starStore.setStarId(planetId);
-    starStore.setPlanetClicked(true)
+    starStore.setPlanetClicked(true);
     starStore.setZoomFromOther(false);
 
     const starPosition = position;
@@ -86,3 +91,4 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 };
 
 export default PlanetMesh;
+

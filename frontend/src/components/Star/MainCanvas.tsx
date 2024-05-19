@@ -245,8 +245,6 @@ const MainCanvas = () => {
     return <Loading />;
   }
 
-
-
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 시간 조작 부분 */}
@@ -390,6 +388,7 @@ const MainCanvas = () => {
       {/* 행성 */}
       {planetPositions.map((planet: any) => (
         <PlanetMesh
+          mode="web"
           planetId={planet.planetId}
           spType={null}
           key={planet.planetId}
@@ -496,15 +495,10 @@ const BackgroundStars = () => {
   return (
     <>
       <Sparkles count={100} scale={15} size={4} />
-      <Stars
-        radius={500}
-        depth={500}
-        count={2000}
-        factor={20}
-        speed={1}
-      />
+      <Stars radius={500} depth={500} count={2000} factor={20} speed={1} />
     </>
   );
 };
 
 export default MainCanvas;
+

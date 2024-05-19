@@ -226,32 +226,6 @@ const EmbCanvas = () => {
     return <Loading />;
   }
 
-  const BackgroundStars = () => {
-    const { camera } = useThree();
-    const ref = useRef<any>();
-
-    useFrame(() => {
-      if (ref.current) {
-        ref.current.position.copy(camera.position);
-        ref.current.position.z -= 1000;
-      }
-    });
-
-    return (
-      <>
-        <Sparkles ref={ref} count={100} scale={15} size={4} />
-        <Stars
-          ref={ref}
-          radius={500}
-          depth={500}
-          count={2000}
-          factor={20}
-          speed={1}
-        />
-      </>
-    );
-  };
-
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
       {/* 시간 조작 부분 */}
@@ -323,7 +297,7 @@ const EmbCanvas = () => {
       ) : (
         <PerspectiveCamera
           makeDefault
-          fov={80}
+          fov={50}
           near={1}
           far={100000}
           position={[
@@ -398,6 +372,7 @@ const EmbCanvas = () => {
 
       {planetPositions.map((planet: any) => (
         <PlanetMesh
+          mode="emb"
           planetId={planet.planetId}
           spType={null}
           key={planet.planetId}
@@ -481,4 +456,14 @@ const EmbCanvas = () => {
   );
 };
 
+const BackgroundStars = () => {
+  return (
+    <>
+      <Sparkles count={100} scale={15} size={4} />
+      <Stars radius={500} depth={500} count={2000} factor={20} speed={1} />
+    </>
+  );
+};
+
 export default EmbCanvas;
+

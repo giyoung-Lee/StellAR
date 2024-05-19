@@ -210,3 +210,13 @@
 .react-datetime-picker__clock {
   display: none;
 }
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__tile:enabled:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 전역 버튼 스타일 */
+button {
+  transition: background-color 0.3s ease; /* 부드러운 배경색 변화 */
+}

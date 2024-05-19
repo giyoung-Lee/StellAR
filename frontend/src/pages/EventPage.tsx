@@ -46,7 +46,7 @@ const EventPage = () => {
           }}
         >
           <div className="inline-block">
-            <ModalClose variant="plain" sx={{ m: 0 }} />
+          <ModalClose variant="plain" sx={{ m: 0, ":hover": { backgroundColor: 'transparent' } }} />
           </div>
           <HelpList />
         </Sheet>

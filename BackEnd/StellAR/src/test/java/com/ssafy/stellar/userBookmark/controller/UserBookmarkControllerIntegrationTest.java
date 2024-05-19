@@ -18,11 +18,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -59,6 +65,17 @@ public class UserBookmarkControllerIntegrationTest {
         star = starRepository.findByStarId("Antares");
     }
 
+    @DynamicPropertySource
+    static void dynamicProperties(DynamicPropertyRegistry registry) throws IOException {
+        try (Stream<String> stream = Files.lines(Paths.get("C:/Users/user/Desktop/pjt3/.env"))) {
+            stream.filter(line -> !line.startsWith("#") && line.contains("="))
+                    .forEach(line -> {
+                        String[] keyValue = line.split("=", 2);
+                        System.out.println("Setting property: " + keyValue[0] + "=" + keyValue[1]);
+                        registry.add(keyValue[0], () -> keyValue[1]);
+                    });
+        }
+    }
     @Test
     @DisplayName("북마크 저장 테스트")
     @WithMockUser(username = "user", password = "password")

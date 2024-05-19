@@ -126,6 +126,14 @@ export const LogoImg = styled.img`
   /* margin-bottom: 10%; */
 `;
 
+export const LogoMessage = styled.p`
+  color: var(--color-navy);
+  width: 40%;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  text-align: end;
+`;
+
 export const GoApp = styled.span`
   margin-top: 5%;
   width: 20%;
@@ -320,4 +328,3 @@ export const Preview = styled.p`
     font-weight: 700;
   }
 `;
-

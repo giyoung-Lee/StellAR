@@ -124,7 +124,9 @@ public class UserConstellationServiceImpl implements UserConstellationService {
     @Override
     public Map<String, Object> getUserConstellationLink(String userId) {
         List<Long> userConstellationList = userConstellationRepository.findUserConstellationIdsByUserId(userId);
-
+        if (userConstellationList == null | userConstellationList.isEmpty()) {
+            throw new IllegalArgumentException("user don't have any constellations.");
+        }
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
         for(Long constellationId : userConstellationList) {

@@ -2,12 +2,15 @@ import * as l from '../style/WebPageStyle';
 import logo from '/icons/webLogo.png';
 import qrcode from '/icons/qrcode.png';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../hooks/requestMethods';
 
 const LeftSide = () => {
   const navigate = useNavigate();
+
   return (
     <l.LeftWrapper>
       <l.LogoImg src={logo} />
+      <l.LogoMessage>내 손 안의 작은 우주</l.LogoMessage>
       <l.GoApp>
         <div className="light-button">
           <button className="bt">
@@ -35,4 +38,3 @@ const LeftSide = () => {
 };
 
 export default LeftSide;
-

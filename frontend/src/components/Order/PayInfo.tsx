@@ -1,12 +1,63 @@
-import React from 'react';
+import { useMutation } from '@tanstack/react-query';
 import * as o from '../style/OrderStyle';
+import kakaopay from '/img/kakaopay.png';
+import { PostPaymentReady } from '../../apis/PaymentApis';
+import useUserStore from '../../stores/userStore';
+import usePaymentStore from '../../stores/paymentStore';
+import useOrderStore from '../../stores/orderStore';
+import Swal from 'sweetalert2';
 
 const PayInfo = () => {
+  const userStore = useUserStore();
+  const paymentStore = usePaymentStore();
+  const orderStore = useOrderStore();
+
+  const readyPayment = () => {
+    // console.log('결제해야징');
+    if (
+      !paymentStore.qty ||
+      !paymentStore.recipient ||
+      !paymentStore.addressPost ||
+      !paymentStore.addressDetail ||
+      !orderStore.address.postcode
+    ) {
+      Swal.fire({
+        text: '주문 내역을 확인하세요!',
+        icon: 'error',
+        confirmButtonText: '확인',
+        width: 300,
+        customClass: {
+          container: 'my-swal'
+        }
+      });
+      return;
+    }
+    mutate({
+      userId: userStore.userId,
+      amount: paymentStore.qty,
+      productId: 1001,
+    });
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: PostPaymentReady,
+    onSuccess(result: any) {
+      console.log(result.tid);
+      window.open(result.next_redirect_pc_url);
+      paymentStore.setTid(result.tid);
+    },
+  });
   return (
     <o.PayInfoSec>
       <o.TItle>결제수단</o.TItle>
-      <o.Content>카카오페이/토스페이만 됩니당 ㅋ</o.Content>
-      <o.PayBtn>
+      <o.Content>
+        <div className="payment">
+          카카오페이
+          <img src={kakaopay} alt="kakaopay" />
+        </div>
+      </o.Content>
+      <a href=""></a>
+      <o.PayBtn onClick={readyPayment}>
         <div className="container">
           <div className="left-side">
             <div className="card">

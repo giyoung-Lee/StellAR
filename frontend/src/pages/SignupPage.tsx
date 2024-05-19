@@ -58,7 +58,8 @@ const SignupPage = () => {
         title: '오류',
         html: errors.userId.replace(/\n/g, '<br>'),
         customClass: {
-          icon: 'center-icon'
+          icon: 'center-icon',
+          container: 'my-swal'
         },
         color: "#dcdcdc",
         background: 'rgba(0, 0, 0, 0.8)',
@@ -82,6 +83,9 @@ const SignupPage = () => {
         html: (errors.password || errors.passwordConfirm).replace(/\n/g, '<br>'),
         color: "#dcdcdc",
         background: 'rgba(0, 0, 0, 0.8)',
+        customClass: {
+          container: 'my-swal'
+        }
       });
       setErrors(errors);
       return false;
@@ -99,6 +103,9 @@ const SignupPage = () => {
         icon: "success",
         title: "성공",
         text: "정상적으로 회원가입 되었습니다!",
+        customClass: {
+          container: 'my-swal'
+        }
       }).then(() => {
         navigate('/login');
       });
@@ -108,6 +115,9 @@ const SignupPage = () => {
         icon: "error",
         title: "오류",
         text: "회원가입 중 오류가 발생했습니다.",
+        customClass: {
+          container: 'my-swal'
+        }
       });
     },
   });
@@ -116,7 +126,7 @@ const SignupPage = () => {
     e.preventDefault();
 
     if (validateInputs()) {
-        console.log(signupData)
+        // console.log(signupData)
         mutate(signupData);
     }
   };

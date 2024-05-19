@@ -17,6 +17,14 @@ export const Content = styled.div`
   padding: 10px;
   position: relative;
   font-size: 0.9rem;
+  .payment {
+    display: flex;
+    align-items: center;
+    img {
+      margin-left: 10px;
+      height: 23px;
+    }
+  }
   .ordered_item {
     font-size: 0.9rem;
   }
@@ -88,6 +96,9 @@ export const Content = styled.div`
         display: flex;
         flex-direction: column;
         width: 80%;
+        .search-address {
+          cursor: pointer;
+        }
       }
     }
   }
@@ -105,11 +116,16 @@ export const ShippingInfoSec = styled.div`
 export const PayInfoSec = styled.div`
   margin-top: 5%;
   min-height: 15%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const PayBtn = styled.div`
-  height: 50px;
-  margin-top: 5%;
+  height: 45px;
+  width: 250px;
+  margin-top: 7%;
+  align-self: center;
+  text-align: center;
 
   .container {
     background-color: #ffffff;
@@ -361,6 +377,7 @@ export const PayBtn = styled.div`
 `;
 export const ModalWrapper = styled.div`
   position: absolute;
+  z-index: 100;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -392,4 +409,81 @@ export const ModalHeader = styled.p`
       color: var(--color-orange);
     }
   }
+`;
+
+export const ResultWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 574px) {
+    .card {
+      width: 400px;
+      height: 500px;
+    }
+  }
+
+  button {
+    z-index: 1;
+    margin-top: 5%;
+  }
+
+  .card {
+    width: 300px;
+    height: 400px;
+    background: #ffffff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 20px;
+    color: black;
+  }
+
+  .card h2 {
+    z-index: 1;
+    color: #464646;
+    font-size: 2em;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 102, 255, 0.147),
+      rgba(166, 0, 255, 0.189)
+    );
+    height: 130%;
+    animation: rotBGimg 7s linear infinite;
+    transition: all 0.2s linear;
+  }
+
+  @keyframes rotBGimg {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* .card::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background: transparent;
+    inset: 3px;
+    border-radius: 16px;
+  } */
+`;
+
+export const LottieGif = styled.div`
+  width: 80%;
 `;

@@ -27,3 +27,20 @@ messaging.onBackgroundMessage((payload) => {
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+self.addEventListener("install", function (e) {
+  // console.log("fcm sw install..");
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", function (e) {
+  // console.log("fcm sw activate..");
+});
+
+// 어디로 라우팅 할지 설정
+self.addEventListener("notificationclick", function (event) {
+  console.log("notification click");
+  const url = "/event";
+  event.notification.close();
+  event.waitUntil(clients.openWindow(url));
+});

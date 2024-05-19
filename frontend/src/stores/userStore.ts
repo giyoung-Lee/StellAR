@@ -14,6 +14,15 @@ interface UserType {
   userLng: number;
   setUserLat: (lat: number) => void;
   setUserLng: (lng: number) => void;
+
+  isGyro: boolean;
+  setIsGyro: (isAR: boolean) => void;
+
+  isLandscape: boolean;
+  setIsLandscape: (isLandscape: boolean) => void;
+
+  isForward: boolean;
+  setIsForward: (isForward: boolean) => void;
 }
 
 // 사용할 초기 상태 정의
@@ -28,6 +37,15 @@ const initialState: UserType = {
   userLng: 126.8526,
   setUserLat: () => {},
   setUserLng: () => {},
+
+  isGyro: false,
+  setIsGyro: () => {},
+
+  isLandscape: false,
+  setIsLandscape: () => {},
+
+  isForward: false,
+  setIsForward: () => {},
 };
 
 const useUserStore = create<UserType>(
@@ -42,6 +60,9 @@ const useUserStore = create<UserType>(
       setIsLogin: (isLogin: boolean) => set({ isLogin: isLogin }),
       setUserLat: (lat: number) => set({ userLat: lat }),
       setUserLng: (lng: number) => set({ userLng: lng }),
+      setIsGyro: (isGyro) => set({ isGyro: isGyro }),
+      setIsLandscape: (isLandscape) => set({ isLandscape: isLandscape }),
+      setIsForward: (isForward) => set({ isForward: isForward }),
     }),
     {
       name: 'userStore', // localStorage에 저장될 이름

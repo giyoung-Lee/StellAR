@@ -10,7 +10,7 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react', '@typescript-eslint', 'prettier'],
   rules: {
@@ -42,4 +42,5 @@ module.exports = {
     'no-continue': 'off',
     'no-useless-escape': 'off',
   },
-};
+}
+

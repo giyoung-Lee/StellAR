@@ -2,13 +2,20 @@ import styled from 'styled-components';
 
 export const StarInfo = styled.div`
   position: relative;
-  /* width: 100%; */
-  top: 20%;
-  left: 5%;
-  height: 60%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (min-width: 574px) {
+    .bookmark-name {
+      font-size: 22px;
+    }
+    .star-name {
+      font-size: 17px;
+    }
+    .date {
+      font-size: 15px;
+    }
+  }
 `;
 
 export const NameBox = styled.div``;
@@ -21,11 +28,16 @@ export const StarName = styled.span`
 export const BookMarkName = styled.span`
   color: var(--color-orange);
   font-size: 17px;
+  cursor: pointer;
+  &:hover {
+    color: #ebc798;
+  }
 `;
 
 export const Date = styled.p`
   color: var(--color-light);
   font-size: 13px;
+  margin-top: 3%;
 `;
 
 export const HelpContent = styled.p`
@@ -36,7 +48,7 @@ export const HelpContent = styled.p`
 export const Star = styled.span`
   position: absolute;
   z-index: 1000;
-  right: 10%;
+  right: 0;
   .container input {
     position: absolute;
     opacity: 0;

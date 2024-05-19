@@ -1,34 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as o from '../style/OrderStyle';
 import useOrderStore from '../../stores/orderStore';
 import '../../pages/style/Fontawsome';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import usePaymentStore from '../../stores/paymentStore';
 
 const ShippingInfo = () => {
   const orderStore = useOrderStore();
-  const [name, setName] = useState('');
-  const [detailAddress, setDetailAddress] = useState('');
+  const {
+    recipient,
+    setRecipient,
+    addressDetail,
+    setaddressDetail,
+  } = usePaymentStore();
+
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
-
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = '1px';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
+    setRecipient(e.target.value);
   };
 
   const handleDetialAddress = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDetailAddress(e.target.value);
+    setaddressDetail(e.target.value);
     // adjustTextareaHeight();
   };
 
   useEffect(() => {
-    setDetailAddress(orderStore.address.extraAddress);
+    setaddressDetail(orderStore.address.extraAddress);
   }, [orderStore]);
 
   return (
@@ -41,7 +38,7 @@ const ShippingInfo = () => {
             <input
               className="name"
               type="text"
-              value={name}
+              defaultValue={recipient}
               onChange={handleName}
             />
           </div>
@@ -49,14 +46,15 @@ const ShippingInfo = () => {
             <label htmlFor="">주소</label>
             <div className="input_container">
               <input
+                className="search-address"
                 onClick={() => orderStore.setIsModalOpen(true)}
                 type="text"
-                value={orderStore.address.postcode}
+                defaultValue={orderStore.address.postcode}
               />
-              <input type="text" value={orderStore.address.address} />
+              <input type="text" defaultValue={orderStore.address.address} />
               <textarea
                 ref={textareaRef}
-                value={detailAddress}
+                value={addressDetail}
                 onChange={handleDetialAddress}
                 rows={2}
               />

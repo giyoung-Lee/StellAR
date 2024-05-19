@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.stellar.settings.TestSecurityConfig;
 import com.ssafy.stellar.userBookmark.dto.request.BookmarkRequestDto;
 import com.ssafy.stellar.userBookmark.dto.response.BookmarkDto;
-import com.ssafy.stellar.userBookmark.service.UserBookMarkService;
 import com.ssafy.stellar.userBookmark.service.UserBookmarkServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 
 @WebMvcTest(controllers = UserBookmarkController.class)
-@Import(TestSecurityConfig.class) // TestSecurityConfig를 import 해줘야 합니다.
+@Import(TestSecurityConfig.class)
 @ExtendWith(MockitoExtension.class)
 @DisplayName("User Star Bookmark Controller Unit-Test")
 class UserBookmarkControllerTest {
@@ -48,7 +47,7 @@ class UserBookmarkControllerTest {
         BookmarkRequestDto bookmarkRequestDto = new BookmarkRequestDto("user1", "star1", "My Bookmark");
         String bookmarkRequestDtoJson = objectMapper.writeValueAsString(bookmarkRequestDto);
         mockMvc.perform(post("/bookmark/create")
-                        .with(httpBasic("user", "password")) // HTTP Basic 인증 추가
+                        .with(httpBasic("user", "password"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookmarkRequestDtoJson).with(csrf()))
                 .andExpect(status().isCreated());
@@ -109,7 +108,7 @@ class UserBookmarkControllerTest {
     @Test
     @DisplayName("북마크 개별 조회 성공 테스트")
     void getBookmarkByStarSuccess() throws Exception {
-        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now());
+        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now(), 0, 0, 0);
         when(userBookMarkService.getUserBookmarkByStar("user1", "star1")).thenReturn(bookmarkDto);
 
         mockMvc.perform(get("/bookmark")
@@ -148,7 +147,7 @@ class UserBookmarkControllerTest {
     @DisplayName("북마크 조회 성공 테스트")
     void getBookmarkSuccess() throws Exception{
         List<BookmarkDto> BookmarkListDto = new ArrayList<BookmarkDto>();
-        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now());
+        BookmarkDto bookmarkDto = new BookmarkDto("user1", "star1", "My Bookmark", LocalDateTime.now(), 0, 0, 0);
         BookmarkListDto.add(bookmarkDto);
         when(userBookMarkService.getUserBookmark("user1")).thenReturn(BookmarkListDto);
 

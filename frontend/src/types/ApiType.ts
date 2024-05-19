@@ -26,7 +26,31 @@ interface UserConstellationData {
   links: string[][];
 }
 
-interface deleteMyConstellationApiype {
+interface deleteMyConstellationApitype {
   userId: string;
-  constellationId: Number;
+  constellationId: number;
+}
+
+interface orderApitype {
+  userId: string;
+  amount: number;
+  productId: number;
+}
+
+interface paymentApitype {
+  tid: string;
+  pgToken: string;
+  partnerOrderId: string;
+  partnerUserId: string;
+}
+
+interface eventApitype {
+  astroEvent: string;
+  astroTime: string;
+  localDate: string;
+}
+
+interface loadingApitype {
+  pieceKnowledge: number;
+  contents: string;
 }

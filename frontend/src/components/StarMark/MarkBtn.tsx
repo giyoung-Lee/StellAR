@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as m from '../style/StarMarkStyle';
 import useUserStore from '../../stores/userStore';
@@ -24,7 +24,6 @@ const MarkBtn = ({ starName }: Props) => {
 
   const handleSaveBtnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    console.log('저장');
     setIsInput(!isInput);
     mutate(markData);
   };
@@ -40,7 +39,7 @@ const MarkBtn = ({ starName }: Props) => {
 
   const { mutate } = useMutation({
     mutationFn: PostStarMark,
-    onSuccess(result: string) {
+    onSuccess() {
       starStore.setMarkSaveToggle(!starStore.markSaveToggle);
     },
     onError(error) {

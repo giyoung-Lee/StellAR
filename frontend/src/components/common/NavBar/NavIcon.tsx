@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import useStarStore from '../../../stores/starStore';
 import useUserStore from '../../../stores/userStore';
+import Swal from 'sweetalert2';
+import '../../../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -10,7 +13,7 @@ const FixedContainer = styled.div`
   justify-content: center;
   min-width: 100%;
   bottom: 0;
-  z-index: 2000;
+  z-index: 16777272;
 `;
 
 const CheckboxWrapper = styled.div`
@@ -55,7 +58,8 @@ const CheckboxWrapper = styled.div`
     transform: translate(-50%, -50%);
     width: 60%;
     height: 60%;
-    background-color: #000000;
+    background-color: #ebebeb;
+    opacity: 0.45;
     border-radius: 50%;
     box-shadow:
       inset 0 2px 4px rgba(255, 190, 184, 0.7),
@@ -85,7 +89,7 @@ const CheckboxWrapper = styled.div`
 
   ul {
     position: relative;
-    bottom: -30px;
+    bottom: -60px;
     width: 340px;
     height: 340px;
     margin: 0 auto;
@@ -107,6 +111,12 @@ const CheckboxWrapper = styled.div`
 
   li span {
     color: #000000;
+    font-size: 13px;
+  }
+
+  li img {
+    width: 50px;
+    height: 50px;
   }
 
   li:nth-child(1) {
@@ -198,6 +208,72 @@ const NavBar = () => {
     setIsDragging(false);
   };
 
+  // 마우스 이벤트 추가해보겠슴당
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    setTouchX(mouseX);
+    setTouchY(mouseY);
+    setIsDragging(true);
+
+    const centerX = window.innerWidth / 2;
+    if (ulRef.current) {
+      const rect = ulRef.current.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
+      setCenterY(centerY);
+    }
+    setCenterX(centerX);
+
+    const radian = Math.atan2(mouseX - centerX, centerY - mouseY);
+    setCurrAngle(radian * (180 / Math.PI));
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging) {
+      const newMouseX = e.clientX;
+      const newMouseY = e.clientY;
+
+      const radian = Math.atan2(newMouseX - centerX, centerY - newMouseY);
+      const newAngle = radian * (180 / Math.PI);
+
+      let angleDelta = newAngle - currAngle;
+      if (angleDelta > 180) {
+        angleDelta -= 360;
+      } else if (angleDelta < -180) {
+        angleDelta += 360;
+      }
+
+      setFinalAngle((prevFinalAngle) => prevFinalAngle + angleDelta);
+      setPrevAngle(currAngle);
+      setCurrAngle(newAngle);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  
+  const handleLogout = () => {
+    Swal.fire({
+      title: "로그아웃",
+      text: "정말로 로그아웃 하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "네",
+      cancelButtonText: "아니요",
+      customClass: {
+        container: 'my-swal'
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    });
+  };
+
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (ulRef.current && !ulRef.current.contains(e.target as Node)) {
@@ -210,7 +286,15 @@ const NavBar = () => {
 
   return (
     <FixedContainer ref={containerRef}>
-      {!isChecked && <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-black opacity-50"></div>}
+
+      {/* 로그아웃 버튼 */}
+      <div className="fixed cursor-pointer bottom-3 left-2" onClick={handleLogout}>
+        <FontAwesomeIcon icon="right-from-bracket" size="xl" />
+      </div>
+
+      {!isChecked && (
+        <div className="fixed top-0 left-0 w-[100vw] h-[100vh] bg-black opacity-70"></div>
+      )}
       <CheckboxWrapper>
         {!isChecked && (
           <ul
@@ -219,6 +303,9 @@ const NavBar = () => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
             onClick={handleCheckbox}
           >
             <li>

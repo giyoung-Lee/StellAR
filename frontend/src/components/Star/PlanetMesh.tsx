@@ -2,21 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { ThreeEvent } from '@react-three/fiber';
 import useStarStore from '../../stores/starStore';
-import { Sparkles, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 
 type Props = {
   position: THREE.Vector3;
   targetSize: number;
   planetId: string;
   spType: string | null;
+  mode: string;
 };
 
-const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
+const PlanetMesh = ({ position, targetSize, planetId, mode }: Props) => {
   const starStore = useStarStore();
 
   const meshRef = useRef<THREE.Mesh>(null!);
 
-  const { scene, animations } = useGLTF(`/img/${planetId}.glb`);
+  const { scene } = useGLTF(`/img/${planetId}.glb`);
 
   type SizeRatio = {
     Sun: number;
@@ -51,7 +52,11 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
       box.getSize(size);
       const maxDimension = Math.max(size.x, size.y, size.z);
       const scaleFactor = targetSize / maxDimension; // 타겟 크기에 맞게 스케일 팩터 계산
-      setScale(scaleFactor * sizeRatio[planetId as keyof SizeRatio]);
+      if (planetId == 'Jupiter' && mode == 'emb') {
+        setScale(scaleFactor * 1.2);
+      } else {
+        setScale(scaleFactor * sizeRatio[planetId as keyof SizeRatio]);
+      }
     }
   }, [scene, targetSize]);
 
@@ -59,20 +64,19 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
     event.stopPropagation();
     starStore.resetLinkedStars();
     starStore.setStarId(planetId);
-    starStore.setPlanetClicked(true)
+    starStore.setPlanetClicked(true);
     starStore.setZoomFromOther(false);
 
     const starPosition = position;
-    console.log('행성 클릭 지점' + starPosition);
+    // console.log('행성 클릭 지점' + starPosition);
 
-    starStore.setZoomX(starPosition.x*0.9);
-    starStore.setZoomY(starPosition.y*0.9);
-    starStore.setZoomZ(starPosition.z*0.9);
+    starStore.setZoomX(starPosition.x);
+    starStore.setZoomY(starPosition.y);
+    starStore.setZoomZ(starPosition.z);
   };
 
   return (
     <>
-      {/* <Sparkles count={10} scale={18} size={10} speed={1} /> */}
       <primitive
         ref={meshRef}
         position={position}
@@ -87,3 +91,4 @@ const PlanetMesh = ({ position, targetSize, planetId }: Props) => {
 };
 
 export default PlanetMesh;
+

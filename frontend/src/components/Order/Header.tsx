@@ -1,4 +1,3 @@
-import React from 'react';
 import * as o from '../style/OrderStyle';
 
 const Header = () => {

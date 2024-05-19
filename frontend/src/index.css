@@ -133,8 +133,12 @@
   src: url('./fonts/HSBombaram3.0_Regular.woff2') format('woff2');
 }
 
+.my-swal {
+  z-index: 26777275;
+}
+
 .AppSize {
-  max-width: 576px;
+  max-width: 1024px;
   min-height: 100vh;
   margin: auto;
 }
@@ -144,21 +148,16 @@
   display: none;
 }
 
-/* 화면 너비가 576px 이상인 경우 */
+/* 화면 너비가 1024px 이상인 경우 */
 
-@media (min-width: 576px) {
+@media (min-width: 1024px) {
   .AppSize {
     display: none;
   }
 
   #WebDesign {
     display: block;
-    /* text-align: center; */
-    /* padding: 20px; */
-    /* font-size: 3vh; */
-    /* font-weight: bold; */
     color: #f2cea2;
-    /* background-color: #414141; */
     height: 100vh;
   }
 }
@@ -181,3 +180,43 @@
   }
 }
 
+/* 데이트타임피커 관련 스타일 */
+.react-datetime-picker__wrapper {
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.react-datetime-picker__calendar-button {
+  display: none;
+}
+
+.react-calendar {
+  max-width: 90vw;
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.react-datetime-picker__clock {
+  display: none;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__tile:enabled:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 전역 버튼 스타일 */
+button {
+  transition: background-color 0.3s ease; /* 부드러운 배경색 변화 */
+}

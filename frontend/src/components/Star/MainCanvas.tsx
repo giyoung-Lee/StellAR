@@ -9,6 +9,8 @@ import {
   DeviceOrientationControls,
   Sparkles,
   Stars,
+  Instances,
+  Html,
 } from '@react-three/drei';
 import Lights from './Lights';
 import FloorMesh from './FloorMesh';
@@ -25,15 +27,19 @@ import * as Astronomy from 'astronomy-engine';
 import useUserStore from '../../stores/userStore';
 import { GetUserConstellationLinkApi } from '../../apis/MyConstApis';
 import { CameraAnimator } from '../../hooks/CameraAnimator';
-
-type Props = {};
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import '../../pages/style/Fontawsome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface BackgroundSetterProps {
   videoTexture: THREE.VideoTexture | null;
   isARMode: boolean;
 }
 
-const MainCanvas = (props: Props) => {
+const MainCanvas = () => {
   // 스토어에서 필요한 요소 가져오기
   const starStore = useStarStore();
   const userStore = useUserStore();
@@ -41,35 +47,6 @@ const MainCanvas = (props: Props) => {
   const isFromOther = starStore.zoomFromOther;
 
   const videoTexture = useCameraStream();
-
-  // 광주시청을 기본값으로
-  const [position, setPosition] = useState<Position>({
-    lat: 35.1595,
-    lng: 126.8526,
-  });
-
-  // 현재 위치 불러오기
-  useEffect(() => {
-    const getCurrentLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setPosition({ lat: latitude, lng: longitude });
-            userStore.setUserLat(latitude);
-            userStore.setUserLng(longitude);
-          },
-          (error) => {
-            console.error('Geolocation 에러: ', error);
-          },
-        );
-      } else {
-        console.error('위치 허용을 지원하지 않는 브라우저일 수 있습니다.');
-      }
-    };
-
-    getCurrentLocation();
-  }, []);
 
   const { isLoading: isStarsLoading, data: starData } = useQuery({
     queryKey: ['get-stars'],
@@ -123,10 +100,68 @@ const MainCanvas = (props: Props) => {
   // Define the state for holding star data as a StarDataMap
   const [starPositions, setStarPositions] = useState<StarDataMap>({});
 
-  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수
+  // 계산을 위한 시간 불러오기
+  const [time, setTime] = useState<Date>(new Date());
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setTime(date);
+    } else {
+      setTime(new Date());
+    }
+  };
+
+  // 화면 자동 재생을 위한 코드(5분 단위)
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval> | null = null;
+    if (userStore.isForward) {
+      timer = setInterval(() => {
+        setTime((prevTime) => new Date(prevTime.getTime() + 300000));
+      }, 1000);
+    } else {
+      setTime(new Date());
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [userStore.isForward]);
+
+  // 시간 초기화 버튼 만들기 위한 현재 시간 구하기
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDate();
+  const currentHour = currentDate.getHours();
+  const currentMinute = currentDate.getMinutes();
+
+  // 시간 초기화 버튼 만들기 위한 등록 시간 구하기
+  const selectedYear = time.getFullYear();
+  const selectedMonth = time.getMonth();
+  const selectedDay = time.getDate();
+  const selectedHour = time.getHours();
+  const selectedMinute = time.getMinutes();
+
+  // 등록 시간이랑 현재 시간 비교
+  const isCurrentTimeSelected =
+    currentYear === selectedYear &&
+    currentMonth === selectedMonth &&
+    currentDay === selectedDay &&
+    currentHour === selectedHour &&
+    currentMinute === selectedMinute;
+
+  const timeReload = () => {
+    userStore.setIsForward(false);
+    setTime(currentDate);
+  };
+
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(별)
   const calculateStarPositions = (data: StarDataMap) => {
-    const time = new Date();
-    const observer = new Astronomy.Observer(position.lat, position.lng, 0);
+    const observer = new Astronomy.Observer(
+      userStore.userLat,
+      userStore.userLng,
+      0,
+    );
     const result: StarDataMap = {};
 
     Object.keys(data).forEach((key) => {
@@ -150,9 +185,13 @@ const MainCanvas = (props: Props) => {
     return result;
   };
 
+  // 천체의 방위각과 고도를 계산한 후, 카르테시안 좌표로 변환하는 함수(행성)
   const calculatePlanetPositions = (data: PlanetData[]) => {
-    const time = new Date();
-    const observer = new Astronomy.Observer(35.1595, 126.8526, 0);
+    const observer = new Astronomy.Observer(
+      userStore.userLat,
+      userStore.userLng,
+      0,
+    );
     return data.map((planet) => {
       const horizontal = Astronomy.Horizon(
         time,
@@ -180,48 +219,62 @@ const MainCanvas = (props: Props) => {
       const newStarPositions = calculateStarPositions(starData.data);
       setStarPositions(newStarPositions);
     }
-  }, [planetData, starData]);
+  }, [planetData, starData, time]);
 
-  if (
-    isStarsLoading ||
-    isConstLoading ||
-    isPlanetLoading ||
-    isMyConstLoading ||
-    isStarMarkLoading
-  ) {
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (
+      !isStarsLoading &&
+      !isPlanetLoading &&
+      !isStarMarkLoading &&
+      !isConstLoading &&
+      !isMyConstLoading
+    ) {
+      setInitialLoad(false);
+    }
+  }, [
+    isStarsLoading,
+    isPlanetLoading,
+    isStarMarkLoading,
+    isConstLoading,
+    isMyConstLoading,
+  ]);
+
+  if (initialLoad) {
     return <Loading />;
   }
 
-  const BackgroundStars = () => {
-    const { camera } = useThree();
-    const ref = useRef<any>();
-
-    useFrame(() => {
-      if (ref.current) {
-        ref.current.position.copy(camera.position);
-        ref.current.position.z -= 1000;
-      }
-    });
-
-    return (
-      <>
-        <Sparkles ref={ref} count={100} scale={15} size={4} />
-        <Stars
-          ref={ref}
-          radius={500}
-          depth={500}
-          count={2000}
-          factor={20}
-          speed={1}
-        />
-      </>
-    );
-  };
-
   return (
     <Canvas gl={{ antialias: true, alpha: true }}>
+      {/* 시간 조작 부분 */}
+      {!starStore.starClicked &&
+        !starStore.planetClicked &&
+        !starStore.isARMode &&
+        !starStore.zoomFromOther &&
+        !userStore.isGyro && (
+          <Html fullscreen>
+            <div className="fixed w-[80vw] m-2">
+              <DateTimePicker
+                onChange={handleDateChange}
+                value={time}
+                clearIcon={null}
+                format="y년 MM월 dd일 HH시 mm분"
+              />
+              {!isCurrentTimeSelected && (
+                <FontAwesomeIcon
+                  icon="rotate-right"
+                  size="xl"
+                  className="mx-2 cursor-pointer"
+                  onClick={timeReload}
+                />
+              )}
+            </div>
+          </Html>
+        )}
+
       {/* 배경 별 및 스파클 */}
-      <BackgroundStars />
+      {!userStore.isForward && !starStore.isARMode && <BackgroundStars />}
 
       {/* 배경 설정 */}
       <BackgroundSetter
@@ -235,7 +288,7 @@ const MainCanvas = (props: Props) => {
       <CameraAnimator />
 
       {/* 카메라 설정 */}
-      {starStore.isARMode ? (
+      {starStore.isARMode || userStore.isGyro ? (
         <PerspectiveCamera
           makeDefault
           fov={80}
@@ -282,25 +335,14 @@ const MainCanvas = (props: Props) => {
       )}
 
       {/* 카메라 시점 관련 설정 */}
-      {starStore.isARMode ? (
+      {starStore.isARMode || userStore.isGyro ? (
         <DeviceOrientationControls />
-      ) : starStore.starClicked || isFromOther ? (
+      ) : starStore.starClicked || starStore.planetClicked || isFromOther ? (
         <OrbitControls
           target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
           rotateSpeed={-0.25}
           zoomSpeed={5}
           minDistance={5000}
-          maxDistance={30000}
-          enableDamping
-          dampingFactor={0.1}
-          enableZoom={true}
-        />
-      ) : starStore.planetClicked ? (
-        <OrbitControls
-          target={[starStore.zoomX, starStore.zoomY, starStore.zoomZ]}
-          rotateSpeed={-0.25}
-          zoomSpeed={5}
-          minDistance={1000}
           maxDistance={30000}
           enableDamping
           dampingFactor={0.1}
@@ -317,33 +359,36 @@ const MainCanvas = (props: Props) => {
           // maxDistance={100000}
           enableDamping
           dampingFactor={0.1}
-          enableZoom={true}
+          enableZoom={false}
         />
       )}
 
       {/* 조명 설정 */}
       <Lights />
 
-      {/* <Sparkles count={100} scale={18} size={10} speed={1} /> */}
+      {/* 별 */}
+      <Instances limit={2000} range={2000}>
+        {Object.values(starPositions).map((star: any) => (
+          <StarMesh
+            propstarId={star.starId}
+            spType={star.spType}
+            key={star.starId}
+            position={
+              new THREE.Vector3(
+                -star.calX * star.nomalizedMagV,
+                star.calZ * star.nomalizedMagV,
+                star.calY * star.nomalizedMagV,
+              )
+            }
+            size={getRandomInt(100, 110)}
+          />
+        ))}
+      </Instances>
 
-      {Object.values(starPositions).map((star: any) => (
-        <StarMesh
-          propstarId={star.starId}
-          spType={star.spType}
-          key={star.starId}
-          position={
-            new THREE.Vector3(
-              -star.calX * star.nomalizedMagV,
-              star.calZ * star.nomalizedMagV,
-              star.calY * star.nomalizedMagV,
-            )
-          }
-          size={getRandomInt(100, 110)}
-        />
-      ))}
-
+      {/* 행성 */}
       {planetPositions.map((planet: any) => (
         <PlanetMesh
+          mode="web"
           planetId={planet.planetId}
           spType={null}
           key={planet.planetId}
@@ -392,6 +437,7 @@ const MainCanvas = (props: Props) => {
 
       {/* 나만의 별자리 호출 및 선긋기 */}
       {myConstData?.data &&
+        Object.keys(myConstData.data).length > 0 &&
         Object.entries(myConstData.data as ConstellationData).map(
           ([constellation, connections]) =>
             (connections as string[][]).map((starArr, index) => (
@@ -444,4 +490,15 @@ const BackgroundSetter: React.FC<BackgroundSetterProps> = ({
   return null;
 };
 
+// 배경 랜덤 별과 스파클
+const BackgroundStars = () => {
+  return (
+    <>
+      <Sparkles count={100} scale={15} size={4} />
+      <Stars radius={500} depth={500} count={2000} factor={20} speed={1} />
+    </>
+  );
+};
+
 export default MainCanvas;
+

@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   height: 60vh;
   width: 100vw;
   position: absolute;
-  z-index: 1000;
+  z-index: 16777280;
   /* position: relative; */
   display: flex;
   align-self: center;
@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
   .arrow {
     height: 100px;
     position: absolute;
-    z-index: 1001;
+    z-index: 16777275;
 
     cursor: pointer;
 
@@ -53,9 +53,9 @@ export const Carousel = styled.div`
 `;
 
 export const CarouselItem = styled.div`
-  background-color: #373737e7;
+  background-color: #2929297a;
   border-radius: 11px;
-  border: 1px solid #ffffff74;
+  /* border: 1px solid #ffffff74; */
   width: 80%;
   height: 100%;
   position: absolute;
@@ -130,17 +130,15 @@ export const ScienceInfo = styled.div`
 `;
 
 export const QuizBox = styled.div`
-  /* background-color: var(--color-dark); */
   border: 1.5px dashed grey;
-  padding: 5%;
+  padding: 20px 10px;
   width: 100%;
-  min-height: max-content;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   .q {
     text-align: center;
-    padding-bottom: 7%;
+    padding-bottom: 10px;
   }
   .answer_box {
     display: flex;
@@ -180,11 +178,9 @@ export const Mythology = styled.div`
   width: 100%;
   margin: 10px 0;
   padding: 0 5px;
-  max-height: 65%;
   font-size: 18px;
   font-weight: 100;
   color: white;
   overflow-y: auto;
   line-height: 1.7;
 `;
-

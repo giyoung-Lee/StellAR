@@ -103,7 +103,7 @@ public class RefreshPlanet {
 
     // 별 정보 db에 넣을거면 주석을 풀고 StellarApplication을 한번 실행 하세요
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ api 참고
-    @PostConstruct
+//    @PostConstruct
 //    @Scheduled(fixedDelay = 10000)
 //    @Scheduled(cron = " 0 * * * * * ")
     public void init() {

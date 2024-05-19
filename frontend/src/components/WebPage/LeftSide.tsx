@@ -1,25 +1,13 @@
-import React from 'react';
 import * as l from '../style/WebPageStyle';
 import logo from '/icons/webLogo.png';
 import qrcode from '/icons/qrcode.png';
+import { useNavigate } from 'react-router-dom';
 
 const LeftSide = () => {
+  const navigate = useNavigate();
   return (
     <l.LeftWrapper>
       <l.LogoImg src={logo} />
-      {/* <l.ServiceInfo>
-        <div className="cards">
-          <div className="card">
-            <p className="tip">실시간 별자리 AR 3d 맵</p>
-          </div>
-          <div className="card">
-            <p className="tip">나만의 별자리를 만들어보세요</p>
-          </div>
-          <div className="card">
-            <p className="tip">스마트 빔! 머라고하징 ㅋㅅㅋ</p>
-          </div>
-        </div>
-      </l.ServiceInfo> */}
       <l.GoApp>
         <div className="light-button">
           <button className="bt">
@@ -34,6 +22,14 @@ const LeftSide = () => {
           </button>
         </div>
       </l.GoApp>
+      <l.Preview onClick={() => navigate('/preview')}>
+        <button className="learn-more">
+          <span className="circle" aria-hidden="true">
+            <span className="icon arrow"></span>
+          </span>
+          <span className="button-text">웹으로 미리보기</span>
+        </button>
+      </l.Preview>
     </l.LeftWrapper>
   );
 };

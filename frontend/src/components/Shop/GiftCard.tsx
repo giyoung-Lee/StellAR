@@ -1,28 +1,37 @@
-import React from 'react';
 import * as s from '../style/ShopStyle';
 import image from '/icons/stella_logo.gif';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../stores/userStore';
+import { useQuery } from '@tanstack/react-query';
+import { GetProductsApi } from '../../apis/PaymentApis';
 
 const GiftCard = () => {
   const navigate = useNavigate();
   const userStore = useUserStore();
+
+  const { data: eventsData } = useQuery({
+    queryKey: ['get-products'],
+    queryFn: () => GetProductsApi(),
+  });
+
   return (
     <s.CardWrapper>
       <div className="card">
         <div className="frontBox">
           <p className="card_title">Galaxy</p>
           <img className="img" src={image} />
-          <p className="card_content">스마트 별자리 빔 프로젝터</p>
+          <p className="card_content">{eventsData?.data[0].productName}</p>
         </div>
         <div className="textBox">
           <p className="card_title">Galaxy</p>
           <ul className="info">
-            <li>- 오로라 무드등</li>
-            <li>- 나만의 별자리 만들기</li>
-            <li>- 사이즈 x * y * z</li>
+            <li>- {eventsData?.data[0].productName}</li>
+            <li>- {eventsData?.data[0].desc}</li>
+            <li>- 사이즈 {eventsData?.data[0].size}</li>
           </ul>
-          <p className="text price">20,000,000 원</p>
+          <p className="text price">
+            {eventsData?.data[0].taxFreeAmount.toLocaleString('ko-KR')} 원
+          </p>
           <p
             className="btn"
             onClick={() => navigate(`/order/${userStore.userId}`)}

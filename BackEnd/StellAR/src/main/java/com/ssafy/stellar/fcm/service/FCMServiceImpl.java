@@ -79,14 +79,11 @@ public class FCMServiceImpl {
         String cutoffTime = "01:05";
 
         List<ConstellationEventEntity> events = constellationEventRepository.findEventsByDateAndTime(today, tomorrow, cutoffTime);
-        System.out.println("events.size() = " + events.size());
         for (ConstellationEventEntity event : events) {
             String title = event.getAstroEvent();
-            System.out.println("title = " + title);
 
             String body = event.getAstroEvent() + chooseParticle(event.getAstroEvent()) + " 한 시간 뒤에 발생합니다." +
                     "\n" + "관측이 어려운 사람들은 stellAR에서 함께 확인해요!";
-            System.out.println("body = " + body);
             // 스케줄링 시간 계산 (예: 이벤트 시간 1시간 전)
             ZonedDateTime eventTime = ZonedDateTime.of(event.getLocdate(), LocalTime.parse(event.getAstroTime()), ZoneId.systemDefault());
             Instant scheduledTime = eventTime.minusHours(1).toInstant();

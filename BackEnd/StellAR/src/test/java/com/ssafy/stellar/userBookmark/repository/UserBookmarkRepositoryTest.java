@@ -33,7 +33,6 @@ class UserBookmarkRepositoryTest {
 
     @BeforeEach
     void setup() {
-        // Common user setup for all tests
         user = new UserEntity();
         user.setUserId("wncks");
         userRepository.save(user);
@@ -50,7 +49,7 @@ class UserBookmarkRepositoryTest {
 
     @Test
     @DisplayName("유저 북마크 리스트 조회")
-    void findByUser() {
+    void findByUserTest() {
         String bookmarkName1 = "Bookmark Test1";
         String bookmarkName2 = "Bookmark Test2";
 
@@ -79,7 +78,7 @@ class UserBookmarkRepositoryTest {
 
     @Test
     @DisplayName("유저 북마크 개별 조회")
-    void findByUserAndStar() {
+    void findByUserAndStarTest() {
 
         String bookmarkName = "bookmark Test";
 
@@ -102,11 +101,10 @@ class UserBookmarkRepositoryTest {
 
     @Test
     @DisplayName("유저 북마크 삭제")
-    void deleteByUserAndStar() {
-
+    void deleteByUserAndStarTest() {
+        // Given
         String bookmarkName = "bookmark Test";
 
-        // Given
         UserBookmarkEntity bookmark = new UserBookmarkEntity();
         bookmark.setUser(user);
         bookmark.setStar(star1);

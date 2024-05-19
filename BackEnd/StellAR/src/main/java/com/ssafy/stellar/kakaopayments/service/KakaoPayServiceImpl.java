@@ -30,6 +30,10 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
 
     static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
 
+    // 테스트용 admin-key이기 때문에 탈취 당해도 괜찮을겁니다..
+    // 이것은 kakao 결제가 kakaopayments로 분리되면서 조금 방식이 바뀌었는데, 그때 사용합니다.
+//    static final String adminKey = "DEV16ADA0DFFC986720C70B396D15A967C413744";
+
     @Value("${kakaopay_admin-key}")
     private String admin_Key;
 
@@ -63,20 +67,20 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
         parameters.add("tax_free_amount", entity.getTaxFreeAmount().toString());
 
         // TODO 실서버
-        // 성공 시 redirect url
-        parameters.add("approval_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/success");
-        // 취소 시 redirect url
-        parameters.add("cancel_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
-        // 실패 시 redirect url
-        parameters.add("fail_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+//        // 성공 시 redirect url
+//        parameters.add("approval_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/success");
+//        // 취소 시 redirect url
+//        parameters.add("cancel_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+//        // 실패 시 redirect url
+//        parameters.add("fail_url", "https://k10c105.p.ssafy.io/order/"+kakaoApproveRequestDto.getUserId()+"/error");
 
         // TODO 로컬 서버
-//        // 성공 시 redirect url
-//        parameters.add("approval_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/success");
-//        // 취소 시 redirect url
-//        parameters.add("cancel_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
-//        // 실패 시 redirect url
-//        parameters.add("fail_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+        // 성공 시 redirect url
+        parameters.add("approval_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/success");
+        // 취소 시 redirect url
+        parameters.add("cancel_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
+        // 실패 시 redirect url
+        parameters.add("fail_url", "http://localhost:5173/order/"+kakaoApproveRequestDto.getUserId()+"/error");
 
         // 파라미터, 헤더
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
@@ -88,6 +92,11 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
                 "https://kapi.kakao.com/v1/payment/ready",
                 requestEntity,
                 KakaoReadyResponseDto.class);
+        // kakaopay가 kakaopayments로 분리되면서 url이 바뀜... 아래 getHeader 도 바뀌어야함.. 조심
+//        return restTemplate.postForObject(
+//                "https://open-api.kakaopay.com/online/v1/payment/ready",
+//                requestEntity,
+//                KakaoReadyResponseDto.class);
     }
 
     @Override
@@ -111,6 +120,12 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
                 "https://kapi.kakao.com/v1/payment/approve",
                 requestEntity,
                 KakaoApproveResponseDto.class);
+
+        // kakaopay는 지금 정책이 변경중이라...
+//        KakaoApproveResponseDto approveResponse = restTemplate.postForObject(
+//                "https://open-api.kakaopay.com/online/v1/payment/approve",
+//                requestEntity,
+//                KakaoApproveResponseDto.class);
 
         return approveResponse;
     }
@@ -149,7 +164,6 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
                 productRepository.findAllByProductId(purchaseRequestDto.getProductId());
 
         entity.setProductId(productEntity);
-        entity.setProductName(productEntity);
 
         entity.setAddressSummary(purchaseRequestDto.getAddressSummary());
         entity.setAddressDetail(purchaseRequestDto.getAddressDetail());
@@ -160,9 +174,10 @@ public class KakaoPayServiceImpl  implements KakaoPayService {
     /**
      * 카카오 요구 헤더값
      */
-    private HttpHeaders getHeaders() {
+    public HttpHeaders getHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();
 
+//        String auth = "SECRET_KEY " + adminKey;
         String auth = "KakaoAK " + admin_Key;
 
         httpHeaders.set("Authorization", auth);

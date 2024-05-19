@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='stellAR_v4',
+    name='stellAR_v5',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

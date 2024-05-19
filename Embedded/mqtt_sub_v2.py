@@ -22,15 +22,17 @@ def on_disconnect(client, userdata, rc):
 #on_message 콜백함수, 새로운 메세지가 들어올 때 마다 실행 됨
 def on_message(client, userdata, message):
     data = json.loads(message.payload.decode("utf-8"))
-    action = data["action"]   
-    sensor_num=data['sensor_num']
-    if sensor_num<0.3:
-        x_value=sensor_num*1.25
-    else:
-        x_value=sensor_num*12.5
-        
-    x=(x_value-3.125)*screen_width/100
-    y=screen_hegint-((data['height']-30.0)*screen_hegint/61.5)
+    action = data["action"] 
+    # if sensor_num<0.3:
+    #     x_value=sensor_num*1.25
+    # else:
+    #     x_value=sensor_num*12.5
+    
+    if data['sensor_num']  is not None:
+        sensor_num=data['sensor_num']
+
+        x=((sensor_num*12.5)-3.125)*screen_width/100
+        y=screen_hegint-((data['height']-30.0)*screen_hegint/61.5)
     print("msg: ",data)
 
     # mouse_down일 때 
@@ -39,7 +41,7 @@ def on_message(client, userdata, message):
 
     # mouse_up 일 때 
     elif action == "up":
-        pyautogui.mouseUp(x,y)
+        pyautogui.mouseUp()
         
     elif action =="click":
         pyautogui.click(x,y)

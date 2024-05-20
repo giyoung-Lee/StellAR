@@ -1,6 +1,5 @@
 package com.ssafy.stellar.constellation.controller;
 
-import com.ssafy.stellar.constellation.service.ConstellationService;
 import com.ssafy.stellar.constellation.service.ConstellationServiceImpl;
 import com.ssafy.stellar.settings.TestSecurityConfig;
 import org.junit.jupiter.api.DisplayName;

@@ -6,16 +6,17 @@ import com.ssafy.stellar.kakaopayments.dto.request.PurchaseRequestDto;
 import com.ssafy.stellar.kakaopayments.dto.response.KakaoApproveResponseDto;
 import com.ssafy.stellar.kakaopayments.dto.response.KakaoReadyResponseDto;
 import com.ssafy.stellar.kakaopayments.dto.response.ProductDto;
-import com.ssafy.stellar.kakaopayments.service.KakaoPayService;
 import com.ssafy.stellar.kakaopayments.service.KakaoPayServiceImpl;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Payments", description = "kakaoPay")
+@Slf4j
 @RestController
 @RequestMapping("/payment")
 public class KakaopayController{
@@ -35,7 +36,7 @@ public class KakaopayController{
             KakaoReadyResponseDto dto = kakaoPayService.kakaoPayReady(kakaoApproveRequestDto);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while processing readyToKakaoPay request", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -46,7 +47,7 @@ public class KakaopayController{
             KakaoApproveResponseDto dto = kakaoPayService.ApproveResponse(kakaoSuccessRequestDto);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while processing afterPayRequest", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -58,7 +59,7 @@ public class KakaopayController{
             List<ProductDto> dto = kakaoPayService.reuturnAllproduct();
             return new ResponseEntity<>(dto, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while fetching products", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -69,7 +70,7 @@ public class KakaopayController{
             kakaoPayService.savePurchase(purchaseRequestDto);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while processing savePayment request", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class KakaoApproveResponseDto {
 
     private String aid; // 요청 고유 번호

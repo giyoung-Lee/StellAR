@@ -34,7 +34,7 @@ public class StarController {
 
             return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while processing returnAllStar request", e);
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -45,7 +45,7 @@ public class StarController {
             List<PlanetDto> list = starService.returnPlanet();
             return new ResponseEntity<>(list, HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error occurred while processing returnPlanet request", e);
             return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

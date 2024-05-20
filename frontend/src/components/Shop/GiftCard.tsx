@@ -1,5 +1,5 @@
 import * as s from '../style/ShopStyle';
-import image from '/icons/stella_logo.gif';
+import gift from '/img/gift.jpg';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../stores/userStore';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ const GiftCard = () => {
       <div className="card">
         <div className="frontBox">
           <p className="card_title">Galaxy</p>
-          <img className="img" src={image} />
+          <img className="img" src={gift} />
           <p className="card_content">{eventsData?.data[0].productName}</p>
         </div>
         <div className="textBox">

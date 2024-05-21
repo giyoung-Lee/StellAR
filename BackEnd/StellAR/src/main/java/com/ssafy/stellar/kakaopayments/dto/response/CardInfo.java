@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class CardInfo {
     private String kakaopay_purchase_corp;
     private String kakaopay_purchase_corp_code;

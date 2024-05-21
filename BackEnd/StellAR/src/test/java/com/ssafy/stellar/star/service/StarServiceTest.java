@@ -24,7 +24,7 @@ import java.util.Map;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Star Service Unit-Test")
-public class StarServiceImplTest {
+public class StarServiceTest {
 
     @Mock
     private StarRepository starRepository;
